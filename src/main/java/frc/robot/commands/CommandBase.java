@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -18,7 +17,7 @@ public abstract class CommandBase extends Command {
   public static Drivetrain drivetrain = new Drivetrain();
 
   public static void init(){
-    
+
     drivetrain.init();
     oi = new OI();
   }
