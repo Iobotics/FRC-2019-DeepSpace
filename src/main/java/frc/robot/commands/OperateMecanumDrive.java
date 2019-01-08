@@ -7,10 +7,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class OperateMecanum extends CommandBase {
-  public OperateMecanum() {
+public class OperateMecanumDrive extends CommandBase {
+  public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies
     requires(drivetrain);
   }
@@ -24,7 +22,7 @@ public class OperateMecanum extends CommandBase {
   @Override
   protected void execute() {
     double x = oi.getLeftStickX();
-    double y = oi.getLeftStickY();
+    double y = -oi.getLeftStickY();
     double rotation = oi.getRightStickX();
     drivetrain.setMecanum(x, y, rotation);
   }

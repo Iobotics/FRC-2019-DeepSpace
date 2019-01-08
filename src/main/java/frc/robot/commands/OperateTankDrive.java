@@ -7,12 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+public class OperateTankDrive extends CommandBase {
 
-public class OperateDrivetrain extends Command {
-  public OperateDrivetrain() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  public OperateTankDrive() {
+    requires(drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +21,9 @@ public class OperateDrivetrain extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double left = -oi.getLeftStickY();
+    double right = -oi.getRightStickY();
+    drivetrain.setTank(left, right);
   }
 
   // Make this return true when this Command no longer needs to run execute()

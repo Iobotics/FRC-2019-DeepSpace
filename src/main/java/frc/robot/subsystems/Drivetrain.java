@@ -13,35 +13,61 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
+import frc.robot.commands.OperateMecanumDrive;
 import frc.robot.commands.OperateTankDrive;
+import frc.util.Clipper;
+import frc.util.TalonWrapper;;
 
 public class Drivetrain extends Subsystem {
 
   private TalonSRX _frontLeftMain;
   private TalonSRX _frontLeftSlave;
+
   private TalonSRX _frontRightMain;
   private TalonSRX _frontRightSlave;
+
   private TalonSRX _backLeftMain;
   private TalonSRX _backLeftSlave;
+
   private TalonSRX _backRightMain;
   private TalonSRX _backRightSlave;
 
+  private MecanumDrive drive;
+  
   public void init(){
     _frontLeftMain = new TalonSRX(RobotMap.frontLeftMain);
     _frontLeftSlave = new TalonSRX(RobotMap.frontLeftSlave);
     _frontLeftSlave.follow(_frontLeftMain);
+    _frontLeftMain.setInverted(true);
+    _frontLeftSlave.setInverted(true);
 
     _frontRightMain =  new TalonSRX(RobotMap.frontRightMain);
     _frontRightSlave = new TalonSRX(RobotMap.frontRightSlave);
     _frontRightSlave.follow(_frontRightMain);
+    _frontRightMain.setInverted(true);
+    _frontRightSlave.setInverted(true);
+    
+
 
     _backLeftMain = new TalonSRX(RobotMap.backLeftMain);
     _backLeftSlave = new TalonSRX(RobotMap.backLeftSlave);
     _backLeftSlave.follow(_backLeftMain);
-
+    _backLeftMain.setInverted(true);
+    _backLeftSlave.setInverted(true);
+    
     _backRightMain = new TalonSRX(RobotMap.backRightMain);
     _backRightSlave = new TalonSRX(RobotMap.backRightSlave);
     _backRightSlave.follow(_backRightMain);
+    _backRightMain.setInverted(true);
+    _backRightSlave.setInverted(true);
+   
+
+    drive = new MecanumDrive(
+      new TalonWrapper(_frontLeftMain), 
+      new TalonWrapper(_backLeftMain), 
+      new TalonWrapper(_frontRightMain),
+      new TalonWrapper(_backRightMain)
+    );
   }
 
   public void setTank(double left, double right){
@@ -52,14 +78,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public void setMecanum(double x, double y, double rotation){
-    _frontLeftMain.set(ControlMode.PercentOutput, y + rotation - x);
-    _backLeftMain.set(ControlMode.PercentOutput, y + rotation + x);
-    _frontRightMain.set(ControlMode.PercentOutput, y - rotation + x);
-    _backRightMain.set(ControlMode.PercentOutput, y - rotation - x);
-  }
+    drive.driveCartesian(x, y, rotation);
+  } 
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateTankDrive());
+    setDefaultCommand(new OperateMecanumDrive());
   }
 }
