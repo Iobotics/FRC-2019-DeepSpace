@@ -10,15 +10,18 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.OperateMecanumDrive;
 import frc.robot.commands.OperateTankDrive;
-import frc.util.Clipper;
 import frc.util.TalonWrapper;;
 
 public class Drivetrain extends Subsystem {
+
+  private boolean isSwitched = false;
 
   private TalonSRX _frontLeftMain;
   private TalonSRX _frontLeftSlave;
@@ -31,6 +34,8 @@ public class Drivetrain extends Subsystem {
 
   private TalonSRX _backRightMain;
   private TalonSRX _backRightSlave;
+
+  private DoubleSolenoid _solenoid;
 
   private MecanumDrive drive;
   
@@ -68,6 +73,8 @@ public class Drivetrain extends Subsystem {
       new TalonWrapper(_frontRightMain),
       new TalonWrapper(_backRightMain)
     );
+
+    _solenoid = new DoubleSolenoid(0, 1);
   }
 
   public void setTank(double left, double right){
@@ -80,6 +87,17 @@ public class Drivetrain extends Subsystem {
   public void setMecanum(double x, double y, double rotation){
     drive.driveCartesian(x, y, rotation);
   } 
+
+  public void switchSolenoid(){
+    if (isSwitched){
+      _solenoid.set(Value.kReverse);
+      isSwitched = false;
+    }
+    else{
+      _solenoid.set(Value.kForward);
+      isSwitched = true;
+    }
+  }
 
   @Override
   public void initDefaultCommand() {
