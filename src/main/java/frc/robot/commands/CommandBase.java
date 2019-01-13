@@ -9,14 +9,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.NavSensor;
 
 public abstract class CommandBase extends Command {
 
   public static OI oi;
   public static Drivetrain drivetrain = new Drivetrain();
+  public static NavSensor navSensor = new NavSensor();
 
   public static void init(){
-
+    navSensor.init();
     drivetrain.init();
     oi = new OI();
   }

@@ -7,19 +7,14 @@
 
 package frc.robot.commands;
 
-import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.command.Command;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.NavSensor;
-
-public class OperateMecanumDrive extends CommandBase {
-
-  public static final double DEADBAND = 0.05;
-  
-  public OperateMecanumDrive() {
+public class AutoCorrect extends CommandBase {
+  float kP = 1;
+  public AutoCorrect() {
     // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(drivetrain);
-    requires(navSensor);
   }
 
   // Called just before this Command runs the first time
@@ -30,12 +25,13 @@ public class OperateMecanumDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : oi.getLeftStickX();
-    double y = Math.abs(oi.getLeftStickY()) < DEADBAND ? 0 : oi.getLeftStickY();
-    double rotation = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : -oi.getRightStickX();
-
-    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
+    /*while(tx < -1 || tx > 1){
+      drivetrain.setMecanum(0, 0, tx/abs(tx)*kP);
+    }
+    while(ty < || ty > ){
+      drivetrain.setMecanum(0, 0, 0);
+    }*/
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

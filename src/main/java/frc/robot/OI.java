@@ -18,6 +18,9 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
 
+  public OI(){
+    
+  }
   public double getRightStickX(){
     return _rStick.getX();
   }
