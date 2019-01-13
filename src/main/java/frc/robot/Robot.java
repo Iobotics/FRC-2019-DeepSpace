@@ -7,11 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CameraTest;
 import frc.robot.commands.CommandBase;
 
 /**
@@ -22,7 +26,9 @@ import frc.robot.commands.CommandBase;
  * project.
  */
 public class Robot extends TimedRobot {
- 
+
+  UsbCamera usbCamera;
+  UsbCamera usbCamera2;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -33,10 +39,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+
+    Compressor _compressor = new Compressor();
+    _compressor.start();
+
     CommandBase.init();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    usbCamera = CameraServer.getInstance().startAutomaticCapture(0);
+    usbCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
   }
 
   /**
@@ -110,6 +122,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
+    //new CameraTest().start();
   }
 
   /**
@@ -118,6 +132,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
   }
 
   /**
