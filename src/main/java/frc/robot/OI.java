@@ -21,12 +21,18 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
 
+<<<<<<< HEAD
   private final JoystickButton _solenoidButton = new JoystickButton(_lStick, 1);
 
   public OI(){
     _solenoidButton.whenPressed(new OperateSolenoid());
   }
 
+=======
+  public OI(){
+    
+  }
+>>>>>>> SparkDriveTrain
   public double getRightStickX(){
     return _rStick.getX();
   }

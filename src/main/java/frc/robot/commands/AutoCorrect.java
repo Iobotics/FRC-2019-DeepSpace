@@ -9,28 +9,35 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OperateSolenoid extends CommandBase {
-  public OperateSolenoid() {
+public class AutoCorrect extends CommandBase {
+  float kP = 1;
+  public AutoCorrect() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(drivetrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    drivetrain.switchSolenoid();
-    System.out.println("pressed");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    /*while(tx < -1 || tx > 1){
+      drivetrain.setMecanum(0, 0, tx/abs(tx)*kP);
+    }
+    while(ty < || ty > ){
+      drivetrain.setMecanum(0, 0, 0);
+    }*/
     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
