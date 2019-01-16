@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.NavSensor;
 
 /**
@@ -125,6 +126,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
   }
 
   /**
