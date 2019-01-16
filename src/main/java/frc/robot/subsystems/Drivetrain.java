@@ -7,24 +7,14 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.OperateMecanumDrive;
-import frc.robot.commands.OperateTankDrive;
-import frc.util.SparkWrapper;
 import frc.util.SparkWrapper;
 
 public class Drivetrain extends PIDSubsystem {
@@ -34,17 +24,18 @@ public class Drivetrain extends PIDSubsystem {
   private CANSparkMax _backLeftMain;
   private CANSparkMax _backRightMain;
 
-  public static double kP = 0.5;
-  public static double kI = 0;
-  public static double kD = 0;
-  public static double kFF = 0;
+  public static double kPDrive = 0.5;
+  public static double kIDrive = 0;
+  public static double kDDrive = 0;
+  public static double period = 0;
+  public static double kFFDrive = 0;
 
   private final double INCHES_PER_ROTATION = 4 * Math.PI;
 
   private MecanumDrive drive;
 
   public Drivetrain(){
-    super("DrveTrain", kP, kI, kD, kFF);
+    super(kPDrive, kIDrive, kDDrive, period, kFFDrive);
   }
   
   public void init(){
@@ -60,8 +51,6 @@ public class Drivetrain extends PIDSubsystem {
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
    
-    
-
     drive = new MecanumDrive(
       new SparkWrapper(_frontLeftMain), 
       new SparkWrapper(_backLeftMain), 
