@@ -8,11 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CameraTest;
+import frc.robot.commands.CameraDrive;;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -20,7 +18,7 @@ import frc.robot.commands.CameraTest;
  */
 public class OI {
 
-  private final Joystick _lStick = new Joystick(0);
+  //private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
   private final Joystick _xStick = new Joystick(3);
 
@@ -28,7 +26,7 @@ public class OI {
 
   public OI()
   {
-    _cameraTurnButton.whileHeld(new CameraTest());
+    _cameraTurnButton.whileHeld(new CameraDrive());
   }
 
   public double getRightStickX(){

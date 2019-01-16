@@ -24,7 +24,7 @@ public class OperateMecanumDrive extends CommandBase {
     double x = oi.getLeftStickX();
     double y = -oi.getLeftStickY();
     double rotation = oi.getRightStickX();
-    drivetrain.setMecanum(x, y, rotation);
+    drivetrain.setMecanum(-x, -y, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()
