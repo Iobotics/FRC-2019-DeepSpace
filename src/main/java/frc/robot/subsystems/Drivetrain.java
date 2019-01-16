@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -67,6 +68,11 @@ public class Drivetrain extends PIDSubsystem {
       new SparkWrapper(_frontRightMain),
       new SparkWrapper(_backRightMain)
     );
+
+    _frontLeftMain.setIdleMode(IdleMode.kBrake);
+    _frontRightMain.setIdleMode(IdleMode.kBrake);
+    _backLeftMain.setIdleMode(IdleMode.kBrake);
+    _backRightMain.setIdleMode(IdleMode.kBrake);
   }
 
   public void setTank(double left, double right){

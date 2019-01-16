@@ -10,7 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+<<<<<<< HEAD
 import frc.robot.commands.OperateSolenoid;
+=======
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunOutake;
+>>>>>>> 764faa2cfeae19124851d733752df39cdba4726f
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,6 +27,7 @@ public class OI {
   private final Joystick _rStick = new Joystick(1);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   private final JoystickButton _solenoidButton = new JoystickButton(_lStick, 1);
 
   public OI(){
@@ -29,8 +35,14 @@ public class OI {
   }
 
 =======
+=======
+  private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
+  private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+
+>>>>>>> 764faa2cfeae19124851d733752df39cdba4726f
   public OI(){
-    
+    runIntake.whileHeld(new RunIntake());
+    runOutake.whileHeld(new RunOutake());
   }
 >>>>>>> SparkDriveTrain
   public double getRightStickX(){
