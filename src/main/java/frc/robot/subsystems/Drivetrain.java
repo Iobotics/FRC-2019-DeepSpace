@@ -42,7 +42,7 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive drive;
   
-  public void init(){
+  public void init() {
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
     _frontLeftMain.getPIDController().setP(kP, PID_TURN);
@@ -67,18 +67,18 @@ public class Drivetrain extends Subsystem {
     _solenoid = new DoubleSolenoid(0, 1);
   }
 
-  public void setTank(double left, double right){
+  public void setTank(double left, double right) {
     _frontLeftMain.set(left);
     _backLeftMain.set(left);
     _frontRightMain.set(right);
     _backRightMain.set(right);
   }
 
-  public void setMecanum(double x, double y, double rotation, double gyroAngle){
+  public void setMecanum(double x, double y, double rotation, double gyroAngle) {
     drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
-  public void setTurn(double target, double gyroAngle){
+  public void setTurn(double target, double gyroAngle) {
     _frontLeftMain.pidWrite(gyroAngle / 180);
     _frontLeftMain.getPIDController().setReference(target * 180, ControlType.kDutyCycle, PID_TURN);
 

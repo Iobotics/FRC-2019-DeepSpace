@@ -22,4 +22,10 @@ public class RobotMap {
   public static final int backLeftSlave = 7;
   public static final int backRightMain = 4;
   public static final int backRightSlave = 5;
+  
+  public static final int hookSolenoid = 0;
+  public static final int extendOneSolenoidForward  = 1;
+  public static final int extendOneSolenoidReverse  = 2;
+  public static final int extendTwoSolenoidForward = 3;
+  public static final int extendTwoSolenoidReverse = 4;
 }

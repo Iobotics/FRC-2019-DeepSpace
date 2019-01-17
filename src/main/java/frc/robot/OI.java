@@ -10,7 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.OperateSolenoid;
+
+import frc.robot.commands.hatch.PopHatch;
+import frc.robot.commands.hatch.RetractHatch;
+import frc.robot.commands.hatch.DropHatch;
+import frc.robot.commands.hatch.GrabHatch;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,31 +25,27 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
 
-<<<<<<< HEAD
-  private final JoystickButton _solenoidButton = new JoystickButton(_lStick, 1);
+  private final JoystickButton _releaseHatchButton = new JoystickButton(_rStick, 4);
+  private final JoystickButton _collectHatchButton = new JoystickButton(_rStick, 5);
 
-  public OI(){
-    _solenoidButton.whenPressed(new OperateSolenoid());
+  public OI() {
+    _releaseHatchButton.whenPressed(new DropHatch());
+    _collectHatchButton.whenPressed(new RetractHatch());
   }
 
-=======
-  public OI(){
-    
-  }
->>>>>>> SparkDriveTrain
-  public double getRightStickX(){
+  public double getRightStickX() {
     return _rStick.getX();
   }
 
-  public double getRightStickY(){
+  public double getRightStickY() {
     return _rStick.getY();
   }
 
-  public double getLeftStickX(){
+  public double getLeftStickX() {
     return _lStick.getX();
   }
 
-  public double getLeftStickY(){
+  public double getLeftStickY() {
     return _lStick.getY();
   }
 

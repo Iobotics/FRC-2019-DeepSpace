@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.NavSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,7 +37,7 @@ public class Robot extends TimedRobot {
 
     Compressor _compressor = new Compressor();
     _compressor.start();
-
+    _compressor.clearAllPCMStickyFaults();
     CommandBase.init();
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -116,7 +114,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    new ResetGyro().start();
   }
 
   /**
@@ -134,3 +131,4 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 }
+
