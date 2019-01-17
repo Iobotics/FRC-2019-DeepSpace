@@ -7,35 +7,41 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.OperateMecanumDrive;
 import frc.util.SparkWrapper;
 
-public class Drivetrain extends PIDSubsystem {
+public class Drivetrain extends Subsystem {
 
   private CANSparkMax _frontLeftMain;
   private CANSparkMax _frontRightMain;
   private CANSparkMax _backLeftMain;
   private CANSparkMax _backRightMain;
+  private CANPIDController _canController;
 
-  public static double kPDrive = 0.5;
-  public static double kIDrive = 0;
-  public static double kDDrive = 0;
-  public static double period = 0;
-  public static double kFFDrive = 0;
+  private static double _kPDrive = 0.5;
+  private static double _kIDrive = 0;
+  private static double _kIZoneDrive = 0;
+  private static double _kDDrive = 0;
+  private static double _kFFDrive = 0;
 
-  private final double INCHES_PER_ROTATION = 4 * Math.PI;
+  public static final double INCHES_PER_ROTATION = 4 * Math.PI;
 
-  private MecanumDrive drive;
+  private MecanumDrive _drive;
 
   public Drivetrain(){
-    super(kPDrive, kIDrive, kDDrive, period, kFFDrive);
+
   }
   
   public void init(){
@@ -51,17 +57,24 @@ public class Drivetrain extends PIDSubsystem {
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
    
-    drive = new MecanumDrive(
-      new SparkWrapper(_frontLeftMain), 
-      new SparkWrapper(_backLeftMain), 
-      new SparkWrapper(_frontRightMain),
-      new SparkWrapper(_backRightMain)
+    _drive = new MecanumDrive(
+      _frontLeftMain, 
+      _backLeftMain, 
+      _frontRightMain,
+      _backRightMain
     );
 
     _frontLeftMain.setIdleMode(IdleMode.kBrake);
     _frontRightMain.setIdleMode(IdleMode.kBrake);
     _backLeftMain.setIdleMode(IdleMode.kBrake);
     _backRightMain.setIdleMode(IdleMode.kBrake);
+
+    _canController = _frontLeftMain.getPIDController();
+    _canController.setP(_kPDrive);
+    _canController.setI(_kIDrive);
+    _canController.setIZone(_kIZoneDrive);
+    _canController.setD(_kDDrive);
+    _canController.setFF(_kFFDrive);
   }
 
   public void setTank(double left, double right){
@@ -72,11 +85,7 @@ public class Drivetrain extends PIDSubsystem {
   }
 
   public void setMecanum(double x, double y, double rotation, double gyroAngle){
-    drive.driveCartesian(x, y, rotation, gyroAngle);
-  }
-
-  public void setDrive(double setPoint){
-    this.setSetpointRelative(setPoint / INCHES_PER_ROTATION);
+    _drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
   public void driveToTarget(){
@@ -85,18 +94,12 @@ public class Drivetrain extends PIDSubsystem {
     _backRightMain.set(_frontRightMain.get());
   }
 
+  public PIDOutput getFrontLeft(){
+    return _frontLeftMain;
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new OperateMecanumDrive());
-  }
-
-  @Override
-  protected double returnPIDInput() {
-    return _frontLeftMain.getEncoder().getPosition();
-  }
-
-  @Override
-  protected void usePIDOutput(double output) {
-    _frontLeftMain.pidWrite(output);
   }
 }
