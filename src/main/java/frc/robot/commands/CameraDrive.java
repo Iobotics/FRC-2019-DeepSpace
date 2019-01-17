@@ -46,6 +46,12 @@ public class CameraDrive extends CommandBase
     double[] diff = new double[3];
     double pixelX;
     double pixelY;
+    double nx;
+    double ny;
+    double vpw;
+    double vph;
+    double vx;
+    double vy;
 
     int best;
 
@@ -111,15 +117,11 @@ public class CameraDrive extends CommandBase
         y2 = ty0.getDouble(0.0);
         a0 = ta0.getDouble(0.0);
         a1 = ta1.getDouble(0.0);
-        a2 = ta2.getDouble(0.0);
-
-        double[] allXs = {x0, x1, x2};
-        double[] allYs = {y0, y2, y2};
+        a2 = ta2.getDouble(0.0);        
         
-        
-        SmartDashboard.putNumber("x0", x0); //target to robot's left negative, right positive
-        SmartDashboard.putNumber("x1", x1);
-        SmartDashboard.putNumber("x2", x2);
+        SmartDashboard.putNumber("y0", y0); //target to robot's left negative, right positive
+        SmartDashboard.putNumber("y1", y1);
+        SmartDashboard.putNumber("y2", y2);
         //SmartDashboard.putNumber("area", area);
         //SmartDashboard.putNumber("isDetected", isDetected);
         //SmartDashboard.putNumber("Rotation of Target", rotation);
@@ -130,16 +132,16 @@ public class CameraDrive extends CommandBase
         SmartDashboard.putNumber("a2", a2);
         if(a2 != 0)
         {
-            diff[0] = makePositive(y0-y1);
-            diff[1] = makePositive(y1-y2);
-            diff[2] = makePositive(y0-y2);
+            diff[0] = Math.abs(y0-y1);
+            diff[1] = Math.abs(y1-y2);
+            diff[2] = Math.abs(y0-y2);
             if(diff[0] < diff[1])
             {
-                best = 1;
+                best = 0;
             }
             else
             {
-                best = 0;
+                best = 1;
             }
             if(diff[2]<diff[best])
             {
@@ -152,34 +154,33 @@ public class CameraDrive extends CommandBase
             }
             else if(best == 1)
             {
-                pixelX = (x0 + x2)/2;
-                pixelY = (y0 + y2)/2;
-            }
-            else if(best == 2)
-            {
                 pixelX = (x1 + x2)/2;
                 pixelY = (y1 + y2)/2;
             }
-            x = Math.atan2(1, (2*Math.tan(54/2))/2 * ((1/160)*(pixelX-159.5)));
-            y = Math.atan2(1, (2*Math.tan(41/2))/2 * ((1/120)*(119.5-pixelY)));
+            else if(best == 2)
+            {
+                pixelX = (x0 + x2)/2;
+                pixelY = (y0 + y2)/2;
+            }
+            x = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(54/2)) * pixelX)));
+            y = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(41/2)) * pixelY)));
         }
-        
-
-            error = x;
-            if(x > threshHold) //Target is on robot's right
-            {
-                speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
-            }
-            else if(x < -threshHold)//Is on robot's left
-            {
-                speed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
-            }
-            else
-            {
-                speed = 0;
-            }
-            drivetrain.setMecanum(-stickX, -stickY, speed);
-            SmartDashboard.putNumber("speed", speed);
+        error = x;
+        if(x > threshHold) //Target is on robot's right
+        {
+            speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
+        }
+        else if(x < -threshHold)//Is on robot's left
+        {
+            speed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
+        }
+        else
+        {
+            speed = 0;
+        }
+        drivetrain.setMecanum(-stickX, -stickY, speed);
+        SmartDashboard.putNumber("speed", speed);
+        SmartDashboard.putNumber("x", x);
     }
 
 
@@ -208,15 +209,6 @@ public class CameraDrive extends CommandBase
         else if(number <= min)
         {
             return min;
-        }
-        return number;
-    }
-
-    private double makePositive(double number)
-    {
-        if(number<0)
-        {
-            return -number; 
         }
         return number;
     }
