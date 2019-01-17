@@ -43,9 +43,11 @@ public class CameraDrive extends CommandBase
     double distance;
     double height = 10;
     double contours;
-    double diff1;
-    double diff2;
+    double[] diff = new double[3];
+    double pixelX;
+    double pixelY;
 
+    int best;
 
     double kF = .1; //kF .1
     double kP = .02; //kP .02
@@ -112,7 +114,7 @@ public class CameraDrive extends CommandBase
         a2 = ta2.getDouble(0.0);
 
         double[] allXs = {x0, x1, x2};
-        double[] allYs = {x0, x2, x2};
+        double[] allYs = {y0, y2, y2};
         
         
         SmartDashboard.putNumber("x0", x0); //target to robot's left negative, right positive
@@ -126,10 +128,43 @@ public class CameraDrive extends CommandBase
         SmartDashboard.putNumber("a0", a0);
         SmartDashboard.putNumber("a1", a1);
         SmartDashboard.putNumber("a2", a2);
-
-
-        if(x2 == 0)
+        if(a2 != 0)
         {
+            diff[0] = makePositive(y0-y1);
+            diff[1] = makePositive(y1-y2);
+            diff[2] = makePositive(y0-y2);
+            if(diff[0] < diff[1])
+            {
+                best = 1;
+            }
+            else
+            {
+                best = 0;
+            }
+            if(diff[2]<diff[best])
+            {
+                best = 2;
+            }
+            if(best == 0)
+            {
+                pixelX = (x0 + x1)/2;
+                pixelY = (y0 + y1)/2;
+            }
+            else if(best == 1)
+            {
+                pixelX = (x0 + x2)/2;
+                pixelY = (y0 + y2)/2;
+            }
+            else if(best == 2)
+            {
+                pixelX = (x1 + x2)/2;
+                pixelY = (y1 + y2)/2;
+            }
+            x = Math.atan2(1, (2*Math.tan(54/2))/2 * ((1/160)*(pixelX-159.5)));
+            y = Math.atan2(1, (2*Math.tan(41/2))/2 * ((1/120)*(119.5-pixelY)));
+        }
+        
+
             error = x;
             if(x > threshHold) //Target is on robot's right
             {
@@ -145,7 +180,6 @@ public class CameraDrive extends CommandBase
             }
             drivetrain.setMecanum(-stickX, -stickY, speed);
             SmartDashboard.putNumber("speed", speed);
-        }
     }
 
 
@@ -178,8 +212,12 @@ public class CameraDrive extends CommandBase
         return number;
     }
 
-    private boolean inPixelRange(double number)
+    private double makePositive(double number)
     {
-        return number <= 1 && number >= -1;
+        if(number<0)
+        {
+            return -number; 
+        }
+        return number;
     }
 }
