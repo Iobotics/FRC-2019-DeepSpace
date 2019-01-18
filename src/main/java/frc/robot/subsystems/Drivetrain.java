@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -77,6 +78,12 @@ public class Drivetrain extends Subsystem {
     _canController.setFF(_kFFDrive);
   }
 
+  public void setSetPoint(double target){
+    _canController.setReference(target / INCHES_PER_ROTATION, ControlType.kPosition);
+  }
+
+ 
+
   public void setTank(double left, double right){
     _frontLeftMain.set(left);
     _backLeftMain.set(left);
@@ -94,8 +101,36 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(_frontRightMain.get());
   }
 
-  public PIDOutput getFrontLeft(){
-    return _frontLeftMain;
+  public double getP(){
+    return _kPDrive;
+  }
+
+  public void setP(double p){
+    _kPDrive = p;
+  }
+  
+  public double getI(){
+    return _kIDrive;
+  }
+
+  public void setI(double i){
+    _kIDrive = i;
+  }
+
+  public double getD(){
+    return _kDDrive;
+  }
+
+  public void setD(double d){
+    _kDDrive = d;
+  }
+
+  public double getFF(){
+    return _kFFDrive;
+  }
+
+  public void setFF(double ff){
+    _kFFDrive = ff;
   }
 
   @Override

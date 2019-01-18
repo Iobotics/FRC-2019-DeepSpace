@@ -127,6 +127,23 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
+    SmartDashboard.putNumber("kP Drive", CommandBase.drivetrain.getP());
+    SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
+    SmartDashboard.putNumber("kD Drive", CommandBase.drivetrain.getD());
+    SmartDashboard.putNumber("kFF Drive", CommandBase.drivetrain.getFF());
+
+     double p = SmartDashboard.getNumber("kP Drive", 0);
+     if (p != CommandBase.drivetrain.getP()){CommandBase.drivetrain.setP(p);}
+
+     double  i= SmartDashboard.getNumber("kI Drive", 0);
+     if (i != CommandBase.drivetrain.getI()){CommandBase.drivetrain.setI(i);}
+
+     double d = SmartDashboard.getNumber("kD Drive", 0);
+     if (d != CommandBase.drivetrain.getD()){CommandBase.drivetrain.setD(d);}
+
+     double ff = SmartDashboard.getNumber("kFF Drive", 0);
+     if (ff != CommandBase.drivetrain.getFF()){CommandBase.drivetrain.setFF(ff);}
+
   }
 
   /**
