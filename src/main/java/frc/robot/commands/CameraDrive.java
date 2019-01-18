@@ -53,7 +53,7 @@ public class CameraDrive extends CommandBase
     double vx;
     double vy;
 
-    int best;
+    int best = 3;
 
     double kF = .1; //kF .1
     double kP = .02; //kP .02
@@ -85,6 +85,7 @@ public class CameraDrive extends CommandBase
         
         stickX = oi.getLeftStickX(); //Right positive, left negative
         stickY = -oi.getLeftStickY();
+        speed = oi.getRightStickX();
 
         tv = table.getEntry("tv");
         ta = table.getEntry("ta");
@@ -130,6 +131,7 @@ public class CameraDrive extends CommandBase
         SmartDashboard.putNumber("a0", a0);
         SmartDashboard.putNumber("a1", a1);
         SmartDashboard.putNumber("a2", a2);
+        SmartDashboard.putNumber("best", best);
         if(a2 != 0)
         {
             diff[0] = Math.abs(y0-y1);
@@ -162,8 +164,8 @@ public class CameraDrive extends CommandBase
                 pixelX = (x0 + x2)/2;
                 pixelY = (y0 + y2)/2;
             }
-            x = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(54/2)) * pixelX)));
-            y = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(41/2)) * pixelY)));
+            x = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(54/2)) * (pixelX*160))));
+            y = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(41/2)) * (pixelY*120))));
         }
         error = x;
         if(x > threshHold) //Target is on robot's right
