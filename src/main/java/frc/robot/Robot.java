@@ -131,6 +131,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
     SmartDashboard.putNumber("kD Drive", CommandBase.drivetrain.getD());
     SmartDashboard.putNumber("kFF Drive", CommandBase.drivetrain.getFF());
+    SmartDashboard.putNumber("kIzone Drive", CommandBase.drivetrain.getIzone());
 
      double p = SmartDashboard.getNumber("kP Drive", 0);
      if (p != CommandBase.drivetrain.getP()){CommandBase.drivetrain.setP(p);}
@@ -143,6 +144,9 @@ public class Robot extends TimedRobot {
 
      double ff = SmartDashboard.getNumber("kFF Drive", 0);
      if (ff != CommandBase.drivetrain.getFF()){CommandBase.drivetrain.setFF(ff);}
+
+     double iZone = SmartDashboard.getNumber("kIzone Drive", 0);
+     if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
 
   }
 

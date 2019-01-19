@@ -37,6 +37,10 @@ public class Drivetrain extends Subsystem {
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0;
 
+  private double _kPTurn = 0;
+  private double _kITurn = 0;
+  private double _kDTurn = 0;
+
   public static final double INCHES_PER_ROTATION = 4 * Math.PI;
 
   private MecanumDrive _drive;
@@ -133,6 +137,26 @@ public class Drivetrain extends Subsystem {
     _kFFDrive = ff;
   }
 
+  public double getIzone(){
+    return _kIZoneDrive;
+  }
+
+  public void setIzone(double Izone){
+    _kIZoneDrive = Izone;
+  }
+
+  public double get_kPTurn() {
+    return _kPTurn;
+  }
+
+  public double get_kITurn() {
+    return _kITurn;
+  }
+
+  public double get_kDTurn() {
+    return _kDTurn;
+  }
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new OperateMecanumDrive());

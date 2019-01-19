@@ -17,10 +17,6 @@ public class AutoTurn extends CommandBase implements PIDOutput {
 
   private PIDController _pid;
 
-  private double _kP = 0;
-  private double _kI = 0;
-  private double _kD = 0;
-
   private double _degrees;
 
   private double _onTargetTime = Double.MAX_VALUE;
@@ -29,7 +25,7 @@ public class AutoTurn extends CommandBase implements PIDOutput {
   public AutoTurn(double _degrees) {
     requires(drivetrain);
     requires(navSensor);
-    _pid = new PIDController(_kP, _kI, _kD, (PIDSource) navSensor, this);
+    _pid = new PIDController(drivetrain.get_kPTurn(), drivetrain.get_kITurn(), drivetrain.get_kDTurn() , (PIDSource) navSensor, this);
     _pid.setContinuous();
     this._degrees = _degrees;
   }
