@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.hatch.RetractHatch;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.hatch.DropHatch;
 import frc.robot.commands.hatch.GrabHatch;
 
@@ -27,10 +28,15 @@ public class OI {
 
   private final JoystickButton _releaseHatchButton = new JoystickButton(_rStick, 4);
   private final JoystickButton _collectHatchButton = new JoystickButton(_rStick, 5);
+  private final JoystickButton _intake = new JoystickButton(_rStick, 10);
+  private final JoystickButton _outake = new JoystickButton(_lStick, 10);
+  
 
   public OI() {
-    _releaseHatchButton.whenPressed(new DropHatch());
-    _collectHatchButton.whenPressed(new RetractHatch());
+    _releaseHatchButton.whenPressed(new PopHatch());
+    _collectHatchButton.whenPressed(new GrabHatch());
+    _intake.whileHeld(new RunIntake(1));
+    _outake.whileHeld(new RunIntake(-1));
   }
 
   public double getRightStickX() {

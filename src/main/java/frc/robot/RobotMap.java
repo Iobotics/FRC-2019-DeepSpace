@@ -22,6 +22,8 @@ public class RobotMap {
   public static final int backLeftSlave = 7;
   public static final int backRightMain = 4;
   public static final int backRightSlave = 5;
+  public static final int leftLift = 8;
+  public static final int rightLift = 9;
   
   public static final int hookSolenoid = 0;
   public static final int extendOneSolenoidForward  = 1;
