@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,7 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.NavSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,8 +25,9 @@ import frc.robot.subsystems.NavSensor;
  * project.
  */
 public class Robot extends TimedRobot {
- 
 
+  PowerDistributionPanel _pdp;
+  Compressor _compressor;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -36,12 +37,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    _pdp = new PowerDistributionPanel();
+    _compressor = new Compressor();
 
-    Compressor _compressor = new Compressor();
+    _pdp.clearStickyFaults();
+    _compressor.clearAllPCMStickyFaults();
+
     _compressor.start();
 
     CommandBase.init();
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -54,8 +59,7 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
-  }
+  public void robotPeriodic() { }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -116,7 +120,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    new ResetGyro().start();
+    (new ResetGyro()).start();
   }
 
   /**

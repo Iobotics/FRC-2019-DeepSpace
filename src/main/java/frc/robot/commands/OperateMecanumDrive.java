@@ -7,10 +7,7 @@
 
 package frc.robot.commands;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.NavSensor;
 
 public class OperateMecanumDrive extends CommandBase {
 
@@ -24,8 +21,7 @@ public class OperateMecanumDrive extends CommandBase {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-  }
+  protected void initialize() { }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -47,11 +43,14 @@ public class OperateMecanumDrive extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    drivetrain.setMecanum(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    drivetrain.setMecanum(0, 0, 0);
   }
+
 }

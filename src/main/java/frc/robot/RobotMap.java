@@ -14,12 +14,15 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
+
   public static final int frontLeftMain = 1;
   public static final int frontLeftSlave = 0;
   public static final int frontRightMain = 2;
   public static final int frontRightSlave = 3;
+  
   public static final int backLeftMain = 6;
   public static final int backLeftSlave = 7;
   public static final int backRightMain = 4;
   public static final int backRightSlave = 5;
+
 }

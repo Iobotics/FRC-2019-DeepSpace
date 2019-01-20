@@ -14,13 +14,15 @@ import frc.robot.subsystems.NavSensor;
 public abstract class CommandBase extends Command {
 
   public static OI oi;
-  public static Drivetrain drivetrain = new Drivetrain();
-  public static NavSensor navSensor = new NavSensor();
+
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final NavSensor navSensor = new NavSensor();
 
   public static void init(){
-    navSensor.init();
-    drivetrain.init();
     oi = new OI();
+
+    drivetrain.init();
+    navSensor.init();
   }
 
   public CommandBase(String name) {
@@ -30,4 +32,5 @@ public abstract class CommandBase extends Command {
   public CommandBase() {
     super();
   }
+  
 }
