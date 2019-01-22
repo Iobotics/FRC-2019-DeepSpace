@@ -25,7 +25,7 @@ public class CameraDrive extends CommandBase
     NetworkTableEntry ty;
 
     double isDetected;
-    double x;
+    double x = 0;
     double x0;
     double x1;
     double x2;
@@ -40,8 +40,12 @@ public class CameraDrive extends CommandBase
     double a3;
     double rotation;
     double latency;
-    double distance;
-    double height = 10;
+    double distance = 0;
+    double heightLowerRocket = 28.75;
+    double heightHigherRocket = 0;
+    double heightCargo = 0;
+    double heightCamera = 34.75;
+    double height = heightCamera - heightLowerRocket; //inches
     double contours;
     double[] diff = new double[3];
     double pixelX;
@@ -52,6 +56,8 @@ public class CameraDrive extends CommandBase
     double vph;
     double vx;
     double vy;
+    double deltaX;
+    double deltaY;
 
     int best = 3;
 
@@ -60,13 +66,21 @@ public class CameraDrive extends CommandBase
     double kI = 0;
     double kD = 0;
 
-    double threshHold = .2; //degrees
+    double threshHold = .2; //degrees; -1, -6 (-1,-6 Experiment)
+    double threshHoldLowerX = -6;
+    double threshHoldHigherX = 6;
+    double thresholdDistance = 32; //Inches
     double error;
     double maxSpeed = 1;
     double speed;
     double stickX;
     double stickY;
     double test = 0;
+
+    boolean goodToShoot = false;
+
+    String xDirection;
+    String zDirection;
 
     public CameraDrive()
     {
@@ -76,16 +90,53 @@ public class CameraDrive extends CommandBase
     @Override
     protected void initialize()
     {
-        table = NetworkTableInstance.getDefault().getTable("limelight"); 
+        
     }
 
     @Override
     protected void execute()
     {
-        
-        stickX = oi.getLeftStickX(); //Right positive, left negative
-        stickY = -oi.getLeftStickY();
-        speed = oi.getRightStickX();
+        table = NetworkTableInstance.getDefault().getTable("limelight"); 
+        stickX = oi.getLeftStickX()*.3; //Right positive, left negative
+        stickY = -oi.getLeftStickY()*.3;
+        speed = 0;
+        if(oi.getXButton())
+        {
+            speed = -.2;
+        }
+        if(oi.getYButton())
+        {
+            speed = .2;
+        }
+        if(oi.getAButton())
+        {
+            //System.out.println("\n-------------");
+            //test--;
+        }
+
+        if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
+        {
+            goodToShoot = true;
+            xDirection = "No";
+            zDirection = "No";
+        }
+        else
+        {
+            if(x < threshHoldLowerX)
+            { 
+                xDirection = "Left";
+            }
+            else if(x > threshHoldHigherX)
+            {
+                xDirection = "Right";
+            }
+            if(distance > thresholdDistance)
+            {
+                zDirection = "Forward";
+            }
+            goodToShoot = false;
+
+        }
 
         tv = table.getEntry("tv");
         ta = table.getEntry("ta");
@@ -108,7 +159,7 @@ public class CameraDrive extends CommandBase
         rotation = ts.getDouble(0.0);
         latency = tl.getDouble(0.0);
         y = ty.getDouble(0.0);
-        distance = height/Math.tan(ty.getDouble(0.0));
+        distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
         x = tx.getDouble(0.0);
         x0 = tx0.getDouble(0.0);
         x1 = tx1.getDouble(0.0);
@@ -118,20 +169,29 @@ public class CameraDrive extends CommandBase
         y2 = ty0.getDouble(0.0);
         a0 = ta0.getDouble(0.0);
         a1 = ta1.getDouble(0.0);
-        a2 = ta2.getDouble(0.0);        
+        a2 = ta2.getDouble(0.0); 
         
-        SmartDashboard.putNumber("y0", y0); //target to robot's left negative, right positive
-        SmartDashboard.putNumber("y1", y1);
-        SmartDashboard.putNumber("y2", y2);
+        //SmartDashboard.putNumber("y0", y0); //target to robot's left negative, right positive
+        //SmartDashboard.putNumber("y1", y1);
+        //SmartDashboard.putNumber("y2", y2);
         //SmartDashboard.putNumber("area", area);
         //SmartDashboard.putNumber("isDetected", isDetected);
         //SmartDashboard.putNumber("Rotation of Target", rotation);
         //SmartDashboard.putNumber("latency", latency);
         //SmartDashboard.putNumber("y", y);
-        SmartDashboard.putNumber("a0", a0);
-        SmartDashboard.putNumber("a1", a1);
-        SmartDashboard.putNumber("a2", a2);
-        SmartDashboard.putNumber("best", best);
+        //SmartDashboard.putNumber("distance", distance);
+        //SmartDashboard.putNumber("a0", a0);
+        //SmartDashboard.putNumber("a1", a1);
+        //SmartDashboard.putNumber("a2", a2);
+        //SmartDashboard.putNumber("best", best);
+        //System.out.println(x);
+        //System.out.println(distance);
+        SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
+        SmartDashboard.putNumber("Distance", distance);
+        SmartDashboard.putString("x direction", xDirection);
+        SmartDashboard.putString("If you should go forward", zDirection);  
+        SmartDashboard.putNumber("test", test);    
+        /*
         if(a2 != 0)
         {
             diff[0] = Math.abs(y0-y1);
@@ -167,7 +227,8 @@ public class CameraDrive extends CommandBase
             x = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(54/2)) * (pixelX*160))));
             y = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(41/2)) * (pixelY*120))));
         }
-        error = x;
+        */
+        /*error = x;
         if(x > threshHold) //Target is on robot's right
         {
             speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
@@ -179,7 +240,7 @@ public class CameraDrive extends CommandBase
         else
         {
             speed = 0;
-        }
+        }*/
         drivetrain.setMecanum(-stickX, -stickY, speed);
         SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("x", x);
@@ -188,13 +249,13 @@ public class CameraDrive extends CommandBase
 
     @Override
     protected boolean isFinished() { //If this is true it will stop,false keep going
-        return x < threshHold && x > -threshHold;
+        //return x < threshHold && x > -threshHold;
+        return false;
     }
 
     @Override
     protected void end()
     {
-
     }
 
     @Override

@@ -7,7 +7,12 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class OperateMecanumDrive extends CommandBase {
+
+  double test = 0;
+
   public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies
     requires(drivetrain);
@@ -21,9 +26,24 @@ public class OperateMecanumDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = oi.getLeftStickX();
-    double y = -oi.getLeftStickY();
-    double rotation = oi.getRightStickX();
+    SmartDashboard.putNumber("test", test);
+
+    double x = oi.getLeftStickX()*.3;
+    double y = -oi.getLeftStickY()*.3;
+    //double rotation = oi.getRightStickX();
+    double rotation = 0;
+    if(oi.getXButton())
+    {
+      rotation = -.2;
+    }
+    if(oi.getYButton())
+    {
+      rotation = .2;
+    }
+    if(oi.getAButton())
+    {
+      test++;
+    }
     drivetrain.setMecanum(-x, -y, rotation);
   }
 

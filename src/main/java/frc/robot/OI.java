@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CameraDrive;;
+import frc.robot.commands.CameraDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,13 +24,32 @@ public class OI {
 
   private final JoystickButton _cameraTurnButton = new JoystickButton(_xStick, 5);
 
+
   public OI()
   {
+    
     _cameraTurnButton.whileHeld(new CameraDrive());
   }
 
+  public boolean getXButton()
+  {
+    //return _xStick.getRawButtonPressed(3);
+    return _xStick.getRawButton(3);
+  }
+
+  public boolean getYButton()
+  {
+    //return _xStick.getRawButtonPressed(4);
+    return _xStick.getRawButton(4);
+  }
+
+  public boolean getAButton()
+  {
+    return _xStick.getRawButton(1);
+  }
+
   public double getRightStickX(){
-    return _rStick.getX();
+    return _xStick.getX(Hand.kRight);
   }
 
   public double getRightStickY(){
