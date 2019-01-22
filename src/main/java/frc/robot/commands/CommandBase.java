@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.NavSensor;
+import frc.robot.subsystems.Zone3Lift;
 
 public abstract class CommandBase extends Command {
 
@@ -17,6 +18,7 @@ public abstract class CommandBase extends Command {
 
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final NavSensor navSensor = new NavSensor();
+  public static final Zone3Lift zone3lift = new Zone3Lift();
 
   public static void init(){
     oi = new OI();
