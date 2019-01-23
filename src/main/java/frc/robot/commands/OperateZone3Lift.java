@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OperateZone3Lift extends CommandBase {
 
@@ -22,20 +23,22 @@ public class OperateZone3Lift extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Initialized Lift Command!!!");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     zone3lift.liftPower(power);
-    if(oi.getXButtonPressed())
+    if(oi.getController().getXButtonPressed())
     {
-      power += .01;
+      power = .01 + power;
     }
-    if(oi.getBButtonPressed())
+    if(oi.getController().getBButtonPressed())
     {
-      power -= .01;
+      power = -.01 + power;
     }
+    SmartDashboard.putNumber("power", power);
   }
 
   // Make this return true when this Command no longer needs to run execute()

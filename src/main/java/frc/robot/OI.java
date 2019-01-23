@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Grab;
 import frc.robot.commands.Release;
@@ -18,9 +19,9 @@ import frc.robot.commands.Release;
  */
 public class OI {
 
-  private final Joystick _lStick = new Joystick(0);
-  private final Joystick _rStick = new Joystick(1);
-  private final Joystick _xStick = new Joystick(3);
+  //private final Joystick _lStick = new Joystick(0);
+  //private final Joystick _rStick = new Joystick(1);
+  private final XboxController _xStick = new XboxController(3);
 
   private final JoystickButton releaseZone3 = new JoystickButton(_xStick, 4);
   private final JoystickButton grabZone3 = new JoystickButton(_xStick, 1);
@@ -32,7 +33,7 @@ public class OI {
 
   public boolean getBButtonPressed()
   {
-    return _xStick.getRawButtonPressed(2);
+    return _xStick.getRawButton(2);
   }
 
   public boolean getXButtonPressed()
@@ -41,19 +42,27 @@ public class OI {
   }
 
   public double getLeftStickX(){
-    return _lStick.getX();
+    //return _lStick.getX();
+    return 0;
   }
 
   public double getLeftStickY(){
-    return _lStick.getY();
+    //return _lStick.getY();
+    return 0;
   }
 
   public double getRightStickX(){
-    return _rStick.getX();
+    //return _rStick.getX();
+    return 0;
   }
 
   public double getRightStickY(){
-    return _rStick.getY();
+    //return _rStick.getY();
+    return 0;
+  }
+
+  public XboxController getController() {
+    return _xStick;
   }
   
 }

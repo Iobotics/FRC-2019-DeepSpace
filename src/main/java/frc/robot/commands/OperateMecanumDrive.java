@@ -16,7 +16,7 @@ public class OperateMecanumDrive extends CommandBase {
   public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies
     requires(drivetrain);
-    requires(navSensor);
+    //requires(navSensor);
   }
 
   // Called just before this Command runs the first time
@@ -30,8 +30,8 @@ public class OperateMecanumDrive extends CommandBase {
     double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
     double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
 
-    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
+    //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
+    //drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
   }
 
   // Make this return true when this Command no longer needs to run execute()
