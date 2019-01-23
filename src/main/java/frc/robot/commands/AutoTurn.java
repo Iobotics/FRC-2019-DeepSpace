@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoTurn extends CommandBase implements PIDOutput {
 
@@ -25,8 +26,11 @@ public class AutoTurn extends CommandBase implements PIDOutput {
   public AutoTurn(double _degrees) {
     requires(drivetrain);
     requires(navSensor);
-    _pid = new PIDController(drivetrain.get_kPTurn(), drivetrain.get_kITurn(), drivetrain.get_kDTurn() , (PIDSource) navSensor, this);
+    _pid = new PIDController(drivetrain.get_kPTurn(), drivetrain.get_kITurn(), drivetrain.get_kDTurn() , navSensor.getSensor(), this);
+    _pid.setInputRange(-180, 180);
+    _pid.setOutputRange(-0.5, 0.5);
     _pid.setContinuous();
+    _pid.setAbsoluteTolerance(5);
     this._degrees = _degrees;
   }
 
@@ -38,6 +42,7 @@ public class AutoTurn extends CommandBase implements PIDOutput {
 
   @Override
   protected void execute() {
+    SmartDashboard.putNumber("Rotation", navSensor.getAngle());
   }
 
   @Override
@@ -74,6 +79,6 @@ public class AutoTurn extends CommandBase implements PIDOutput {
 
   @Override
   public void pidWrite(double output) {
-    drivetrain.setTank(output, -output);
+    drivetrain.setTank(output, output);
   }
 }

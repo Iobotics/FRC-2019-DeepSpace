@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoDrive;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
 import frc.robot.subsystems.Drivetrain;
@@ -93,7 +94,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-
+    m_autonomousCommand = new AutoDrive();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -125,7 +126,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
+    SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
+    /* 
     SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
     SmartDashboard.putNumber("kP Drive", CommandBase.drivetrain.getP());
     SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
@@ -147,6 +151,7 @@ public class Robot extends TimedRobot {
 
      double iZone = SmartDashboard.getNumber("kIzone Drive", 0);
      if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
+     */
 
   }
 

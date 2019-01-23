@@ -37,7 +37,7 @@ public class Drivetrain extends Subsystem {
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0;
 
-  private double _kPTurn = 0;
+  private double _kPTurn = 0.1;
   private double _kITurn = 0;
   private double _kDTurn = 0;
 

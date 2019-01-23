@@ -17,13 +17,14 @@ public class AutoDrive extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    drivetrain.setSetPoint(36);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     drivetrain.driveToTarget();
+    drivetrain.setSetPoint(36);
+ 
   }
 
   // Make this return true when this Command no longer needs to run execute()

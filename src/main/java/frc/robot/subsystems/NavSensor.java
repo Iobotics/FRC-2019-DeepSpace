@@ -34,6 +34,11 @@ public class NavSensor extends Subsystem {
   public void resetGyro(){
     _navSensor.reset();
   }
+
+  public AHRS getSensor(){
+    return _navSensor;
+  }
+
   public boolean isCalibrating() {
     return _navSensor.isCalibrating();
   }
