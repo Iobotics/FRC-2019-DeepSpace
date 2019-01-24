@@ -42,8 +42,6 @@ public class Zone3Lift extends Subsystem {
     top = new DoubleSolenoid(RobotMap.topForwardValve, RobotMap.topReverseValve);
     bottom = new DoubleSolenoid(RobotMap.bottomFowardValve, RobotMap.bottomReverseValve);
 
-    left.setInverted(true);
-    left2.setInverted(true);
     left.setNeutralMode(NeutralMode.Brake);
     left.setNeutralMode(NeutralMode.Brake);
 
