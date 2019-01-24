@@ -25,7 +25,9 @@ public class Zone3Lift extends Subsystem {
   // here. Call these from Commands.
 
   TalonSRX left;
+  TalonSRX left2;
   TalonSRX right;
+  TalonSRX right2;
 
   DoubleSolenoid top;
   DoubleSolenoid bottom;
@@ -33,16 +35,21 @@ public class Zone3Lift extends Subsystem {
   public void init()
   {
     left = new TalonSRX(RobotMap.leftZone3);
+    left2 = new TalonSRX(RobotMap.leftZone3_2);
     right = new TalonSRX(RobotMap.rightZone3);
+    right2 = new TalonSRX(RobotMap.rightZone3_2);
 
     top = new DoubleSolenoid(RobotMap.topForwardValve, RobotMap.topReverseValve);
     bottom = new DoubleSolenoid(RobotMap.bottomFowardValve, RobotMap.bottomReverseValve);
 
     left.setInverted(true);
+    left2.setInverted(true);
     left.setNeutralMode(NeutralMode.Brake);
     left.setNeutralMode(NeutralMode.Brake);
 
     right.follow(left);
+    right2.follow(left);
+    left2.follow(left);
   }
 
   public void liftPower(double power)
