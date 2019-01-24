@@ -79,6 +79,6 @@ public class AutoTurn extends CommandBase implements PIDOutput {
 
   @Override
   public void pidWrite(double output) {
-    drivetrain.setTank(output, output);
+    drivetrain.setTank(-output, -output);
   }
 }

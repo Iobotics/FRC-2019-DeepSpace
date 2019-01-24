@@ -10,27 +10,32 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoDrive extends CommandBase {
-  public AutoDrive() {
+
+  double setPoint;
+  double target;
+
+  public AutoDrive(double target) {
     requires(drivetrain);
+    this.target = target;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    drivetrain.setSetPoint(target);
+    setPoint = drivetrain.getPosition() + target  / drivetrain.INCHES_PER_ROTATION;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     drivetrain.driveToTarget();
-    drivetrain.setSetPoint(36);
- 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (drivetrain.getPosition() == setPoint);
   }
 
   // Called once after isFinished returns true

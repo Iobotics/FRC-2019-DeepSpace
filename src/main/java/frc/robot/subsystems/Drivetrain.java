@@ -30,6 +30,7 @@ public class Drivetrain extends Subsystem {
   private CANSparkMax _backLeftMain;
   private CANSparkMax _backRightMain;
   private CANPIDController _canController;
+  private CANEncoder _canEncoder;
 
   private static double _kPDrive = 0.5;
   private static double _kIDrive = 0;
@@ -37,11 +38,11 @@ public class Drivetrain extends Subsystem {
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0;
 
-  private double _kPTurn = 0.1;
+  private double _kPTurn = 0.005;
   private double _kITurn = 0;
   private double _kDTurn = 0;
 
-  public static final double INCHES_PER_ROTATION = 4 * Math.PI;
+  public final double INCHES_PER_ROTATION = 4 * Math.PI;
 
   private MecanumDrive _drive;
 
@@ -74,19 +75,24 @@ public class Drivetrain extends Subsystem {
     _backLeftMain.setIdleMode(IdleMode.kBrake);
     _backRightMain.setIdleMode(IdleMode.kBrake);
 
+    _canEncoder = _frontLeftMain.getEncoder();
+
     _canController = _frontLeftMain.getPIDController();
     _canController.setP(_kPDrive);
     _canController.setI(_kIDrive);
     _canController.setIZone(_kIZoneDrive);
     _canController.setD(_kDDrive);
     _canController.setFF(_kFFDrive);
+    _canController.setOutputRange(-1, 1);
   }
 
   public void setSetPoint(double target){
     _canController.setReference(target / INCHES_PER_ROTATION, ControlType.kPosition);
   }
 
- 
+  public double getPosition(){
+    return _canEncoder.getPosition();
+  }
 
   public void setTank(double left, double right){
     _frontLeftMain.set(left);
