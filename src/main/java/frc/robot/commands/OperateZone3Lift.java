@@ -29,6 +29,7 @@ public class OperateZone3Lift extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("x");
     zone3lift.liftPower(power);
     if(oi.getController().getXButtonPressed())
     {

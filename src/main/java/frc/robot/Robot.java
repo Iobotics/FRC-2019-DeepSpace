@@ -41,12 +41,12 @@ public class Robot extends TimedRobot {
     _compressor = new Compressor();
 
     _pdp.clearStickyFaults();
-    /*
+    
     _compressor.clearAllPCMStickyFaults();
 
     _compressor.start();
 
-    CommandBase.init();*/
+    CommandBase.init();
     
     SmartDashboard.putData("Auto mode", m_chooser);
   }

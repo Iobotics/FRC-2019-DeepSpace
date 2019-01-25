@@ -39,11 +39,12 @@ public class Zone3Lift extends Subsystem {
     right = new TalonSRX(RobotMap.rightZone3);
     right2 = new TalonSRX(RobotMap.rightZone3_2);
 
-    top = new DoubleSolenoid(RobotMap.topForwardValve, RobotMap.topReverseValve);
-    bottom = new DoubleSolenoid(RobotMap.bottomFowardValve, RobotMap.bottomReverseValve);
+    //top = new DoubleSolenoid(RobotMap.topForwardValve, RobotMap.topReverseValve);
+  //  bottom = new DoubleSolenoid(RobotMap.bottomFowardValve, RobotMap.bottomReverseValve);
 
     left.setNeutralMode(NeutralMode.Brake);
     left.setNeutralMode(NeutralMode.Brake);
+    right2.setInverted(true);
 
     right.follow(left);
     right2.follow(left);

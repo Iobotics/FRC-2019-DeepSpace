@@ -25,8 +25,10 @@ public class RobotMap {
   public static final int backRightMain = 4;
   public static final int backRightSlave = 5;
 
-  public static final int leftZone3 = 8;
-  public static final int rightZone3 = 9;
+  public static final int leftZone3 = 1;
+  public static final int rightZone3 = 2;
+  public static final int leftZone3_2 = 3;
+  public static final int rightZone3_2 = 4;
 
   public static final int topForwardValve = 10;
   public static final int bottomFowardValve = 11;
