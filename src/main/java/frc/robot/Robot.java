@@ -14,8 +14,15 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
+<<<<<<< HEAD
+=======
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.NavSensor;
+>>>>>>> SparkDriveTrain
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -96,7 +103,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-
+    m_autonomousCommand = new AutoTurn(90);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -128,7 +135,33 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
+    SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
+    /* 
+    SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
+    SmartDashboard.putNumber("kP Drive", CommandBase.drivetrain.getP());
+    SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
+    SmartDashboard.putNumber("kD Drive", CommandBase.drivetrain.getD());
+    SmartDashboard.putNumber("kFF Drive", CommandBase.drivetrain.getFF());
+    SmartDashboard.putNumber("kIzone Drive", CommandBase.drivetrain.getIzone());
+
+     double p = SmartDashboard.getNumber("kP Drive", 0);
+     if (p != CommandBase.drivetrain.getP()){CommandBase.drivetrain.setP(p);}
+
+     double  i= SmartDashboard.getNumber("kI Drive", 0);
+     if (i != CommandBase.drivetrain.getI()){CommandBase.drivetrain.setI(i);}
+
+     double d = SmartDashboard.getNumber("kD Drive", 0);
+     if (d != CommandBase.drivetrain.getD()){CommandBase.drivetrain.setD(d);}
+
+     double ff = SmartDashboard.getNumber("kFF Drive", 0);
+     if (ff != CommandBase.drivetrain.getFF()){CommandBase.drivetrain.setFF(ff);}
+
+     double iZone = SmartDashboard.getNumber("kIzone Drive", 0);
+     if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
+     */
+
   }
 
   /**

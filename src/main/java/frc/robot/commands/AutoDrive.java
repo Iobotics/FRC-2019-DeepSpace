@@ -7,50 +7,45 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class OperateMecanumDrive extends CommandBase {
+public class AutoDrive extends CommandBase {
 
-  public static final double DEADBAND = 0.2;
-  
-  public OperateMecanumDrive() {
-    // Use requires() here to declare subsystem dependencies
+  double setPoint;
+  double target;
+
+  public AutoDrive(double target) {
     requires(drivetrain);
-    requires(navSensor);
+    this.target = target;
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { }
+  protected void initialize() {
+    drivetrain.setSetPoint(target);
+    setPoint = drivetrain.getPosition() + target  / drivetrain.INCHES_PER_ROTATION;
+  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
-    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
-    double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
-
-    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
+    drivetrain.driveToTarget();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (drivetrain.getPosition() == setPoint);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    drivetrain.setMecanum(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    drivetrain.setMecanum(0, 0, 0);
   }
-
 }

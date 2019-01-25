@@ -32,6 +32,13 @@ public class NavSensor extends Subsystem {
     _navSensor.reset();
   }
 
+<<<<<<< HEAD
+=======
+  public AHRS getSensor(){
+    return _navSensor;
+  }
+
+>>>>>>> SparkDriveTrain
   public boolean isCalibrating() {
     return _navSensor.isCalibrating();
   }
