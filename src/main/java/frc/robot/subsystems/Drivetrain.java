@@ -50,8 +50,6 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive _drive;
 
-  private AnalogInput _pot = new AnalogInput(1);
-
   public Drivetrain(){
 
   }
@@ -122,10 +120,6 @@ public class Drivetrain extends Subsystem {
     _frontRightMain.set(_frontLeftMain.get());
     _backLeftMain.set(_frontLeftMain.get());
     _backRightMain.set(_frontRightMain.get());
-  }
-
-  public double getPot(){
-    return _pot.getVoltage();
   }
 
   public double getP(){

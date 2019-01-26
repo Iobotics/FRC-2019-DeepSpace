@@ -26,12 +26,10 @@ public class OI {
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
-  private final JoystickButton autoDrive = new JoystickButton(_lStick, 10);
 
   public OI(){
     runIntake.whileHeld(new RunIntake());
     runOutake.whileHeld(new RunOutake());
-    autoDrive.whenPressed(new AutoTurn(90));
   }
 
   public double getLeftStickX(){
