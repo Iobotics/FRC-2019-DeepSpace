@@ -8,13 +8,23 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+<<<<<<< HEAD
+=======
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+<<<<<<< HEAD
 
 import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.hatch.RetractHatch;
 import frc.robot.commands.hatch.DropHatch;
 import frc.robot.commands.hatch.GrabHatch;
+=======
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunOutake;
+>>>>>>> SparkDriveTrain
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,6 +35,7 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
 
+<<<<<<< HEAD
   private final JoystickButton _releaseHatchButton = new JoystickButton(_rStick, 4);
   private final JoystickButton _collectHatchButton = new JoystickButton(_rStick, 5);
 
@@ -35,10 +46,28 @@ public class OI {
 
   public double getRightStickX() {
     return _rStick.getX();
+=======
+<<<<<<< HEAD
+  public OI(){
+    
+=======
+  private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
+  private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton autoDrive = new JoystickButton(_lStick, 10);
+
+  public OI(){
+    runIntake.whileHeld(new RunIntake());
+    runOutake.whileHeld(new RunOutake());
+    autoDrive.whenPressed(new AutoTurn(90));
+  }
+  public double getRightStickX(){
+    return _rStick.getX(); 
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   }
 
   public double getRightStickY() {
     return _rStick.getY();
+>>>>>>> SparkDriveTrain
   }
 
   public double getLeftStickX() {
@@ -49,4 +78,12 @@ public class OI {
     return _lStick.getY();
   }
 
+  public double getRightStickX(){
+    return _rStick.getX();
+  }
+
+  public double getRightStickY(){
+    return _rStick.getY();
+  }
+  
 }

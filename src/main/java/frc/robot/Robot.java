@@ -8,12 +8,24 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
+<<<<<<< HEAD
+=======
+import frc.robot.commands.ResetGyro;
+<<<<<<< HEAD
+=======
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.NavSensor;
+>>>>>>> SparkDriveTrain
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +35,9 @@ import frc.robot.commands.CommandBase;
  * project.
  */
 public class Robot extends TimedRobot {
- 
 
+  PowerDistributionPanel _pdp;
+  Compressor _compressor;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -34,12 +47,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    _pdp = new PowerDistributionPanel();
+    _compressor = new Compressor();
 
-    Compressor _compressor = new Compressor();
+    _pdp.clearStickyFaults();
+    _compressor.clearAllPCMStickyFaults();
+
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
     CommandBase.init();
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -52,8 +69,7 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
-  }
+  public void robotPeriodic() { }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -90,7 +106,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-
+    m_autonomousCommand = new AutoTurn(90);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -114,6 +130,10 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+<<<<<<< HEAD
+=======
+    (new ResetGyro()).start();
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   }
 
   /**
@@ -121,7 +141,33 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
+    SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
+    /* 
+    SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
+    SmartDashboard.putNumber("kP Drive", CommandBase.drivetrain.getP());
+    SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
+    SmartDashboard.putNumber("kD Drive", CommandBase.drivetrain.getD());
+    SmartDashboard.putNumber("kFF Drive", CommandBase.drivetrain.getFF());
+    SmartDashboard.putNumber("kIzone Drive", CommandBase.drivetrain.getIzone());
+
+     double p = SmartDashboard.getNumber("kP Drive", 0);
+     if (p != CommandBase.drivetrain.getP()){CommandBase.drivetrain.setP(p);}
+
+     double  i= SmartDashboard.getNumber("kI Drive", 0);
+     if (i != CommandBase.drivetrain.getI()){CommandBase.drivetrain.setI(i);}
+
+     double d = SmartDashboard.getNumber("kD Drive", 0);
+     if (d != CommandBase.drivetrain.getD()){CommandBase.drivetrain.setD(d);}
+
+     double ff = SmartDashboard.getNumber("kFF Drive", 0);
+     if (ff != CommandBase.drivetrain.getFF()){CommandBase.drivetrain.setFF(ff);}
+
+     double iZone = SmartDashboard.getNumber("kIzone Drive", 0);
+     if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
+     */
+
   }
 
   /**

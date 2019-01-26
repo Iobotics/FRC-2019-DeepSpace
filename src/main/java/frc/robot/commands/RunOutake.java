@@ -9,12 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutoCorrect extends CommandBase {
-  float kP = 1;
-  public AutoCorrect() {
+public class RunOutake extends CommandBase {
+  public RunOutake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(drivetrain);
+    requires(intake);
   }
 
   // Called just before this Command runs the first time
@@ -25,13 +24,7 @@ public class AutoCorrect extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /*while(tx < -1 || tx > 1){
-      drivetrain.setMecanum(0, 0, tx/abs(tx)*kP);
-    }
-    while(ty < || ty > ){
-      drivetrain.setMecanum(0, 0, 0);
-    }*/
-    
+    intake.runIntake(-.5, -.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -43,11 +36,13 @@ public class AutoCorrect extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    intake.runIntake(0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

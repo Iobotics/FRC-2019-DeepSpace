@@ -7,36 +7,45 @@
 
 package frc.robot.commands;
 
-public class ResetGyro extends CommandBase {
-  public ResetGyro() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(navSensor);
+import edu.wpi.first.wpilibj.command.Command;
+
+public class AutoDrive extends CommandBase {
+
+  double setPoint;
+  double target;
+
+  public AutoDrive(double target) {
+    requires(drivetrain);
+    this.target = target;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    navSensor.resetGyro();
+    drivetrain.setSetPoint(target);
+    setPoint = drivetrain.getPosition() + target  / drivetrain.INCHES_PER_ROTATION;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() { }
+  protected void execute() {
+    drivetrain.driveToTarget();
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !navSensor.isCalibrating();
+    return (drivetrain.getPosition() == setPoint);
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() { }
+  protected void end() {
+  }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() { }
-  
+  protected void interrupted() {
+  }
 }

@@ -7,21 +7,24 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import com.revrobotics.ControlType;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.OperateMecanumDrive;
-import frc.robot.commands.OperateTankDrive;
+<<<<<<< HEAD
+=======
 import frc.util.SparkWrapper;
-import frc.util.SparkWrapper;
+>>>>>>> SparkDriveTrain
 
 public class Drivetrain extends Subsystem {
 
@@ -29,23 +32,43 @@ public class Drivetrain extends Subsystem {
   private CANSparkMax _frontRightMain;
   private CANSparkMax _backLeftMain;
   private CANSparkMax _backRightMain;
+  private CANPIDController _canController;
+  private CANEncoder _canEncoder;
 
+  private static double _kPDrive = 0.5;
+  private static double _kIDrive = 0;
+  private static double _kIZoneDrive = 0;
+  private static double _kDDrive = 0;
+  private static double _kFFDrive = 0;
+
+  private double _kPTurn = 0.005;
+  private double _kITurn = 0;
+  private double _kDTurn = 0;
+
+<<<<<<< HEAD
   private double kP = 0;
   private double kI = 0;
   private double kD = 0;
   private double kIZone = 0;
-  private double kFF = 0;
-  private final int PID_TURN = 0;
+  private double kF = 0;
+  private final int PID_TURN_SLOT = 0;
+=======
+  public final double INCHES_PER_ROTATION = 4 * Math.PI;
 
+  private MecanumDrive _drive;
+>>>>>>> SparkDriveTrain
 
-  private DoubleSolenoid _solenoid;
+  public Drivetrain(){
 
-  private MecanumDrive drive;
+  }
   
   public void init() {
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
-    _frontLeftMain.getPIDController().setP(kP, PID_TURN);
+<<<<<<< HEAD
+    _frontLeftMain.getPIDController().setP(kP, PID_TURN_SLOT);
+=======
+>>>>>>> SparkDriveTrain
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
@@ -56,17 +79,46 @@ public class Drivetrain extends Subsystem {
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
    
-
-    drive = new MecanumDrive(
-      new SparkWrapper(_frontLeftMain), 
-      new SparkWrapper(_backLeftMain), 
-      new SparkWrapper(_frontRightMain),
-      new SparkWrapper(_backRightMain)
+<<<<<<< HEAD
+    drive = new MecanumDrive(_frontLeftMain, _backLeftMain, _frontRightMain, _backRightMain);
+    
+    _solenoid = new DoubleSolenoid(0, 1);
+=======
+    _drive = new MecanumDrive(
+      _frontLeftMain, 
+      _backLeftMain, 
+      _frontRightMain,
+      _backRightMain
     );
 
-    _solenoid = new DoubleSolenoid(0, 1);
+    _frontLeftMain.setIdleMode(IdleMode.kBrake);
+    _frontRightMain.setIdleMode(IdleMode.kBrake);
+    _backLeftMain.setIdleMode(IdleMode.kBrake);
+    _backRightMain.setIdleMode(IdleMode.kBrake);
+
+    _canEncoder = _frontLeftMain.getEncoder();
+
+    _canController = _frontLeftMain.getPIDController();
+    _canController.setP(_kPDrive);
+    _canController.setI(_kIDrive);
+    _canController.setIZone(_kIZoneDrive);
+    _canController.setD(_kDDrive);
+    _canController.setFF(_kFFDrive);
+    _canController.setOutputRange(-1, 1);
   }
 
+<<<<<<< HEAD
+=======
+  public void setSetPoint(double target){
+    _canController.setReference(target / INCHES_PER_ROTATION, ControlType.kPosition);
+  }
+
+  public double getPosition(){
+    return _canEncoder.getPosition();
+>>>>>>> SparkDriveTrain
+  }
+
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   public void setTank(double left, double right) {
     _frontLeftMain.set(left);
     _backLeftMain.set(left);
@@ -74,21 +126,89 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  public void setMecanum(double x, double y, double rotation) {
+    drive.driveCartesian(x, y, rotation);
+  }
+
+>>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
     drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
   public void setTurn(double target, double gyroAngle) {
     _frontLeftMain.pidWrite(gyroAngle / 180);
-    _frontLeftMain.getPIDController().setReference(target * 180, ControlType.kDutyCycle, PID_TURN);
+    _frontLeftMain.getPIDController().setReference(target * 180, ControlType.kDutyCycle, PID_TURN_SLOT);
 
-    _backLeftMain.set(_frontLeftMain.get());
-    _backRightMain.set(-_frontLeftMain.get());
-    _frontRightMain.set(-_frontLeftMain.get());
+=======
+  public void setMecanum(double x, double y, double rotation, double gyroAngle){
+    _drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
+  public void driveToTarget(){
+    _frontRightMain.set(_frontLeftMain.get());
+>>>>>>> SparkDriveTrain
+    _backLeftMain.set(_frontLeftMain.get());
+    _backRightMain.set(_frontRightMain.get());
+  }
+
+  public double getP(){
+    return _kPDrive;
+  }
+
+  public void setP(double p){
+    _kPDrive = p;
+  }
+  
+  public double getI(){
+    return _kIDrive;
+  }
+
+  public void setI(double i){
+    _kIDrive = i;
+  }
+
+  public double getD(){
+    return _kDDrive;
+  }
+
+  public void setD(double d){
+    _kDDrive = d;
+  }
+
+  public double getFF(){
+    return _kFFDrive;
+  }
+
+  public void setFF(double ff){
+    _kFFDrive = ff;
+  }
+
+  public double getIzone(){
+    return _kIZoneDrive;
+  }
+
+  public void setIzone(double Izone){
+    _kIZoneDrive = Izone;
+  }
+
+  public double get_kPTurn() {
+    return _kPTurn;
+  }
+
+  public double get_kITurn() {
+    return _kITurn;
+  }
+
+  public double get_kDTurn() {
+    return _kDTurn;
+  }
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new OperateMecanumDrive());
   }
+
 }
