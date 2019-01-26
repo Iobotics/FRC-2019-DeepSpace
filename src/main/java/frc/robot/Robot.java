@@ -18,11 +18,8 @@ import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
-<<<<<<< HEAD
-=======
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.NavSensor;
->>>>>>> SparkDriveTrain
 
 /**
  * The VM is configured to automatically run this class, and to call the

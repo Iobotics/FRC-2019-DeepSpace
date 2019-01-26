@@ -7,33 +7,24 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
 import com.revrobotics.CANSparkMax;
-=======
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
->>>>>>> SparkDriveTrain
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
 
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-=======
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
->>>>>>> SparkDriveTrain
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.OperateMecanumDrive;
-<<<<<<< HEAD
-=======
-import frc.util.SparkWrapper;
->>>>>>> SparkDriveTrain
 
 public class Drivetrain extends Subsystem {
 
@@ -54,18 +45,12 @@ public class Drivetrain extends Subsystem {
   private double _kITurn = 0;
   private double _kDTurn = 0;
 
-<<<<<<< HEAD
-  private double kP = 0;
-  private double kI = 0;
-  private double kD = 0;
-  private double kIZone = 0;
-  private double kF = 0;
-  private final int PID_TURN_SLOT = 0;
-=======
+
   public final double INCHES_PER_ROTATION = 4 * Math.PI;
 
   private MecanumDrive _drive;
->>>>>>> SparkDriveTrain
+
+  private AnalogInput _pot = new AnalogInput(1);
 
   public Drivetrain(){
 
@@ -74,10 +59,7 @@ public class Drivetrain extends Subsystem {
   public void init(){
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
-<<<<<<< HEAD
-    _frontLeftMain.getPIDController().setP(kP, PID_TURN_SLOT);
-=======
->>>>>>> SparkDriveTrain
+
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
@@ -88,11 +70,7 @@ public class Drivetrain extends Subsystem {
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
    
-<<<<<<< HEAD
-    drive = new MecanumDrive(_frontLeftMain, _backLeftMain, _frontRightMain, _backRightMain);
-    
-    _solenoid = new DoubleSolenoid(0, 1);
-=======
+
     _drive = new MecanumDrive(
       _frontLeftMain, 
       _backLeftMain, 
@@ -122,7 +100,6 @@ public class Drivetrain extends Subsystem {
 
   public double getPosition(){
     return _canEncoder.getPosition();
->>>>>>> SparkDriveTrain
   }
 
   public void setTank(double left, double right) {
@@ -132,29 +109,23 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
-<<<<<<< HEAD
   public void setMecanum(double x, double y, double rotation) {
-    drive.driveCartesian(x, y, rotation);
+    _drive.driveCartesian(x, y, rotation);
   }
 
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
-    drive.driveCartesian(x, y, rotation, gyroAngle);
-  }
-
-  public void setTurn(double target, double gyroAngle){
-    _frontLeftMain.pidWrite(gyroAngle / 180);
-    _frontLeftMain.getPIDController().setReference(target * 180, ControlType.kDutyCycle, PID_TURN_SLOT);
-
-=======
-  public void setMecanum(double x, double y, double rotation, double gyroAngle){
     _drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
+
   public void driveToTarget(){
     _frontRightMain.set(_frontLeftMain.get());
->>>>>>> SparkDriveTrain
     _backLeftMain.set(_frontLeftMain.get());
     _backRightMain.set(_frontRightMain.get());
+  }
+
+  public double getPot(){
+    return _pot.getVoltage();
   }
 
   public double getP(){

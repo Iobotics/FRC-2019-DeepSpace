@@ -15,13 +15,6 @@ import frc.robot.subsystems.NavSensor;
 public abstract class CommandBase extends Command {
 
   public static OI oi;
-<<<<<<< HEAD
-
-  public static final Drivetrain drivetrain = new Drivetrain();
-  public static final NavSensor navSensor = new NavSensor();
-
-  public static void init(){
-=======
   public static Drivetrain drivetrain = new Drivetrain();
   public static NavSensor navSensor = new NavSensor();
   public static Intake intake = new Intake();
@@ -30,7 +23,6 @@ public abstract class CommandBase extends Command {
     navSensor.init();
     drivetrain.init();
     intake.init();
->>>>>>> SparkDriveTrain
     oi = new OI();
 
     drivetrain.init();
