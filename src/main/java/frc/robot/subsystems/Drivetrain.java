@@ -74,8 +74,8 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
-  public void setMecanum(double x, double y, double rotation) {
-    drive.driveCartesian(x, y, rotation);
+  public void setMecanum(double x, double y, double rotation, double gyroAngle) {
+    drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
   public void setTurn(double target, double gyroAngle) {
@@ -89,6 +89,6 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateTankDrive());
+    setDefaultCommand(new OperateMecanumDrive());
   }
 }

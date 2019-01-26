@@ -16,6 +16,7 @@ import frc.robot.commands.hatch.RetractHatch;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.hatch.DropHatch;
 import frc.robot.commands.hatch.GrabHatch;
+import frc.robot.commands.GetBallIn;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,15 +29,19 @@ public class OI {
 
   private final JoystickButton _releaseHatchButton = new JoystickButton(_rStick, 4);
   private final JoystickButton _collectHatchButton = new JoystickButton(_rStick, 5);
-  private final JoystickButton _intake = new JoystickButton(_rStick, 10);
-  private final JoystickButton _outake = new JoystickButton(_lStick, 10);
-  
+  private final JoystickButton _intake = new JoystickButton(_rStick, 1);
+  private final JoystickButton _outake = new JoystickButton(_lStick, 1);
+  private final JoystickButton _distance = new JoystickButton(_rStick, 8);
+  private final JoystickButton _grab = new JoystickButton(_rStick, 9);
+  private final JoystickButton _retract = new JoystickButton(_rStick, 10);
+  private final JoystickButton _climb = new JoystickButton(_rStick, 3);
 
   public OI() {
     _releaseHatchButton.whenPressed(new PopHatch());
     _collectHatchButton.whenPressed(new GrabHatch());
     _intake.whileHeld(new RunIntake(1));
     _outake.whileHeld(new RunIntake(-1));
+    _distance.whileHeld(new GetBallIn());
   }
 
   public double getRightStickX() {

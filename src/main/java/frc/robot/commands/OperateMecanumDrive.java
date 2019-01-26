@@ -35,7 +35,7 @@ public class OperateMecanumDrive extends CommandBase {
     double rotation = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : -oi.getRightStickX();
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    drivetrain.setMecanum(x, y, rotation);
+    drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
   }
 
   // Make this return true when this Command no longer needs to run execute()

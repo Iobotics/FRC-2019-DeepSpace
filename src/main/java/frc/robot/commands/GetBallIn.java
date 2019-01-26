@@ -8,29 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunIntake extends CommandBase {
-
-  double power1;
-
-  public RunIntake(int power) {
+public class GetBallIn extends CommandBase {
+  public GetBallIn() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(intake);
-    power1 = power;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(power1 < 0 || (power1 > 0 && !intake.isBallIn())){
-      intake.setPower(power1);
-    }
+    SmartDashboard.putBoolean("Ball is in intake: ", intake.isBallIn());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,13 +38,11 @@ public class RunIntake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.setPower(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
