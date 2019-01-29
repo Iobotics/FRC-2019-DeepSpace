@@ -159,6 +159,8 @@ public class Robot extends TimedRobot {
      if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
      */
 
+     SmartDashboard.putNumber("Pot", CommandBase.drivetrain.getPot());
+
   }
 
   /**

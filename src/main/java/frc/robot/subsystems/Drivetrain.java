@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive _drive;
 
-  private AnalogInput _pot = new AnalogInput(1);
+  private AnalogInput _pot = new AnalogInput(0);
 
   public Drivetrain(){
 
