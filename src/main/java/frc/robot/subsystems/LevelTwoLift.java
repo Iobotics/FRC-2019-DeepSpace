@@ -7,18 +7,42 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class DoubleSolenoid extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+public class LevelTwoLift extends Subsystem {
+  private DoubleSolenoid midWheel;
+  private DoubleSolenoid backWheel;
+
+  public void init() {
+    midWheel = new DoubleSolenoid(1, 2);
+    backWheel = new DoubleSolenoid(3,4);
+
+    midWheel.set(DoubleSolenoid.Value.kOff);
+    backWheel.set(DoubleSolenoid.Value.kOff);
+  }
+
+  public void deployMidWheels(){
+    midWheel.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void deployBackWheels(){
+    backWheel.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void retractMidWheels(){
+    midWheel.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void retractBackWheels(){
+    backWheel.set(DoubleSolenoid.Value.kReverse);
+  }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+
   }
 }
