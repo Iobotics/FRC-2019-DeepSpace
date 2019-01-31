@@ -7,15 +7,28 @@
 
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.AxisCamera;
+import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
-//import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
+//import frc.robot.commands.ResetGyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,11 +39,26 @@ import frc.robot.commands.CommandBase;
  */
 public class Robot extends TimedRobot {
 
-  UsbCamera usbCamera;
-  UsbCamera usbCamera2;
-
+  PowerDistributionPanel _pdp;
+  Compressor _compressor;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  UsbCamera usbCamera0;
+  UsbCamera usbCamera1;
+
+  int width = 2592; //640, 2592
+  int height = 1944; //480, 1944
+  int fps = 30;
+  VideoSink server;
+  VideoSource gray0;
+
+  CameraServer inst0;
+  CameraServer inst1;
+
+  OI oi = new OI();
+
+  int numCam = 4;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -38,16 +66,94 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    _pdp = new PowerDistributionPanel();
+    //_compressor = new Compressor();
 
-    //Compressor _compressor = new Compressor();
+    _pdp.clearStickyFaults();
+    
+    //_compressor.clearAllPCMStickyFaults();
+
     //_compressor.start();
 
     CommandBase.init();
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    
+    //usbCamera0 = new UsbCamera("cam0", 0);
+    //usbCamera1 = new UsbCamera("cam1", 1);
+    
+    usbCamera0 = CameraServer.getInstance().startAutomaticCapture(0);
+    usbCamera1 = CameraServer.getInstance().startAutomaticCapture(1);
 
-    usbCamera = CameraServer.getInstance().startAutomaticCapture(0);
-    usbCamera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    new Thread(() -> {
+      usbCamera0.setResolution(640, 480);
+      
+      CvSink cvSink0 = CameraServer.getInstance().getVideo();
+      CvSource outputStream0 = CameraServer.getInstance().putVideo("Camera0", 640, 480);
+            
+      Mat source0 = new Mat();
+      Mat output0 = new Mat();
+      
+      while(!Thread.interrupted()) {
+        {
+          cvSink0.grabFrame(source0);
+          if(cvSink0.grabFrame(source0) == 0)
+          {
+            SmartDashboard.putString("Error", cvSink0.getError());
+          }
+          Imgproc.cvtColor(source0, output0, Imgproc.COLOR_BGR2GRAY);
+          outputStream0.putFrame(output0);
+        }
+      }
+  }).start();
+
+  new Thread(() -> {
+      usbCamera1.setResolution(176, 144);//320, 240; 176, 144
+    
+      CvSink cvSink1 = CameraServer.getInstance().getVideo();
+      CvSource outputStream1 = CameraServer.getInstance().putVideo("Camera1", 320, 240);
+      gray0 = outputStream1;
+      
+    
+      Mat source1 = new Mat();
+      Mat output1 = new Mat();
+    
+    while(!Thread.interrupted()) {
+          cvSink1.grabFrame(source1);
+          if(cvSink1.grabFrame(source1) == 0)
+          {
+            SmartDashboard.putString("Error", cvSink1.getError());
+          }
+          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2GRAY);
+          outputStream1.putFrame(output1);
+    }
+}).start();
+    
+    server = CameraServer.getInstance().getServer();
+    usbCamera0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    usbCamera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+/*
+    inst0 = CameraServer.getInstance();
+    inst0.addCamera(usbCamera0);
+    mjpegserver0 = inst0.addServer("serve_USB Camera 0");
+    mjpegserver0.setSource(usbCamera0);
+    //mjpegserver0.getProperty("compression").set(100);
+    //mjpegserver0.getProperty("default_compression").set(100);
+    //mjpegserver0.getProperty("width").set(640);
+    //mjpegserver0.getProperty("height").set(480);
+    //usbCamera0.setResolution(640, 480);
+    //mjpegserver0.getProperty("fps").set(30);
+    //usbCamera0.setFPS(30);
+
+    inst1 = CameraServer.getInstance();
+    inst1.addCamera(usbCamera1);
+    mjpegserver1 = inst1.addServer("serve_USB Camera 1");
+    mjpegserver1.setSource(usbCamera1);*/
+    //mjpegserver1.getProperty("compression").set(100);
+    //mjpegserver1.getProperty("default_compression").set(0);
+    //mjpegserver1.getProperty("width").set(640);
+    //mjpegserver1.getProperty("height").set(480);
+    //usbCamera1.setResolution(640, 480);
+    //mjpegserver1.getProperty("fps").set(30);
+    //usbCamera1.setFPS(30);
   }
 
   /**
@@ -60,7 +166,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-  }
+      if(oi.getAButton() || numCam == 4)
+      {
+        numCam = 0;
+        server.setSource(usbCamera1);
+      }
+      if(oi.getBButton())
+      {
+        numCam = 1;
+        server.setSource(gray0);
+      }
+      numCam = 3;
+
+   }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -121,8 +239,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
-    //new CameraTest().start();
+    //(new ResetGyro()).start();
   }
 
   /**
@@ -131,7 +248,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
   }
 
   /**

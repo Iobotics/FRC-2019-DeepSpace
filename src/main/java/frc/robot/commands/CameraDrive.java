@@ -108,11 +108,11 @@ public class CameraDrive extends CommandBase
         {
             speed = .2;
         }
-        if(oi.getAButton())
+        /*if(oi.getAButton())
         {
             //System.out.println("\n-------------");
             //test--;
-        }
+        }*/
 
         if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
         {
