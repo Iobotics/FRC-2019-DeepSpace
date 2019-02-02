@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -22,9 +23,10 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class Intake extends Subsystem {
-  
-  TalonSRX leftLift;
-  TalonSRX rightLift;
+  TalonSRX leftIntake;
+  TalonSRX rightIntake;
+  TalonSRX outsideIntake;
+  TalonSRX intakeRaise;
 
   DigitalInput proximitySensor;
 
@@ -36,18 +38,42 @@ public class Intake extends Subsystem {
 
   public void init()
   {
-    //leftLift = new TalonSRX(RobotMap.leftLift);
-    //rightLift = new TalonSRX(RobotMap.rightLift);
+    leftIntake = new TalonSRX(RobotMap.leftIntake);
+    leftIntake.setInverted(true);
+    leftIntake.setNeutralMode(NeutralMode.Coast);
 
+    rightIntake = new TalonSRX(RobotMap.rightIntake);
+    rightIntake.setInverted(false);
+    rightIntake.setNeutralMode(NeutralMode.Coast);
+
+    outsideIntake = new TalonSRX(RobotMap.outsideIntake);
+
+    intakeRaise = new TalonSRX(RobotMap.intakeRaise);
+    intakeRaise.setNeutralMode(NeutralMode.Brake);
+    
     proximitySensor = new DigitalInput(RobotMap.proximitySensor);
   }
 
   public void setPower(double power)
   {
-    leftLift.set(ControlMode.PercentOutput, power);
-    rightLift.set(ControlMode.PercentOutput, -power);
+    leftIntake.set(ControlMode.PercentOutput, power);
+    rightIntake.set(ControlMode.PercentOutput, -power);
+    if(power > 0){
+      outsideIntake.set(ControlMode.PercentOutput, power);
+    }
   }
   
+  public void moveToPos(int position){
+    double power = 0;
+    while(intakeRaise.getSelectedSensorPosition() < position - 5 || intakeRaise.getSelectedSensorPosition() > position + 5){
+      if(power < .7){
+        power += .001;
+      }
+      intakeRaise.set(ControlMode.PercentOutput, power * (position - intakeRaise.getSelectedSensorPosition()) / Math.abs((position - intakeRaise.getSelectedSensorPosition())));
+    }
+    intakeRaise.set(ControlMode.PercentOutput, 0);
+  }
+
   public boolean isBallIn(){
     return !proximitySensor.get();
   }

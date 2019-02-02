@@ -7,34 +7,42 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.ResetGyro;
+
 /**
- * Add your docs here.
+ * Navsensor
  */
 public class NavSensor extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
   private AHRS _navSensor;
   
-  @Override
-  public void initDefaultCommand() {
-    
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
   public void init(){
     _navSensor = new AHRS(Port.kMXP);
   }
+
   public double getAngle(){
     return _navSensor.getAngle();
   }
+
   public void resetGyro(){
     _navSensor.reset();
   }
+
+  public AHRS getSensor(){
+    return _navSensor;
+  }
+
   public boolean isCalibrating() {
     return _navSensor.isCalibrating();
   }
+
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new ResetGyro());
+  }
+  
 }

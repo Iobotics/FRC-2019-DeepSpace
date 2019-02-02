@@ -21,7 +21,7 @@ public class HatchCollector extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private Solenoid _hook;
+  private DoubleSolenoid _hook;
   private DoubleSolenoid _extenderOne;
   private DoubleSolenoid _extenderTwo;
 
@@ -33,19 +33,18 @@ public class HatchCollector extends Subsystem {
   }
 
   public void init() {
-    //_hook = new Solenoid(RobotMap.hookSolenoid);
-    //_extenderOne = new DoubleSolenoid(RobotMap.extendOneSolenoidForward, RobotMap.extendOneSolenoidReverse);
+    _hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
+    _extenderOne = new DoubleSolenoid(RobotMap.extendOneSolenoidForward, RobotMap.extendOneSolenoidReverse);
     _extenderTwo = new DoubleSolenoid(RobotMap.extendTwoSolenoidForward, RobotMap.extendTwoSolenoidReverse);
-    
     
   }
   
   public void openHook() {
-    _hook.set(true);
+    _hook.set(Value.kForward);
   }
 
   public void closeHook() {
-    _hook.set(false);
+    _hook.set(Value.kReverse);
   }
 
   public void extend() {

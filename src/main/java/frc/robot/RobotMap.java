@@ -18,16 +18,17 @@ public class RobotMap {
   public static final int frontRightMain = 2;
   public static final int backLeftMain = 6;
   public static final int backRightMain = 4;
-  public static final int leftLift = 8;
-  public static final int rightLift = 9;
+  public static final int leftIntake = 3;
+  public static final int rightIntake = 5;
+  public static final int outsideIntake = 7;
+  public static final int intakeRaise = 0;
 
   public static final int proximitySensor = 2;
   
-  public static final int hookSolenoid = 0;
-  public static final int extendOneSolenoidForward  = 1;
-  public static final int extendOneSolenoidReverse  = 2;
-  public static final int extendTwoSolenoidForward = 3;
-  public static final int extendTwoSolenoidReverse = 4;
-  public static final int clawSolenoidForward = 5;
-  public static final int clawSolenoidReverse = 6;
+  public static final int hookSolenoidForward = 0;
+  public static final int hookSolenoidReverse = 1;
+  public static final int extendOneSolenoidForward  = 2;
+  public static final int extendOneSolenoidReverse  = 3;
+  public static final int extendTwoSolenoidForward = 4;
+  public static final int extendTwoSolenoidReverse = 5;
 }
