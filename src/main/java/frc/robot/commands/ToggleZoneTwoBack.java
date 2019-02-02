@@ -9,15 +9,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OperateZoneTwoLift extends Command {
-  public OperateZoneTwoLift() {
+public class ToggleZoneTwoBack extends CommandBase {
+  public ToggleZoneTwoBack() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if(!levelTwo.backWheelDown()){
+      levelTwo.deployBackWheels();
+    } else {
+      levelTwo.retractBackWheels();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -40,5 +46,6 @@ public class OperateZoneTwoLift extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

@@ -12,8 +12,11 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
+import frc.robot.commands.MoveOnZoneTwo;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunOutake;
+import frc.robot.commands.ToggleZoneTwoBack;
+import frc.robot.commands.ToggleZoneTwoFront;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,20 +29,16 @@ public class OI {
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton toggleFront = new JoystickButton(_rStick, 8);
+  private final JoystickButton toggleBack = new JoystickButton(_rStick, 7);
+  private final JoystickButton autoZoneTwo = new JoystickButton(_rStick, 10);
 
   public OI(){
     runIntake.whileHeld(new RunIntake());
     runOutake.whileHeld(new RunOutake());
-<<<<<<< HEAD
-=======
-  }
-  public double getRightStickX(){
-    return _rStick.getX(); 
-  }
-
-  public double getRightStickY(){
-    return _rStick.getY();
->>>>>>> SparkDriveTrain
+    toggleFront.whenPressed(new ToggleZoneTwoFront());
+    toggleBack.whenPressed(new ToggleZoneTwoBack());
+    autoZoneTwo.whenPressed(new MoveOnZoneTwo());
   }
 
   public double getLeftStickX(){

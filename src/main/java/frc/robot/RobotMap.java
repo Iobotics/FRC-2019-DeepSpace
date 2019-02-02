@@ -26,4 +26,9 @@ public class RobotMap {
   public static final int backRightSlave = 5;
   public static final int intakeLeft = 8;
   public static final int intakeRight = 9;
+
+  public static final int zoneTwoFrontForward = 0;
+  public static final int zoneTwoFrontReverse = 1;
+  public static final int zoneTwoBackForward = 2;
+  public static final int zoneTwoBackReverse = 3;
 }

@@ -8,7 +8,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -18,11 +20,11 @@ public class LevelTwoLift extends Subsystem {
   private DoubleSolenoid backWheel;
 
   public void init() {
-    midWheel = new DoubleSolenoid(1, 2);
-    backWheel = new DoubleSolenoid(3,4);
+    midWheel = new DoubleSolenoid(RobotMap.zoneTwoFrontForward, RobotMap.zoneTwoFrontReverse);
+    backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
 
-    midWheel.set(DoubleSolenoid.Value.kOff);
-    backWheel.set(DoubleSolenoid.Value.kOff);
+    midWheel.set(DoubleSolenoid.Value.kReverse);
+    backWheel.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void deployMidWheels(){
@@ -39,6 +41,14 @@ public class LevelTwoLift extends Subsystem {
 
   public void retractBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public boolean frontWheelDown(){
+    return midWheel.get() == Value.kForward;
+  }
+
+  public boolean backWheelDown(){
+    return backWheel.get() == Value.kForward;
   }
 
   @Override
