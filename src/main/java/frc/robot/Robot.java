@@ -47,12 +47,7 @@ public class Robot extends TimedRobot {
     _pdp.clearStickyFaults();
     _compressor.clearAllPCMStickyFaults();
 
-<<<<<<< HEAD
     _compressor.start();
-=======
-    Compressor _compressor = new Compressor();
-    _compressor.stop();
->>>>>>> SparkDriveTrain
 
     CommandBase.init();
     
