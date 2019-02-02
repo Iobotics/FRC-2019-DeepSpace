@@ -137,9 +137,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
      SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
-
-     SmartDashboard.putNumber("Pot", CommandBase.drivetrain.getPot());
-
   }
 
   /**

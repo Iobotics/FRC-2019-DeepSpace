@@ -54,7 +54,7 @@ public class Lift extends Subsystem {
     _leftLift.configNominalOutputReverse(0);
     _leftLift.configPeakOutputForward(1);
     _leftLift.configPeakOutputReverse(-1);
-
+ 
     _rightLift.configNominalOutputForward(0);
     _rightLift.configNominalOutputReverse(0);
     _rightLift.configPeakOutputForward(1);
