@@ -24,7 +24,7 @@ public class RunOutake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.runIntake(-.5, -.5);
+    intake.runIntake(-.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +36,7 @@ public class RunOutake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.runIntake(0, 0);
+    intake.runIntake(0);
   }
 
   // Called when another command which requires one or more of the same
