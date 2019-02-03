@@ -25,10 +25,8 @@ public class RobotMap {
 
   public static final int proximitySensor = 2;
   
-  public static final int hookSolenoidForward = 0;
-  public static final int hookSolenoidReverse = 1;
-  public static final int extendOneSolenoidForward  = 2;
-  public static final int extendOneSolenoidReverse  = 3;
-  public static final int extendTwoSolenoidForward = 4;
-  public static final int extendTwoSolenoidReverse = 5;
+  public static final int hookSolenoidForward = 2;
+  public static final int hookSolenoidReverse = 3;
+  public static final int intakeSolenoid = 0;
+  public static final int extendOneSolenoid = 1;
 }

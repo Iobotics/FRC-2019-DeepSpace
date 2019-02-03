@@ -14,7 +14,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalGlitchFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -27,6 +29,8 @@ public class Intake extends Subsystem {
   TalonSRX rightIntake;
   TalonSRX outsideIntake;
   TalonSRX intakeRaise;
+  
+  Solenoid intakeOut;
 
   DigitalInput proximitySensor;
 
@@ -51,6 +55,9 @@ public class Intake extends Subsystem {
     intakeRaise = new TalonSRX(RobotMap.intakeRaise);
     intakeRaise.setNeutralMode(NeutralMode.Brake);
     
+    intakeOut = new Solenoid(RobotMap.intakeSolenoid);
+    intakeOut.set(false);
+
     proximitySensor = new DigitalInput(RobotMap.proximitySensor);
   }
 
@@ -76,5 +83,9 @@ public class Intake extends Subsystem {
 
   public boolean isBallIn(){
     return !proximitySensor.get();
+  }
+
+  public void toggleSolenoid(){
+    intakeOut.set(!intakeOut.get());
   }
 }

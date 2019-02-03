@@ -12,9 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import frc.robot.commands.hatch.PopHatch;
-import frc.robot.commands.hatch.RetractHatch;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.hatch.DropHatch;
 import frc.robot.commands.hatch.GrabHatch;
 import frc.robot.commands.GetBallIn;
 

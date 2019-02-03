@@ -31,10 +31,10 @@ public class PopHatch extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    
-    addParallel(new CloseHook());
-    addSequential(new DropHatch());
+    addSequential(new ExtendHatch());
     addSequential(new WaitCommand(.25));
-    addSequential(new RetractHatch());
+    addSequential(new CloseHook());
+    addSequential(new WaitCommand(.25));
+    addSequential(new ExtendHatch());
   }
 }
