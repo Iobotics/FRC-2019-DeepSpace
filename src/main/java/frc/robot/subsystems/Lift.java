@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -24,26 +25,31 @@ public class Lift extends Subsystem {
   private TalonSRX _leftLift;
   private TalonSRX _rightLift;
 
+  private double sensorRange;
   private double kP;
   private double kI;
   private double kD;
-  private double kFF;
+  private double kFF  = 1023 / (sensorRange * 0.5 /10);
   private int kIZone;
-  private int cruiseSpeed;
-  private int rampRate;
+  private int cruiseSpeed = 100;
+  private int rampRate = 300;
   private final int TIMEOUT = 20;
   private final int SLOT = 0;
 
 
   public void init(){
     _leftLift = new TalonSRX(RobotMap.leftLift);
-    _leftLift.setInverted(true);
-
     _rightLift = new TalonSRX(RobotMap.rightLift);
-    _rightLift.setInverted(false);
 
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
+
+    _leftLift.setInverted(true);
+    _rightLift.setInverted(false);
+
+    _leftLift.setNeutralMode(NeutralMode.Brake);
+    _rightLift.setNeutralMode(NeutralMode.Brake);
+
 
     _leftLift.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     _leftLift.configFeedbackNotContinuous(true, TIMEOUT);
@@ -79,13 +85,22 @@ public class Lift extends Subsystem {
     _rightLift.configMotionAcceleration(rampRate, TIMEOUT);
   }
 
-  public void setPosition(double position){
+  public void setLiftPosition(double position){
     _leftLift.set(ControlMode.MotionMagic, position);
     _rightLift.set(ControlMode.MotionMagic, position);
   }
 
+  public void setLeftSpeed(double speed){
+    _leftLift.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void setRightSpeed(double speed){
+    _rightLift.set(ControlMode.PercentOutput, speed);
+  }
+
   @Override
   public void initDefaultCommand() {
-    
+    setDefaultComand(new LiftMotorTest());
   }
 }
+ 

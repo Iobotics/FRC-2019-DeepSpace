@@ -30,16 +30,6 @@ public class OI {
   public OI(){
     runIntake.whileHeld(new RunIntake());
     runOutake.whileHeld(new RunOutake());
-<<<<<<< HEAD
-=======
-  }
-  public double getRightStickX(){
-    return _rStick.getX(); 
-  }
-
-  public double getRightStickY(){
-    return _rStick.getY();
->>>>>>> SparkDriveTrain
   }
 
   public double getLeftStickX(){
@@ -56,6 +46,10 @@ public class OI {
 
   public double getRightStickY(){
     return _rStick.getY();
+  }
+
+  public double getLeftStickZ(){
+    return _lStick.getZ();
   }
   
 }

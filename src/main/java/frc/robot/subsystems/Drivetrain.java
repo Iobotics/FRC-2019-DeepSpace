@@ -57,11 +57,6 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive _drive;
 
-<<<<<<< HEAD
-  private AnalogInput _pot = new AnalogInput(0);
-
-=======
->>>>>>> master
   public Drivetrain(){
 
   }
@@ -81,7 +76,7 @@ public class Drivetrain extends Subsystem {
     _backRightMain.setInverted(true);
    
 
-    _drive = new MecanumDrive(
+    _drive = new MecanumDrive( 
       _frontLeftMain, 
       _backLeftMain, 
       _frontRightMain,
