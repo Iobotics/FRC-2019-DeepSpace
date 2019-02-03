@@ -37,6 +37,6 @@ public class GrabHatch extends CommandGroup {
     addSequential(new WaitCommand(.25));
     addSequential(new OpenHook());
     addSequential(new WaitCommand(.25));
-    addSequential(new RetractHatch());
+    addSequential(new ExtendHatch());
   }
 }
