@@ -20,6 +20,9 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -44,17 +47,26 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  UsbCamera usbCamera0;
-  UsbCamera usbCamera1;
+  static UsbCamera usbCamera0;
+  static UsbCamera usbCamera1;
 
   int width = 2592; //640, 2592
   int height = 1944; //480, 1944
   int fps = 30;
-  VideoSink server;
-  VideoSource gray0;
+  VideoSink sink;
+  VideoSink toSink0;
+  VideoSink toSink1;
 
-  CameraServer inst0;
-  CameraServer inst1;
+
+  //CvSink cvSink0;
+  //CvSink cvSink1;
+  CvSource outputStream0;
+  CvSource outputStream1;
+  CvSource rawStream0;
+  CvSource rawStream1;
+  NetworkTable table;
+  NetworkTableEntry buttonStatus;
+  boolean buttonToggle;
 
   OI oi = new OI();
 
@@ -77,20 +89,25 @@ public class Robot extends TimedRobot {
 
     CommandBase.init();
     
-    //usbCamera0 = new UsbCamera("cam0", 0);
-    //usbCamera1 = new UsbCamera("cam1", 1);
-    
     usbCamera0 = CameraServer.getInstance().startAutomaticCapture(0);
+    outputStream0 = CameraServer.getInstance().putVideo("Camera0", 160, 120); //160, 120
+
+
     usbCamera1 = CameraServer.getInstance().startAutomaticCapture(1);
+    outputStream1 = CameraServer.getInstance().putVideo("Camera1", 160, 120);
 
     new Thread(() -> {
-      usbCamera0.setResolution(640, 480);
+      usbCamera0.setResolution(160, 120); //160, 120. 176, 144
+      usbCamera1.setResolution(160, 120);
       
-      CvSink cvSink0 = CameraServer.getInstance().getVideo();
-      CvSource outputStream0 = CameraServer.getInstance().putVideo("Camera0", 640, 480);
+      CvSink cvSink0 = CameraServer.getInstance().getVideo(usbCamera0);
+      CvSink cvSink1 = CameraServer.getInstance().getVideo(usbCamera1);
             
       Mat source0 = new Mat();
       Mat output0 = new Mat();
+      
+      Mat source1 = new Mat();
+      Mat output1 = new Mat();
       
       while(!Thread.interrupted()) {
         {
@@ -101,22 +118,7 @@ public class Robot extends TimedRobot {
           }
           Imgproc.cvtColor(source0, output0, Imgproc.COLOR_BGR2GRAY);
           outputStream0.putFrame(output0);
-        }
-      }
-  }).start();
-
-  new Thread(() -> {
-      usbCamera1.setResolution(176, 144);//320, 240; 176, 144
-    
-      CvSink cvSink1 = CameraServer.getInstance().getVideo();
-      CvSource outputStream1 = CameraServer.getInstance().putVideo("Camera1", 320, 240);
-      gray0 = outputStream1;
-      
-    
-      Mat source1 = new Mat();
-      Mat output1 = new Mat();
-    
-    while(!Thread.interrupted()) {
+          
           cvSink1.grabFrame(source1);
           if(cvSink1.grabFrame(source1) == 0)
           {
@@ -124,36 +126,18 @@ public class Robot extends TimedRobot {
           }
           Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2GRAY);
           outputStream1.putFrame(output1);
-    }
-}).start();
+        }
+      }
+  }).start();
     
-    server = CameraServer.getInstance().getServer();
+    sink = CameraServer.getInstance().getServer();
     usbCamera0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     usbCamera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-/*
-    inst0 = CameraServer.getInstance();
-    inst0.addCamera(usbCamera0);
-    mjpegserver0 = inst0.addServer("serve_USB Camera 0");
-    mjpegserver0.setSource(usbCamera0);
-    //mjpegserver0.getProperty("compression").set(100);
-    //mjpegserver0.getProperty("default_compression").set(100);
-    //mjpegserver0.getProperty("width").set(640);
-    //mjpegserver0.getProperty("height").set(480);
-    //usbCamera0.setResolution(640, 480);
-    //mjpegserver0.getProperty("fps").set(30);
-    //usbCamera0.setFPS(30);
+    outputStream0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    outputStream1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
 
-    inst1 = CameraServer.getInstance();
-    inst1.addCamera(usbCamera1);
-    mjpegserver1 = inst1.addServer("serve_USB Camera 1");
-    mjpegserver1.setSource(usbCamera1);*/
-    //mjpegserver1.getProperty("compression").set(100);
-    //mjpegserver1.getProperty("default_compression").set(0);
-    //mjpegserver1.getProperty("width").set(640);
-    //mjpegserver1.getProperty("height").set(480);
-    //usbCamera1.setResolution(640, 480);
-    //mjpegserver1.getProperty("fps").set(30);
-    //usbCamera1.setFPS(30);
+    //table = table.getInstance().getTable("table");
+    
   }
 
   /**
@@ -166,15 +150,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    
+      //table = table.getInstance().getTable("table");
+    
       if(oi.getAButton() || numCam == 4)
       {
         numCam = 0;
-        server.setSource(usbCamera1);
+        sink.setSource(usbCamera0);
       }
       if(oi.getBButton())
       {
         numCam = 1;
-        server.setSource(gray0);
+        sink.setSource(usbCamera1);
       }
       numCam = 3;
 
