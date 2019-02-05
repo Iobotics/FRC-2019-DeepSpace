@@ -21,7 +21,7 @@ public class RaiseIntake extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    intake.moveToPos(pos);
+    intake.setShooterPosition(pos);
   }
 
   // Called repeatedly when this Command is scheduled to run

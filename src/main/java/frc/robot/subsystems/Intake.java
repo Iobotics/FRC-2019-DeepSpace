@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -25,14 +26,19 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class Intake extends Subsystem {
-  TalonSRX leftIntake;
-  TalonSRX rightIntake;
-  TalonSRX outsideIntake;
-  TalonSRX intakeRaise;
+  TalonSRX leftShooter;
+  TalonSRX rightShooter;
+  TalonSRX intake;
+  TalonSRX shooterArm;
   
   Solenoid intakeOut;
 
   DigitalInput proximitySensor;
+
+  private int slotID = 0;
+  private double kP;
+  private double kI;
+  private double kD;
 
   @Override
   public void initDefaultCommand() {
@@ -42,18 +48,26 @@ public class Intake extends Subsystem {
 
   public void init()
   {
-    leftIntake = new TalonSRX(RobotMap.leftIntake);
-    leftIntake.setInverted(true);
-    leftIntake.setNeutralMode(NeutralMode.Coast);
+    leftShooter = new TalonSRX(RobotMap.leftShooter);
+    leftShooter.setInverted(true);
+    leftShooter.setNeutralMode(NeutralMode.Coast);
 
-    rightIntake = new TalonSRX(RobotMap.rightIntake);
-    rightIntake.setInverted(false);
-    rightIntake.setNeutralMode(NeutralMode.Coast);
+    rightShooter = new TalonSRX(RobotMap.rightShooter);
+    rightShooter.setInverted(false);
+    rightShooter.setNeutralMode(NeutralMode.Coast);
 
-    outsideIntake = new TalonSRX(RobotMap.outsideIntake);
+    intake = new TalonSRX(RobotMap.intake);
 
-    intakeRaise = new TalonSRX(RobotMap.intakeRaise);
-    intakeRaise.setNeutralMode(NeutralMode.Brake);
+    shooterArm = new TalonSRX(RobotMap.shooterArm);
+    shooterArm.setNeutralMode(NeutralMode.Brake);
+    shooterArm.configFactoryDefault();
+    shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    shooterArm.configFeedbackNotContinuous(true, 20);
+    shooterArm.setSensorPhase(true);
+    shooterArm.config_kP(slotID, kP);
+    shooterArm.config_kI(slotID, kI);
+    shooterArm.config_kP(slotID, kD);
+
     
     intakeOut = new Solenoid(RobotMap.intakeSolenoid);
     intakeOut.set(false);
@@ -61,26 +75,19 @@ public class Intake extends Subsystem {
     proximitySensor = new DigitalInput(RobotMap.proximitySensor);
   }
 
-  public void setPower(double power)
-  {
-    leftIntake.set(ControlMode.PercentOutput, power);
-    rightIntake.set(ControlMode.PercentOutput, -power);
-    if(power > 0){
-      outsideIntake.set(ControlMode.PercentOutput, power);
-    }
-  }
-  
-  public void moveToPos(int position){
-    double power = 0;
-    while(intakeRaise.getSelectedSensorPosition() < position - 5 || intakeRaise.getSelectedSensorPosition() > position + 5){
-      if(power < .7){
-        power += .001;
-      }
-      intakeRaise.set(ControlMode.PercentOutput, power * (position - intakeRaise.getSelectedSensorPosition()) / Math.abs((position - intakeRaise.getSelectedSensorPosition())));
-    }
-    intakeRaise.set(ControlMode.PercentOutput, 0);
+  public void setIntake(double speed){
+    intake.set(ControlMode.PercentOutput, speed);
   }
 
+  public void setShooter(double speed){
+    rightShooter.set(ControlMode.PercentOutput, speed);
+    leftShooter.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void setShooterPosition(double position){
+    shooterArm.set(ControlMode.Position, position);
+  }
+ 
   public boolean isBallIn(){
     return !proximitySensor.get();
   }
