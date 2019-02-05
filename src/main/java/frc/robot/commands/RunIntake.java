@@ -29,7 +29,7 @@ public class RunIntake extends CommandBase {
   @Override
   protected void execute() {
     if(power1 < 0 || (power1 > 0 && !intake.isBallIn())){
-      intake.setPower(power1);
+      intake.setShooter(power1);
     }
   }
 
@@ -42,7 +42,7 @@ public class RunIntake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.setPower(0);
+    intake.setShooter(0);
   }
 
   // Called when another command which requires one or more of the same
