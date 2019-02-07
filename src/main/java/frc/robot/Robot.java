@@ -65,7 +65,9 @@ public class Robot extends TimedRobot {
   CvSource rawStream0;
   CvSource rawStream1;
   NetworkTable table;
+  String address = "roborio-2438-frc.local";
   NetworkTableEntry buttonStatus;
+  NetworkTableInstance inst;
   boolean buttonToggle;
 
   OI oi = new OI();
@@ -135,8 +137,9 @@ public class Robot extends TimedRobot {
     usbCamera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     outputStream0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     outputStream1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    
+    table = NetworkTableInstance.getDefault().getTable("table");
 
-    //table = table.getInstance().getTable("table");
     
   }
 
@@ -151,8 +154,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     
-      //table = table.getInstance().getTable("table");
-    
+      //table.setServer(address);
+
+
       if(oi.getAButton() || numCam == 4)
       {
         numCam = 0;

@@ -13,11 +13,11 @@ void setup() {
   frameRate(30);
  
   
-  cam1 = new IPCapture(this, "http://roborio-2438-frc.local:1181/?action=stream", "", ""); //http://roborio-2438-frc.local:1181/?action=stream
-  cam2 = new IPCapture(this, "http://roborio-2438-frc.local:1182/?action=stream", "", ""); //http://roborio-2438-frc.local:1182/?action=stream
+  cam1 = new IPCapture(this, "http://frcvision.local:1181/?action=stream", "", ""); //http://roborio-2438-frc.local:1181/?action=stream
+  cam2 = new IPCapture(this, "http://frcvision.local:1182/?action=stream", "", ""); //http://roborio-2438-frc.local:1182/?action=stream
 
   cam1.start();
-    cam2.start();
+  cam2.start();
 }
 
 void draw() {
@@ -27,10 +27,10 @@ void draw() {
   }
   if(cam2.isAvailable()) {
    cam2.read();
-   image(cam2, 400, 0, 640, 480);
+   image(cam2, 400, 0, 400, 300);
   }
   
-  stroke(#FF0000);
+  /*stroke(#FF0000);
   strokeWeight(2);
   line(0, 150, 800, 150);
   line(200, 0, 200, 600);
@@ -38,5 +38,5 @@ void draw() {
   
   fill(#FF0000);
   textSize(30);
-  text(int(frameRate),20,60);
+  text(int(frameRate),20,60);*/
 }

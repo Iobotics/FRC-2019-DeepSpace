@@ -189,8 +189,7 @@ public class CameraDrive extends CommandBase
         SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
         SmartDashboard.putNumber("Distance", distance);
         SmartDashboard.putString("x direction", xDirection);
-        SmartDashboard.putString("If you should go forward", zDirection);  
-        SmartDashboard.putNumber("test", test);    
+        SmartDashboard.putString("If you should go forward", zDirection);
         /*
         if(a2 != 0)
         {
