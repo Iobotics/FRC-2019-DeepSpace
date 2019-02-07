@@ -7,31 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
-public class AutoCorrect extends CommandBase {
-  float kP = 1;
-  public AutoCorrect() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(drivetrain);
+public class ReverseRotateCamera extends CommandBase {
+  public ReverseRotateCamera() {
+    requires(rotater);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    rotater.backReverseCamera();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /*while(tx < -1 || tx > 1){
-      drivetrain.setMecanum(0, 0, tx/abs(tx)*kP);
-    }
-    while(ty < || ty > ){
-      drivetrain.setMecanum(0, 0, 0);
-    }*/
-    
+    //rotater.backReverseCamera();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -43,6 +33,7 @@ public class AutoCorrect extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    
   }
 
   // Called when another command which requires one or more of the same

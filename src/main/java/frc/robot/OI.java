@@ -15,6 +15,10 @@ import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.hatch.GrabHatch;
 import frc.robot.commands.GetBallIn;
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
+import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunOutake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,14 +46,6 @@ public class OI {
     _distance.whileHeld(new GetBallIn());
   }
 
-  public double getRightStickX() {
-    return _rStick.getX();
-  }
-
-  public double getRightStickY() {
-    return _rStick.getY();
-  }
-
   public double getLeftStickX() {
     return _lStick.getX();
   }
@@ -58,4 +54,12 @@ public class OI {
     return _lStick.getY();
   }
 
+  public double getRightStickX(){
+    return _rStick.getX();
+  }
+
+  public double getRightStickY(){
+    return _rStick.getY();
+  }
+  
 }
