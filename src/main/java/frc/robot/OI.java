@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
+import frc.robot.commands.ReverseRotateCamera;
+import frc.robot.commands.RotateCamera;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunOutake;
 
@@ -26,10 +28,14 @@ public class OI {
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton turnCamera = new JoystickButton(_rStick, 2);
+  private final JoystickButton backCamera = new JoystickButton(_lStick, 2);
 
   public OI(){
     runIntake.whileHeld(new RunIntake());
     runOutake.whileHeld(new RunOutake());
+    turnCamera.whenPressed(new RotateCamera());
+    backCamera.whenPressed(new ReverseRotateCamera());
   }
 
   public double getLeftStickX(){

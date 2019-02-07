@@ -9,30 +9,58 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RotateCamera;
 
 /**
  * Add your docs here.
  */
-public class camServo extends Subsystem {
+public class CameraServo extends Subsystem {
 
 private Servo servo;
 
   public void init(){
     servo = new Servo(1);
+
+    servo.set(0.00);
+  }
+    
+  public double getServoPosition(){
+    return servo.get();
+  }
+
+  public void backReverseCamera(){
+    servo.get();
+    if(servo.get() > 0.00){
+      for(double i = servo.get(); i > 0.00; i = i - 0.1){
+        servo.set(i);
+      }
+      servo.set(0.0);
+    }
   }
 
   public void turnCamera(){
-    servo.setAngle(180);
+    servo.get();
+    if(servo.get() == 0.0){
+      for(double i = servo.get(); i < 1.0; i = i + 0.1){
+        servo.set(i);
+      }
+      servo.set(1.0);
+    }//else{
+      //for(double i = servo.get(); i > 0; i = i - 0.1){
+        //servo.set(i);
+      //}  
+    //}
+    
   }
 
   public void safetyCancel(){
-    servo.setAngle(0);
+    servo.set(0);
   }
 
   @Override
   public void initDefaultCommand() {
-   setDefaultCommand(new RotateCamera());
+   //setDefaultCommand(new RotateCamera());
   }
 }
-}
+
