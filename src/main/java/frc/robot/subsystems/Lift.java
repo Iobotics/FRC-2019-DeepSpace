@@ -45,8 +45,8 @@ public class Lift extends Subsystem {
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
 
-    _leftLift.setInverted(true);
-    _rightLift.setInverted(false);
+    _leftLift.setInverted(false);
+    _rightLift.setInverted(true);
 
     _leftLift.setNeutralMode(NeutralMode.Brake);
     _rightLift.setNeutralMode(NeutralMode.Brake);
