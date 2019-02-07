@@ -9,15 +9,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 public class AutoDrive extends CommandBase {
 
-  double frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint;
-  double target;
+  private double frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint;
+  private double target;
+  private boolean _onTarget = false;
+  private double _onTargetTime;
 
   public AutoDrive(double target) {
     requires(drivetrain);
     this.target = target;
+  }
+
+  private boolean isOnTarget(){
+    return Constants.toleranceRange >= Math.abs(frontLeftSetPoint - drivetrain.getFrontLeftPosition());
   }
 
   // Called just before this Command runs the first time
@@ -34,13 +41,29 @@ public class AutoDrive extends CommandBase {
   protected void execute() {
     drivetrain.setSetPoint(frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint);
     SmartDashboard.putNumber("frontRightPos", drivetrain.getFrontRightPosition());
-    SmartDashboard.putNumber("FrontLEftPos", drivetrain.getFrontLeftPosition());
+    SmartDashboard.putNumber("FrontLeftPos", drivetrain.getFrontLeftPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (drivetrain.getFrontLeftPosition() >= frontLeftSetPoint);
+    if(!isOnTarget()){
+      _onTarget = false;
+      _onTargetTime = Double.MAX_VALUE;
+      return false;
+    }
+
+    else if (isOnTarget() && !_onTarget) {
+      _onTarget = true;
+      _onTargetTime = this.timeSinceInitialized() + 1;
+      return false;
+    }
+
+    else if (isOnTarget() && _onTarget && this.timeSinceInitialized() <= _onTargetTime){
+      return false;
+    }
+
+    return true;
   }
   
   @Override
