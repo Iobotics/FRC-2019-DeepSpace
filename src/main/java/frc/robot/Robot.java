@@ -137,6 +137,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
      SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
+
+     SmartDashboard.putNumber("Servo Position", CommandBase.rotater.getServoPosition());
+
   }
 
   /**
@@ -145,4 +148,5 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  
 }

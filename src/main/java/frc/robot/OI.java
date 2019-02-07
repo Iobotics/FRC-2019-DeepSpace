@@ -28,8 +28,8 @@ public class OI {
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
 
   public OI(){
-    runIntake.whileHeld(new RunIntake());
-    runOutake.whileHeld(new RunOutake());
+    runIntake.whileHeld(new RunIntake(0.5));
+    runOutake.whileHeld(new RunIntake(-0.5));
   }
 
   public double getLeftStickX(){

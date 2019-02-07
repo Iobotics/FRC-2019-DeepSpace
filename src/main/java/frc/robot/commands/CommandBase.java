@@ -8,6 +8,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
+import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
@@ -20,12 +21,14 @@ public abstract class CommandBase extends Command {
   public static NavSensor navSensor = new NavSensor();
   public static Intake intake = new Intake();
   public static Lift lift = new Lift();
+  public static CameraServo rotater = new CameraServo();
 
   public static void init(){
     navSensor.init();
     drivetrain.init();
     lift.init();
     intake.init();
+    rotater.init();
     oi = new OI();
 
     navSensor.init();
