@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunOutake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,8 +28,8 @@ public class OI {
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
 
   public OI(){
-    runIntake.whileHeld(new RunIntake(.5));
-    runOutake.whileHeld(new RunIntake(0.5));
+    runIntake.whileHeld(new RunIntake(0.5));
+    runOutake.whileHeld(new RunIntake(-0.5));
   }
 
   public double getLeftStickX(){
