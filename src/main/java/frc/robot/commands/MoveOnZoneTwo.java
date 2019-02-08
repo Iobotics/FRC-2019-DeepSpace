@@ -31,6 +31,7 @@ public class MoveOnZoneTwo extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+    addSequential(new LevelReset());
     addSequential(new ToggleZoneTwoFront());
     addSequential(new AutoDrive(20));
     addSequential(new ToggleZoneTwoBack());

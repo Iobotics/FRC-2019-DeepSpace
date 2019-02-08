@@ -7,11 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
+import frc.robot.commands.LevelReset;
 import frc.robot.commands.MoveOnZoneTwo;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunOutake;
@@ -28,10 +32,11 @@ public class OI {
   private final Joystick _rStick = new Joystick(1);
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
-  private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton runOutake = new JoystickButton(_lStick, 4);
   private final JoystickButton toggleFront = new JoystickButton(_rStick, 8);
   private final JoystickButton toggleBack = new JoystickButton(_rStick, 7);
   private final JoystickButton autoZoneTwo = new JoystickButton(_rStick, 10);
+  private final JoystickButton zoneReset = new JoystickButton(_rStick, 11);
 
   public OI(){
     runIntake.whileHeld(new RunIntake());
@@ -39,6 +44,7 @@ public class OI {
     toggleFront.whenPressed(new ToggleZoneTwoFront());
     toggleBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
+    zoneReset.whenPressed(new LevelReset());
   }
 
   public double getLeftStickX(){
