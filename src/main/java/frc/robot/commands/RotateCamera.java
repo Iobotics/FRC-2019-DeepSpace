@@ -5,23 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class RotateCamera extends CommandBase {
-  public RotateCamera() {
+  public void RotateCamera() {
     requires(rotater);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    rotater.turnCamera();
+   rotater.turnCamera();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     //rotater.turnCamera();
+    SmartDashboard.putString("RunMessage", "it's been run");
   }
 
   // Make this return true when this Command no longer needs to run execute()

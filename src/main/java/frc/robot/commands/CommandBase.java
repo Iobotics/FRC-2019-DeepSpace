@@ -30,6 +30,7 @@ public abstract class CommandBase extends Command {
 
     drivetrain.init();
     //navSensor.init();
+   
   }
 
   public CommandBase(String name) {

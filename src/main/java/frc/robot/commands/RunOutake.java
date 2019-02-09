@@ -7,8 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 public class RunOutake extends CommandBase {
   public RunOutake() {
     // Use requires() here to declare subsystem dependencies

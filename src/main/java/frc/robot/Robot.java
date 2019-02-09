@@ -15,11 +15,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDrive;
-import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.NavSensor;
+import frc.robot.commands.RotateCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -139,6 +137,8 @@ public class Robot extends TimedRobot {
      SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
      SmartDashboard.putNumber("Servo Position", CommandBase.rotater.getServoPosition());
+
+    
 
   }
 
