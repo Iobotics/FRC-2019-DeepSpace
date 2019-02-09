@@ -10,9 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RunIntake extends CommandBase {
-  public RunIntake() {
+
+  private double intakeSpeed;
+
+  public RunIntake(double intakeSpeed) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.intakeSpeed = intakeSpeed;
     requires(intake);
   }
 
@@ -24,7 +28,7 @@ public class RunIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.runIntake(.5,.5);
+    intake.runIntake(intakeSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +40,7 @@ public class RunIntake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.runIntake(0,0);
+    intake.runIntake(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -34,11 +34,11 @@ public class OI {
   private final JoystickButton autoZoneTwo = new JoystickButton(_rStick, 10);
 
   public OI(){
-    runIntake.whileHeld(new RunIntake());
-    runOutake.whileHeld(new RunOutake());
     toggleFront.whenPressed(new ToggleZoneTwoFront());
     toggleBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
+    runIntake.whileHeld(new RunIntake(0.5));
+    runOutake.whileHeld(new RunIntake(-0.5));
   }
 
   public double getLeftStickX(){
