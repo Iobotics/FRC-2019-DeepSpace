@@ -15,11 +15,10 @@ package frc.robot;
  */
 public class RobotMap {
 
-  public static final int frontLeftMain = 1;
-  public static final int frontLeftSlave = 0;
-  public static final int frontRightMain = 2;
-  public static final int frontRightSlave = 3;
+  public static final int frontLeftMain = 10;
+  public static final int frontRightMain = 9;
   
+<<<<<<< HEAD
   public static final int backLeftMain = 6;
   public static final int backLeftSlave = 7;
   public static final int backRightMain = 4;
@@ -35,4 +34,17 @@ public class RobotMap {
   public static final int intakeLeft = 8;
   public static final int intakeRight = 9;
 >>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
+=======
+  public static final int backLeftMain = 1;
+  public static final int backRightMain = 8;
+
+  public static final int intake = 6;
+
+  public static final int leftLift = 2;
+  public static final int rightLift = 5;
+
+  public static final int rightShooter = 7;
+  public static final int leftShooter = 4;
+  public static final int shooterArm = 3;
+>>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
 }

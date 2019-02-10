@@ -20,12 +20,13 @@ import frc.robot.commands.CommandBase;
 <<<<<<< HEAD
 =======
 import frc.robot.commands.ResetGyro;
-<<<<<<< HEAD
-=======
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.NavSensor;
+<<<<<<< HEAD
 >>>>>>> SparkDriveTrain
 >>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
+=======
+>>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -106,7 +107,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-    m_autonomousCommand = new AutoTurn(90);
+    m_autonomousCommand = new AutoDrive(10);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -144,29 +145,10 @@ public class Robot extends TimedRobot {
     
     Scheduler.getInstance().run();
     SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
-    /* 
-    SmartDashboard.putData("DriveTrain", CommandBase.drivetrain);
-    SmartDashboard.putNumber("kP Drive", CommandBase.drivetrain.getP());
-    SmartDashboard.putNumber("kI Drive", CommandBase.drivetrain.getI());
-    SmartDashboard.putNumber("kD Drive", CommandBase.drivetrain.getD());
-    SmartDashboard.putNumber("kFF Drive", CommandBase.drivetrain.getFF());
-    SmartDashboard.putNumber("kIzone Drive", CommandBase.drivetrain.getIzone());
 
-     double p = SmartDashboard.getNumber("kP Drive", 0);
-     if (p != CommandBase.drivetrain.getP()){CommandBase.drivetrain.setP(p);}
+     SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
-     double  i= SmartDashboard.getNumber("kI Drive", 0);
-     if (i != CommandBase.drivetrain.getI()){CommandBase.drivetrain.setI(i);}
-
-     double d = SmartDashboard.getNumber("kD Drive", 0);
-     if (d != CommandBase.drivetrain.getD()){CommandBase.drivetrain.setD(d);}
-
-     double ff = SmartDashboard.getNumber("kFF Drive", 0);
-     if (ff != CommandBase.drivetrain.getFF()){CommandBase.drivetrain.setFF(ff);}
-
-     double iZone = SmartDashboard.getNumber("kIzone Drive", 0);
-     if (iZone != CommandBase.drivetrain.getIzone()){CommandBase.drivetrain.setIzone(iZone );}
-     */
+     SmartDashboard.putNumber("Servo Position", CommandBase.rotater.getServoPosition());
 
   }
 
@@ -176,5 +158,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  
 }
 
