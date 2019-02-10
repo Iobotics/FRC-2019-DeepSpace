@@ -19,4 +19,7 @@ public class Constants {
     public static final double rotationsToWheel = 48/11;
     //equal to Inches / Rotations, multiply with rotations to get inches, divide inches to get rotations
     public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
+
+    //Range of tolerance for if the loop is completed, measured in motor rotatins
+    public static final double toleranceRange = 1;
 }

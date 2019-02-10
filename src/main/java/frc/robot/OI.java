@@ -7,9 +7,12 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 import frc.robot.commands.hatch.PopHatch;
@@ -17,15 +20,25 @@ import frc.robot.commands.hatch.RetractHatch;
 import frc.robot.commands.hatch.DropHatch;
 import frc.robot.commands.hatch.GrabHatch;
 =======
+=======
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> levelTwo
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
+import frc.robot.commands.LevelReset;
+import frc.robot.commands.MoveOnZoneTwo;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunOutake;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> SparkDriveTrain
 >>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
 =======
 >>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
+=======
+import frc.robot.commands.ToggleZoneTwoBack;
+import frc.robot.commands.ToggleZoneTwoFront;
+>>>>>>> levelTwo
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -56,9 +69,13 @@ public class OI {
 =======
 >>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
-  private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton runOutake = new JoystickButton(_lStick, 4);
+  private final JoystickButton toggleFront = new JoystickButton(_rStick, 7);
+  private final JoystickButton toggleBack = new JoystickButton(_rStick, 6);
+  private final JoystickButton zoneReset = new JoystickButton(_rStick, 11);
 
   public OI(){
+<<<<<<< HEAD
 <<<<<<< HEAD
     runIntake.whileHeld(new RunIntake());
     runOutake.whileHeld(new RunOutake());
@@ -73,6 +90,11 @@ public class OI {
     return _rStick.getY();
 >>>>>>> SparkDriveTrain
 =======
+=======
+    toggleFront.whenPressed(new ToggleZoneTwoFront());
+    toggleBack.whenPressed(new ToggleZoneTwoBack());
+    zoneReset.whenPressed(new LevelReset());
+>>>>>>> levelTwo
     runIntake.whileHeld(new RunIntake(0.5));
     runOutake.whileHeld(new RunIntake(-0.5));
 >>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799

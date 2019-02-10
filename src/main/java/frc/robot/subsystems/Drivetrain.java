@@ -7,10 +7,7 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
-=======
 import com.revrobotics.CANSparkMax;
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -18,12 +15,9 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
-<<<<<<< HEAD
-=======
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -67,7 +61,7 @@ public class Drivetrain extends Subsystem {
 
   }
   
-  public void init() {
+  public void init(){
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
 
@@ -153,15 +147,8 @@ public class Drivetrain extends Subsystem {
     return _backLeftCanEncoder.getPosition();
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  public void setSetPoint(double target){
-    _canController.setReference(target / INCHES_PER_ROTATION, ControlType.kPosition);
-=======
   public double getBackRightPosition(){
     return _backRightCanEncoder.getPosition();
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
   }
 
   public void invertSide(boolean inverted){
@@ -169,7 +156,6 @@ public class Drivetrain extends Subsystem {
     _backRightMain.setInverted(inverted);
   }
 
->>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   public void setTank(double left, double right) {
     _frontLeftMain.set(left);
     _backLeftMain.set(left);
@@ -177,30 +163,11 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
   public void setMecanum(double x, double y, double rotation) {
     _drive.driveCartesian(x, y, rotation);
   }
 
->>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
-<<<<<<< HEAD
-    drive.driveCartesian(x, y, rotation, gyroAngle);
-  }
-
-  public void setTurn(double target, double gyroAngle) {
-    _frontLeftMain.pidWrite(gyroAngle / 180);
-    _frontLeftMain.getPIDController().setReference(target * 180, ControlType.kDutyCycle, PID_TURN_SLOT);
-
-=======
-  public void setMecanum(double x, double y, double rotation, double gyroAngle){
-=======
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
     _drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 

@@ -17,16 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
-<<<<<<< HEAD
-=======
 import frc.robot.commands.ResetGyro;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.NavSensor;
-<<<<<<< HEAD
->>>>>>> SparkDriveTrain
->>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
-=======
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -131,10 +124,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-<<<<<<< HEAD
-=======
     (new ResetGyro()).start();
->>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
   }
 
   /**
