@@ -38,11 +38,11 @@ public class OI {
   private final JoystickButton zoneReset = new JoystickButton(_rStick, 11);
 
   public OI(){
-    runIntake.whileHeld(new RunIntake());
-    runOutake.whileHeld(new RunOutake());
     toggleFront.whenPressed(new ToggleZoneTwoFront());
     toggleBack.whenPressed(new ToggleZoneTwoBack());
     zoneReset.whenPressed(new LevelReset());
+    runIntake.whileHeld(new RunIntake(0.5));
+    runOutake.whileHeld(new RunIntake(-0.5));
   }
 
   public double getLeftStickX(){

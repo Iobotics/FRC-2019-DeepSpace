@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
 
     _pdp.clearStickyFaults();
     _compressor.clearAllPCMStickyFaults();
+
     _compressor.start();
 
     CommandBase.init();
@@ -137,6 +138,8 @@ public class Robot extends TimedRobot {
 
      SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
+     SmartDashboard.putNumber("Servo Position", CommandBase.rotater.getServoPosition());
+
   }
 
   /**
@@ -145,4 +148,5 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  
 }

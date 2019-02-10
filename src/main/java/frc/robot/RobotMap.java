@@ -21,8 +21,32 @@ public class RobotMap {
   public static final int intakeLeft = 4;
   public static final int intakeRight = 7;
 
+<<<<<<< HEAD
   public static final int zoneTwoFrontForward = 2;
   public static final int zoneTwoFrontReverse = 3;
   public static final int zoneTwoBackForward = 4;
   public static final int zoneTwoBackReverse = 5;
+=======
+  public static final int frontLeftMain = 10;
+  public static final int frontRightMain = 9;
+  
+
+
+  public static final int zoneTwoFrontForward = 0;
+  public static final int zoneTwoFrontReverse = 1;
+  public static final int zoneTwoBackForward = 2;
+  public static final int zoneTwoBackReverse = 3;
+
+  public static final int backLeftMain = 1;
+  public static final int backRightMain = 8;
+
+  public static final int intake = 6;
+
+  public static final int leftLift = 2;
+  public static final int rightLift = 5;
+
+  public static final int rightShooter = 7;
+  public static final int leftShooter = 4;
+  public static final int shooterArm = 3;
+>>>>>>> 4532cf68d059b8f20385c64fd63fed20894a5663
 }

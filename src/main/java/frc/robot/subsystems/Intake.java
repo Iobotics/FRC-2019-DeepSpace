@@ -22,8 +22,7 @@ public class Intake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private TalonSRX intakeLeft;
-  private TalonSRX intakeRight;
+  private TalonSRX intake;
 
   @Override
   public void initDefaultCommand() {
@@ -34,15 +33,11 @@ public class Intake extends Subsystem {
   public void init()
   {
     
-    intakeLeft = new TalonSRX(RobotMap.intakeLeft);
-    intakeRight = new TalonSRX(RobotMap.intakeRight);
-
-    intakeRight.setInverted(true);
+    intake = new TalonSRX(RobotMap.intake);
   }
 
-  public void runIntake(double left, double right)
+  public void runIntake(double power)
   {
-    intakeLeft.set(ControlMode.PercentOutput, left);
-    intakeRight.set(ControlMode.PercentOutput, right);
+    intake.set(ControlMode.PercentOutput, power);
   }
 }
