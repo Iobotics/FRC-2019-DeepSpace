@@ -6,11 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.HatchCollector;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LevelTwoLift;
 import frc.robot.subsystems.NavSensor;
@@ -20,30 +20,15 @@ public abstract class CommandBase extends Command {
   public static OI oi;
   public static Drivetrain drivetrain = new Drivetrain();
   public static NavSensor navSensor = new NavSensor();
-  public static HatchCollector hatchCollector = new HatchCollector();
   public static Intake intake = new Intake();
-  public static LevelTwoLift levelTwo = new LevelTwoLift();
   public static CameraServo rotater = new CameraServo();
+  public static LevelTwoLift levelTwo = new LevelTwoLift();
 
   public static void init() {
     navSensor.init();
-<<<<<<< HEAD
-<<<<<<< HEAD
     drivetrain.init();
-    hatchCollector.init();
     intake.init();
-=======
-    //drivetrain.init();
-   // intake.init();
-    rotater.init();
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
-=======
-    drivetrain.init();
-    //intake.init();
     levelTwo.init();
-    rotater.init();
-
->>>>>>> levelTwo
     oi = new OI();
 
     drivetrain.init();

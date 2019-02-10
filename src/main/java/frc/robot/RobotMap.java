@@ -14,49 +14,14 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  public static final int frontLeftMain = 10;
-  public static final int frontRightMain = 9;
-  public static final int backLeftMain = 1;
-  public static final int backRightMain = 8;
-  public static final int intakeLeft = 4;
-  public static final int intakeRight = 7;
 
-<<<<<<< HEAD
   public static final int zoneTwoFrontForward = 2;
   public static final int zoneTwoFrontReverse = 3;
   public static final int zoneTwoBackForward = 4;
   public static final int zoneTwoBackReverse = 5;
-=======
+  
   public static final int frontLeftMain = 10;
   public static final int frontRightMain = 9;
-  
-<<<<<<< HEAD
-<<<<<<< HEAD
-  public static final int backLeftMain = 6;
-  public static final int backLeftSlave = 7;
-  public static final int backRightMain = 4;
-  public static final int backRightSlave = 5;
-<<<<<<< HEAD
-  
-  public static final int hookSolenoid = 0;
-  public static final int extendOneSolenoidForward  = 1;
-  public static final int extendOneSolenoidReverse  = 2;
-  public static final int extendTwoSolenoidForward = 3;
-  public static final int extendTwoSolenoidReverse = 4;
-=======
-  public static final int intakeLeft = 8;
-  public static final int intakeRight = 9;
->>>>>>> c307a4ec7b67a2a643624881d3ecde2ccb6db331
-=======
-=======
-
-
-  public static final int zoneTwoFrontForward = 0;
-  public static final int zoneTwoFrontReverse = 1;
-  public static final int zoneTwoBackForward = 2;
-  public static final int zoneTwoBackReverse = 3;
-
->>>>>>> levelTwo
   public static final int backLeftMain = 1;
   public static final int backRightMain = 8;
 
@@ -68,9 +33,4 @@ public class RobotMap {
   public static final int rightShooter = 7;
   public static final int leftShooter = 4;
   public static final int shooterArm = 3;
-<<<<<<< HEAD
->>>>>>> 2bdcfa97a2ce64240353508a2d6f307760ccb799
-=======
->>>>>>> 4532cf68d059b8f20385c64fd63fed20894a5663
->>>>>>> levelTwo
 }
