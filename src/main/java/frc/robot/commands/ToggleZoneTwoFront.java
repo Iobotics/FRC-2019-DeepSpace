@@ -18,7 +18,7 @@ public class ToggleZoneTwoFront extends CommandBase {
   //Toggles front piston, if they are up they deploy, if they are down they retract
   @Override
   protected void initialize() {
-    if(levelTwo.frontWheelDown()){
+    if(!levelTwo.frontWheelDown()){
       levelTwo.deployMidWheels();
     } else {
       levelTwo.retractMidWheels();

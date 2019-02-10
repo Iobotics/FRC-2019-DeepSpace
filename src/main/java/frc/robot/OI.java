@@ -33,9 +33,8 @@ public class OI {
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 4);
-  private final JoystickButton toggleFront = new JoystickButton(_rStick, 8);
-  private final JoystickButton toggleBack = new JoystickButton(_rStick, 7);
-  private final JoystickButton autoZoneTwo = new JoystickButton(_rStick, 10);
+  private final JoystickButton toggleFront = new JoystickButton(_rStick, 7);
+  private final JoystickButton toggleBack = new JoystickButton(_rStick, 6);
   private final JoystickButton zoneReset = new JoystickButton(_rStick, 11);
 
   public OI(){
@@ -43,7 +42,6 @@ public class OI {
     runOutake.whileHeld(new RunOutake());
     toggleFront.whenPressed(new ToggleZoneTwoFront());
     toggleBack.whenPressed(new ToggleZoneTwoBack());
-    autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     zoneReset.whenPressed(new LevelReset());
   }
 

@@ -24,7 +24,7 @@ public abstract class CommandBase extends Command {
   public static void init(){
     navSensor.init();
     drivetrain.init();
-    intake.init();
+    //intake.init();
     levelTwo.init();
     oi = new OI();
 
