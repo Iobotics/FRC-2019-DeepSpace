@@ -16,6 +16,7 @@ import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunOutake;
 import frc.robot.commands.ToggleZoneTwoFront;
 import frc.robot.commands.ToggleZoneTwoBack;
+import frc.robot.commands.MoveOnZoneTwo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,12 +31,16 @@ public class OI {
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
+  private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
+  private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
 
   public OI(){
     runIntake.whileHeld(new RunIntake(0.5));
     runOutake.whileHeld(new RunIntake(-0.5));
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
+    autoZoneTwo.whenPressed(new MoveOnZoneTwo());
+    autoDriveTest.whenPressed(new AutoDrive(60));
   }
 
   public double getLeftStickX(){

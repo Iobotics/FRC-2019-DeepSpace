@@ -138,8 +138,6 @@ public class Robot extends TimedRobot {
 
      SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
-     SmartDashboard.putNumber("Servo Position", CommandBase.rotater.getServoPosition());
-
   }
 
   /**

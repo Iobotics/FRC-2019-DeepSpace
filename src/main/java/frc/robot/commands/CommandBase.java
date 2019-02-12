@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LevelTwoLift;
@@ -21,13 +20,12 @@ public abstract class CommandBase extends Command {
   public static Drivetrain drivetrain = new Drivetrain();
   public static NavSensor navSensor = new NavSensor();
   public static Intake intake = new Intake();
-  public static CameraServo rotater = new CameraServo();
   public static LevelTwoLift levelTwo = new LevelTwoLift();
 
   public static void init() {
     navSensor.init();
     drivetrain.init();
-    intake.init();
+    //intake.init();
     levelTwo.init();
     oi = new OI();
 

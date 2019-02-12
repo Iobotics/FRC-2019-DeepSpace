@@ -33,11 +33,12 @@ public class MoveOnZoneTwo extends CommandGroup {
     // arm.
     addSequential(new LevelReset());
     addSequential(new ToggleZoneTwoFront());
-    addSequential(new AutoDrive(20));
+    addSequential(new AutoDrive(24));
     addSequential(new ToggleZoneTwoBack());
+    addSequential(new AutoDrive(3));
     addSequential(new WaitCommand(1));
     addSequential(new ToggleZoneTwoFront());
-    addSequential(new AutoDrive(20));
+    addSequential(new AutoDrive(24));
     addSequential(new ToggleZoneTwoBack());
   }
 }

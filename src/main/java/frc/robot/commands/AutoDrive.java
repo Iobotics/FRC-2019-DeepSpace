@@ -39,7 +39,7 @@ public class AutoDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    drivetrain.setSetPoint(frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint);
+    drivetrain.setSetPoint(frontLeftSetPoint/Constants.rotationsToInches, frontRightSetPoint/Constants.rotationsToInches, backLeftSetPoint/Constants.rotationsToInches, backRightSetPoint/Constants.rotationsToInches);
     SmartDashboard.putNumber("frontRightPos", drivetrain.getFrontRightPosition());
     SmartDashboard.putNumber("FrontLeftPos", drivetrain.getFrontLeftPosition());
   }
