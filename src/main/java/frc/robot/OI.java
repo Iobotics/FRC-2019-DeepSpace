@@ -35,8 +35,6 @@ public class OI {
   private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
 
   public OI(){
-    runIntake.whileHeld(new RunIntake(0.5));
-    runOutake.whileHeld(new RunIntake(-0.5));
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
