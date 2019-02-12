@@ -25,8 +25,6 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
 
-  private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
-  private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);

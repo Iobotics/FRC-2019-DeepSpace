@@ -21,5 +21,5 @@ public class Constants {
     public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
 
     //Range of tolerance for if the loop is completed, measured in motor rotatins
-    public static final double toleranceRange = 1;
+    public static final double toleranceRange = 2;
 }
