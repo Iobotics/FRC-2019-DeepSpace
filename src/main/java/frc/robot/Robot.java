@@ -65,12 +65,14 @@ public class Robot extends TimedRobot {
   CvSource rawStream0;
   CvSource rawStream1;
   NetworkTable table;
-  NetworkTableEntry buttonStatus;
+  NetworkTableEntry yButton;
+  //NetworkTableEntry xButton;
   NetworkTableInstance inst;
-  boolean buttonToggle;
+  //boolean buttonToggle;
 
   NetworkTable testTable;
   NetworkTableEntry testButton;
+  NetworkTableEntry testNumber;
   NetworkTableInstance testInst;
 
   OI oi = new OI();
@@ -97,63 +99,15 @@ public class Robot extends TimedRobot {
     inst = NetworkTableInstance.getDefault();
     inst.startClientTeam(2438);
     table = inst.getTable("outTable");
-    buttonStatus = table.getEntry("aButton");
+    yButton = table.getEntry("yButton");
+    //xButton = table.getEntry("xButton");
 
     testInst = NetworkTableInstance.getDefault();
     testInst.startClientTeam(2438);
     testTable = testInst.getTable("testTable");
     testButton = testTable.getEntry("testButton");
-    
-    /*usbCamera0 = CameraServer.getInstance().startAutomaticCapture(0); //Start the stream for the first camera and publish that on a camera server
-    outputStream0 = CameraServer.getInstance().putVideo("Camera0", 160, 120); //160, 120; put this source camera server stream of something
+    testNumber = testTable.getEntry("testNumber");
 
-
-    usbCamera1 = CameraServer.getInstance().startAutomaticCapture(1);
-    outputStream1 = CameraServer.getInstance().putVideo("Camera1", 160, 120);
-
-    new Thread(() -> {
-      usbCamera0.setResolution(160, 120); //160, 120. 176, 144
-      usbCamera1.setResolution(160, 120);
-      
-      CvSink cvSink0 = CameraServer.getInstance().getVideo(usbCamera0); //Sink of images to
-      CvSink cvSink1 = CameraServer.getInstance().getVideo(usbCamera1);
-            
-      Mat source0 = new Mat(); //Images into a matrice
-      Mat output0 = new Mat();
-      
-      Mat source1 = new Mat();
-      Mat output1 = new Mat();
-      
-      while(!Thread.interrupted()) {
-        {
-          cvSink0.grabFrame(source0); //Into source
-          if(cvSink0.grabFrame(source0) == 0) //If there is a timeout
-          {
-            SmartDashboard.putString("Error", cvSink0.getError());
-          }
-          Imgproc.cvtColor(source0, output0, Imgproc.COLOR_BGR2GRAY);//To gray
-          outputStream0.putFrame(output0);//To to the outputsream
-          
-          cvSink1.grabFrame(source1);
-          if(cvSink1.grabFrame(source1) == 0)
-          {
-            SmartDashboard.putString("Error", cvSink1.getError());
-          }
-          Imgproc.cvtColor(source1, output1, Imgproc.COLOR_BGR2GRAY);
-          outputStream1.putFrame(output1);
-        }
-      }
-  }).start();
-    
-    sink = CameraServer.getInstance().getServer();//Creates an mjpeg server
-    usbCamera0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen); //Not close because of sinks
-    usbCamera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    outputStream0.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    outputStream1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    
-    table = NetworkTableInstance.getDefault().getTable("table");*/
-
-    
   }
 
   /**
@@ -166,23 +120,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
-      //table.setServer(address);
-
-      /*if(oi.getAButton() || numCam == 4)
-      {
-        numCam = 0;
-        sink.setSource(usbCamera0);//Set source of server to this video sink
-      }
-      if(oi.getBButton())
-      {
-        numCam = 1;
-        sink.setSource(usbCamera1);
-      }
-      numCam = 3;*/
-
-      buttonStatus.setBoolean(oi.getAButton());
+      yButton.setBoolean(oi.getYButton());
+      //xButton.setBoolean(oi.getXButton());
       SmartDashboard.putBoolean("button", testButton.getBoolean(false));
+      SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
    }
 
   /**

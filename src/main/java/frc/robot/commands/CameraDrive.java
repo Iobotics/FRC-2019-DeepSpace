@@ -8,86 +8,86 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CameraDrive extends CommandBase
 {
     NetworkTable table;
-    NetworkTable outTable; 
-    NetworkTableInstance inst;
-    NetworkTableEntry tv;
-    NetworkTableEntry tx;
-    NetworkTableEntry tx0;
-    NetworkTableEntry tx1;
-    NetworkTableEntry tx2;
-    NetworkTableEntry ty0;
-    NetworkTableEntry ty1;
-    NetworkTableEntry ty2;
-    NetworkTableEntry ta;
-    NetworkTableEntry ta0;
-    NetworkTableEntry ta1;
-    NetworkTableEntry ta2;
-    NetworkTableEntry ts;
-    NetworkTableEntry tl;
-    NetworkTableEntry ty;
+  NetworkTable outTable; 
+  NetworkTableInstance inst;
+  NetworkTableEntry tv;
+  NetworkTableEntry tx;
+  NetworkTableEntry tx0;
+  NetworkTableEntry tx1;
+  NetworkTableEntry tx2;
+  NetworkTableEntry ty0;
+  NetworkTableEntry ty1;
+  NetworkTableEntry ty2;
+  NetworkTableEntry ta;
+  NetworkTableEntry ta0;
+  NetworkTableEntry ta1;
+  NetworkTableEntry ta2;
+  NetworkTableEntry ts;
+  NetworkTableEntry tl;
+  NetworkTableEntry ty;
 
-    NetworkTableEntry _distance;
-    NetworkTableEntry _x;
-    NetworkTableEntry _good;
-    NetworkTableEntry _aButton;
+  NetworkTableEntry _distance;
+  NetworkTableEntry _x;
+  NetworkTableEntry _good;
+  NetworkTableEntry _aButton;
 
-    double isDetected;
-    double x = 0;
-    double x0;
-    double x1;
-    double x2;
-    double y;
-    double y0;
-    double y1;
-    double y2;
-    double area;
-    double a0;
-    double a1;
-    double a2;
-    double a3;
-    double rotation;
-    double latency;
-    double distance = 0;
-    double heightLowerRocket = 28.75;
-    double heightHigherRocket = 0;
-    double heightCargo = 0;
-    double heightCamera = 34.75;
-    double height = heightCamera - heightLowerRocket; //inches
-    double contours;
-    double[] diff = new double[3];
-    double pixelX;
-    double pixelY;
-    double nx;
-    double ny;
-    double vpw;
-    double vph;
-    double vx;
-    double vy;
-    double deltaX;
-    double deltaY;
+  double isDetected;
+  double x = 0;
+  double x0;
+  double x1;
+  double x2;
+  double y;
+  double y0;
+  double y1;
+  double y2;
+  double area;
+  double a0;
+  double a1;
+  double a2;
+  double a3;
+  double rotation;
+  double latency;
+  double distance = 0;
+  double heightLowerRocket = 28.75;
+  double heightHigherRocket = 0;
+  double heightCargo = 0;
+  double heightCamera = 34.75;
+  double height = heightCamera - heightLowerRocket; //inches
+  double contours;
+  double[] diff = new double[3];
+  double pixelX;
+  double pixelY;
+  double nx;
+  double ny;
+  double vpw;
+  double vph;
+  double vx;
+  double vy;
+  double deltaX;
+  double deltaY;
 
-    int best = 3;
+  int best = 3;
 
-    double kF = .1; //kF .1
-    double kP = .02; //kP .02
-    double kI = 0;
-    double kD = 0;
+  double kF = .1; //kF .1
+  double kP = .02; //kP .02
+  double kI = 0;
+  double kD = 0;
 
-    double threshHold = .2; //degrees; -1, -6 (-1,-6 Experiment)
-    double threshHoldLowerX = -6;
-    double threshHoldHigherX = 6;
-    double thresholdDistance = 32; //Inches
-    double error;
-    double maxSpeed = 1;
-    double speed;
-    double stickX;
-    double stickY;
-    double test = 0;
+  double threshHold = .2; //degrees; -1, -6 (-1,-6 Experiment)
+  double threshHoldLowerX = -6;
+  double threshHoldHigherX = 6;
+  double thresholdDistance = 32; //Inches
+  double error;
+  double maxSpeed = 1;
+  double speed;
+  double stickX;
+  double stickY;
+  double test = 0;
 
-    boolean goodToShoot = false;
+  boolean goodToShoot = false;
 
-    String xDirection;
-    String zDirection;
+  String xDirection;
+  String zDirection;
 
     public CameraDrive()
     {
@@ -171,41 +171,12 @@ public class CameraDrive extends CommandBase
         y = ty.getDouble(0.0);
         distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
         x = tx.getDouble(0.0);
-        x0 = tx0.getDouble(0.0);
-        x1 = tx1.getDouble(0.0);
-        x2 = tx2.getDouble(0.0);
-        y0 = ty0.getDouble(0.0);
-        y1 = ty0.getDouble(0.0);
-        y2 = ty0.getDouble(0.0);
-        a0 = ta0.getDouble(0.0);
-        a1 = ta1.getDouble(0.0);
-        a2 = ta2.getDouble(0.0); 
 
         _good.setBoolean(goodToShoot);
         _x.setNumber(x);
         _distance.setNumber(distance);
         _aButton.setBoolean(oi.getAButton());
 
-        
-        //SmartDashboard.putNumber("y0", y0); //target to robot's left negative, right positive
-        //SmartDashboard.putNumber("y1", y1);
-        //SmartDashboard.putNumber("y2", y2);
-        //SmartDashboard.putNumber("area", area);
-        //SmartDashboard.putNumber("isDetected", isDetected);
-        //SmartDashboard.putNumber("Rotation of Target", rotation);
-        //SmartDashboard.putNumber("latency", latency);
-        //SmartDashboard.putNumber("y", y);
-        //SmartDashboard.putNumber("distance", distance);
-        //SmartDashboard.putNumber("a0", a0);
-        //SmartDashboard.putNumber("a1", a1);
-        //SmartDashboard.putNumber("a2", a2);
-        //SmartDashboard.putNumber("best", best);
-        //System.out.println(x);
-        //System.out.println(distance);
-        SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
-        SmartDashboard.putNumber("Distance", distance);
-        SmartDashboard.putString("x direction", xDirection);
-        SmartDashboard.putString("If you should go forward", zDirection);
         if(oi.getAButton())
         {
             error = x;
@@ -225,6 +196,16 @@ public class CameraDrive extends CommandBase
             drivetrain.setMecanum(-stickX, -stickY, speed);
             SmartDashboard.putNumber("speed", speed);
             SmartDashboard.putNumber("x", x);
+            //SmartDashboard.putNumber("area", area);
+            //SmartDashboard.putNumber("isDetected", isDetected);
+            //SmartDashboard.putNumber("Rotation of Target", rotation);
+            //SmartDashboard.putNumber("latency", latency);
+            //SmartDashboard.putNumber("y", y);
+            //SmartDashboard.putNumber("distance", distance);
+            SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
+            SmartDashboard.putNumber("Distance", distance);
+            SmartDashboard.putString("x direction", xDirection);
+            SmartDashboard.putString("If you should go forward", zDirection);
     }
 
 
