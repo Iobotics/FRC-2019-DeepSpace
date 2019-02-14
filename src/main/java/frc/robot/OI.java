@@ -33,8 +33,7 @@ public class OI {
 
   public boolean getXButton()
   {
-    //return _xStick.getRawButtonPressed(3);
-    return _xStick.getRawButton(1);
+    return _xStick.getRawButton(3);
   }
 
   public boolean getYButton()
@@ -45,7 +44,7 @@ public class OI {
 
   public boolean getAButton()
   {
-    return _xStick.getRawButton(2);
+    return _xStick.getRawButton(1);
   }
 
   public boolean getBButton()

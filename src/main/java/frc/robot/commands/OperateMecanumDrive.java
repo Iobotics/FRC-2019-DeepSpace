@@ -28,8 +28,8 @@ public class OperateMecanumDrive extends CommandBase {
   protected void execute() {
     SmartDashboard.putNumber("test", test);
 
-    double x = oi.getLeftStickX()*.3;
-    double y = -oi.getLeftStickY()*.3;
+    double x = -oi.getLeftStickX()*.3;
+    double y = oi.getLeftStickY()*.3;
     //double rotation = oi.getRightStickX();
     double rotation = 0;
     if(oi.getXButton())

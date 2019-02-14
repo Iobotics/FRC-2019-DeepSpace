@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CameraDrive extends CommandBase
 {
-    NetworkTable table; 
+    NetworkTable table;
+    NetworkTable outTable; 
+    NetworkTableInstance inst;
     NetworkTableEntry tv;
     NetworkTableEntry tx;
     NetworkTableEntry tx0;
@@ -23,6 +25,11 @@ public class CameraDrive extends CommandBase
     NetworkTableEntry ts;
     NetworkTableEntry tl;
     NetworkTableEntry ty;
+
+    NetworkTableEntry _distance;
+    NetworkTableEntry _x;
+    NetworkTableEntry _good;
+    NetworkTableEntry _aButton;
 
     double isDetected;
     double x = 0;
@@ -90,17 +97,40 @@ public class CameraDrive extends CommandBase
     @Override
     protected void initialize()
     {
+        table = NetworkTableInstance.getDefault().getTable("limelight");
         
+        tv = table.getEntry("tv");
+        ta = table.getEntry("ta");
+        ts = table.getEntry("ts");
+        tl = table.getEntry("tl");
+        ty = table.getEntry("ty");
+        tx = table.getEntry("tx");
+        tx0 = table.getEntry("tx0");
+        tx1 = table.getEntry("tx1");
+        tx2 = table.getEntry("tx2");
+        ty0 = table.getEntry("ty0");
+        ty1 = table.getEntry("ty1");
+        ty2 = table.getEntry("ty2");
+        ta0 = table.getEntry("ta0");
+        ta1 = table.getEntry("ta1");
+        ta2 = table.getEntry("ta2");
+
+        inst = NetworkTableInstance.getDefault();
+        outTable = inst.getTable("outTable");
+
+        _distance = outTable.getEntry("distance");
+        _x = outTable.getEntry("x");
+        _good = outTable.getEntry("good");
+        _aButton = outTable.getEntry("aButton");
     }
 
     @Override
     protected void execute()
     {
-        table = NetworkTableInstance.getDefault().getTable("limelight"); 
         stickX = oi.getLeftStickX()*.3; //Right positive, left negative
         stickY = -oi.getLeftStickY()*.3;
         speed = 0;
-        if(oi.getXButton())
+        if(oi.getXButton()) //turn
         {
             speed = -.2;
         }
@@ -108,14 +138,9 @@ public class CameraDrive extends CommandBase
         {
             speed = .2;
         }
-        /*if(oi.getAButton())
-        {
-            //System.out.println("\n-------------");
-            //test--;
-        }*/
 
         if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
-        {
+        {//Indicators of how the bot is close to the target
             goodToShoot = true;
             xDirection = "No";
             zDirection = "No";
@@ -138,21 +163,6 @@ public class CameraDrive extends CommandBase
 
         }
 
-        tv = table.getEntry("tv");
-        ta = table.getEntry("ta");
-        ts = table.getEntry("ts");
-        tl = table.getEntry("tl");
-        ty = table.getEntry("ty");
-        tx = table.getEntry("tx");
-        tx0 = table.getEntry("tx0");
-        tx1 = table.getEntry("tx1");
-        tx2 = table.getEntry("tx2");
-        ty0 = table.getEntry("ty0");
-        ty1 = table.getEntry("ty1");
-        ty2 = table.getEntry("ty2");
-        ta0 = table.getEntry("ta0");
-        ta1 = table.getEntry("ta1");
-        ta2 = table.getEntry("ta2");
 
         isDetected = tv.getDouble(0.0);
         area = ta.getDouble(0.0);
@@ -170,6 +180,12 @@ public class CameraDrive extends CommandBase
         a0 = ta0.getDouble(0.0);
         a1 = ta1.getDouble(0.0);
         a2 = ta2.getDouble(0.0); 
+
+        _good.setBoolean(goodToShoot);
+        _x.setNumber(x);
+        _distance.setNumber(distance);
+        _aButton.setBoolean(oi.getAButton());
+
         
         //SmartDashboard.putNumber("y0", y0); //target to robot's left negative, right positive
         //SmartDashboard.putNumber("y1", y1);
@@ -190,59 +206,25 @@ public class CameraDrive extends CommandBase
         SmartDashboard.putNumber("Distance", distance);
         SmartDashboard.putString("x direction", xDirection);
         SmartDashboard.putString("If you should go forward", zDirection);
-        /*
-        if(a2 != 0)
+        if(oi.getAButton())
         {
-            diff[0] = Math.abs(y0-y1);
-            diff[1] = Math.abs(y1-y2);
-            diff[2] = Math.abs(y0-y2);
-            if(diff[0] < diff[1])
+            error = x;
+            if(x > threshHold) //Target is on robot's right, PID loop to turn to the target
             {
-                best = 0;
+                speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
+            }
+            else if(x < -threshHold)//Is on robot's left
+            {
+                speed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
             }
             else
             {
-                best = 1;
+                speed = 0;
             }
-            if(diff[2]<diff[best])
-            {
-                best = 2;
-            }
-            if(best == 0)
-            {
-                pixelX = (x0 + x1)/2;
-                pixelY = (y0 + y1)/2;
-            }
-            else if(best == 1)
-            {
-                pixelX = (x1 + x2)/2;
-                pixelY = (y1 + y2)/2;
-            }
-            else if(best == 2)
-            {
-                pixelX = (x0 + x2)/2;
-                pixelY = (y0 + y2)/2;
-            }
-            x = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(54/2)) * (pixelX*160))));
-            y = Math.toDegrees(Math.atan2(1, (Math.tan(Math.toRadians(41/2)) * (pixelY*120))));
         }
-        */
-        /*error = x;
-        if(x > threshHold) //Target is on robot's right
-        {
-            speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
-        }
-        else if(x < -threshHold)//Is on robot's left
-        {
-            speed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
-        }
-        else
-        {
-            speed = 0;
-        }*/
-        drivetrain.setMecanum(-stickX, -stickY, speed);
-        SmartDashboard.putNumber("speed", speed);
-        SmartDashboard.putNumber("x", x);
+            drivetrain.setMecanum(-stickX, -stickY, speed);
+            SmartDashboard.putNumber("speed", speed);
+            SmartDashboard.putNumber("x", x);
     }
 
 
