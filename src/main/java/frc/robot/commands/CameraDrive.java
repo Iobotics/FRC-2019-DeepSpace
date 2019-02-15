@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -142,26 +144,33 @@ public class CameraDrive extends CommandBase
         if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
         {//Indicators of how the bot is close to the target
             goodToShoot = true;
-            xDirection = "No";
-            zDirection = "No";
         }
         else
         {
-            if(x < threshHoldLowerX)
-            { 
-                xDirection = "Left";
-            }
-            else if(x > threshHoldHigherX)
-            {
-                xDirection = "Right";
-            }
-            if(distance > thresholdDistance)
-            {
-                zDirection = "Forward";
-            }
             goodToShoot = false;
-
         }
+
+        if(x < threshHoldLowerX)
+        { 
+            xDirection = "Left"; //target to the left
+        }
+        else if(x > threshHoldHigherX)
+        {
+            xDirection = "Right";
+        }
+        else{
+            xDirection = "Good";
+        }
+
+        if(distance > thresholdDistance)
+        {
+            zDirection = "Forward";
+        }
+        else
+        {
+            zDirection = "Good";
+        }    
+        
 
 
         isDetected = tv.getDouble(0.0);

@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateMecanumDrive());
-    //setDefaultCommand(new CameraDrive());
+    //setDefaultCommand(new OperateMecanumDrive());
+    setDefaultCommand(new CameraDrive());
   }
 }

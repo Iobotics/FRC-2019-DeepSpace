@@ -43,7 +43,7 @@ import frc.robot.commands.CommandBase;
 public class Robot extends TimedRobot {
 
   PowerDistributionPanel _pdp;
-  Compressor _compressor;
+  //Compressor _compressor;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -70,10 +70,10 @@ public class Robot extends TimedRobot {
   NetworkTableInstance inst;
   //boolean buttonToggle;
 
-  NetworkTable testTable;
-  NetworkTableEntry testButton;
-  NetworkTableEntry testNumber;
-  NetworkTableInstance testInst;
+  //NetworkTable testTable;
+  //NetworkTableEntry testButton;
+  //NetworkTableEntry testNumber;
+  //NetworkTableInstance testInst;
 
   OI oi = new OI();
 
@@ -102,11 +102,11 @@ public class Robot extends TimedRobot {
     yButton = table.getEntry("yButton");
     //xButton = table.getEntry("xButton");
 
-    testInst = NetworkTableInstance.getDefault();
-    testInst.startClientTeam(2438);
-    testTable = testInst.getTable("testTable");
-    testButton = testTable.getEntry("testButton");
-    testNumber = testTable.getEntry("testNumber");
+    //testInst = NetworkTableInstance.getDefault();
+    //testInst.startClientTeam(2438);
+    //testTable = testInst.getTable("testTable");
+    //testButton = testTable.getEntry("testButton");
+    //testNumber = testTable.getEntry("testNumber");
 
   }
 
@@ -122,8 +122,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
       yButton.setBoolean(oi.getYButton());
       //xButton.setBoolean(oi.getXButton());
-      SmartDashboard.putBoolean("button", testButton.getBoolean(false));
-      SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
+      //SmartDashboard.putBoolean("button", testButton.getBoolean(false));
+      //SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
    }
 
   /**
