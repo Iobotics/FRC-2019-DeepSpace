@@ -7,16 +7,34 @@
 
 package frc.robot.subsystems;
 
+<<<<<<< HEAD
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+=======
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
+>>>>>>> master
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.CameraDrive;
 import frc.robot.commands.OperateMecanumDrive;
+<<<<<<< HEAD
 import frc.util.TalonWrapper;
 
 public class Drivetrain extends Subsystem {
@@ -25,69 +43,165 @@ public class Drivetrain extends Subsystem {
 
   private TalonSRX _frontLeftMain;
   private TalonSRX _frontLeftSlave;
+=======
+import frc.robot.commands.OperateTankDrive;
 
-  private TalonSRX _frontRightMain;
-  private TalonSRX _frontRightSlave;
+public class Drivetrain extends Subsystem {
 
-  private TalonSRX _backLeftMain;
-  private TalonSRX _backLeftSlave;
+  private CANSparkMax _frontLeftMain;
+  private CANSparkMax _frontRightMain;
+  private CANSparkMax _backLeftMain;
+  private CANSparkMax _backRightMain;
+  private CANPIDController _frontLeftCanController;
+  private CANPIDController _frontRightCanController;
+  private CANPIDController _backLeftCanController;
+  private CANPIDController _backRightCanController;
+  private CANEncoder _frontLeftCanEncoder;
+  private CANEncoder _frontRightCanEncoder;
+  private CANEncoder _backLeftCanEncoder;
+  private CANEncoder _backRightCanEncoder;
 
-  private TalonSRX _backRightMain;
-  private TalonSRX _backRightSlave;
+  private static double _kPDrive = 0.13;
+  private static double _kIDrive = 1e-4;
+  private static double _kIZoneDrive = 0;
+  private static double _kDDrive = 1;
+  private static double _kFFDrive = 0;
 
+  private double _kPTurn = 0.005;
+  private double _kITurn = 0;
+  private double _kDTurn = 0;
+
+>>>>>>> master
+
+  public final double INCHES_PER_ROTATION = 4 * Math.PI;
+
+  private MecanumDrive _drive;
+
+  public Drivetrain(){
+
+<<<<<<< HEAD
   private DoubleSolenoid _solenoid;
 
   private MecanumDrive drive;
+=======
+  }
+>>>>>>> master
   
   public void init(){
-    _frontLeftMain = new TalonSRX(RobotMap.frontLeftMain);
-    _frontLeftSlave = new TalonSRX(RobotMap.frontLeftSlave);
-    _frontLeftSlave.follow(_frontLeftMain);
+    _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
-    _frontLeftSlave.setInverted(true);
 
-    _frontRightMain =  new TalonSRX(RobotMap.frontRightMain);
-    _frontRightSlave = new TalonSRX(RobotMap.frontRightSlave);
-    _frontRightSlave.follow(_frontRightMain);
+
+    _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
-    _frontRightSlave.setInverted(true);
-    
 
-
-    _backLeftMain = new TalonSRX(RobotMap.backLeftMain);
-    _backLeftSlave = new TalonSRX(RobotMap.backLeftSlave);
-    _backLeftSlave.follow(_backLeftMain);
+    _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
-    _backLeftSlave.setInverted(true);
     
-    _backRightMain = new TalonSRX(RobotMap.backRightMain);
-    _backRightSlave = new TalonSRX(RobotMap.backRightSlave);
-    _backRightSlave.follow(_backRightMain);
+    _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
-    _backRightSlave.setInverted(true);
    
 
-    drive = new MecanumDrive(
-      new TalonWrapper(_frontLeftMain), 
-      new TalonWrapper(_backLeftMain), 
-      new TalonWrapper(_frontRightMain),
-      new TalonWrapper(_backRightMain)
+    _drive = new MecanumDrive(
+      _frontLeftMain, 
+      _backLeftMain, 
+      _frontRightMain,
+      _backRightMain
     );
 
+<<<<<<< HEAD
     _solenoid = new DoubleSolenoid(0, 1);
+=======
+    _frontLeftMain.setIdleMode(IdleMode.kBrake);
+    _frontRightMain.setIdleMode(IdleMode.kBrake);
+    _backLeftMain.setIdleMode(IdleMode.kBrake);
+    _backRightMain.setIdleMode(IdleMode.kBrake);
+
+    _frontLeftCanEncoder = _frontLeftMain.getEncoder();
+    _frontRightCanEncoder = _frontRightMain.getEncoder();
+    _backLeftCanEncoder = _backLeftMain.getEncoder();
+    _backRightCanEncoder = _backRightMain.getEncoder();
+
+    _frontLeftCanController = _frontLeftMain.getPIDController();
+    _frontRightCanController = _frontRightMain.getPIDController();
+    _backRightCanController = _backRightMain.getPIDController();
+    _backLeftCanController = _backLeftMain.getPIDController();
+    
+    _frontLeftCanController.setP(_kPDrive);
+    _frontLeftCanController.setI(_kIDrive);
+    _frontLeftCanController.setIZone(_kIZoneDrive);
+    _frontLeftCanController.setD(_kDDrive);
+    _frontLeftCanController.setFF(_kFFDrive);
+    _frontLeftCanController.setOutputRange(-1, 1);
+
+    _frontRightCanController.setP(_kPDrive);
+    _frontRightCanController.setI(_kIDrive);
+    _frontRightCanController.setIZone(_kIZoneDrive);
+    _frontRightCanController.setD(_kDDrive);
+    _frontRightCanController.setFF(_kFFDrive);
+    _frontRightCanController.setOutputRange(-1, 1);
+
+    _backRightCanController.setP(_kPDrive);
+    _backRightCanController.setI(_kIDrive);
+    _backRightCanController.setIZone(_kIZoneDrive);
+    _backRightCanController.setD(_kDDrive);
+    _backRightCanController.setFF(_kFFDrive);
+    _backRightCanController.setOutputRange(-1, 1);
+
+    _backLeftCanController.setP(_kPDrive);
+    _backLeftCanController.setI(_kIDrive);
+    _backLeftCanController.setIZone(_kIZoneDrive);
+    _backLeftCanController.setD(_kDDrive);
+    _backLeftCanController.setFF(_kFFDrive);
+    _backLeftCanController.setOutputRange(-1, 1);
+    
   }
 
-  public void setTank(double left, double right){
-    _frontLeftMain.set(ControlMode.PercentOutput, left);
-    _backLeftMain.set(ControlMode.PercentOutput, left);
-    _frontRightMain.set(ControlMode.PercentOutput, right);
-    _backRightMain.set(ControlMode.PercentOutput, right);
+  public void setSetPoint(double targetFrontLeft, double targetFrontRight, double targetBackLeft, double targetBackRight){
+    _frontLeftCanController.setReference(targetFrontLeft, ControlType.kPosition);
+    _frontRightCanController.setReference(targetFrontRight, ControlType.kPosition);
+    _backLeftCanController.setReference(targetBackLeft, ControlType.kPosition);
+    _backRightCanController.setReference(targetBackRight, ControlType.kPosition);
   }
 
-  public void setMecanum(double x, double y, double rotation){
-    drive.driveCartesian(x, y, rotation);
-  } 
+  public double getFrontLeftPosition(){
+    return _frontLeftCanEncoder.getPosition();
+  }
 
+  public double getFrontRightPosition(){
+    return _frontRightCanEncoder.getPosition();
+  }
+
+  public double getBackLeftPosition(){
+    return _backLeftCanEncoder.getPosition();
+>>>>>>> master
+  }
+
+  public double getBackRightPosition(){
+    return _backRightCanEncoder.getPosition();
+  }
+
+  public void invertSide(boolean inverted){
+    _frontRightMain.setInverted(inverted);
+    _backRightMain.setInverted(inverted);
+  }
+
+  public void setTank(double left, double right) {
+    _frontLeftMain.set(left);
+    _backLeftMain.set(left);
+    _frontRightMain.set(right);
+    _backRightMain.set(right);
+  }
+
+  public void setMecanum(double x, double y, double rotation) {
+    _drive.driveCartesian(x, y, rotation);
+  }
+
+  public void setMecanum(double x, double y, double rotation, double gyroAngle) {
+    _drive.driveCartesian(x, y, rotation, gyroAngle);
+  }
+
+<<<<<<< HEAD
   public void switchSolenoid(){
     if (isSwitched){
       _solenoid.set(Value.kReverse);
@@ -99,9 +213,64 @@ public class Drivetrain extends Subsystem {
     }
   }
 
+=======
+  public double getP(){
+    return _kPDrive;
+  }
+
+  public void setP(double p){
+    _kPDrive = p;
+  }
+  
+  public double getI(){
+    return _kIDrive;
+  }
+
+  public void setI(double i){
+    _kIDrive = i;
+  }
+
+  public double getD(){
+    return _kDDrive;
+  }
+
+  public void setD(double d){
+    _kDDrive = d;
+  }
+
+  public double getFF(){
+    return _kFFDrive;
+  }
+
+  public void setFF(double ff){
+    _kFFDrive = ff;
+  }
+
+  public double getIzone(){
+    return _kIZoneDrive;
+  }
+
+  public void setIzone(double Izone){
+    _kIZoneDrive = Izone;
+  }
+
+  public double get_kPTurn() {
+    return _kPTurn;
+  }
+
+  public double get_kITurn() {
+    return _kITurn;
+  }
+
+  public double get_kDTurn() {
+    return _kDTurn;
+  }
+  
+>>>>>>> master
   @Override
   public void initDefaultCommand() {
     //setDefaultCommand(new OperateMecanumDrive());
     setDefaultCommand(new CameraDrive());
   }
+
 }

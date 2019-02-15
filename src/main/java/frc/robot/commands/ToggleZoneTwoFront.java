@@ -7,42 +7,39 @@
 
 package frc.robot.commands;
 
-public class OperateTankDrive extends CommandBase {
+import edu.wpi.first.wpilibj.command.Command;
 
-  public OperateTankDrive() {
-    requires(drivetrain);
+public class ToggleZoneTwoFront extends CommandBase {
+  public ToggleZoneTwoFront() {
+
+    requires(levelTwo);
   }
 
-  // Called just before this Command runs the first time
+  //Toggles front piston, if they are up they deploy, if they are down they retract
   @Override
-  protected void initialize() { }
+  protected void initialize() {
+    if(!levelTwo.frontWheelDown()){
+      levelTwo.deployMidWheels();
+    } else {
+      levelTwo.retractMidWheels();
+    }
+  }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double left = -oi.getLeftStickY();
-    double right = -oi.getRightStickY();
-
-    drivetrain.setTank(left, right);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
-    drivetrain.setTank(0, 0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    drivetrain.setTank(0, 0);
+    end();
   }
-  
 }

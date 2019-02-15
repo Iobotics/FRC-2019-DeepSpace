@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
@@ -23,6 +24,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+=======
+>>>>>>> master
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -30,8 +33,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
+<<<<<<< HEAD
 //import frc.robot.commands.ResetGyro;
+=======
+import frc.robot.commands.ResetGyro;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.NavSensor;
+>>>>>>> master
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,7 +54,11 @@ import frc.robot.commands.CommandBase;
 public class Robot extends TimedRobot {
 
   PowerDistributionPanel _pdp;
+<<<<<<< HEAD
   //Compressor _compressor;
+=======
+  Compressor _compressor;
+>>>>>>> master
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -86,6 +101,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     _pdp = new PowerDistributionPanel();
+<<<<<<< HEAD
     //_compressor = new Compressor();
 
     _pdp.clearStickyFaults();
@@ -108,6 +124,18 @@ public class Robot extends TimedRobot {
     //testButton = testTable.getEntry("testButton");
     //testNumber = testTable.getEntry("testNumber");
 
+=======
+    _compressor = new Compressor();
+
+    _pdp.clearStickyFaults();
+    _compressor.clearAllPCMStickyFaults();
+
+    _compressor.start();
+    _compressor.clearAllPCMStickyFaults();
+    CommandBase.init();
+    
+    SmartDashboard.putData("Auto mode", m_chooser);
+>>>>>>> master
   }
 
   /**
@@ -119,12 +147,16 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
+<<<<<<< HEAD
   public void robotPeriodic() {
       yButton.setBoolean(oi.getYButton());
       //xButton.setBoolean(oi.getXButton());
       //SmartDashboard.putBoolean("button", testButton.getBoolean(false));
       //SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
    }
+=======
+  public void robotPeriodic() { }
+>>>>>>> master
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -161,7 +193,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-
+    m_autonomousCommand = new AutoDrive(10);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -185,7 +217,11 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+<<<<<<< HEAD
     //(new ResetGyro()).start();
+=======
+    (new ResetGyro()).start();
+>>>>>>> master
   }
 
   /**
@@ -193,7 +229,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
+    SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
+
+     SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
+
   }
 
   /**
@@ -202,4 +243,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+  
 }
+

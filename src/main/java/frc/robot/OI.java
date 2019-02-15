@@ -8,9 +8,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CameraDrive;
+=======
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.AutoDrive;
+import frc.robot.commands.AutoTurn;
+import frc.robot.commands.ToggleZoneTwoFront;
+import frc.robot.commands.ToggleZoneTwoBack;
+import frc.robot.commands.MoveOnZoneTwo;
+>>>>>>> master
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -52,12 +62,22 @@ public class OI {
     return _xStick.getRawButton(3);
   }
 
+<<<<<<< HEAD
   public double getRightStickX(){
     return _xStick.getX(Hand.kRight);
   }
+=======
+  private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
+  private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
+  private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
+  private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
+>>>>>>> master
 
-  public double getRightStickY(){
-    return _rStick.getY();
+  public OI(){
+    levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
+    levelTwoBack.whenPressed(new ToggleZoneTwoBack());
+    autoZoneTwo.whenPressed(new MoveOnZoneTwo());
+    autoDriveTest.whenPressed(new AutoDrive(60));
   }
 
   public double getLeftStickX(){
@@ -69,4 +89,13 @@ public class OI {
     //return _lStick.getY();
     return _xStick.getY(Hand.kLeft);
   }
+
+  public double getRightStickX(){
+    return _rStick.getX();
+  }
+
+  public double getRightStickY(){
+    return _rStick.getY();
+  }
+  
 }
