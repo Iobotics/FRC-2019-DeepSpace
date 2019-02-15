@@ -26,15 +26,15 @@ public class Lift extends Subsystem {
   private TalonSRX _leftLift;
   private TalonSRX _rightLift;
 
-  private double sensorRange;
-  private double kP;
+  private double sensorRange  = 1024;
+  private double kP = 2.4;
   private double kI;
   private double kD;
-  private double kFF  = 1023 / (sensorRange * 0.5 /10);
+  private double kFF  = 1023 / ((sensorRange * 2) /10);
   private int kIZone;
   private int cruiseSpeed = 100;
   private int rampRate = 300;
-  private final int TIMEOUT = 20;
+  private final int TIMEOUT = 200;
   private final int SLOT = 0;
 
 
@@ -45,8 +45,17 @@ public class Lift extends Subsystem {
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
 
+    _leftLift.enableCurrentLimit(true);
+    _rightLift.enableCurrentLimit(true);
+    _leftLift.configPeakCurrentLimit(40);
+    _leftLift.configContinuousCurrentLimit(40);
+    _rightLift.configPeakCurrentLimit(40);
+    _rightLift.configContinuousCurrentLimit(40);
+
     _leftLift.setInverted(false);
+    _leftLift.setSensorPhase(false);
     _rightLift.setInverted(true);
+    _rightLift.setSensorPhase(true);
 
     _leftLift.setNeutralMode(NeutralMode.Brake);
     _rightLift.setNeutralMode(NeutralMode.Brake);
@@ -97,6 +106,14 @@ public class Lift extends Subsystem {
 
   public void setRightSpeed(double speed){
     _rightLift.set(ControlMode.PercentOutput, speed);
+  }
+
+  public double getRightLift(){
+    return _rightLift.getOutputCurrent();
+  }
+
+  public double getLeftLift(){
+    return _leftLift.getOutputCurrent();
   }
 
   @Override

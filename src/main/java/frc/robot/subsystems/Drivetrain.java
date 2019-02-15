@@ -76,10 +76,10 @@ public class Drivetrain extends Subsystem {
     _backRightMain.setInverted(true);
    
 
-    _drive = new MecanumDrive( 
+    _drive = new MecanumDrive(
       _frontLeftMain, 
       _backLeftMain, 
-      _frontRightMain,
+      _frontRightMain,   
       _backRightMain
     );
 
@@ -225,7 +225,7 @@ public class Drivetrain extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateMecanumDrive());
+    //setDefaultCommand(new OperateMecanumDrive());
   }
 
 }

@@ -8,23 +8,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunOutake extends CommandBase {
-  public RunOutake() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(intake);
+public class SetLiftPosition extends CommandBase {
+
+  private double targetPosition;
+
+  public SetLiftPosition(double targetPosition) {
+    this.targetPosition = targetPosition;
+   requires(lift);
   }
 
+ 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    lift.setLiftPosition(targetPosition);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.runIntake(-.5);
+    lift.setLiftPosition(targetPosition);
+    SmartDashboard.putNumber("Left Current", lift.getLeftLift());
+    SmartDashboard.putNumber("Right Current", lift.getRightLift());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,13 +43,14 @@ public class RunOutake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.runIntake(0);
+    lift.setLeftSpeed(0);
+
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    lift.setLeftSpeed(0);
   }
 }

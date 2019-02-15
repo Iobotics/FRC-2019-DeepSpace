@@ -8,12 +8,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunOutake;
+import frc.robot.commands.SetLiftPosition;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,13 +24,16 @@ public class OI {
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
+  private final XboxController _controller = new XboxController(2);
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
+  private final JoystickButton runLift = new JoystickButton(_controller, 1);
 
   public OI(){
     runIntake.whileHeld(new RunIntake(0.5));
     runOutake.whileHeld(new RunIntake(-0.5));
+    runLift.whenPressed(new SetLiftPosition(800));
   }
 
   public double getLeftStickX(){
@@ -48,8 +52,8 @@ public class OI {
     return _rStick.getY();
   }
 
-  public double getLeftStickZ(){
-    return _lStick.getZ();
+  public double getControllerStick(){
+    return _controller.getRawAxis(1);
   }
   
 }

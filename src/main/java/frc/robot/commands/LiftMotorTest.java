@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftMotorTest extends CommandBase {
   public LiftMotorTest() {
@@ -22,8 +23,8 @@ public class LiftMotorTest extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    lift.setLeftSpeed(oi.getLeftStickZ());
-    lift.setRightSpeed(oi.getLeftStickZ());
+    lift.setLeftSpeed(-oi.getControllerStick());
+    lift.setRightSpeed(-oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
