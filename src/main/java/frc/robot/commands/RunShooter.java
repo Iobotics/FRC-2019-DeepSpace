@@ -8,45 +8,51 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RunShooter extends CommandBase {
 
-  double power1;
+  double power;
+  boolean ballIsIn = false;
 
   public RunShooter (double power) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(intake);
-    power1 = power;
+    this.power = power;
+    ballIsIn = false;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    ballIsIn = false;
+    intake.setShooter(0);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(power1 < 0 || (power1 > 0 && !intake.isBallIn())){
-      intake.setShooter(power1);
+    
+    //If the ball is in then ball is in becomes true
+    if(intake.isBallIn() && power > 0){
+      ballIsIn = true;
     }
+    
+    else intake.setShooter(power);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
+  //if a vall is in then gives the shooter a nominal voltage to hold the ball
   @Override
-  protected void end() {
-    intake.setShooter(0);
+  protected void end() {  
+    if(ballIsIn){
+      intake.setShooter(0.05);
+    }
+    else intake.setShooter(0);
+    ballIsIn = false;
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     end();

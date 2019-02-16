@@ -8,17 +8,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.RunShooter;
+import frc.robot.commands.SetShooterPos;
 import frc.robot.commands.hatch.GrabHatch;
 import frc.robot.commands.GetBallIn;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunOutake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,6 +30,7 @@ public class OI {
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
+  private final XboxController _controller = new XboxController(2);
 
   private final JoystickButton _releaseHatchButton = new JoystickButton(_rStick, 4);
   private final JoystickButton _collectHatchButton = new JoystickButton(_rStick, 5);
@@ -37,6 +40,9 @@ public class OI {
   private final JoystickButton _grab = new JoystickButton(_rStick, 9);
   private final JoystickButton _retract = new JoystickButton(_rStick, 10);
   private final JoystickButton _climb = new JoystickButton(_rStick, 3);
+  private final JoystickButton _setShooterPos = new JoystickButton(_controller, 3);
+  private final JoystickButton _shoot = new JoystickButton(_controller, 1);
+  private final JoystickButton _intakeBall = new JoystickButton(_controller, 2);
 
   public OI() {
     _releaseHatchButton.whenPressed(new PopHatch());
@@ -44,6 +50,9 @@ public class OI {
     _intake.whileHeld(new RunIntake(1));
     _outake.whileHeld(new RunIntake(-1));
     _distance.whileHeld(new GetBallIn());
+    _shoot.whileHeld(new RunShooter(-1));
+    _intakeBall.whileHeld(new RunShooter(0.5));
+    _setShooterPos.whileHeld(new SetShooterPos(976));
   }
 
   public double getLeftStickX() {
@@ -60,6 +69,10 @@ public class OI {
 
   public double getRightStickY(){
     return _rStick.getY();
+  }
+
+  public double getControllerStick(){
+    return _controller.getRawAxis(1);
   }
   
 }

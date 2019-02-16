@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -19,11 +20,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Subsystem Handles the Shooter, Intake, and Hatch
  */
 public class Intake extends Subsystem {
   TalonSRX leftShooter;
@@ -36,37 +38,40 @@ public class Intake extends Subsystem {
   DigitalInput proximitySensor;
 
   private int slotID = 0;
-  private double kP;
-  private double kI;
-  private double kD;
+  private double kFF =  0.25;
+  private double kP = 10;
+  private double kI = 0;
+  private double kD = 0;
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+
   }
 
   public void init()
   {
     leftShooter = new TalonSRX(RobotMap.leftShooter);
     leftShooter.setInverted(true);
-    leftShooter.setNeutralMode(NeutralMode.Coast);
+    leftShooter.setNeutralMode(NeutralMode.Brake);
 
     rightShooter = new TalonSRX(RobotMap.rightShooter);
     rightShooter.setInverted(false);
-    rightShooter.setNeutralMode(NeutralMode.Coast);
+    rightShooter.setNeutralMode(NeutralMode.Brake);
 
     intake = new TalonSRX(RobotMap.intake);
 
     shooterArm = new TalonSRX(RobotMap.shooterArm);
-    shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configFactoryDefault();
-    shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+
+    shooterArm.setInverted(true);
+    shooterArm.setNeutralMode(NeutralMode.Brake);
+    shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     shooterArm.configFeedbackNotContinuous(true, 20);
     shooterArm.setSensorPhase(true);
+    shooterArm.selectProfileSlot(slotID, 0);
     shooterArm.config_kP(slotID, kP);
     shooterArm.config_kI(slotID, kI);
-    shooterArm.config_kP(slotID, kD);
+    shooterArm.config_kD(slotID, kD);
 
     
     intakeOut = new Solenoid(RobotMap.intakeSolenoid);
@@ -84,8 +89,19 @@ public class Intake extends Subsystem {
     leftShooter.set(ControlMode.PercentOutput, speed);
   }
 
+  public void setShooterArm(double power){
+    shooterArm.set(ControlMode.PercentOutput, power);
+  }
+
+  //returns the angle of the arm in radians from the horizontal
+  private double getArmAngle(double position){
+    return (Math.PI / 180)*(double)(((position - Constants.shooterArmCenter)*9)/7);
+  }
+
   public void setShooterPosition(double position){
-    shooterArm.set(ControlMode.Position, position);
+    shooterArm.set(ControlMode.Position, position, 
+    DemandType.ArbitraryFeedForward, kFF * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+    //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
   }
  
   public boolean isBallIn(){
@@ -95,4 +111,9 @@ public class Intake extends Subsystem {
   public void toggleSolenoid(){
     intakeOut.set(!intakeOut.get());
   }
+
+  public int getArm(){
+    return shooterArm.getSelectedSensorPosition();
+  }
+
 }

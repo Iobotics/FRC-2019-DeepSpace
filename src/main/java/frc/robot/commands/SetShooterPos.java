@@ -8,41 +8,52 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RaiseIntake extends CommandBase {
+public class SetShooterPos extends CommandBase {
+
+  //TODO: Find Correct Angles
+
+  public enum ShooterArmPosition{
+    Home(820), Cargo(900), LevelOne(900), LevelTwo(900), LevelThree(900);
+
+    public final double angle;
+
+    private ShooterArmPosition(final double angle){
+      this.angle = angle;
+    }
+
+    public double angle(){
+      return angle;
+    }
+  }
+
   int pos;
-  public RaiseIntake(int position) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+
+  public SetShooterPos(int position) {
     requires(intake);
     pos = position;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  }
+
+  @Override
+  protected void execute() {
     intake.setShooterPosition(pos);
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
     
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
   }

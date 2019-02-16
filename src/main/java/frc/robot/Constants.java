@@ -22,4 +22,7 @@ public class Constants {
 
     //Range of tolerance for if the loop is completed, measured in motor rotatins
     public static final double toleranceRange = 1;
+
+    //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
+    public static final int shooterArmCenter = 976;
 }
