@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutoDrive;
-import frc.robot.commands.AutoTurn;
+//import frc.robot.commands.AutoDrive;
+//import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
 import frc.robot.subsystems.Drivetrain;
@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-    m_autonomousCommand = new AutoDrive(10);
+    //m_autonomousCommand = new AutoDrive(10);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -136,7 +136,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
-     SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
+    //SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
   }
 

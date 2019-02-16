@@ -12,9 +12,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.AutoTurn;
+import frc.robot.commands.LevelReset;
 import frc.robot.commands.ToggleZoneTwoFront;
 import frc.robot.commands.ToggleZoneTwoBack;
 import frc.robot.commands.MoveOnZoneTwo;
+import frc.robot.commands.RunChassisIntake;
+import frc.robot.commands.StopChassisIntake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,13 +31,14 @@ public class OI {
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
-  private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
+  private final JoystickButton runIntakeButton = new JoystickButton(_lStick, 1);
 
   public OI(){
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
-    autoDriveTest.whenPressed(new AutoDrive(60));
+    runIntakeButton.whileHeld(new RunChassisIntake());
+    runIntakeButton.whenReleased(new StopChassisIntake());
   }
 
   public double getLeftStickX(){
