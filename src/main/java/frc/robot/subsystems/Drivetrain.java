@@ -7,13 +7,6 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< HEAD
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-=======
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -28,22 +21,11 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
->>>>>>> master
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.CameraDrive;
 import frc.robot.commands.OperateMecanumDrive;
-<<<<<<< HEAD
-import frc.util.TalonWrapper;
-
-public class Drivetrain extends Subsystem {
-
-  private boolean isSwitched = false;
-
-  private TalonSRX _frontLeftMain;
-  private TalonSRX _frontLeftSlave;
-=======
 import frc.robot.commands.OperateTankDrive;
 
 public class Drivetrain extends Subsystem {
@@ -71,7 +53,6 @@ public class Drivetrain extends Subsystem {
   private double _kITurn = 0;
   private double _kDTurn = 0;
 
->>>>>>> master
 
   public final double INCHES_PER_ROTATION = 4 * Math.PI;
 
@@ -79,13 +60,7 @@ public class Drivetrain extends Subsystem {
 
   public Drivetrain(){
 
-<<<<<<< HEAD
-  private DoubleSolenoid _solenoid;
-
-  private MecanumDrive drive;
-=======
   }
->>>>>>> master
   
   public void init(){
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
@@ -109,9 +84,6 @@ public class Drivetrain extends Subsystem {
       _backRightMain
     );
 
-<<<<<<< HEAD
-    _solenoid = new DoubleSolenoid(0, 1);
-=======
     _frontLeftMain.setIdleMode(IdleMode.kBrake);
     _frontRightMain.setIdleMode(IdleMode.kBrake);
     _backLeftMain.setIdleMode(IdleMode.kBrake);
@@ -174,7 +146,6 @@ public class Drivetrain extends Subsystem {
 
   public double getBackLeftPosition(){
     return _backLeftCanEncoder.getPosition();
->>>>>>> master
   }
 
   public double getBackRightPosition(){
@@ -201,19 +172,6 @@ public class Drivetrain extends Subsystem {
     _drive.driveCartesian(x, y, rotation, gyroAngle);
   }
 
-<<<<<<< HEAD
-  public void switchSolenoid(){
-    if (isSwitched){
-      _solenoid.set(Value.kReverse);
-      isSwitched = false;
-    }
-    else{
-      _solenoid.set(Value.kForward);
-      isSwitched = true;
-    }
-  }
-
-=======
   public double getP(){
     return _kPDrive;
   }
@@ -266,7 +224,6 @@ public class Drivetrain extends Subsystem {
     return _kDTurn;
   }
   
->>>>>>> master
   @Override
   public void initDefaultCommand() {
     //setDefaultCommand(new OperateMecanumDrive());

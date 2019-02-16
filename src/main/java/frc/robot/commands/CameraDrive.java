@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -12,20 +10,11 @@ public class CameraDrive extends CommandBase
     NetworkTable table;
   NetworkTable outTable; 
   NetworkTableInstance inst;
-  NetworkTableEntry tv;
+  //NetworkTableEntry tv;
   NetworkTableEntry tx;
-  NetworkTableEntry tx0;
-  NetworkTableEntry tx1;
-  NetworkTableEntry tx2;
-  NetworkTableEntry ty0;
-  NetworkTableEntry ty1;
-  NetworkTableEntry ty2;
-  NetworkTableEntry ta;
-  NetworkTableEntry ta0;
-  NetworkTableEntry ta1;
-  NetworkTableEntry ta2;
-  NetworkTableEntry ts;
-  NetworkTableEntry tl;
+  //NetworkTableEntry ta;
+  //NetworkTableEntry ts;
+  //NetworkTableEntry tl;
   NetworkTableEntry ty;
 
   NetworkTableEntry _distance;
@@ -35,65 +24,49 @@ public class CameraDrive extends CommandBase
 
   double isDetected;
   double x = 0;
-  double x0;
-  double x1;
-  double x2;
   double y;
-  double y0;
-  double y1;
-  double y2;
   double area;
-  double a0;
-  double a1;
-  double a2;
-  double a3;
   double rotation;
   double latency;
-  double distance = 0;
-  double heightLowerRocket = 28.75;
-  double heightHigherRocket = 0;
-  double heightCargo = 0;
-  double heightCamera = 34.75;
-  double height = heightCamera - heightLowerRocket; //inches
-  double contours;
-  double[] diff = new double[3];
-  double pixelX;
-  double pixelY;
-  double nx;
-  double ny;
-  double vpw;
-  double vph;
-  double vx;
-  double vy;
-  double deltaX;
-  double deltaY;
+  //double distance = 0;
+  //double heightLowerRocket = 28.75;
+  //double heightHigherRocket = 38; //TODO-Find
+  //double heightCargo = 28; //TODO- Find
+  //double heightObject = 0;
+  //double heightCamera = 34.75;
+  //double height = heightCamera - heightLowerRocket; //inches
 
-  int best = 3;
-
-  double kF = .1; //kF .1
-  double kP = .02; //kP .02
+  double kF = .1; //TODO - find f and p
+  double kP = .02; //
   double kI = 0;
   double kD = 0;
 
-  double threshHold = .2; //degrees; -1, -6 (-1,-6 Experiment)
+  double threshHold = .2; //degrees; -1, -6 (-1,-6 Experiment) TODO- Redo
   double threshHoldLowerX = -6;
   double threshHoldHigherX = 6;
-  double thresholdDistance = 32; //Inches
+  //double thresholdDistance = 32; //Inches TODO- Find
   double error;
   double maxSpeed = 1;
   double speed;
-  double stickX;
-  double stickY;
   double test = 0;
+  double cycle = 1;
 
-  boolean goodToShoot = false;
+  //boolean goodToShoot = false;
 
   String xDirection;
-  String zDirection;
+  //String zDirection;
+  //String distanceMode;
+
+  //boolean pressed = false;
+  //boolean unPressed = true;
+  //boolean can = false;
+  
+  public static final double DEADBAND = 0.2;
 
     public CameraDrive()
     {
-        requires(drivetrain);
+        //requires(drivetrain);
+        //requires(navSensor);
     }
 
     @Override
@@ -101,21 +74,12 @@ public class CameraDrive extends CommandBase
     {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         
-        tv = table.getEntry("tv");
-        ta = table.getEntry("ta");
-        ts = table.getEntry("ts");
-        tl = table.getEntry("tl");
+        //tv = table.getEntry("tv");
+        //ta = table.getEntry("ta");
+        //ts = table.getEntry("ts");
+        //tl = table.getEntry("tl");
         ty = table.getEntry("ty");
         tx = table.getEntry("tx");
-        tx0 = table.getEntry("tx0");
-        tx1 = table.getEntry("tx1");
-        tx2 = table.getEntry("tx2");
-        ty0 = table.getEntry("ty0");
-        ty1 = table.getEntry("ty1");
-        ty2 = table.getEntry("ty2");
-        ta0 = table.getEntry("ta0");
-        ta1 = table.getEntry("ta1");
-        ta2 = table.getEntry("ta2");
 
         inst = NetworkTableInstance.getDefault();
         outTable = inst.getTable("outTable");
@@ -129,26 +93,20 @@ public class CameraDrive extends CommandBase
     @Override
     protected void execute()
     {
-        stickX = oi.getLeftStickX()*.3; //Right positive, left negative
-        stickY = -oi.getLeftStickY()*.3;
-        speed = 0;
-        if(oi.getXButton()) //turn
-        {
-            speed = -.2;
-        }
-        if(oi.getYButton())
-        {
-            speed = .2;
-        }
+        double xSpeed = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
+        double ySpeed = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
+        double speed = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
 
-        if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
+        //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
+
+        /*if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
         {//Indicators of how the bot is close to the target
             goodToShoot = true;
         }
         else
         {
             goodToShoot = false;
-        }
+        }*/
 
         if(x < threshHoldLowerX)
         { 
@@ -162,75 +120,109 @@ public class CameraDrive extends CommandBase
             xDirection = "Good";
         }
 
-        if(distance > thresholdDistance)
+        /*if(distance > thresholdDistance)
         {
             zDirection = "Forward";
         }
         else
         {
             zDirection = "Good";
-        }    
-        
+        }
+        pressed = oi.getAButton();
+        if(pressed && unPressed){
+            can = true;
+            unPressed = false;
+        }
+        else if(!pressed)
+        {
+            unPressed = true;
+        }
 
+        if(can && cycle <= 2)
+        {
+            cycle++;
+            can = false;
+        }
+        else if(can && cycle >= 3)
+        {
+            cycle = 1;
+        }
 
-        isDetected = tv.getDouble(0.0);
-        area = ta.getDouble(0.0);
-        rotation = ts.getDouble(0.0);
-        latency = tl.getDouble(0.0);
-        y = ty.getDouble(0.0);
-        distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
+        if(cycle == 1)
+        {
+            heightObject = heightLowerRocket;
+            distanceMode = "Lower Rocket";
+        }
+        else if(cycle == 2)
+        {
+            heightObject = heightHigherRocket;
+            distanceMode = "Higher Rocket";
+        }
+        else if(cycle == 3)
+        {
+            heightObject = heightCargo;
+            distanceMode = "Cargo";
+        }*/
+
+        //isDetected = tv.getDouble(0.0);
+        //area = ta.getDouble(0.0);
+        //rotation = ts.getDouble(0.0);
+        //latency = tl.getDouble(0.0);
+        //y = ty.getDouble(0.0);
+        //distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
         x = tx.getDouble(0.0);
 
-        _good.setBoolean(goodToShoot);
+        //_good.setBoolean(goodToShoot);
         _x.setNumber(x);
-        _distance.setNumber(distance);
+        //_distance.setNumber(distance);
         _aButton.setBoolean(oi.getAButton());
 
-        if(oi.getAButton())
+        if(oi.getLeftStickMid())
         {
             error = x;
             if(x > threshHold) //Target is on robot's right, PID loop to turn to the target
             {
-                speed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
+                xSpeed = clip(error * kP + kF, 0, maxSpeed); //Make them go right, make positive
             }
             else if(x < -threshHold)//Is on robot's left
             {
-                speed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
+                xSpeed = clip(error * kP - kF, -maxSpeed, 0);//Make them go left, make negative
             }
             else
             {
-                speed = 0;
+                xSpeed = 0;
             }
         }
-            drivetrain.setMecanum(-stickX, -stickY, speed);
-            SmartDashboard.putNumber("speed", speed);
-            SmartDashboard.putNumber("x", x);
+            drivetrain.setMecanum(xSpeed, ySpeed, speed, navSensor.getAngle());
+            //SmartDashboard.putNumber("speed", speed);
+            //SmartDashboard.putNumber("x", x);
             //SmartDashboard.putNumber("area", area);
             //SmartDashboard.putNumber("isDetected", isDetected);
             //SmartDashboard.putNumber("Rotation of Target", rotation);
             //SmartDashboard.putNumber("latency", latency);
             //SmartDashboard.putNumber("y", y);
-            //SmartDashboard.putNumber("distance", distance);
-            SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
-            SmartDashboard.putNumber("Distance", distance);
-            SmartDashboard.putString("x direction", xDirection);
-            SmartDashboard.putString("If you should go forward", zDirection);
+            //SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
+            //SmartDashboard.putNumber("Distance", distance);
+            //SmartDashboard.putString("x direction", xDirection);
+            //SmartDashboard.putString("If you should go forward", zDirection);
+            //SmartDashboard.putString("Distance Sensing Mode", distanceMode);
     }
 
 
     @Override
     protected boolean isFinished() { //If this is true it will stop,false keep going
-        //return x < threshHold && x > -threshHold;
         return false;
     }
 
     @Override
     protected void end()
     {
+        drivetrain.setMecanum(0, 0, 0, 0);
     }
 
     @Override
-    protected void interrupted(){
+    protected void interrupted()
+    {
         this.end();
     }
 

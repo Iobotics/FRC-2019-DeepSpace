@@ -8,11 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CameraDrive;
-=======
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AutoDrive;
@@ -20,7 +18,6 @@ import frc.robot.commands.AutoTurn;
 import frc.robot.commands.ToggleZoneTwoFront;
 import frc.robot.commands.ToggleZoneTwoBack;
 import frc.robot.commands.MoveOnZoneTwo;
->>>>>>> master
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,18 +25,11 @@ import frc.robot.commands.MoveOnZoneTwo;
  */
 public class OI {
 
-  //private final Joystick _lStick = new Joystick(0);
+  private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
   private final Joystick _xStick = new Joystick(3);
 
   private final JoystickButton _cameraTurnButton = new JoystickButton(_xStick, 5);
-
-
-  public OI()
-  {
-    
-    _cameraTurnButton.whileHeld(new CameraDrive());
-  }
 
   public boolean getXButton()
   {
@@ -62,22 +52,26 @@ public class OI {
     return _xStick.getRawButton(3);
   }
 
-<<<<<<< HEAD
-  public double getRightStickX(){
+  public double getXStickX(){
     return _xStick.getX(Hand.kRight);
   }
-=======
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
   private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
->>>>>>> master
 
   public OI(){
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
+    
+    _cameraTurnButton.whileHeld(new CameraDrive());
+  }
+
+  public boolean getLeftStickMid()
+  {
+    return _lStick.getRawButton(1); //TODO- Find actual button number
   }
 
   public double getLeftStickX(){
