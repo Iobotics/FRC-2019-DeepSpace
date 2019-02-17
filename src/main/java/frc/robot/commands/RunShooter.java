@@ -43,7 +43,7 @@ public class RunShooter extends CommandBase {
     return false;
   }
 
-  //if a vall is in then gives the shooter a nominal voltage to hold the ball
+  //if a vall is in then gives the shooter a nominal voltage to hold the balls
   @Override
   protected void end() {  
     if(ballIsIn){

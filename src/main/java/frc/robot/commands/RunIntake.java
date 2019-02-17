@@ -11,13 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class RunIntake extends CommandBase {
 
-  private double intakeSpeed;
+  private double speed;
 
-  public RunIntake(double intakeSpeed) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    this.intakeSpeed = intakeSpeed;
+  public RunIntake(double speed) {
     requires(intake);
+    this.speed = speed;
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +26,7 @@ public class RunIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.setIntake(intakeSpeed);
+    intake.setIntake(speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -47,6 +45,5 @@ public class RunIntake extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

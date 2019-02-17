@@ -7,9 +7,12 @@
 
 package frc.robot.commands;
 
-public class OperateZoneTwoLift extends CommandBase {
-  public OperateZoneTwoLift() {
-    //requires(levelTwoLift);
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ToggleIntake extends Command {
+  public ToggleIntake() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -35,7 +38,7 @@ public class OperateZoneTwoLift extends CommandBase {
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @ Override
+  @Override
   protected void interrupted() {
   }
 }

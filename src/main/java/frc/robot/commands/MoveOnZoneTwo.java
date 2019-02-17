@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class GrabHatch extends CommandGroup {
+public class MoveOnZoneTwo extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public GrabHatch() {
+  public MoveOnZoneTwo() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,12 +31,14 @@ public class GrabHatch extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new CloseHook());
-    addSequential(new WaitCommand(.1));
-    addSequential(new ExtendHatch());
-    addSequential(new WaitCommand(.25));
-    addSequential(new OpenHook());
-    addSequential(new WaitCommand(.25));
-    addSequential(new ExtendHatch());
+    addSequential(new LevelReset());
+    addSequential(new ToggleZoneTwoFront());
+    addSequential(new AutoDrive(24));
+    addSequential(new ToggleZoneTwoBack());
+    addSequential(new AutoDrive(3));
+    addSequential(new WaitCommand(1));
+    addSequential(new ToggleZoneTwoFront());
+    addSequential(new AutoDrive(24));
+    addSequential(new ToggleZoneTwoBack());
   }
 }

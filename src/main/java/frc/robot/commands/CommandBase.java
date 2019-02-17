@@ -6,12 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchCollector;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LevelTwoLift;
 import frc.robot.subsystems.NavSensor;
 
 public abstract class CommandBase extends Command {
@@ -21,14 +22,14 @@ public abstract class CommandBase extends Command {
   public static NavSensor navSensor = new NavSensor();
   public static HatchCollector hatchCollector = new HatchCollector();
   public static Intake intake = new Intake();
-  public static CameraServo rotater = new CameraServo();
+  public static LevelTwoLift levelTwo = new LevelTwoLift();
 
   public static void init() {
     navSensor.init();
     drivetrain.init();
     hatchCollector.init();
     intake.init();
-    rotater.init();
+    levelTwo.init();
     oi = new OI();
   }
 

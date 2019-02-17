@@ -7,21 +7,24 @@
 
 package frc.robot.commands;
 
-public class RotateCamera extends CommandBase {
-  public RotateCamera() {
-    requires(rotater);
+
+public class LevelReset extends CommandBase {
+  public LevelReset() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    rotater.turnCamera();
+    levelTwo.retractBackWheels();
+    levelTwo.retractMidWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //rotater.turnCamera();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -33,13 +36,11 @@ public class RotateCamera extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    //rotater.safetyCancel();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    //rotater.safetyCancel();
   }
 }

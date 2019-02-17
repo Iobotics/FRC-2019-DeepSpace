@@ -20,9 +20,9 @@ public class Constants {
     //equal to Inches / Rotations, multiply with rotations to get inches, divide inches to get rotations
     public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
 
-    //Range of tolerance for if the loop is completed, measured in motor rotatins
-    public static final double toleranceRange = 1;
-
     //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
     public static final int shooterArmCenter = 976;
+
+    //Range of tolerance for if the loop is completed, measured in motor rotating
+    public static final double toleranceRange = 2;
 }

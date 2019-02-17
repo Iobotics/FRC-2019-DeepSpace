@@ -5,41 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.CommandBase;
 
-public class CloseHook extends CommandBase {
-  public CloseHook() {
-    requires(hatchCollector);
+public class ToggleZoneTwoFront extends CommandBase {
+  public ToggleZoneTwoFront() {
+
+    requires(levelTwo);
   }
 
-  // Called just before this Command runs the first time
+  //Toggles front piston, if they are up they deploy, if they are down they retract
   @Override
   protected void initialize() {
-    hatchCollector.closeHook();
+    if(!levelTwo.frontWheelDown()){
+      levelTwo.deployMidWheels();
+    } else {
+      levelTwo.retractMidWheels();
+    }
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
