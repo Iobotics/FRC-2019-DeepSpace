@@ -27,7 +27,7 @@ import frc.robot.RobotMap;
 /**
  * Subsystem Handles the Shooter, Intake, and Hatch
  */
-public class Intake extends Subsystem {
+public class Shooter extends Subsystem {
   TalonSRX leftShooter;
   TalonSRX rightShooter;
   TalonSRX intake;
@@ -38,10 +38,10 @@ public class Intake extends Subsystem {
   DigitalInput proximitySensor;
 
   private int slotID = 0;
-  private double kFF =  0.25;
-  private double kP = 10;
-  private double kI = 0;
-  private double kD = 0;
+  private double kFF =  0.4;
+  private double kP = 11;
+  private double kI = 0.0;
+  private double kD = 300;
 
   @Override
   public void initDefaultCommand() {

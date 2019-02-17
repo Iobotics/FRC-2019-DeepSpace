@@ -16,7 +16,7 @@ public class RunShooter extends CommandBase {
   boolean ballIsIn = false;
 
   public RunShooter (double power) {
-    requires(intake);
+    requires(shooter);
     this.power = power;
     ballIsIn = false;
   }
@@ -24,18 +24,18 @@ public class RunShooter extends CommandBase {
   @Override
   protected void initialize() {
     ballIsIn = false;
-    intake.setShooter(0);
+    shooter.setShooter(0);
   }
 
   @Override
   protected void execute() {
     
     //If the ball is in then ball is in becomes true
-    if(intake.isBallIn() && power > 0){
+    if(shooter.isBallIn() && power > 0){
       ballIsIn = true;
     }
     
-    else intake.setShooter(power);
+    else shooter.setShooter(power);
   }
 
   @Override
@@ -47,9 +47,9 @@ public class RunShooter extends CommandBase {
   @Override
   protected void end() {  
     if(ballIsIn){
-      intake.setShooter(0.05);
+      shooter.setShooter(0.05);
     }
-    else intake.setShooter(0);
+    else shooter.setShooter(0);
     ballIsIn = false;
   }
 

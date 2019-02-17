@@ -14,7 +14,7 @@ public class GetBallIn extends CommandBase {
   public GetBallIn() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(intake);
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +26,7 @@ public class GetBallIn extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putBoolean("Ball is in intake: ", intake.isBallIn());
+    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
   }
 
   // Make this return true when this Command no longer needs to run execute()

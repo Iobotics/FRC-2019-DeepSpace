@@ -21,8 +21,30 @@ public class Constants {
     public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
 
     //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-    public static final int shooterArmCenter = 976;
+    public static final int shooterArmCenter = 812;
 
     //Range of tolerance for if the loop is completed, measured in motor rotating
     public static final double toleranceRange = 2;
+
+    
+  //TODO: Find Correct Angles
+
+  public static enum ShooterArmPosition{
+    Home(820, true), Cargo(900, false), LevelOne(900, false), LevelTwo(900, false), LevelThree(900, false);
+
+    private int angle;
+    private boolean isHome = false;
+
+    private ShooterArmPosition(final int angle, boolean isHome){
+      this.angle = angle;
+    }
+
+    public int angle(){
+      return angle;
+    }
+    
+    public boolean isHome(){
+      return isHome;
+    }
+  }
 }
