@@ -50,6 +50,9 @@ public class Robot extends TimedRobot {
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
     CommandBase.init();
+    PowerDistributionPanel _pdp = new PowerDistributionPanel();
+    _pdp.clearStickyFaults();
+    // chooser.addOption("My Auto", new MyAutoCommand());
     
     SmartDashboard.putData("Auto mode", m_chooser);
   }
@@ -100,7 +103,7 @@ public class Robot extends TimedRobot {
      * = new MyAutoCommand(); break; case "Default Auto": default:
      * autonomousCommand = new ExampleCommand(); break; }
      */
-    //m_autonomousCommand = new AutoDrive(10);
+    m_autonomousCommand = null;
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
@@ -134,8 +137,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     
     Scheduler.getInstance().run();
-    SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
+   // SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
+   //%  SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
     //SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
   }
