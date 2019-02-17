@@ -58,8 +58,6 @@ public class Shooter extends Subsystem {
     rightShooter.setInverted(false);
     rightShooter.setNeutralMode(NeutralMode.Brake);
 
-    intake = new TalonSRX(RobotMap.intake);
-
     shooterArm = new TalonSRX(RobotMap.shooterArm);
     shooterArm.configFactoryDefault();
 

@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MoveOnZoneTwo extends CommandGroup {
   /**
@@ -33,12 +34,13 @@ public class MoveOnZoneTwo extends CommandGroup {
     // arm.
     addSequential(new LevelReset());
     addSequential(new ToggleZoneTwoFront());
-    addSequential(new AutoDrive(24));
+    addSequential(new AutoDrive(15));
+    addSequential(new WaitCommand(1));
     addSequential(new ToggleZoneTwoBack());
-    addSequential(new AutoDrive(3));
     addSequential(new WaitCommand(1));
     addSequential(new ToggleZoneTwoFront());
     addSequential(new AutoDrive(24));
     addSequential(new ToggleZoneTwoBack());
+    SmartDashboard.putString("finished", "true");
   }
 }

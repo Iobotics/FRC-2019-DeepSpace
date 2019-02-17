@@ -10,14 +10,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.ControlType;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
@@ -39,11 +34,11 @@ public class Drivetrain extends Subsystem {
   private CANEncoder _backLeftCanEncoder;
   private CANEncoder _backRightCanEncoder;
 
-  private static double _kPDrive = 0.13;
-  private static double _kIDrive = 1e-4;
+  private static double _kPDrive =  5e-5;
+  private static double _kIDrive = 1e-6;
   private static double _kIZoneDrive = 0;
-  private static double _kDDrive = 1;
-  private static double _kFFDrive = 0;
+  private static double _kDDrive = 0;
+  private static double _kFFDrive = 0.000156;
 
   private double _kPTurn = 0.005;
   private double _kITurn = 0;
@@ -80,6 +75,8 @@ public class Drivetrain extends Subsystem {
       _backRightMain
     );
 
+    _drive.setSafetyEnabled(false);
+
     _frontLeftMain.setIdleMode(IdleMode.kBrake);
     _frontRightMain.setIdleMode(IdleMode.kBrake);
     _backLeftMain.setIdleMode(IdleMode.kBrake);
@@ -101,6 +98,8 @@ public class Drivetrain extends Subsystem {
     _frontLeftCanController.setD(_kDDrive);
     _frontLeftCanController.setFF(_kFFDrive);
     _frontLeftCanController.setOutputRange(-1, 1);
+    _frontLeftCanController.setSmartMotionMaxVelocity(2000, 0);
+    _frontLeftCanController.setSmartMotionMaxAccel(1500, 0);
 
     _frontRightCanController.setP(_kPDrive);
     _frontRightCanController.setI(_kIDrive);
@@ -108,6 +107,8 @@ public class Drivetrain extends Subsystem {
     _frontRightCanController.setD(_kDDrive);
     _frontRightCanController.setFF(_kFFDrive);
     _frontRightCanController.setOutputRange(-1, 1);
+    _frontRightCanController.setSmartMotionMaxVelocity(2000, 0);
+    _frontRightCanController.setSmartMotionMaxAccel(1500, 0);
 
     _backRightCanController.setP(_kPDrive);
     _backRightCanController.setI(_kIDrive);
@@ -115,6 +116,8 @@ public class Drivetrain extends Subsystem {
     _backRightCanController.setD(_kDDrive);
     _backRightCanController.setFF(_kFFDrive);
     _backRightCanController.setOutputRange(-1, 1);
+    _backRightCanController.setSmartMotionMaxVelocity(2000, 0);
+    _backRightCanController.setSmartMotionMaxAccel(1500, 0);
 
     _backLeftCanController.setP(_kPDrive);
     _backLeftCanController.setI(_kIDrive);
@@ -122,14 +125,20 @@ public class Drivetrain extends Subsystem {
     _backLeftCanController.setD(_kDDrive);
     _backLeftCanController.setFF(_kFFDrive);
     _backLeftCanController.setOutputRange(-1, 1);
+    _backLeftCanController.setSmartMotionMaxVelocity(2000, 0);
+    _backLeftCanController.setSmartMotionMaxAccel(1500, 0);
     
   }
 
   public void setSetPoint(double targetFrontLeft, double targetFrontRight, double targetBackLeft, double targetBackRight){
-    _frontLeftCanController.setReference(targetFrontLeft, ControlType.kPosition);
-    _frontRightCanController.setReference(targetFrontRight, ControlType.kPosition);
-    _backLeftCanController.setReference(targetBackLeft, ControlType.kPosition);
-    _backRightCanController.setReference(targetBackRight, ControlType.kPosition);
+    _frontLeftCanController.setReference(targetFrontLeft, ControlType.kSmartMotion);
+    _frontRightCanController.setReference(targetFrontRight, ControlType.kSmartMotion);
+    _backLeftCanController.setReference(targetBackLeft, ControlType.kSmartMotion);
+    _backRightCanController.setReference(targetBackRight, ControlType.kSmartMotion);
+  }
+
+  public void resetEncoders(){
+    _frontLeftCanEncoder.setPosition(0);
   }
 
   public double getFrontLeftPosition(){
@@ -219,10 +228,16 @@ public class Drivetrain extends Subsystem {
   public double get_kDTurn() {
     return _kDTurn;
   }
+
+  public CANEncoder getDriveMotor(){
+    return _backRightCanEncoder;
+  }
+
   
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new OperateMecanumDrive());
   }
+
 
 }

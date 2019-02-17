@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutoDrive;
-import frc.robot.commands.AutoTurn;
+//import frc.robot.commands.AutoDrive;
+//import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
 import frc.robot.subsystems.Drivetrain;
@@ -140,6 +140,7 @@ public class Robot extends TimedRobot {
    // SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
    //%  SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
+    //SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
 
   }
 
