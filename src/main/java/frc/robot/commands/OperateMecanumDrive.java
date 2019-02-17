@@ -30,7 +30,8 @@ public class OperateMecanumDrive extends CommandBase {
     double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
     double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
 
-    //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
+    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
+    SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
     drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
   }
 

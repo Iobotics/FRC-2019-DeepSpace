@@ -33,13 +33,15 @@ public class MoveOnZoneTwo extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
     addSequential(new LevelReset());
+    addSequential(new AutoDrive(5));
     addSequential(new ToggleZoneTwoFront());
-    addSequential(new AutoDrive(15));
-    addSequential(new WaitCommand(1));
+    addSequential(new AutoDrive(20));
+    addSequential(new WaitCommand(5));
     addSequential(new ToggleZoneTwoBack());
     addSequential(new WaitCommand(1));
     addSequential(new ToggleZoneTwoFront());
-    addSequential(new AutoDrive(24));
+    addSequential(new WaitCommand(5));
+    addSequential(new AutoDrive(15));
     addSequential(new ToggleZoneTwoBack());
     SmartDashboard.putString("finished", "true");
   }

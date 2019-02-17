@@ -32,6 +32,7 @@ public class OI {
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
   private final JoystickButton runIntakeButton = new JoystickButton(_lStick, 1);
+  private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
 
   public OI(){
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
@@ -39,6 +40,7 @@ public class OI {
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     runIntakeButton.whileHeld(new RunChassisIntake());
     runIntakeButton.whenReleased(new StopChassisIntake());
+    autoDrive.whenPressed(new AutoDrive(50));
   }
 
   public double getLeftStickX(){

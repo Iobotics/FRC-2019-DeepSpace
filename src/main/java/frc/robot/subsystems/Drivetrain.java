@@ -234,6 +234,10 @@ public class Drivetrain extends Subsystem {
     return _backRightCanEncoder;
   }
 
+  public double getTemperature(){
+    return _backRightMain.getMotorTemperature();
+  }
+
   
   @Override
   public void initDefaultCommand() {
