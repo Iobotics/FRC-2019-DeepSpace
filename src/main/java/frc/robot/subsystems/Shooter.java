@@ -71,10 +71,6 @@ public class Shooter extends Subsystem {
     shooterArm.config_kI(slotID, kI);
     shooterArm.config_kD(slotID, kD);
 
-    
-    intakeOut = new Solenoid(RobotMap.intakeSolenoid);
-    intakeOut.set(false);
-
     proximitySensor = new DigitalInput(RobotMap.proximitySensor);
   }
 

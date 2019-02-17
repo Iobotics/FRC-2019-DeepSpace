@@ -33,6 +33,7 @@ public class RunShooter extends CommandBase {
     //If the ball is in then ball is in becomes true
     if(shooter.isBallIn() && power > 0){
       ballIsIn = true;
+      shooter.setShooter(power);
     }
     
     else shooter.setShooter(power);
@@ -47,7 +48,7 @@ public class RunShooter extends CommandBase {
   @Override
   protected void end() {  
     if(ballIsIn){
-      shooter.setShooter(0.05);
+      shooter.setShooter(0.1);
     }
     else shooter.setShooter(0);
     ballIsIn = false;

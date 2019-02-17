@@ -32,12 +32,13 @@ public class OI {
   private final Joystick _rStick = new Joystick(1);
   private final XboxController _controller = new XboxController(2);
 
-  private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
+  private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4); 
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
   private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
   private final JoystickButton setShooterPos = new JoystickButton(_controller, 3);
-  private final JoystickButton intakeBall = new JoystickButton(_controller, 1);
+  private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
+  private final JoystickButton shootBall = new JoystickButton(_controller, 2);
   private final JoystickButton runIntakeButton = new JoystickButton(_lStick, 1);
   private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
 
@@ -46,8 +47,9 @@ public class OI {
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
-    setShooterPos.whileHeld(new SetShooterPos(812));
-    intakeBall.whileHeld(new RunShooter(0.5));
+    setShooterPos.whileHeld(new SetShooterPos(780));
+    intakeShooterBall.whileHeld(new RunShooter(0.5));
+    shootBall.whileHeld(new RunShooter(-1));
     runIntakeButton.whileHeld(new RunChassisIntake());
     runIntakeButton.whenReleased(new StopChassisIntake());
     autoDrive.whenPressed(new AutoDrive(50));

@@ -16,10 +16,10 @@ package frc.robot;
 public class RobotMap {
   public static final int proximitySensor = 2;
   
-  public static final int hookSolenoidForward = 2;
-  public static final int hookSolenoidReverse = 3;
-  public static final int intakeSolenoid = 0;
+  public static final int hookSolenoidForward = 6;
+  public static final int hookSolenoidReverse = 7;
   public static final int extendOneSolenoid = 1;
+  
 
   public static final int zoneTwoFrontForward = 2;
   public static final int zoneTwoFrontReverse = 3;
