@@ -5,21 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.hatch;
 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class ToggleHook extends CommandBase {
+  public ToggleHook() {
+    requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
+    hatchCollector.toggleHook();
   }
 
   // Called repeatedly when this Command is scheduled to run

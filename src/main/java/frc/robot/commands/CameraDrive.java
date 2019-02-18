@@ -9,8 +9,8 @@ public class CameraDrive extends CommandBase
 {
     double x;
 
-  double kF = .1; //TODO - find f and p
-  double kP = .02; //
+  double kF = 0; //TODO - find f and p
+  double kP = 0; //
   double kI = 0;
   double kD = 0;
 

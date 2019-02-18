@@ -26,12 +26,13 @@ public class OperateMecanumDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
+    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : -oi.getRightStickX();
     double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
     double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    drivetrain.setMecanum(x, y, rotation, navSensor.getAngle());
+    SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
+    drivetrain.setMecanum(x, y, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -7,19 +7,17 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class ToggleIntake extends CommandBase {
+  public ToggleIntake() {
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
+    chassisIntake.toggleIntake();
   }
 
   // Called repeatedly when this Command is scheduled to run

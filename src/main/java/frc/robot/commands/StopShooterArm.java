@@ -7,19 +7,17 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class StopShooterArm extends CommandBase {
+  public StopShooterArm() {
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
+    shooter.setShooterArm(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -30,7 +28,7 @@ public class LevelReset extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

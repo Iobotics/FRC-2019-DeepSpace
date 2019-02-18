@@ -5,26 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.hatch;
 
+import frc.robot.commands.CommandBase;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
+public class ExtendHatch extends CommandBase {
+  public ExtendHatch() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(levelTwo);
+    requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
+    hatchCollector.toggleExtension();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,5 +43,6 @@ public class LevelReset extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

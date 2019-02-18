@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
+public class StopChassisIntake extends CommandBase {
+  public StopChassisIntake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(levelTwo);
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
+    chassisIntake.retractIntake();
+    chassisIntake.setPower(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
