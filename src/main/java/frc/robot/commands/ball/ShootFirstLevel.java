@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.SetShooterPos;
+import frc.robot.commands.StopShooter;
 import frc.robot.commands.StopShooterArm;
 
 public class ShootFirstLevel extends CommandGroup {
@@ -25,6 +26,6 @@ public class ShootFirstLevel extends CommandGroup {
     addParallel(new RunShooter(-1));
     addSequential(new WaitCommand(0.5));
     addSequential(new StopShooterArm());
-    addParallel(new RunShooter(0));
+    addParallel(new StopShooter());
   }
 }

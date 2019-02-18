@@ -8,52 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class RunShooter extends CommandBase {
-
-  double power;
-
-  public RunShooter (double power) {
+public class StopShooter extends CommandBase {
+  public StopShooter() {
     requires(shooter);
-    this.power = power;
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    if(shooter.getIsBallIn()){
+      shooter.setShooter(0.1);
+    }
+    else shooter.setShooter(0);
   }
 
   @Override
   protected void execute() {
-    
-    //If the ball is detected while the command is running then ball is in becomes true
-    if(shooter.isBallIn() && power > 0){
-      shooter.setIsBallIn(true);
-      shooter.setShooter(power);
-    }
-
-    else if (shooter.isBallIn() && power < 0){
-      shooter.setIsBallIn(false);
-      shooter.setShooter(power);
-    }
-    
-    else shooter.setShooter(power);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
-  //if a vall is in then gives the shooter a nominal voltage to hold the balls
   @Override
-  protected void end() {  
-   
+  protected void end() {
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

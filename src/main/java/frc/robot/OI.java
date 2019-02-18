@@ -33,6 +33,7 @@ import frc.robot.commands.RunShooter;
 import frc.robot.commands.SetShooterPos;
 import frc.robot.commands.RunChassisIntake;
 import frc.robot.commands.StopChassisIntake;
+import frc.robot.commands.StopShooter;
 import frc.robot.commands.ToggleIntake;
 
 /**
@@ -68,8 +69,12 @@ public class OI {
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
     toggleIntake.whenPressed(new ToggleIntake());
-    intakeShooterBall.whileHeld(new RunShooter(0.5));
-    shootBall.whileHeld(new RunShooter(-1));
+    intakeShooterBall.whenPressed(new RunShooter(0.5));
+    intakeShooterBall.whenReleased(new StopShooter());
+
+    shootBall.whenPressed(new RunShooter(-1));
+    shootBall.whenReleased(new StopShooter());
+    
     runIntakeButton.whileHeld(new RunChassisIntake());
     runIntakeButton.whenReleased(new StopChassisIntake());
     autoDrive.whenPressed(new AutoDrive(50));
