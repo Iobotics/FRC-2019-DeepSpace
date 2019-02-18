@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LevelTwoLift;
+import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.NavSensor;
 
 public abstract class CommandBase extends Command {
@@ -19,11 +20,13 @@ public abstract class CommandBase extends Command {
   public static Drivetrain drivetrain = new Drivetrain();
   public static NavSensor navSensor = new NavSensor();
   public static LevelTwoLift levelTwo = new LevelTwoLift();
+  public static LimeLight limelight = new LimeLight();
 
   public static void init() {
     navSensor.init();
     drivetrain.init();
     levelTwo.init();
+    limelight.init();
     
     oi = new OI();
 

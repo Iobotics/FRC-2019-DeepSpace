@@ -7,34 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CameraDrive extends CommandBase
 {
-    NetworkTable table;
-  NetworkTable outTable; 
-  NetworkTableInstance inst;
-  //NetworkTableEntry tv;
-  NetworkTableEntry tx;
-  //NetworkTableEntry ta;
-  //NetworkTableEntry ts;
-  //NetworkTableEntry tl;
-  NetworkTableEntry ty;
-
-  NetworkTableEntry _distance;
-  NetworkTableEntry _x;
-  NetworkTableEntry _good;
-  NetworkTableEntry _aButton;
-
-  double isDetected;
-  double x = 0;
-  double y;
-  double area;
-  double rotation;
-  double latency;
-  //double distance = 0;
-  //double heightLowerRocket = 28.75;
-  //double heightHigherRocket = 38; //TODO-Find
-  //double heightCargo = 28; //TODO- Find
-  //double heightObject = 0;
-  //double heightCamera = 34.75;
-  //double height = heightCamera - heightLowerRocket; //inches
+    double x;
 
   double kF = .1; //TODO - find f and p
   double kP = .02; //
@@ -65,37 +38,26 @@ public class CameraDrive extends CommandBase
 
     public CameraDrive()
     {
-        //requires(drivetrain);
-        //requires(navSensor);
+        requires(drivetrain);
+        requires(limelight);
+        requires(navSensor);
     }
 
     @Override
     protected void initialize()
     {
-        table = NetworkTableInstance.getDefault().getTable("limelight");
         
-        //tv = table.getEntry("tv");
-        //ta = table.getEntry("ta");
-        //ts = table.getEntry("ts");
-        //tl = table.getEntry("tl");
-        ty = table.getEntry("ty");
-        tx = table.getEntry("tx");
-
-        inst = NetworkTableInstance.getDefault();
-        outTable = inst.getTable("outTable");
-
-        _distance = outTable.getEntry("distance");
-        _x = outTable.getEntry("x");
-        _good = outTable.getEntry("good");
-        _aButton = outTable.getEntry("aButton");
     }
 
     @Override
     protected void execute()
     {
+        x = limelight.getX();
+
         double xSpeed = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
         double ySpeed = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
         double speed = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
+
 
         //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
 
@@ -120,63 +82,6 @@ public class CameraDrive extends CommandBase
             xDirection = "Good";
         }
 
-        /*if(distance > thresholdDistance)
-        {
-            zDirection = "Forward";
-        }
-        else
-        {
-            zDirection = "Good";
-        }
-        pressed = oi.getAButton();
-        if(pressed && unPressed){
-            can = true;
-            unPressed = false;
-        }
-        else if(!pressed)
-        {
-            unPressed = true;
-        }
-
-        if(can && cycle <= 2)
-        {
-            cycle++;
-            can = false;
-        }
-        else if(can && cycle >= 3)
-        {
-            cycle = 1;
-        }
-
-        if(cycle == 1)
-        {
-            heightObject = heightLowerRocket;
-            distanceMode = "Lower Rocket";
-        }
-        else if(cycle == 2)
-        {
-            heightObject = heightHigherRocket;
-            distanceMode = "Higher Rocket";
-        }
-        else if(cycle == 3)
-        {
-            heightObject = heightCargo;
-            distanceMode = "Cargo";
-        }*/
-
-        //isDetected = tv.getDouble(0.0);
-        //area = ta.getDouble(0.0);
-        //rotation = ts.getDouble(0.0);
-        //latency = tl.getDouble(0.0);
-        //y = ty.getDouble(0.0);
-        //distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
-        x = tx.getDouble(0.0);
-
-        //_good.setBoolean(goodToShoot);
-        _x.setNumber(x);
-        //_distance.setNumber(distance);
-        _aButton.setBoolean(oi.getAButton());
-
         if(oi.getLeftStickMid())
         {
             error = x;
@@ -194,18 +99,6 @@ public class CameraDrive extends CommandBase
             }
         }
             drivetrain.setMecanum(xSpeed, ySpeed, speed, navSensor.getAngle());
-            //SmartDashboard.putNumber("speed", speed);
-            //SmartDashboard.putNumber("x", x);
-            //SmartDashboard.putNumber("area", area);
-            //SmartDashboard.putNumber("isDetected", isDetected);
-            //SmartDashboard.putNumber("Rotation of Target", rotation);
-            //SmartDashboard.putNumber("latency", latency);
-            //SmartDashboard.putNumber("y", y);
-            //SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
-            //SmartDashboard.putNumber("Distance", distance);
-            //SmartDashboard.putString("x direction", xDirection);
-            //SmartDashboard.putString("If you should go forward", zDirection);
-            //SmartDashboard.putString("Distance Sensing Mode", distanceMode);
     }
 
 
