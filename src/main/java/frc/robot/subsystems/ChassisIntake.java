@@ -43,6 +43,13 @@ public class ChassisIntake extends Subsystem {
   public void retractIntake(){
     extender.set(false);
   }
+
+  public void toggleIntake(){
+    if(extender.get()){
+      extender.set(false);
+    }
+    else extender.set(true);
+  }
   
   @Override
   public void initDefaultCommand() {

@@ -37,15 +37,18 @@ public class Shooter extends Subsystem {
 
   DigitalInput proximitySensor;
 
+  private boolean isBallIn = false;
+
   private int slotID = 0;
-  private double kFF =  0.4;
-  private double kP = 11;
+  private double kFFEmpty =  0.20;
+  private double kFFBall = 0.55;
+  private double kP = 7;
   private double kI = 0.0;
   private double kD = 300;
 
   @Override
   public void initDefaultCommand() {
-
+  
   }
 
   public void init()
@@ -93,13 +96,29 @@ public class Shooter extends Subsystem {
   }
 
   public void setShooterPosition(double position){
-    shooterArm.set(ControlMode.Position, position, 
-    DemandType.ArbitraryFeedForward, kFF * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
-    //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    if(isBallIn){
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFBall * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+    else {
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFEmpty * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+    
   }
  
   public boolean isBallIn(){
     return !proximitySensor.get();
+  }
+
+  public boolean getIsBallIn(){
+    return isBallIn;
+  }
+
+  public void setIsBallIn(boolean isBallIn){
+    this.isBallIn = isBallIn;
   }
 
   public void toggleSolenoid(){

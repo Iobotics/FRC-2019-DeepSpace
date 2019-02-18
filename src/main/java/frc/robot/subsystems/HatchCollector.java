@@ -45,6 +45,13 @@ public class HatchCollector extends Subsystem {
     _hook.set(Value.kReverse);
   }
 
+  public void toggleHook(){
+    if(_hook.get() == Value.kReverse){
+      _hook.set(Value.kForward);
+    }
+    else _hook.set(Value.kReverse);
+  }
+
   public void toggleExtension() {
     _extenderOne.set(!_extenderOne.get());
   }

@@ -9,19 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.ShooterArmPosition;
 
 public class SetShooterPos extends CommandBase {
 
   int pos;
-  boolean isHome = false;
 
   //Either Takes an Enum for position or just Raw Encoder Value
-  public SetShooterPos(ShooterArmPosition armPosition) {
-    requires(shooter);
-    this.pos = armPosition.angle();
-    this.isHome = armPosition.isHome();
-  }
+
 
   public SetShooterPos(int pos){
     this.pos = pos;
@@ -29,25 +23,21 @@ public class SetShooterPos extends CommandBase {
 
   @Override
   protected void initialize() {
+    shooter.setShooterPosition(pos);
   }
 
   //if the value is Home then just turn off the motor, only use when at the bottom
   @Override
   protected void execute() {
-    if(isHome){
-      shooter.setShooterArm(0);
-    }
-    else shooter.setShooterPosition(pos);
   }
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   @Override
   protected void end() {
-    shooter.setShooterArm(0);
   }
 
   @Override

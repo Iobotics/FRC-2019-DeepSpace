@@ -13,26 +13,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RunShooter extends CommandBase {
 
   double power;
-  boolean ballIsIn = false;
 
   public RunShooter (double power) {
     requires(shooter);
     this.power = power;
-    ballIsIn = false;
   }
 
   @Override
   protected void initialize() {
-    ballIsIn = false;
-    shooter.setShooter(0);
+
   }
 
   @Override
   protected void execute() {
     
-    //If the ball is in then ball is in becomes true
+    //If the ball is detected while the command is running then ball is in becomes true
     if(shooter.isBallIn() && power > 0){
-      ballIsIn = true;
+      shooter.setIsBallIn(true);
+      shooter.setShooter(power);
+    }
+
+    else if (shooter.isBallIn() && power < 0){
+      shooter.setIsBallIn(false);
       shooter.setShooter(power);
     }
     
@@ -47,11 +49,10 @@ public class RunShooter extends CommandBase {
   //if a vall is in then gives the shooter a nominal voltage to hold the balls
   @Override
   protected void end() {  
-    if(ballIsIn){
+    if(shooter.getIsBallIn()){
       shooter.setShooter(0.1);
     }
     else shooter.setShooter(0);
-    ballIsIn = false;
   }
 
   @Override
