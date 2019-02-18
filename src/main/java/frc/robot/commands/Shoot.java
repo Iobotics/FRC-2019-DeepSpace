@@ -8,14 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class GetDistance extends CommandBase {
-  public GetDistance() {
+public class Shoot extends CommandBase {
+  public Shoot() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(distancesensor);
-    requires(limitswitches);
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
@@ -26,9 +24,7 @@ public class GetDistance extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Distance", distancesensor.getDistance());
-    SmartDashboard.putBoolean("Hall", limitswitches.getHall());
-    SmartDashboard.putBoolean("Mechanical", limitswitches.getMechanical());
+    shooter.shoot(.2);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,11 +36,13 @@ public class GetDistance extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    shooter.shoot(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

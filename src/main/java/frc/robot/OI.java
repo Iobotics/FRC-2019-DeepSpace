@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Shoot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,13 +20,16 @@ public class OI {
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
+  private final Joystick _xStick = new Joystick(3);
 
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4);
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
   private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
+  private final JoystickButton shoot = new JoystickButton(_xStick, 1); //a
 
   public OI(){
+    shoot.whileHeld(new Shoot());
   }
 
   public double getLeftStickX(){

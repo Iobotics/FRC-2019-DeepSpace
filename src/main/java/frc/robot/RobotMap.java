@@ -15,7 +15,7 @@ package frc.robot;
  */
 public class RobotMap {
 
-  public static final int zoneTwoFrontForward = 2;
+  /*public static final int zoneTwoFrontForward = 2;
   public static final int zoneTwoFrontReverse = 3;
   public static final int zoneTwoBackForward = 4;
   public static final int zoneTwoBackReverse = 5;
@@ -29,8 +29,8 @@ public class RobotMap {
 
   public static final int leftLift = 2;
   public static final int rightLift = 5;
-
+*/
   public static final int rightShooter = 7;
   public static final int leftShooter = 4;
-  public static final int shooterArm = 3;
+  //public static final int shooterArm = 3;
 }
