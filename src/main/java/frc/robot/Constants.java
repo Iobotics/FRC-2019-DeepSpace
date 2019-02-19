@@ -11,15 +11,26 @@ package frc.robot;
  * Class to Handle values which are neededd multiple places and never change
  */
 public class Constants {
-    //timeout time used for TalonSRX PID control
-    public static final int timeoutMS = 20;
+  //timeout time used for TalonSRX PID control
+  public static final int timeoutMS = 20;
 
-    public static final double wheelCirumference = 4 * Math.PI;
+  public static final double wheelCirumference = 4 * Math.PI;
 
-    public static final double rotationsToWheel = 48/11;
-    //equal to Inches / Rotations, multiply with rotations to get inches, divide inches to get rotations
-    public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
+  public static final double rotationsToWheel = 48/11;
+  //equal to Inches / Rotations, multiply with rotations to get inches, divide inches to get rotations
+  public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
 
-    //Range of tolerance for if the loop is completed, measured in motor rotatins
-    public static final double toleranceRange = 1;
+  //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
+  public static final int shooterArmCenter = 812;
+
+  //Range of tolerance for if the loop is completed, measured in motor rotating
+  public static final double toleranceRange = 2;
+    
+  //TODO: Find Correct Angles
+
+  public static final int cargoShipAngle = 840;
+
+  public static final int firstLevelAngle = 795;
+
+ 
 }

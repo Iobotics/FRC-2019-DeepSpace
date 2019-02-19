@@ -9,15 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RunIntake extends CommandBase {
-
-  private double intakeSpeed;
-
-  public RunIntake(double intakeSpeed) {
+public class SetDrivePower extends CommandBase {
+  double power;
+  double time;
+  public SetDrivePower(double power, double time) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.intakeSpeed = intakeSpeed;
-    requires(intake);
+    requires(drivetrain);
+    this.power = power; 
+    this.time = time;
   }
 
   // Called just before this Command runs the first time
@@ -28,25 +28,25 @@ public class RunIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.runIntake(intakeSpeed);
+    drivetrain.setTank(power, power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return time < this.timeSinceInitialized();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.runIntake(0);
+    drivetrain.setTank(0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    this.end();
   }
 }

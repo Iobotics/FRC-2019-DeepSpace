@@ -7,32 +7,26 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class OperateMecanumDrive extends CommandBase {
+public class HoldShooterPos extends CommandBase {
 
-  public static final double DEADBAND = 0.2;
-  
-  public OperateMecanumDrive() {
-    // Use requires() here to declare subsystem dependencies
-    requires(drivetrain);
-    requires(navSensor);
+  private double position;
+
+  public HoldShooterPos(double position) {
+    requires(shooter);
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { }
+  protected void initialize() {
+  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
-    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
-    double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
-
-    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
-    drivetrain.setMecanum(x, y, rotation);
+    shooter.setShooterPosition(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,14 +38,13 @@ public class OperateMecanumDrive extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    drivetrain.setMecanum(0, 0, 0, 0);
+    shooter.setShooterArm(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    drivetrain.setMecanum(0, 0, 0, 0);
+    end();
   }
-
 }

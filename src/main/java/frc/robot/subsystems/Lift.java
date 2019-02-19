@@ -24,7 +24,9 @@ import frc.robot.commands.LiftMotorTest;
 public class Lift extends Subsystem {
   
   private TalonSRX _leftLift;
+  private TalonSRX _leftLiftSlave;
   private TalonSRX _rightLift;
+  private TalonSRX _rightLiftSlave;
 
   private double sensorRange  = 1024;
   private double kP = 2.4;
@@ -40,7 +42,12 @@ public class Lift extends Subsystem {
 
   public void init(){
     _leftLift = new TalonSRX(RobotMap.leftLift);
+   // _leftLiftSlave = new TalonSRX(RobotMap.leftLiftSlave);
+    //_leftLiftSlave.follow(_leftLift);
+
     _rightLift = new TalonSRX(RobotMap.rightLift);
+    //_rightLiftSlave = new TalonSRX(RobotMap.rightLiftSlave);
+    //_leftLiftSlave.follow(_rightLift);
 
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
@@ -53,7 +60,7 @@ public class Lift extends Subsystem {
     _rightLift.configContinuousCurrentLimit(40);
 
     _leftLift.setInverted(false);
-    _leftLift.setSensorPhase(false);
+    _leftLift.setSensorPhase(true);
     _rightLift.setInverted(true);
     _rightLift.setSensorPhase(true);
 
@@ -106,14 +113,6 @@ public class Lift extends Subsystem {
 
   public void setRightSpeed(double speed){
     _rightLift.set(ControlMode.PercentOutput, speed);
-  }
-
-  public double getRightLift(){
-    return _rightLift.getOutputCurrent();
-  }
-
-  public double getLeftLift(){
-    return _leftLift.getOutputCurrent();
   }
 
   @Override

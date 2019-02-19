@@ -5,27 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.hatch;
 
-public class OperateZoneTwoLift extends CommandBase {
-  public OperateZoneTwoLift() {
-    //requires(levelTwoLift);
+import frc.robot.commands.CommandBase;
+
+public class ExtendHatch extends CommandBase {
+  public ExtendHatch() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    hatchCollector.toggleExtension();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -35,7 +41,8 @@ public class OperateZoneTwoLift extends CommandBase {
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
-  @ Override
+  @Override
   protected void interrupted() {
+    end();
   }
 }

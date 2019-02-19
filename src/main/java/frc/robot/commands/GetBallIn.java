@@ -7,21 +7,26 @@
 
 package frc.robot.commands;
 
-public class ReverseRotateCamera extends CommandBase {
-  public ReverseRotateCamera() {
-    requires(rotater);
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class GetBallIn extends CommandBase {
+  public GetBallIn() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    rotater.backReverseCamera();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //rotater.backReverseCamera();
+    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -33,7 +38,6 @@ public class ReverseRotateCamera extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
   }
 
   // Called when another command which requires one or more of the same
