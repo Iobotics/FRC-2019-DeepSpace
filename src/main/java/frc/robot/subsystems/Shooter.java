@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.TestArm;
 
 /**
  * Subsystem Handles the Shooter, Intake, and Hatch
@@ -48,7 +49,7 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-  
+    setDefaultCommand(new TestArm());
   }
 
   public void init()

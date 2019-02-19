@@ -26,6 +26,6 @@ public class ShootFirstLevel extends CommandGroup {
     addParallel(new RunShooter(-1));
     addSequential(new WaitCommand(0.5));
     addSequential(new StopShooterArm());
-    addParallel(new StopShooter());
+    addSequential(new StopShooter());
   }
 }
