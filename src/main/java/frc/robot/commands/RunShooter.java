@@ -49,10 +49,7 @@ public class RunShooter extends CommandBase {
   //if a vall is in then gives the shooter a nominal voltage to hold the balls
   @Override
   protected void end() {  
-    if(shooter.getIsBallIn()){
-      shooter.setShooter(0.1);
-    }
-    else shooter.setShooter(0);
+   
   }
 
   @Override

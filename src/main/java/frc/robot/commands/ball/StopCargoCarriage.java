@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.SetShooterPos;
 import frc.robot.commands.StopChassisIntake;
+import frc.robot.commands.StopShooter;
 import frc.robot.commands.StopShooterArm;
 
 public class StopCargoCarriage extends CommandGroup {
@@ -20,6 +21,7 @@ public class StopCargoCarriage extends CommandGroup {
   public StopCargoCarriage() {
     addParallel(new SetShooterPos(820));
     addSequential(new StopChassisIntake());
+    addSequential(new StopShooter());
     addSequential(new WaitCommand(1.5));
     addSequential(new StopShooterArm());
   }

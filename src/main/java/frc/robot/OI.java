@@ -8,6 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.CameraDrive;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -25,10 +28,12 @@ import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.ToggleZoneTwoBack;
 import frc.robot.commands.MoveOnZoneTwo;
+import frc.robot.commands.RotateCamera;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.SetShooterPos;
 import frc.robot.commands.RunChassisIntake;
 import frc.robot.commands.StopChassisIntake;
+import frc.robot.commands.StopShooter;
 import frc.robot.commands.ToggleIntake;
 
 /**
@@ -55,6 +60,7 @@ public class OI {
   private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
   private final JoystickButton shootFirstLevel = new JoystickButton(_controller, 8);
+  private final JoystickButton forwardRotate = new JoystickButton(_controller, 6);//Right Bumper
 
 
   public OI(){
@@ -63,8 +69,12 @@ public class OI {
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
     toggleIntake.whenPressed(new ToggleIntake());
-    intakeShooterBall.whileHeld(new RunShooter(0.5));
-    shootBall.whileHeld(new RunShooter(-1));
+    intakeShooterBall.whenPressed(new RunShooter(0.5));
+    intakeShooterBall.whenReleased(new StopShooter());
+
+    shootBall.whenPressed(new RunShooter(-1));
+    shootBall.whenReleased(new StopShooter());
+    
     runIntakeButton.whileHeld(new RunChassisIntake());
     runIntakeButton.whenReleased(new StopChassisIntake());
     autoDrive.whenPressed(new AutoDrive(50));
@@ -76,7 +86,10 @@ public class OI {
 
     extendHatch.whenPressed(new ExtendHatch());
     popHatch.whenPressed(new ToggleHook());
-  }
+
+    forwardRotate.whenPressed(new RotateCamera());
+
+  }         
 
   public double getLeftStickX(){
     return _lStick.getX();
@@ -96,6 +109,16 @@ public class OI {
 
   public double getControllerStick(){
     return _controller.getRawAxis(1);
+  }
+
+  public boolean getLeftStickMid()
+  {
+    return _lStick.getRawButton(2);
+  }
+
+  public boolean getYButton()
+  {
+    return _controller.getRawButton(12); //right stick on x box controller
   }
   
 }

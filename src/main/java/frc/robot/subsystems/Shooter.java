@@ -48,7 +48,7 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-  
+   
   }
 
   public void init()
