@@ -50,9 +50,7 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive _drive;
 
-  public Drivetrain(){
-
-  }
+  public Drivetrain(){}
   
   public void init(){
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
@@ -72,7 +70,7 @@ public class Drivetrain extends Subsystem {
     _drive = new MecanumDrive(
       _frontLeftMain, 
       _backLeftMain, 
-      _frontRightMain,
+      _frontRightMain,   
       _backRightMain
     );
 
@@ -244,6 +242,4 @@ public class Drivetrain extends Subsystem {
     //setDefaultCommand(new OperateMecanumDrive());
     setDefaultCommand(new CameraDrive());
   }
-
-
 }

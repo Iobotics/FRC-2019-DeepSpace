@@ -30,9 +30,11 @@ import frc.robot.commands.ToggleZoneTwoBack;
 import frc.robot.commands.MoveOnZoneTwo;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.SetLiftPosition;
 import frc.robot.commands.SetShooterPos;
 import frc.robot.commands.RunChassisIntake;
 import frc.robot.commands.StopChassisIntake;
+import frc.robot.commands.StopLift;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.ToggleIntake;
 
@@ -68,7 +70,8 @@ public class OI {
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
-    toggleIntake.whenPressed(new ToggleIntake());
+    toggleIntake.whenPressed(new SetLiftPosition(800));
+    toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());
 
