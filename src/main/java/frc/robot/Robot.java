@@ -51,8 +51,6 @@ public class Robot extends TimedRobot {
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
     CommandBase.init();
-    PowerDistributionPanel _pdp = new PowerDistributionPanel();
-    _pdp.clearStickyFaults();
     // chooser.addOption("My Auto", new MyAutoCommand());
     
     SmartDashboard.putData("Auto mode", m_chooser);

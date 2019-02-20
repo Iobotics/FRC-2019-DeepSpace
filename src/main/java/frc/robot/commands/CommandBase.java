@@ -30,7 +30,7 @@ public abstract class CommandBase extends Command {
     navSensor.init();
     drivetrain.init();
     hatchCollector.init();
-    shooter.init();
+    //shooter.init();
     levelTwo.init();
     chassisIntake.init();
     oi = new OI();
