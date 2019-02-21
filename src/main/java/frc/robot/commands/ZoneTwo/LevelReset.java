@@ -5,46 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ZoneTwo;
 
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class HoldShooterPos extends CommandBase {
-
-  private double position;
-
-  public HoldShooterPos(double position) {
-    requires(shooter);
-    this.position = position;
+public class LevelReset extends CommandBase {
+  public LevelReset() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    levelTwo.retractBackWheels();
+    levelTwo.retractMidWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    shooter.setShooterPosition(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    shooter.setShooterArm(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

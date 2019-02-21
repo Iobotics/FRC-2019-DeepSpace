@@ -5,35 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class LiftMotorTest extends CommandBase {
-  public LiftMotorTest() {
-    requires(lift);
+public class StopShooter extends CommandBase {
+  public StopShooter() {
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    if(shooter.getIsBallIn()){
+      shooter.setShooter(0.1);
+    }
+    else shooter.setShooter(0);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    lift.setLeftSpeed(-oi.getControllerStick());
-    lift.setRightSpeed(-oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }

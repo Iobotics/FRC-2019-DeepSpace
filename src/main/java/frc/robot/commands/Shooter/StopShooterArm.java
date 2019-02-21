@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -6,32 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class RunChassisIntake extends CommandBase {
-  public RunChassisIntake() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(chassisIntake);
+public class StopShooterArm extends CommandBase {
+  public StopShooterArm() {
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.extendIntake();
+    shooter.setShooterArm(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setPower(.4);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

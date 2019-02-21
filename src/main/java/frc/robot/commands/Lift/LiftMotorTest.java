@@ -5,32 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class LiftMotorTest extends CommandBase {
+  public LiftMotorTest() {
+    requires(lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    lift.setLeftSpeed(-oi.getControllerStick());
+    lift.setRightSpeed(-oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

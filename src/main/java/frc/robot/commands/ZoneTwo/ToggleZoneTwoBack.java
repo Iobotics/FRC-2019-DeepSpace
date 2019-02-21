@@ -5,31 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ZoneTwo;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class SetLiftPosition extends CommandBase {
-
-  private double targetPosition;
-
-  public SetLiftPosition(double targetPosition) {
-    this.targetPosition = targetPosition;
-   requires(lift);
+public class ToggleZoneTwoBack extends CommandBase {
+  public ToggleZoneTwoBack() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(levelTwo);
   }
 
- 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    lift.setLiftPosition(targetPosition);
+    if(!levelTwo.backWheelDown()){
+      levelTwo.deployBackWheels();
+    } else {
+      levelTwo.retractBackWheels();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    lift.setLiftPosition(targetPosition);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,12 +41,12 @@ public class SetLiftPosition extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

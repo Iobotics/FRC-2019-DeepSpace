@@ -5,39 +5,52 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class SetShooterPos extends CommandBase {
+public class RunShooter extends CommandBase {
 
-  int pos;
+  double power;
 
-  //Either Takes an Enum for position or just Raw Encoder Value
-
-
-  public SetShooterPos(int pos){
-    this.pos = pos;
+  public RunShooter (double power) {
+    requires(shooter);
+    this.power = power;
   }
 
   @Override
   protected void initialize() {
-    shooter.setShooterPosition(pos);
+
   }
 
-  //if the value is Home then just turn off the motor, only use when at the bottom
   @Override
   protected void execute() {
+    
+    //If the ball is detected while the command is running then ball is in becomes true
+    if(shooter.isBallIn() && power > 0){
+      shooter.setIsBallIn(true);
+      shooter.setShooter(power);
+    }
+
+    else if (shooter.isBallIn() && power < 0){
+      shooter.setIsBallIn(false);
+      shooter.setShooter(power);
+    }
+    
+    else shooter.setShooter(power);
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
+  //if a vall is in then gives the shooter a nominal voltage to hold the balls
   @Override
-  protected void end() {
+  protected void end() {  
+   
   }
 
   @Override

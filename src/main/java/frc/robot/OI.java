@@ -8,35 +8,23 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CameraDrive;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.AutoDrive;
-import frc.robot.commands.AutoTurn;
-import frc.robot.commands.HoldShooterPos;
-import frc.robot.commands.LevelReset;
-import frc.robot.commands.ToggleZoneTwoFront;
-import frc.robot.commands.ball.RunCargoCarriage;
-import frc.robot.commands.ball.ShootCargoShip;
-import frc.robot.commands.ball.ShootFirstLevel;
-import frc.robot.commands.ball.StopCargoCarriage;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.PopHatch;
-import frc.robot.commands.hatch.ToggleHook;
-import frc.robot.commands.ToggleZoneTwoBack;
-import frc.robot.commands.MoveOnZoneTwo;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.RunShooter;
-import frc.robot.commands.SetLiftPosition;
-import frc.robot.commands.SetShooterPos;
-import frc.robot.commands.RunChassisIntake;
-import frc.robot.commands.StopChassisIntake;
-import frc.robot.commands.StopLift;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.Ball.RunCargoCarriage;
+import frc.robot.commands.Ball.ShootCargoShip;
+import frc.robot.commands.Ball.ShootFirstLevel;
+import frc.robot.commands.Ball.StopCargoCarriage;
+import frc.robot.commands.Drivetrain.AutoDrive;
+import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.ToggleHook;
+import frc.robot.commands.Intake.ToggleIntake;
+import frc.robot.commands.Lift.StopLift;
+import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
 
 /**
  * This class is the glue that binds the controls on the physical operator

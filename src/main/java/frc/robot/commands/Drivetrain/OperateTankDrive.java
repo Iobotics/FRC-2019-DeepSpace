@@ -5,36 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Drivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class SetDrivePower extends CommandBase {
-  double power;
-  double time;
-  public SetDrivePower(double power, double time) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class OperateTankDrive extends CommandBase {
+
+  public OperateTankDrive() {
     requires(drivetrain);
-    this.power = power; 
-    this.time = time;
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-  }
+  protected void initialize() { }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    drivetrain.setTank(power, power);
+    double left = -oi.getLeftStickY();
+    double right = -oi.getRightStickY();
+
+    drivetrain.setTank(left, right);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return time < this.timeSinceInitialized();
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -47,6 +44,7 @@ public class SetDrivePower extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    this.end();
+    drivetrain.setTank(0, 0);
   }
+  
 }

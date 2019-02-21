@@ -5,20 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class StopLift extends CommandBase {
-  public StopLift() {
-    requires(lift);
+public class StopChassisIntake extends CommandBase {
+  public StopChassisIntake() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    lift.setLeftSpeed(0);
-    lift.setRightSpeed(0);
+    chassisIntake.retractIntake();
+    chassisIntake.setPower(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
