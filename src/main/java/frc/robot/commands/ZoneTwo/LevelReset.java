@@ -5,19 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ZoneTwo;
 
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class ToggleIntake extends CommandBase {
-  public ToggleIntake() {
-    requires(chassisIntake);
+public class LevelReset extends CommandBase {
+  public LevelReset() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.toggleIntake();
+    levelTwo.retractBackWheels();
+    levelTwo.retractMidWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run

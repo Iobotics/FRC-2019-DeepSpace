@@ -16,9 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
-import frc.robot.commands.CameraDrive;
-import frc.robot.commands.OperateMecanumDrive;
-import frc.robot.commands.OperateTankDrive;
+import frc.robot.commands.Drivetrain.CameraDrive;
 
 public class Drivetrain extends Subsystem {
 
@@ -50,9 +48,7 @@ public class Drivetrain extends Subsystem {
 
   private MecanumDrive _drive;
 
-  public Drivetrain(){
-
-  }
+  public Drivetrain(){}
   
   public void init(){
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
@@ -72,7 +68,7 @@ public class Drivetrain extends Subsystem {
     _drive = new MecanumDrive(
       _frontLeftMain, 
       _backLeftMain, 
-      _frontRightMain,
+      _frontRightMain,   
       _backRightMain
     );
 
@@ -244,6 +240,4 @@ public class Drivetrain extends Subsystem {
     //setDefaultCommand(new OperateMecanumDrive());
     setDefaultCommand(new CameraDrive());
   }
-
-
 }

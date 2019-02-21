@@ -5,9 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.ZoneTwo;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
 public class ToggleZoneTwoFront extends CommandBase {
   public ToggleZoneTwoFront() {

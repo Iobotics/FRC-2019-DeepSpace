@@ -5,26 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class StopChassisIntake extends CommandBase {
-  public StopChassisIntake() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(chassisIntake);
+public class SetLiftPosition extends CommandBase {
+
+  private double targetPosition;
+
+  public SetLiftPosition(double targetPosition) {
+    this.targetPosition = targetPosition;
+   requires(lift);
   }
 
+ 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.retractIntake();
-    chassisIntake.setPower(0);
+    lift.setLiftPosition(targetPosition);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    lift.setLiftPosition(targetPosition);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +42,7 @@ public class StopChassisIntake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same

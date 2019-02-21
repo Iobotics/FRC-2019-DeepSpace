@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj.PIDBase;
 import edu.wpi.first.wpilibj.PIDController;
@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
 public class AutoTurn extends CommandBase implements PIDOutput {
 

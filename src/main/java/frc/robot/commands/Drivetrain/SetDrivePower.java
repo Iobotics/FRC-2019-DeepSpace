@@ -5,44 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class GetBallIn extends CommandBase {
-  public GetBallIn() {
+public class SetDrivePower extends CommandBase {
+  double power;
+  double time;
+  public SetDrivePower(double power, double time) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(shooter);
+    requires(drivetrain);
+    this.power = power; 
+    this.time = time;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
+    drivetrain.setTank(power, power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return time < this.timeSinceInitialized();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    drivetrain.setTank(0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

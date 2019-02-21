@@ -5,29 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 
-public class StopShooter extends CommandBase {
-  public StopShooter() {
-    requires(shooter);
+public class SetShooterPos extends CommandBase {
+
+  int pos;
+
+  //Either Takes an Enum for position or just Raw Encoder Value
+
+
+  public SetShooterPos(int pos){
+    this.pos = pos;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(shooter.getIsBallIn()){
-      shooter.setShooter(0.1);
-    }
-    else shooter.setShooter(0);
+    shooter.setShooterPosition(pos);
   }
 
+  //if the value is Home then just turn off the motor, only use when at the bottom
   @Override
   protected void execute() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return true;
@@ -37,9 +41,8 @@ public class StopShooter extends CommandBase {
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

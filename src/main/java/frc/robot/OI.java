@@ -8,33 +8,23 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.CameraDrive;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.AutoDrive;
-import frc.robot.commands.AutoTurn;
-import frc.robot.commands.HoldShooterPos;
-import frc.robot.commands.LevelReset;
-import frc.robot.commands.ToggleZoneTwoFront;
+import frc.robot.commands.RotateCamera;
 import frc.robot.commands.ball.RunCargoCarriage;
 import frc.robot.commands.ball.ShootCargoShip;
 import frc.robot.commands.ball.ShootFirstLevel;
 import frc.robot.commands.ball.StopCargoCarriage;
+import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.PopHatch;
 import frc.robot.commands.hatch.ToggleHook;
-import frc.robot.commands.ToggleZoneTwoBack;
-import frc.robot.commands.MoveOnZoneTwo;
-import frc.robot.commands.RotateCamera;
-import frc.robot.commands.RunShooter;
-import frc.robot.commands.SetShooterPos;
-import frc.robot.commands.RunChassisIntake;
-import frc.robot.commands.StopChassisIntake;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.Intake.ToggleIntake;
+import frc.robot.commands.Lift.StopLift;
+import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,9 +43,8 @@ public class OI {
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
-  private final JoystickButton runIntakeButton = new JoystickButton(_lStick, 1);
   private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
-  private final JoystickButton runCargoCarriage = new JoystickButton(_controller, 4);
+  private final JoystickButton runCargoCarriage = new JoystickButton(_lStick, 1);
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
   private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
@@ -68,15 +57,14 @@ public class OI {
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
-    toggleIntake.whenPressed(new ToggleIntake());
+    toggleIntake.whenPressed(new ToggleIntake( ));
+    toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());
 
     shootBall.whenPressed(new RunShooter(-1));
     shootBall.whenReleased(new StopShooter());
     
-    runIntakeButton.whileHeld(new RunChassisIntake());
-    runIntakeButton.whenReleased(new StopChassisIntake());
     autoDrive.whenPressed(new AutoDrive(50));
 
     runCargoCarriage.whileHeld(new RunCargoCarriage());

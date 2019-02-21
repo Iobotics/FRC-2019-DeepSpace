@@ -8,9 +8,9 @@
 package frc.robot.commands.ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.RunChassisIntake;
-import frc.robot.commands.RunShooter;
-import frc.robot.commands.SetShooterPos;
+import frc.robot.commands.Shooter.SetShooterPos;
+import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Intake.RunChassisIntake;
 
 public class RunCargoCarriage extends CommandGroup {
   /**

@@ -5,25 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.CommandBase;
 
-public class ToggleZoneTwoBack extends CommandBase {
-  public ToggleZoneTwoBack() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class StopLift extends CommandBase {
+  public StopLift() {
+    requires(lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(!levelTwo.backWheelDown()){
-      levelTwo.deployBackWheels();
-    } else {
-      levelTwo.retractBackWheels();
-    }
+    lift.setLeftSpeed(0);
+    lift.setRightSpeed(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -46,6 +42,5 @@ public class ToggleZoneTwoBack extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

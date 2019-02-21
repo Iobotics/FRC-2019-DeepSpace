@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.RunShooter;
-import frc.robot.commands.SetShooterPos;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.StopShooterArm;
+import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.SetShooterPos;
+import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Shooter.StopShooterArm;
 
 public class ShootFirstLevel extends CommandGroup {
   /**

@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -5,38 +6,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
-public class ResetGyro extends CommandBase {
-  public ResetGyro() {
+import frc.robot.commands.CommandBase;
+
+public class RunChassisIntake extends CommandBase {
+  public RunChassisIntake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(navSensor);
+    requires(chassisIntake);
   }
 
-  // Called just before this C  ommand runs the first time
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    navSensor.resetGyro();
+    chassisIntake.extendIntake();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() { }
+  protected void execute() {
+    chassisIntake.setPower(.4);
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !navSensor.isCalibrating();
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() { }
+  protected void end() {
+  }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() { }
-  
+  protected void interrupted() {
+  }
 }

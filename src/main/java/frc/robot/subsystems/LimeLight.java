@@ -33,13 +33,6 @@ public class LimeLight extends Subsystem {
   double area;
   double rotation;
   double latency;
-  //double distance = 0;
-  //double heightLowerRocket = 28.75;
-  //double heightHigherRocket = 38; //TODO-Find
-  //double heightCargo = 28; //TODO- Find
-  //double heightObject = 0;
-  //double heightCamera = 34.75;
-  //double height = heightCamera - heightLowerRocket; //inches
 
   public void init()
   {
