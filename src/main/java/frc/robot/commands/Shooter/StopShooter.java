@@ -7,7 +7,6 @@
 
 package frc.robot.commands.Shooter;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
 public class StopShooter extends CommandBase {

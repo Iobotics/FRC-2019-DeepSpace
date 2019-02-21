@@ -7,8 +7,7 @@
 
 package frc.robot.commands.Drivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.Constants;
 import frc.robot.commands.CommandBase;
 
@@ -16,18 +15,12 @@ public class AutoDrive extends CommandBase {
 
   private double frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint;
   private double target;
-  private double timeChange = 0;
-  private double power = .1;
-  private double timeToRamp = 0;
-  private double timeAtMax = 0;
-  private final double RAMP_RATE = .1; //power/sec/sec
-  private final double MAX_POWER = .7;
   private boolean _onTarget = false;
   private double _onTargetTime;
 
   public AutoDrive(double target) {
     requires(drivetrain);
-    this.target = target/2.92;
+    this.target = target / Constants.rotationsToInches;
   }
 
   private boolean isOnTarget(){

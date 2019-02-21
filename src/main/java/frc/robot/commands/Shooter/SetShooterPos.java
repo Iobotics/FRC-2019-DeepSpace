@@ -7,8 +7,6 @@
 
 package frc.robot.commands.Shooter;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
 public class SetShooterPos extends CommandBase {

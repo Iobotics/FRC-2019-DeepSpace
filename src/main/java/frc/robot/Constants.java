@@ -17,8 +17,8 @@ public class Constants {
   public static final double wheelCirumference = 4 * Math.PI;
 
   public static final double rotationsToWheel = 48/11;
-  //equal to Inches / Rotations, multiply with rotations to get inches, divide inches to get rotations
-  public static final double rotationsToInches = rotationsToWheel * wheelCirumference;
+  //equal to Inches / Rotations, divide from rotations to get inches, multiply by inches to get rotations
+  public static final double rotationsToInches = wheelCirumference / rotationsToWheel;
 
   //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
   public static final int shooterArmCenter = 812;

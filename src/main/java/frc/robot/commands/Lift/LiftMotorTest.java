@@ -7,8 +7,6 @@
 
 package frc.robot.commands.Lift;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
 public class LiftMotorTest extends CommandBase {

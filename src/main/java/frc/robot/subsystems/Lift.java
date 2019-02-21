@@ -9,9 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -46,7 +44,7 @@ public class Lift extends Subsystem {
 
     _rightLift = new TalonSRX(RobotMap.rightLift);
     _rightLiftSlave = new TalonSRX(RobotMap.rightLiftSlave);
-    _leftLiftSlave.follow(_rightLift);
+    _rightLiftSlave.follow(_rightLift);
 
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();

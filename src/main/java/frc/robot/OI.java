@@ -8,23 +8,23 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.RotateCamera;
-import frc.robot.commands.Ball.RunCargoCarriage;
-import frc.robot.commands.Ball.ShootCargoShip;
-import frc.robot.commands.Ball.ShootFirstLevel;
-import frc.robot.commands.Ball.StopCargoCarriage;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Drivetrain.AutoDrive;
-import frc.robot.commands.Hatch.ExtendHatch;
-import frc.robot.commands.Hatch.ToggleHook;
-import frc.robot.commands.Intake.ToggleIntake;
-import frc.robot.commands.Lift.StopLift;
-import frc.robot.commands.Shooter.RunShooter;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
-import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
+import frc.robot.commands.ball.RunCargoCarriage;
+import frc.robot.commands.ball.ShootCargoShip;
+import frc.robot.commands.ball.ShootFirstLevel;
+import frc.robot.commands.ball.StopCargoCarriage;
+import frc.robot.commands.hatch.ExtendHatch;
+import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
+import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
+import frc.robot.commands.RotateCamera;
+import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Lift.StopLift;
+import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Intake.ToggleIntake;
 
 /**
  * This class is the glue that binds the controls on the physical operator

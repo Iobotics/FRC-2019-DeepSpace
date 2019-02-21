@@ -7,19 +7,9 @@
 
 package frc.robot;
 
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-
-import edu.wpi.cscore.AxisCamera;
-import edu.wpi.cscore.CameraServerJNI;
-import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.cscore.VideoMode.PixelFormat;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -34,9 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.NavSensor;
-import frc.robot.subsystems.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -73,7 +60,6 @@ public class Robot extends TimedRobot {
   NetworkTableEntry yButton;
   //NetworkTableEntry xButton;
   NetworkTableInstance inst;
-  //boolean buttonToggle;
 
   //NetworkTable testTable;
   //NetworkTableEntry testButton;
@@ -98,13 +84,6 @@ public class Robot extends TimedRobot {
     inst.startClientTeam(2438);
     table = inst.getTable("outTable");
     yButton = table.getEntry("yButton");
-    //xButton = table.getEntry("xButton");
-
-    //testInst = NetworkTableInstance.getDefault();
-    //testInst.startClientTeam(2438);
-    //testTable = testInst.getTable("testTable");
-    //testButton = testTable.getEntry("testButton");
-    //testNumber = testTable.getEntry("testNumber");
 
     _compressor = new Compressor();
 
@@ -113,8 +92,6 @@ public class Robot extends TimedRobot {
 
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
-    PowerDistributionPanel _pdp = new PowerDistributionPanel();
-    _pdp.clearStickyFaults();
     // chooser.addOption("My Auto", new MyAutoCommand());
     
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -203,13 +180,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putBoolean("Is Ball In", CommandBase.shooter.getIsBallIn());
-    Scheduler.getInstance().run();
-   // SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
 
-   //%  SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
-    //SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
-    SmartDashboard.putNumber("Servo Posiiton", CommandBase.rotater.getServoPosition());
+    Scheduler.getInstance().run();
+
   }
 
   /**

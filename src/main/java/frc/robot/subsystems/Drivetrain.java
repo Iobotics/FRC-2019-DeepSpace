@@ -43,17 +43,14 @@ public class Drivetrain extends Subsystem {
   private double _kITurn = 0;
   private double _kDTurn = 0;
 
-
-  public final double INCHES_PER_ROTATION = 4 * Math.PI;
-
   private MecanumDrive _drive;
 
   public Drivetrain(){}
   
   public void init(){
+
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
-
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
@@ -73,6 +70,7 @@ public class Drivetrain extends Subsystem {
     );
 
     _drive.setSafetyEnabled(false);
+
 
     _frontLeftMain.setIdleMode(IdleMode.kBrake);
     _frontRightMain.setIdleMode(IdleMode.kBrake);
@@ -127,11 +125,14 @@ public class Drivetrain extends Subsystem {
     
   }
 
+  //Drive to position using smart motion profiling
   public void setSetPoint(double targetFrontLeft, double targetFrontRight, double targetBackLeft, double targetBackRight){
+
     _frontLeftCanController.setReference(targetFrontLeft, ControlType.kSmartMotion);
     _frontRightCanController.setReference(targetFrontRight, ControlType.kSmartMotion);
     _backLeftCanController.setReference(targetBackLeft, ControlType.kSmartMotion);
     _backRightCanController.setReference(targetBackRight, ControlType.kSmartMotion);
+
   }
 
   public void resetEncoders(){

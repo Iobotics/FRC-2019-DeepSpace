@@ -10,45 +10,51 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANSparkMaxFrames.SetpointOut;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Chassis intake
+ * Written by Darren Kohara
+ * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
+ * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
  */
 public class ChassisIntake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   
-  private TalonSRX chassisIntake;
-  public Solenoid extender;
+  private TalonSRX _chassisIntake;
+  public Solenoid _extender;
 
+  //Should be called in the robot init
   public void init(){
-    chassisIntake = new TalonSRX(RobotMap.chassisIntake);
-    chassisIntake.setNeutralMode(NeutralMode.Brake);
-    extender = new Solenoid(RobotMap.intakeExtender);
+
+    _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
+    _chassisIntake.setNeutralMode(NeutralMode.Brake);
+
+    _extender = new Solenoid(RobotMap.intakeExtender);
+    
   }
 
+  //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
-    chassisIntake.set(ControlMode.PercentOutput, power);
+    _chassisIntake.set(ControlMode.PercentOutput, power);
   }
 
+  
   public void extendIntake(){
-    extender.set(true);
+    _extender.set(true);
   }
   
   public void retractIntake(){
-    extender.set(false);
+    _extender.set(false);
   }
 
   public void toggleIntake(){
-    if(extender.get()){
-      extender.set(false);
+    if(_extender.get()){
+      _extender.set(false);
     }
-    else extender.set(true);
+    else _extender.set(true);
   }
   
   @Override
