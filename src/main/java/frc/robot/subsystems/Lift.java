@@ -9,30 +9,38 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Subsystem of Lift and PID control for it height
  */
 public class Lift extends Subsystem {
   
+  //Each side of the lift has a master and slave motor
   private TalonSRX _leftLift;
   private TalonSRX _leftLiftSlave;
   private TalonSRX _rightLift;
   private TalonSRX _rightLiftSlave;
 
+  //Full range of the pot, used to calculate FF and for soft Limit
   private double sensorRange  = 1024;
+  /*
+  *PID values for precision lift control
+  *TODO:Find Values experimentally
+  */
   private double kP = 2.4;
   private double kI;
   private double kD;
   private double kFF  = 1023 / ((sensorRange * 2) /10);
   private int kIZone;
+  /*
+  *Maximum Velocity and Acceleration Allowed
+  *Units are in Sensor Units per 100ms
+  */
   private int cruiseSpeed = 100;
   private int rampRate = 300;
   private final int TIMEOUT = 200;
@@ -46,11 +54,12 @@ public class Lift extends Subsystem {
 
     _rightLift = new TalonSRX(RobotMap.rightLift);
     _rightLiftSlave = new TalonSRX(RobotMap.rightLiftSlave);
-    _leftLiftSlave.follow(_rightLift);
+    _rightLiftSlave.follow(_rightLift);
 
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
 
+    //Current Limiting to prevent magic smoke from escaping, remove if more power required
     _leftLift.enableCurrentLimit(true);
     _rightLift.enableCurrentLimit(true);
     _leftLift.configPeakCurrentLimit(40);
@@ -58,6 +67,7 @@ public class Lift extends Subsystem {
     _rightLift.configPeakCurrentLimit(40);
     _rightLift.configContinuousCurrentLimit(40);
 
+    //Polarity of motors and sensor, if changed will cause burnout
     _leftLift.setInverted(false);
     _leftLift.setSensorPhase(true);
     _rightLift.setInverted(true);
@@ -65,7 +75,6 @@ public class Lift extends Subsystem {
 
     _leftLift.setNeutralMode(NeutralMode.Brake);
     _rightLift.setNeutralMode(NeutralMode.Brake);
-
 
     _leftLift.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     _leftLift.configFeedbackNotContinuous(true, TIMEOUT);
@@ -112,6 +121,12 @@ public class Lift extends Subsystem {
 
   public void setRightSpeed(double speed){
     _rightLift.set(ControlMode.PercentOutput, speed);
+  }
+
+  //Stops motors from using positional control, robot stops powering them
+  public void StopLift(){
+    _leftLift.set(ControlMode.PercentOutput, 0);
+    _rightLift.set(ControlMode.PercentOutput, 0);
   }
 
   @Override

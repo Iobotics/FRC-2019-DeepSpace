@@ -6,20 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-
-import edu.wpi.cscore.AxisCamera;
-import edu.wpi.cscore.CameraServerJNI;
-import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.cscore.VideoMode.PixelFormat;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -30,13 +19,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.commands.AutoDrive;
-//import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.ResetGyro;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.NavSensor;
-import frc.robot.subsystems.Shooter;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -62,23 +46,13 @@ public class Robot extends TimedRobot {
   VideoSink toSink0;
   VideoSink toSink1;
 
-
-  //CvSink cvSink0;
-  //CvSink cvSink1;
   CvSource outputStream0;
   CvSource outputStream1;
   CvSource rawStream0;
   CvSource rawStream1;
   NetworkTable table;
   NetworkTableEntry yButton;
-  //NetworkTableEntry xButton;
   NetworkTableInstance inst;
-  //boolean buttonToggle;
-
-  //NetworkTable testTable;
-  //NetworkTableEntry testButton;
-  //NetworkTableEntry testNumber;
-  //NetworkTableInstance testInst;
 
   OI oi = new OI();
 
@@ -98,13 +72,6 @@ public class Robot extends TimedRobot {
     inst.startClientTeam(2438);
     table = inst.getTable("outTable");
     yButton = table.getEntry("yButton");
-    //xButton = table.getEntry("xButton");
-
-    //testInst = NetworkTableInstance.getDefault();
-    //testInst.startClientTeam(2438);
-    //testTable = testInst.getTable("testTable");
-    //testButton = testTable.getEntry("testButton");
-    //testNumber = testTable.getEntry("testNumber");
 
     _compressor = new Compressor();
 
@@ -113,9 +80,7 @@ public class Robot extends TimedRobot {
 
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
-    PowerDistributionPanel _pdp = new PowerDistributionPanel();
     _pdp.clearStickyFaults();
-    // chooser.addOption("My Auto", new MyAutoCommand());
     
     SmartDashboard.putData("Auto mode", m_chooser);
   }
@@ -131,9 +96,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
       yButton.setBoolean(oi.getYButton());
-      //xButton.setBoolean(oi.getXButton());
-      //SmartDashboard.putBoolean("button", testButton.getBoolean(false));
-      //SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
    }
 
   /**
@@ -189,13 +151,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // teleop starts running.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    (new ResetGyro()).start();
+    
   }
 
   /**
@@ -205,11 +165,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     SmartDashboard.putBoolean("Is Ball In", CommandBase.shooter.getIsBallIn());
     Scheduler.getInstance().run();
-   // SmartDashboard.putBoolean("Calibraing", CommandBase.navSensor.isCalibrating());
-
-   //%  SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
-    //SmartDashboard.putNumber("encoder", CommandBase.drivetrain.getFrontRightPosition());
-    SmartDashboard.putNumber("Servo Posiiton", CommandBase.rotater.getServoPosition());
+  
   }
 
   /**

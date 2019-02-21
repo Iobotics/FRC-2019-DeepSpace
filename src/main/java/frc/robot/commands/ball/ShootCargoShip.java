@@ -17,7 +17,7 @@ import frc.robot.commands.Shooter.StopShooterArm;
 
 public class ShootCargoShip extends CommandGroup {
   /**
-   * Add your docs here.
+   *  Automatically Shoots for Cargo Ship
    */
   public ShootCargoShip() {
     addSequential(new SetShooterPos(Constants.cargoShipAngle));
