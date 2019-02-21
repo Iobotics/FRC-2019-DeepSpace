@@ -55,9 +55,8 @@ public class OI {
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
-  private final JoystickButton runIntakeButton = new JoystickButton(_lStick, 1);
   private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
-  private final JoystickButton runCargoCarriage = new JoystickButton(_controller, 4);
+  private final JoystickButton runCargoCarriage = new JoystickButton(_lStick, 1);
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
   private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
@@ -70,7 +69,7 @@ public class OI {
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
-    toggleIntake.whenPressed(new SetLiftPosition(800));
+    toggleIntake.whenPressed(new ToggleIntake( ));
     toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());
@@ -78,8 +77,6 @@ public class OI {
     shootBall.whenPressed(new RunShooter(-1));
     shootBall.whenReleased(new StopShooter());
     
-    runIntakeButton.whileHeld(new RunChassisIntake());
-    runIntakeButton.whenReleased(new StopChassisIntake());
     autoDrive.whenPressed(new AutoDrive(50));
 
     runCargoCarriage.whileHeld(new RunCargoCarriage());

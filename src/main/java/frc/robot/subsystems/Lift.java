@@ -42,12 +42,12 @@ public class Lift extends Subsystem {
 
   public void init(){
     _leftLift = new TalonSRX(RobotMap.leftLift);
-   // _leftLiftSlave = new TalonSRX(RobotMap.leftLiftSlave);
-    //_leftLiftSlave.follow(_leftLift);
+    _leftLiftSlave = new TalonSRX(RobotMap.leftLiftSlave);
+    _leftLiftSlave.follow(_leftLift);
 
     _rightLift = new TalonSRX(RobotMap.rightLift);
-    //_rightLiftSlave = new TalonSRX(RobotMap.rightLiftSlave);
-    //_leftLiftSlave.follow(_rightLift);
+    _rightLiftSlave = new TalonSRX(RobotMap.rightLiftSlave);
+    _leftLiftSlave.follow(_rightLift);
 
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();

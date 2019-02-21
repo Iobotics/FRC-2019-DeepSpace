@@ -14,7 +14,7 @@ public class ResetGyro extends CommandBase {
     requires(navSensor);
   }
 
-  // Called just before this Command runs the first time
+  // Called just before this C  ommand runs the first time
   @Override
   protected void initialize() {
     navSensor.resetGyro();

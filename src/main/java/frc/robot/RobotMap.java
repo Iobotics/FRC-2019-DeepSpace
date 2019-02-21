@@ -14,7 +14,7 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  public static final int proximitySensor = 2;
+  public static final int proximitySensor = 0;
   
   public static final int hookSolenoidForward = 6;
   public static final int hookSolenoidReverse = 7;
