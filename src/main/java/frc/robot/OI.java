@@ -106,7 +106,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _controller.getRawButton(12); //right stick on x box controller
+    return _controller.getRawButton(10); //right stick on x box controller
   }
   
 }
