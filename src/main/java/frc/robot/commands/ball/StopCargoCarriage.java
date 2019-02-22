@@ -16,7 +16,7 @@ import frc.robot.commands.Shooter.StopShooterArm;
 
 public class StopCargoCarriage extends CommandGroup {
   /**
-   * Add your docs here.
+   * Called After Cargo Carriage is Run, returns arm and intake
    */
   public StopCargoCarriage() {
     addParallel(new SetShooterPos(820));

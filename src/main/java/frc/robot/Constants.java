@@ -20,12 +20,12 @@ public class Constants {
   //equal to Inches / Rotations, divide from rotations to get inches, multiply by inches to get rotations
   public static final double rotationsToInches = wheelCirumference / rotationsToWheel;
 
-  //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-  public static final int shooterArmCenter = 812;
-
   //Range of tolerance for if the loop is completed, measured in motor rotating
   public static final double toleranceRange = 2;
     
+  //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
+  public static final int shooterArmCenter = 812;
+
   //TODO: Find Correct Angles
 
   public static final int cargoShipAngle = 840;

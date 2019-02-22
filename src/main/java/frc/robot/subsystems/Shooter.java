@@ -20,12 +20,11 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /**
- * Subsystem Handles the Shooter, Intake, and Hatch
+ * Subsystem Handles the Shooter / Carriage
  */
 public class Shooter extends Subsystem {
   TalonSRX leftShooter;
   TalonSRX rightShooter;
-  TalonSRX intake;
   TalonSRX shooterArm;
   
   Solenoid intakeOut;
@@ -59,6 +58,8 @@ public class Shooter extends Subsystem {
     shooterArm = new TalonSRX(RobotMap.shooterArm);
     shooterArm.configFactoryDefault();
 
+    //Shooter Arm Requires PID to stay up 
+    //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball
     shooterArm.setInverted(true);
     shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
@@ -70,10 +71,6 @@ public class Shooter extends Subsystem {
     shooterArm.config_kD(slotID, kD);
 
     proximitySensor = new DigitalInput(RobotMap.proximitySensor);
-  }
-
-  public void setIntake(double speed){
-    intake.set(ControlMode.PercentOutput, speed);
   }
 
   public void setShooter(double speed){

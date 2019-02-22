@@ -16,10 +16,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
+<<<<<<< HEAD
  * Chassis intake
  * Written by Darren Kohara
  * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
  * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
+=======
+ * Subsystem for intake
+>>>>>>> 6193e9e79cf02b366c2c2b1f66f546e08515cad2
  */
 public class ChassisIntake extends Subsystem {
   
@@ -61,7 +65,6 @@ public class ChassisIntake extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+   
   }
 }

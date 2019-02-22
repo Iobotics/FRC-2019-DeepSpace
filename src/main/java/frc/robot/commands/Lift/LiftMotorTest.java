@@ -7,6 +7,10 @@
 
 package frc.robot.commands.Lift;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6193e9e79cf02b366c2c2b1f66f546e08515cad2
 import frc.robot.commands.CommandBase;
 
 public class LiftMotorTest extends CommandBase {

@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
@@ -20,10 +19,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.commands.AutoDrive;
-//import frc.robot.commands.AutoTurn;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.ResetGyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,22 +45,13 @@ public class Robot extends TimedRobot {
   VideoSink toSink0;
   VideoSink toSink1;
 
-
-  //CvSink cvSink0;
-  //CvSink cvSink1;
   CvSource outputStream0;
   CvSource outputStream1;
   CvSource rawStream0;
   CvSource rawStream1;
   NetworkTable table;
   NetworkTableEntry yButton;
-  //NetworkTableEntry xButton;
   NetworkTableInstance inst;
-
-  //NetworkTable testTable;
-  //NetworkTableEntry testButton;
-  //NetworkTableEntry testNumber;
-  //NetworkTableInstance testInst;
 
   OI oi = new OI();
 
@@ -92,7 +79,7 @@ public class Robot extends TimedRobot {
 
     _compressor.start();
     _compressor.clearAllPCMStickyFaults();
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    _pdp.clearStickyFaults();
     
     SmartDashboard.putData("Auto mode", m_chooser);
   }
@@ -108,9 +95,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
       yButton.setBoolean(oi.getYButton());
-      //xButton.setBoolean(oi.getXButton());
-      //SmartDashboard.putBoolean("button", testButton.getBoolean(false));
-      //SmartDashboard.putNumber("cycle", testNumber.getDouble(0.0));
    }
 
   /**
@@ -166,13 +150,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // teleop starts running.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    (new ResetGyro()).start();
+    
   }
 
   /**
@@ -183,6 +165,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
+  
   }
 
   /**
