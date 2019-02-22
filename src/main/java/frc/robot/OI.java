@@ -10,14 +10,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Drivetrain.AutoDrive;
+import frc.robot.commands.Drivetrain.ToggleSlowMode;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
-import frc.robot.commands.ball.RunCargoCarriage;
-import frc.robot.commands.ball.ShootCargoShip;
-import frc.robot.commands.ball.ShootFirstLevel;
-import frc.robot.commands.ball.StopCargoCarriage;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.Ball.RunCargoCarriage;
+import frc.robot.commands.Ball.ShootCargoShip;
+import frc.robot.commands.Ball.ShootFirstLevel;
+import frc.robot.commands.Ball.StopCargoCarriage;
+import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
 import frc.robot.commands.RotateCamera;
@@ -39,16 +39,15 @@ public class OI {
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4); 
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
-  private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
-  private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
-  private final JoystickButton runCargoCarriage = new JoystickButton(_lStick, 1);
+  private final JoystickButton runCargoCarriage = new JoystickButton(_rStick, 1);
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
   private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
+  private final JoystickButton initiateSlowMode = new JoystickButton(_lStick, 3);
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
-  private final JoystickButton shootFirstLevel = new JoystickButton(_controller, 8);
+  private final JoystickButton shootFirstLevel = new JoystickButton(_lStick, 1);
   private final JoystickButton forwardRotate = new JoystickButton(_controller, 6);//Right Bumper
 
 
@@ -56,8 +55,7 @@ public class OI {
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
-    autoDriveTest.whenPressed(new AutoDrive(60));
-    toggleIntake.whenPressed(new ToggleIntake( ));
+    toggleIntake.whenPressed(new ToggleIntake());
     toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());
@@ -65,7 +63,8 @@ public class OI {
     shootBall.whenPressed(new RunShooter(-1));
     shootBall.whenReleased(new StopShooter());
     
-    autoDrive.whenPressed(new AutoDrive(50));
+    initiateSlowMode.whenPressed(new ToggleSlowMode());
+    initiateSlowMode.whenReleased(new ToggleSlowMode());
 
     runCargoCarriage.whileHeld(new RunCargoCarriage());
     runCargoCarriage.whenReleased(new StopCargoCarriage());

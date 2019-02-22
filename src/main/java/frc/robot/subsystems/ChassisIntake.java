@@ -41,15 +41,17 @@ public class ChassisIntake extends Subsystem {
     _chassisIntake.set(ControlMode.PercentOutput, power);
   }
 
-  
+  //Extends the intake cylinder  
   public void extendIntake(){
     _extender.set(true);
   }
   
+  //Retracts the intake cylinder
   public void retractIntake(){
     _extender.set(false);
   }
 
+  //Toggles the intake cylinder
   public void toggleIntake(){
     if(_extender.get()){
       _extender.set(false);

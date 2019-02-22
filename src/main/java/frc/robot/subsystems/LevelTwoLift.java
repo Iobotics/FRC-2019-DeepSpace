@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Level Two Elevator
+ * Written by Victus Chang
+ * The elevator system uses two solenoids to push the bot off the ground.
  */
 public class LevelTwoLift extends Subsystem {
   private DoubleSolenoid midWheel;

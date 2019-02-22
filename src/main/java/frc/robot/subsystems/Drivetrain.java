@@ -18,6 +18,12 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drivetrain.CameraDrive;
 
+/**
+ * Drivetrain
+ * Written by Noah Taniguchi
+ * The drivetrain runs using mecanum or tank drive.
+ * The motors used in the drivetrain are spark maxes.
+ */
 public class Drivetrain extends Subsystem {
 
   private CANSparkMax _frontLeftMain;
@@ -43,10 +49,11 @@ public class Drivetrain extends Subsystem {
   private double _kITurn = 0;
   private double _kDTurn = 0;
 
-  private MecanumDrive _drive;
+  private double maxPower = 1;
 
-  public Drivetrain(){}
+  private MecanumDrive _drive;
   
+  //Should be called in the robot init
   public void init(){
 
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
@@ -135,31 +142,32 @@ public class Drivetrain extends Subsystem {
 
   }
 
-  public void resetEncoders(){
-    _frontLeftCanEncoder.setPosition(0);
-  }
-
+  //The following four functions return their respective motor's encoder value
   public double getFrontLeftPosition(){
+
     return _frontLeftCanEncoder.getPosition();
+
   }
 
   public double getFrontRightPosition(){
+
     return _frontRightCanEncoder.getPosition();
+  
   }
 
   public double getBackLeftPosition(){
+
     return _backLeftCanEncoder.getPosition();
+  
   }
 
   public double getBackRightPosition(){
+
     return _backRightCanEncoder.getPosition();
+  
   }
 
-  public void invertSide(boolean inverted){
-    _frontRightMain.setInverted(inverted);
-    _backRightMain.setInverted(inverted);
-  }
-
+  //Sets motor output as a value from -1 (full power backwards) to 1 (full power forwards)
   public void setTank(double left, double right) {
     _frontLeftMain.set(left);
     _backLeftMain.set(left);
@@ -167,14 +175,16 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
+  //Sets the motors to run according to a mecanum drivetrain
   public void setMecanum(double x, double y, double rotation) {
-    _drive.driveCartesian(x, y, rotation);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
   }
 
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
-    _drive.driveCartesian(x, y, rotation, gyroAngle);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower, gyroAngle);
   }
 
+  //Call the following commands to change or view the PID values
   public double getP(){
     return _kPDrive;
   }
@@ -227,12 +237,13 @@ public class Drivetrain extends Subsystem {
     return _kDTurn;
   }
 
-  public CANEncoder getDriveMotor(){
-    return _backRightCanEncoder;
-  }
-
+  //Returns the temperature of the back right motor
   public double getTemperature(){
     return _backRightMain.getMotorTemperature();
+  }
+
+  public void toggleSlow(){
+    this.maxPower = maxPower == 1 ? .3 : 1;
   }
 
   
