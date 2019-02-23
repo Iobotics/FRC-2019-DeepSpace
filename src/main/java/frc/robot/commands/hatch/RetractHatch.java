@@ -7,8 +7,6 @@
 
 package frc.robot.commands.Hatch;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.HatchCollector;
 import frc.robot.commands.CommandBase;
 
 public class RetractHatch extends CommandBase {

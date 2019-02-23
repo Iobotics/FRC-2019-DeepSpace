@@ -21,7 +21,6 @@ import frc.robot.commands.Hatch.CloseHook;
 import frc.robot.commands.Hatch.ExtendHatch;
 import frc.robot.commands.Hatch.OpenHook;
 import frc.robot.commands.Hatch.RetractHatch;
-import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
 import frc.robot.commands.RotateCamera;
