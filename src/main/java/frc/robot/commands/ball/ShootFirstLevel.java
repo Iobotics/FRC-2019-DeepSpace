@@ -7,10 +7,6 @@
 
 package frc.robot.commands.Ball;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 6193e9e79cf02b366c2c2b1f66f546e08515cad2
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;

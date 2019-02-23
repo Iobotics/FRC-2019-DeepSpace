@@ -54,4 +54,12 @@ public class HatchCollector extends Subsystem {
   public void toggleExtension() {
     _extenderOne.set(!_extenderOne.get());
   }
+  
+  public void extendHatch() {
+    _extenderOne.set(true);
+  }
+
+  public void retractHatch(){
+    _extenderOne.set(false);
+  }
 }

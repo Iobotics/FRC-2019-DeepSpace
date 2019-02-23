@@ -19,7 +19,7 @@ public class ExtendHatch extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleExtension();
+    hatchCollector.extendHatch();
   }
 
   // Called repeatedly when this Command is scheduled to run

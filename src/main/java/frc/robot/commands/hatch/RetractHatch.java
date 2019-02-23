@@ -5,31 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Lift;
+package frc.robot.commands.Hatch;
 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.HatchCollector;
 import frc.robot.commands.CommandBase;
 
-public class LiftMotorTest extends CommandBase {
-  public LiftMotorTest() {
-    requires(lift);
+public class RetractHatch extends CommandBase {
+  public RetractHatch() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    hatchCollector.retractHatch();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    lift.setLeftSpeed(-oi.getControllerStick());
-    lift.setRightSpeed(-oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

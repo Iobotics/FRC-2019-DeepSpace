@@ -10,13 +10,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.Drivetrain.ToggleSlowMode;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
 import frc.robot.commands.Ball.RunCargoCarriage;
 import frc.robot.commands.Ball.ShootCargoShip;
 import frc.robot.commands.Ball.ShootFirstLevel;
 import frc.robot.commands.Ball.StopCargoCarriage;
+import frc.robot.commands.Hatch.CloseHook;
 import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.OpenHook;
+import frc.robot.commands.Hatch.RetractHatch;
 import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
@@ -43,8 +47,6 @@ public class OI {
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
   private final JoystickButton runCargoCarriage = new JoystickButton(_rStick, 1);
-  private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
-  private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
   private final JoystickButton initiateSlowMode = new JoystickButton(_lStick, 3);
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
   private final JoystickButton shootFirstLevel = new JoystickButton(_lStick, 1);
@@ -71,11 +73,18 @@ public class OI {
     shootFirstLevel.whenPressed(new ShootFirstLevel());
     shootCargoShip.whenPressed(new ShootCargoShip());  
 
-    extendHatch.whenPressed(new ExtendHatch());
-    popHatch.whenPressed(new ToggleHook());
-
     forwardRotate.whenPressed(new RotateCamera());
 
+    if(_controller.getTriggerAxis(Hand.kRight) > .6){
+      new ExtendHatch();
+    } else {
+      new RetractHatch();
+    }
+    if(_controller.getTriggerAxis(Hand.kLeft) > .6){
+      new OpenHook();
+    } else {
+      new CloseHook();
+    }
   }         
 
   public double getLeftStickX(){
