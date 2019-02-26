@@ -19,7 +19,6 @@ private Servo servo;
 
   public void init(){
     servo = new Servo(1);
-
     servo.set(0.0);
   }
     
@@ -32,11 +31,13 @@ private Servo servo;
     servo.set(1.0);
    }else if (servo.get() == 1.0){
     servo.set(0.0);
+   }else{
+    servo.set(0.0);
    }
 }
 
   public void safetyCancel(){
-    servo.set(0);
+    servo.set(servo.get());
   }
 
   @Override
