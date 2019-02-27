@@ -32,6 +32,16 @@ public class RobotMap {
   public static final int backLeftMain = 1;
   public static final int backRightMain = 8;
 
+  public static final int frontLeftChair = 11;//
+  public static final int frontRightChair = 2;//
+  public static final int backLeftChair = 0;//
+  public static final int backRightChair = 1;//
+
+  public static final int frontLeftSlave = 8;//
+  public static final int frontRightSlave = 5;//
+  public static final int backLeftSlave = 9;
+  public static final int backRightSlave = 6;//
+
   public static final int chassisIntake = 6;
 
   public static final int leftLift = 2;

@@ -9,8 +9,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.RotateCamera;
+import frc.robot.commands.CameraDriveTest;
+import frc.robot.commands.Drivetrain.CameraDrive;
+/*import frc.robot.commands.RotateCamera;
 import frc.robot.commands.ball.RunCargoCarriage;
 import frc.robot.commands.ball.ShootCargoShip;
 import frc.robot.commands.ball.ShootFirstLevel;
@@ -50,10 +53,12 @@ public class OI {
   private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
   private final JoystickButton shootFirstLevel = new JoystickButton(_controller, 8);
   private final JoystickButton forwardRotate = new JoystickButton(_controller, 6);//Right Bumper
+  private final JoystickButton cameraAuto = new JoystickButton(_controller, 9);
+  //private final JoystickButton cameraAuto1 = new JoystickButton(_controller, 10);
 
 
   public OI(){
-    levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
+    /*levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
@@ -67,7 +72,7 @@ public class OI {
     
     autoDrive.whenPressed(new AutoDrive(50));
 
-    runCargoCarriage.whileHeld(new RunCargoCarriage());
+    /*runCargoCarriage.whileHeld(new RunCargoCarriage());
     runCargoCarriage.whenReleased(new StopCargoCarriage());
     shootFirstLevel.whenPressed(new ShootFirstLevel());
     shootCargoShip.whenPressed(new ShootCargoShip());  
@@ -75,7 +80,9 @@ public class OI {
     extendHatch.whenPressed(new ExtendHatch());
     popHatch.whenPressed(new ToggleHook());
 
-    forwardRotate.whenPressed(new RotateCamera());
+    forwardRotate.whenPressed(new RotateCamera());*/
+    cameraAuto.whenPressed(new CameraDriveTest());
+    //cameraAuto1.whileHeld(new CameraDrive());
 
   }         
 
@@ -106,7 +113,28 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _controller.getRawButton(10); //right stick on x box controller
+    return _controller.getRawButtonPressed(4); //right stick on x box controller
   }
+
+  public boolean getControllerLeftDown()
+  {
+    return _controller.getRawButton(9);
+  }
+
+  public double getRightControllerX()
+  {
+    return _controller.getX(Hand.kRight);
+  }
+
+  public double getLeftControllerX()
+  {
+    return _controller.getX(Hand.kLeft);
+  }
+
+  public double getRightControllerY()
+  {
+    return _controller.getY(Hand.kRight);
+  }
+
   
 }

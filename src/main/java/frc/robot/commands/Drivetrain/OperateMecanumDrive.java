@@ -13,11 +13,11 @@ import frc.robot.commands.CommandBase;
 public class OperateMecanumDrive extends CommandBase {
 
   public static final double DEADBAND = 0.2;
+  //double x = .1;
   
   public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies
-    requires(drivetrain);
-    requires(navSensor);
+    requires(chair);
   }
 
   // Called just before this Command runs the first time
@@ -27,13 +27,18 @@ public class OperateMecanumDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
-    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
-    double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
+    double x = Math.abs(oi.getRightControllerX()) < DEADBAND ? 0 : oi.getRightControllerX() * .3;
+    double y = Math.abs(oi.getRightControllerY()) < DEADBAND ? 0 : -oi.getRightControllerY() * .3;
+    double rotation = Math.abs(oi.getLeftControllerX()) < DEADBAND ? 0 : oi.getLeftControllerX() * .3;
 
-    SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-    SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
-    drivetrain.setMecanum(x, y, rotation);
+    //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
+    //SmartDashboard.putNumber("Motor Temperature", chair.getTemperature());
+    /*SmartDashboard.putNumber("xSpeed", x);
+    if(oi.getYButton())
+    {
+      x = .01 + x;
+    }*/
+    chair.setMecanum(x, y, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,14 +50,14 @@ public class OperateMecanumDrive extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    drivetrain.setMecanum(0, 0, 0, 0);
+    chair.setMecanum(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    drivetrain.setMecanum(0, 0, 0, 0);
+    chair.setMecanum(0, 0, 0);
   }
 
 }
