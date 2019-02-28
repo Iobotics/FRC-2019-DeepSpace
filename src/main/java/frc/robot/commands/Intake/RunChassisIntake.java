@@ -20,7 +20,6 @@ public class RunChassisIntake extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.extendIntake();
   }
 
   // Called repeatedly when this Command is scheduled to run

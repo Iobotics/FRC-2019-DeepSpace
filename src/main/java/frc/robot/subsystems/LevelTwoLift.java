@@ -19,21 +19,12 @@ import frc.robot.RobotMap;
  */
 public class LevelTwoLift extends Subsystem {
   
-  private DoubleSolenoid midWheel;
   private DoubleSolenoid backWheel;
 
   //Should be called in the robot init
   public void init() {
-    midWheel = new DoubleSolenoid(RobotMap.zoneTwoFrontForward, RobotMap.zoneTwoFrontReverse);
     backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
-
-    midWheel.set(DoubleSolenoid.Value.kReverse);
     backWheel.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  //extends the cylinders in the middle of the robot
-  public void deployMidWheels(){
-    midWheel.set(DoubleSolenoid.Value.kForward);
   }
 
   //extends the cylinders on the back of the robot
@@ -41,19 +32,9 @@ public class LevelTwoLift extends Subsystem {
     backWheel.set(DoubleSolenoid.Value.kForward);
   }
 
-  //retracts the cylinders in the middle of the robot
-  public void retractMidWheels(){
-    midWheel.set(DoubleSolenoid.Value.kReverse);
-  }
-
   //retracts the cylinders on the back of the robot
   public void retractBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  //returns whether or not the mid wheel is extended
-  public boolean midWheelDown(){
-    return midWheel.get() == Value.kForward;
   }
 
   //returns whether or not the back wheel is extended

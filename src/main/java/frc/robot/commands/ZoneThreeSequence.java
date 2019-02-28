@@ -5,18 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ZoneTwo;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Drivetrain.SetDrivePower;
+import frc.robot.commands.Intake.RunChassisIntake;
+import frc.robot.commands.Intake.SetIntakePos;
+import frc.robot.commands.Intake.StopChassisIntake;
+import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
-public class MoveOnZoneTwo extends CommandGroup {
+public class ZoneThreeSequence extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public MoveOnZoneTwo() {
+  public ZoneThreeSequence() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -33,16 +36,14 @@ public class MoveOnZoneTwo extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new LevelReset());
-    addSequential(new ToggleZoneTwoFront());
-    addSequential(new WaitCommand(2));
-    addSequential(new SetDrivePower(1, 5));
+
+    //TODO: Get the correct intake arm positions
+    addParallel(new SetIntakePos(0));
     addSequential(new ToggleZoneTwoBack());
+    addSequential(new RunChassisIntake());
     addSequential(new WaitCommand(1));
-    addSequential(new ToggleZoneTwoFront());
-    addSequential(new WaitCommand(2));
-    addSequential(new SetDrivePower(1, 2));
+    addSequential(new SetDrivePower(.5, 3));
     addSequential(new ToggleZoneTwoBack());
-    SmartDashboard.putString("finished", "true");
+    addSequential(new StopChassisIntake());
   }
 }

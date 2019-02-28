@@ -20,12 +20,10 @@ import frc.robot.commands.Ball.StopCargoCarriage;
 import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.Hatch.ExtendHatch;
 import frc.robot.commands.Hatch.ToggleHook;
-import frc.robot.commands.Intake.ToggleIntake;
 import frc.robot.commands.Lift.StopLift;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
-import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -38,7 +36,6 @@ public class OI {
   private final XboxController _controller = new XboxController(2);
   private final XboxController _controllerTemp = new XboxController(3);
 
-  private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4); 
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
@@ -55,9 +52,7 @@ public class OI {
 
 
   public OI(){
-    levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
-    toggleIntake.whenPressed(new ToggleIntake( ));
     toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());

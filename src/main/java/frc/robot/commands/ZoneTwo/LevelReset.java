@@ -20,7 +20,6 @@ public class LevelReset extends CommandBase {
   @Override
   protected void initialize() {
     levelTwo.retractBackWheels();
-    levelTwo.retractMidWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
