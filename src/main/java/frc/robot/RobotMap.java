@@ -42,4 +42,6 @@ public class RobotMap {
   public static final int rightShooter = 7;
   public static final int leftShooter = 4;
   public static final int shooterArm = 3;
+
+  public static final int ledStrip = 4;
 }
