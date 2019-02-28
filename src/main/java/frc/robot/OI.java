@@ -18,11 +18,12 @@ import frc.robot.commands.ball.ShootCargoShip;
 import frc.robot.commands.ball.ShootFirstLevel;
 import frc.robot.commands.ball.StopCargoCarriage;
 import frc.robot.commands.Drivetrain.AutoDrive;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.ToggleIntake;
 import frc.robot.commands.Lift.StopLift;
 import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
@@ -43,15 +44,15 @@ public class OI {
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
   private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
+
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
+
   private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
   private final JoystickButton runCargoCarriage = new JoystickButton(_lStick, 1);
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
   private final JoystickButton popHatch = new JoystickButton(_rStick, 3);
-  private final JoystickButton shootCargoShip = new JoystickButton(_controller, 7);
-  private final JoystickButton shootFirstLevel = new JoystickButton(_controller, 8);
   private final JoystickButton forwardRotate = new JoystickButton(_controller, 6);//Right Bumper
   
   private final JoystickButton cameraAuto = new JoystickButton(_controller, 9);
@@ -62,8 +63,11 @@ public class OI {
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     autoZoneTwo.whenPressed(new MoveOnZoneTwo());
     autoDriveTest.whenPressed(new AutoDrive(60));
-    toggleIntake.whenPressed(new ToggleIntake( ));
-    toggleIntake.whenReleased(new StopLift());
+
+    toggleIntake.whenPressed(new ToggleHook());
+
+    //toggleIntake.whenPressed(new ToggleIntake( ));
+    //toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));
     intakeShooterBall.whenReleased(new StopShooter());
 
@@ -74,8 +78,6 @@ public class OI {
 
     runCargoCarriage.whileHeld(new RunCargoCarriage());
     runCargoCarriage.whenReleased(new StopCargoCarriage());
-    shootFirstLevel.whenPressed(new ShootFirstLevel());
-    shootCargoShip.whenPressed(new ShootCargoShip());  
 
     extendHatch.whenPressed(new ExtendHatch());
     popHatch.whenPressed(new ToggleHook());

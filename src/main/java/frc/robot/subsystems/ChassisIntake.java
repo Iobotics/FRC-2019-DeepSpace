@@ -35,8 +35,6 @@ public class ChassisIntake extends Subsystem {
 
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
-
-    _extender = new Solenoid(RobotMap.intakeExtender);
     
   }
 

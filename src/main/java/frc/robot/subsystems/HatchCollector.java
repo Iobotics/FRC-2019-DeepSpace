@@ -21,7 +21,7 @@ public class HatchCollector extends Subsystem {
   // here. Call these from Commands.
 
   private DoubleSolenoid _hook;
-  private Solenoid _extenderOne;
+  private DoubleSolenoid _extender;
 
   @Override
   public void initDefaultCommand() {
@@ -32,7 +32,7 @@ public class HatchCollector extends Subsystem {
 
   public void init() {
     _hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
-    _extenderOne = new Solenoid(RobotMap.extendOneSolenoid);
+    _extender = new DoubleSolenoid(RobotMap.extendHatchForward, RobotMap.extendHatchReverse);
     
   }
   
@@ -52,14 +52,17 @@ public class HatchCollector extends Subsystem {
   }
 
   public void toggleExtension() {
-    _extenderOne.set(!_extenderOne.get());
+    if(_extender.get() == Value.kReverse){
+      _extender.set(Value.kForward);
+    }
+    else _extender.set(Value.kReverse);
   }
   
   public void extendHatch() {
-    _extenderOne.set(true);
+    _extender.set(Value.kForward);
   }
 
   public void retractHatch(){
-    _extenderOne.set(false);
+    _extender.set(Value.kReverse);
   }
 }

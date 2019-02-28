@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.commands.Shooter.TestShooterArm;
 
 /**
  * Subsystem Handles the Shooter / Carriage
@@ -42,7 +43,7 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-   
+   setDefaultCommand(new TestShooterArm());
   }
 
   public void init()
