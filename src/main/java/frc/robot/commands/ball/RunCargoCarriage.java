@@ -17,8 +17,8 @@ public class RunCargoCarriage extends CommandGroup {
    * Add your docs here.
    */
   public RunCargoCarriage() {
-
-    addParallel(new RunChassisIntake());
+//TODO Fix it
+//    addParallel(new RunChassisIntake(m_startTime));
     addParallel(new RunShooter(0.5));
     addSequential(new SetShooterPos(780));
   }

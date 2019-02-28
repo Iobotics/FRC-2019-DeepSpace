@@ -13,8 +13,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants;
-
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
 
 /**
@@ -23,18 +25,17 @@ import frc.robot.RobotMap;
  * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
  * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
  */
-public class ChassisIntake extends Subsystem {
+public class ChassisIntake extends PIDSubsystem {
   
   private TalonSRX _chassisIntake;
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
+
+  private AnalogPotentiometer _armPot;
   
-  //TODO: Find correct PID values
-  private int slotID = 0;
-  private double kFF =  0;
-  private double kP = .1;
-  private double kI = 0.0;
-  private double kD = 300;
+  public ChassisIntake(){
+    super(0.01,0,0);
+  }
 
   //Should be called in the robot init
   public void init(){
@@ -43,46 +44,47 @@ public class ChassisIntake extends Subsystem {
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
     
     _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
-    _rightArm.setNeutralMode(NeutralMode.Brake);
-    _rightArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
-    _rightArm.configFeedbackNotContinuous(true, 20);
-    _rightArm.setSensorPhase(true);
-    _rightArm.selectProfileSlot(slotID, 0);
-    _rightArm.config_kP(slotID, kP);
-    _rightArm.config_kI(slotID, kI);
-    _rightArm.config_kD(slotID, kD);
+    _rightArm.setInverted(false);
 
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
-    _leftArm.setNeutralMode(NeutralMode.Brake);
     _leftArm.setInverted(true);
-    _leftArm.follow(_rightArm);
 
+    _armPot = new AnalogPotentiometer(RobotMap.intakePot);
   }
 
   //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
     _chassisIntake.set(ControlMode.PercentOutput, power);
+    setAbsoluteTolerance(10);
+    getPIDController().setContinuous(false);
   }
 
   public void setIntakeArm(double power){
     _rightArm.set(ControlMode.PercentOutput, power);
+    _leftArm.set(ControlMode.PercentOutput, power);
   }
   
-  //returns the angle of the arm in radians from the horizontal
-  private double getArmAngle(double position){
-    return (Math.PI / 180)*(double)(((position - Constants.shooterArmCenter)*9)/7);
-  }
-
   public void setArmPosition(double position){
+    this.setSetpoint(position);
+  }
 
-    _rightArm.set(ControlMode.Position, position, 
-    DemandType.ArbitraryFeedForward, kFF * Math.cos(getArmAngle(_rightArm.getSelectedSensorPosition())));
-    //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
-  
+  public double getArmPosition(){
+    return _armPot.get();
   }
   
   @Override
   public void initDefaultCommand() {
    
+  }
+
+  @Override
+  protected double returnPIDInput() {
+    return _armPot.get();
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    _rightArm.set(ControlMode.PercentOutput, output);
+    _leftArm.set(ControlMode.PercentOutput, output);
   }
 }
