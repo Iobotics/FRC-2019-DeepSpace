@@ -13,18 +13,17 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.ball.RunCargoCarriage;
-import frc.robot.commands.ball.ShootCargoShip;
-import frc.robot.commands.ball.ShootFirstLevel;
-import frc.robot.commands.ball.StopCargoCarriage;
+import frc.robot.commands.Ball.RunCargoCarriage;
+import frc.robot.commands.Ball.ShootCargoShip;
+import frc.robot.commands.Ball.ShootFirstLevel;
+import frc.robot.commands.Ball.StopCargoCarriage;
 import frc.robot.commands.Drivetrain.AutoDrive;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.ToggleIntake;
 import frc.robot.commands.Lift.StopLift;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.ZoneTwo.MoveOnZoneTwo;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoFront;
 
@@ -41,8 +40,6 @@ public class OI {
 
   private final JoystickButton levelTwoFront = new JoystickButton(_lStick, 4); 
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
-  private final JoystickButton autoZoneTwo = new JoystickButton(_lStick, 10);
-  private final JoystickButton autoDriveTest = new JoystickButton(_lStick, 11);
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
   private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
   private final JoystickButton shootBall = new JoystickButton(_controller, 2);
@@ -60,8 +57,6 @@ public class OI {
   public OI(){
     levelTwoFront.whenPressed(new ToggleZoneTwoFront());    
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
-    autoZoneTwo.whenPressed(new MoveOnZoneTwo());
-    autoDriveTest.whenPressed(new AutoDrive(60));
     toggleIntake.whenPressed(new ToggleIntake( ));
     toggleIntake.whenReleased(new StopLift());
     intakeShooterBall.whenPressed(new RunShooter(0.5));

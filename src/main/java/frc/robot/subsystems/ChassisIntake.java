@@ -16,25 +16,37 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
-<<<<<<< HEAD
  * Chassis intake
  * Written by Darren Kohara
  * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
  * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
-=======
- * Subsystem for intake
->>>>>>> 6193e9e79cf02b366c2c2b1f66f546e08515cad2
  */
 public class ChassisIntake extends Subsystem {
   
   private TalonSRX _chassisIntake;
+  private TalonSRX _leftArm;
+  private TalonSRX _rightArm;
   public Solenoid _extender;
+  
+  private int slotID = 0;
+  private double kFF =  0;
+  private double kP = 7;
+  private double kI = 0.0;
+  private double kD = 300;
 
   //Should be called in the robot init
   public void init(){
 
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
+    
+    _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
+    _rightArm.setNeutralMode(NeutralMode.Brake);
+
+    _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
+    _leftArm.setNeutralMode(NeutralMode.Brake);
+    _leftArm.setInverted(true);
+    _leftArm.follow(_rightArm);
 
     _extender = new Solenoid(RobotMap.intakeExtender);
     
