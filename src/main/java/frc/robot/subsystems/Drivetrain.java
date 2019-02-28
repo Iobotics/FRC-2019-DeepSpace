@@ -16,7 +16,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
-import frc.robot.commands.Drivetrain.CameraDrive;
+import frc.robot.commands.Drivetrain.OperateControllerDrive;
+import frc.robot.commands.Drivetrain.OperateMecanumDrive;
 
 /**
  * Drivetrain
@@ -249,7 +250,7 @@ public class Drivetrain extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new OperateMecanumDrive());
-    setDefaultCommand(new CameraDrive());
+   // setDefaultCommand(new OperateMecanumDrive());
+   setDefaultCommand(new OperateControllerDrive());
   }
 }
