@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ball;
+package frc.robot.commands.Ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.Shooter.SetShooterPos;
@@ -17,7 +17,7 @@ public class RunCargoCarriage extends CommandGroup {
    * Add your docs here.
    */
   public RunCargoCarriage() {
-
+//TODO Fix it
     addParallel(new RunChassisIntake());
     addParallel(new RunShooter(0.5));
     addSequential(new SetShooterPos(780));

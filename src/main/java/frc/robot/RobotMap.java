@@ -15,6 +15,10 @@ package frc.robot;
  */
 public class RobotMap {
   public static final int proximitySensor = 0;
+<<<<<<< HEAD
+=======
+  public static final int intakePot = 0;
+>>>>>>> intakeArm
 
   public static final int hookSolenoidForward = 6;
   public static final int hookSolenoidReverse = 7;
@@ -23,6 +27,10 @@ public class RobotMap {
 
   public static final int zoneTwoBackForward = 4;
   public static final int zoneTwoBackReverse = 5;
+<<<<<<< HEAD
+=======
+  public static final int intakeExtender = 0;
+>>>>>>> intakeArm
 
   public static final int frontLeftMain = 10;
   public static final int frontRightMain = 9;
@@ -30,13 +38,18 @@ public class RobotMap {
   public static final int backRightMain = 8;
 
   public static final int chassisIntake = 6;
+<<<<<<< HEAD
   public static final int rightIntakeArm = 13;
   public static final int leftIntakeArm = 14;
+=======
+  public static final int rightIntakeArm = 12;
+  public static final int leftIntakeArm = 11;
+>>>>>>> intakeArm
 
   public static final int leftLift = 2;
   public static final int rightLift = 5;
-  public static final int leftLiftSlave = 11;
-  public static final int rightLiftSlave = 12;
+  public static final int leftLiftSlave = 13;
+  public static final int rightLiftSlave = 14;
 
   public static final int rightShooter = 7;
   public static final int leftShooter = 4;

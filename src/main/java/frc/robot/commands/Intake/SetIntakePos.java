@@ -9,8 +9,11 @@ package frc.robot.commands.Intake;
 
 import frc.robot.commands.CommandBase;
 
-public class RunChassisIntake extends CommandBase {
-  public RunChassisIntake() {
+public class SetIntakePos extends CommandBase {
+
+  int pos;
+
+  public SetIntakePos() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(chassisIntake);
@@ -24,27 +27,24 @@ public class RunChassisIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    //chassisIntake.setArmPosition(99);
-    chassisIntake.setPower(.4);
+    chassisIntake.setArmPosition(-100 - 100*oi.getLeftTriggerAxis());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    //chassisIntake.setArmPosition(198);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    this.end();
+    end();
   }
 }

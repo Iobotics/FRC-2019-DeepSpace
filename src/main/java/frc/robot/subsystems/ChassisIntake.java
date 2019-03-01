@@ -8,27 +8,35 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
+import frc.robot.commands.Intake.SetIntakePos;
 
 /**
-<<<<<<< HEAD
  * Chassis intake
  * Written by Darren Kohara
  * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
  * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
-=======
- * Subsystem for intake
->>>>>>> 6193e9e79cf02b366c2c2b1f66f546e08515cad2
  */
-public class ChassisIntake extends Subsystem {
+public class ChassisIntake extends PIDSubsystem {
   
   private TalonSRX _chassisIntake;
-  public Solenoid _extender;
+  private TalonSRX _leftArm;
+  private TalonSRX _rightArm;
+
+
+  
+  public ChassisIntake(){
+    super(0.1,0,0);
+  }
 
   //Should be called in the robot init
   public void init(){
@@ -36,33 +44,52 @@ public class ChassisIntake extends Subsystem {
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
     
+    _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
+    _leftArm.setNeutralMode(NeutralMode.Brake);
+    _leftArm.setInverted(true);
+    
+    _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
+    _rightArm.setInverted(false);
+    _rightArm.setNeutralMode(NeutralMode.Brake);
+
+    //_leftArm.set(ControlMode.Position, 198);
+    //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
   //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
     _chassisIntake.set(ControlMode.PercentOutput, power);
+    setAbsoluteTolerance(10);
+    getPIDController().setContinuous(false);
   }
 
-  //Extends the intake cylinder  
-  public void extendIntake(){
-    _extender.set(true);
+  public void setIntakeArm(double power){
+    _rightArm.set(ControlMode.PercentOutput, power);
+    _leftArm.set(ControlMode.PercentOutput, power);
   }
   
-  //Retracts the intake cylinder
-  public void retractIntake(){
-    _extender.set(false);
+  public void setArmPosition(double position){
+    _leftArm.set(ControlMode.Position, position);
+    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
-  //Toggles the intake cylinder
-  public void toggleIntake(){
-    if(_extender.get()){
-      _extender.set(false);
-    }
-    else _extender.set(true);
+  public double getArmPosition(){
+    return _leftArm.getSelectedSensorPosition();
   }
   
   @Override
   public void initDefaultCommand() {
-   
+    
+  }
+
+  @Override
+  protected double returnPIDInput() {
+    return _leftArm.getSelectedSensorPosition();
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    _rightArm.set(ControlMode.PercentOutput, output);
+    _leftArm.set(ControlMode.PercentOutput, output);
   }
 }

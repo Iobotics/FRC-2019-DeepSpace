@@ -13,17 +13,22 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.ball.RunCargoCarriage;
-import frc.robot.commands.ball.ShootCargoShip;
-import frc.robot.commands.ball.ShootFirstLevel;
-import frc.robot.commands.ball.StopCargoCarriage;
+import frc.robot.commands.Ball.RunCargoCarriage;
+import frc.robot.commands.Ball.ShootCargoShip;
+import frc.robot.commands.Ball.ShootFirstLevel;
+import frc.robot.commands.Ball.StopCargoCarriage;
 import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.Hatch.ExtendHatch;
+<<<<<<< HEAD
 import frc.robot.commands.Hatch.GrabAndRetractHatch;
 import frc.robot.commands.Hatch.GrabHatch;
 import frc.robot.commands.Hatch.RetractHatch;
 import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.ToggleIntake;
+=======
+import frc.robot.commands.Hatch.ToggleHook;
+import frc.robot.commands.Intake.HoldIntakePosition;
+>>>>>>> intakeArm
 import frc.robot.commands.Lift.StopLift;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
@@ -112,6 +117,10 @@ public class OI {
   public boolean getYButton()
   {
     return _controller.getRawButtonPressed(4); //right stick on x box controller
+  }
+
+  public double getLeftTriggerAxis(){
+    return _controller.getTriggerAxis(Hand.kLeft);
   }
 
   public boolean getControllerLeftDown()
