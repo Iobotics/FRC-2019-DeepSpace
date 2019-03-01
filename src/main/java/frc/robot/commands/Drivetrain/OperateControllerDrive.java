@@ -28,12 +28,12 @@ public class OperateControllerDrive extends CommandBase {
   @Override
   protected void execute() {
     double x = Math.abs(oi.getRightControllerX()) < DEADBAND ? 0 : oi.getRightControllerX();
-    double y = Math.abs(oi.getRightControllerY()) < DEADBAND ? 0 : oi.getRightControllerY();
+    //double y = Math.abs(oi.getRightControllerY()) < DEADBAND ? 0 : oi.getRightControllerY();
     double rotation = Math.abs(oi.getLeftControllerX()) < DEADBAND ? 0 : -oi.getLeftControllerX();
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
     SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
-    drivetrain.setMecanum(x, y, rotation);
+    //drivetrain.setMecanum(x, y, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()

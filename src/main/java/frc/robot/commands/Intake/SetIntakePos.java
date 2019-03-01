@@ -27,7 +27,7 @@ public class SetIntakePos extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setArmPosition(100 + 100*oi.getLeftTriggerAxis());
+    chassisIntake.setArmPosition(-100 - 100*oi.getLeftTriggerAxis());
   }
 
   // Make this return true when this Command no longer needs to run execute()

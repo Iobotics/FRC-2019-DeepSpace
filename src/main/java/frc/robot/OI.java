@@ -20,6 +20,7 @@ import frc.robot.commands.Ball.StopCargoCarriage;
 import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.Hatch.ExtendHatch;
 import frc.robot.commands.Hatch.ToggleHook;
+import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Lift.StopLift;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.StopShooter;
@@ -38,8 +39,10 @@ public class OI {
 
   private final JoystickButton levelTwoBack = new JoystickButton(_lStick, 5);
   private final JoystickButton toggleIntake = new JoystickButton(_controller, 3);
-  private final JoystickButton intakeShooterBall = new JoystickButton(_controller, 1);
-  private final JoystickButton shootBall = new JoystickButton(_controller, 2);
+
+  private final JoystickButton intakeHomePosition = new JoystickButton(_controller, 1);
+  private final JoystickButton intakeGrabPosition = new JoystickButton(_controller, 2);
+
   private final JoystickButton autoDrive = new JoystickButton(_lStick, 11);
   private final JoystickButton runCargoCarriage = new JoystickButton(_lStick, 1);
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 4);
@@ -54,13 +57,10 @@ public class OI {
   public OI(){
     levelTwoBack.whenPressed(new ToggleZoneTwoBack());
     toggleIntake.whenReleased(new StopLift());
-    intakeShooterBall.whenPressed(new RunShooter(0.5));
-    intakeShooterBall.whenReleased(new StopShooter());
-
-    shootBall.whenPressed(new RunShooter(-1));
-    shootBall.whenReleased(new StopShooter());
-    
     autoDrive.whenPressed(new AutoDrive(50));
+
+    intakeHomePosition.whenPressed(new HoldIntakePosition(-181));
+    intakeGrabPosition.whenPressed(new HoldIntakePosition(-80));
 
     runCargoCarriage.whileHeld(new RunCargoCarriage());
     runCargoCarriage.whenReleased(new StopCargoCarriage());

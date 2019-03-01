@@ -35,7 +35,7 @@ public class ChassisIntake extends PIDSubsystem {
 
   
   public ChassisIntake(){
-    super(0,0,0);
+    super(0.1,0,0);
   }
 
   //Should be called in the robot init
@@ -79,7 +79,7 @@ public class ChassisIntake extends PIDSubsystem {
   
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new SetIntakePos());
+    
   }
 
   @Override
