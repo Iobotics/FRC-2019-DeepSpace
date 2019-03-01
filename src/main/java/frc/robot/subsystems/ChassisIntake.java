@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
+import frc.robot.commands.Intake.SetIntakePos;
 
 /**
  * Chassis intake
@@ -31,10 +32,10 @@ public class ChassisIntake extends PIDSubsystem {
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
 
-  private AnalogPotentiometer _armPot;
+
   
   public ChassisIntake(){
-    super(0.01,0,0);
+    super(0,0,0);
   }
 
   //Should be called in the robot init
@@ -43,13 +44,16 @@ public class ChassisIntake extends PIDSubsystem {
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
     
+    _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
+    _leftArm.setNeutralMode(NeutralMode.Brake);
+    _leftArm.setInverted(true);
+    
     _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
     _rightArm.setInverted(false);
+    _rightArm.setNeutralMode(NeutralMode.Brake);
 
-    _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
-    _leftArm.setInverted(true);
-
-    _armPot = new AnalogPotentiometer(RobotMap.intakePot);
+    //_leftArm.set(ControlMode.Position, 198);
+    //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
   //Set intake motor power to a percentage between -1 and 1
@@ -65,21 +69,22 @@ public class ChassisIntake extends PIDSubsystem {
   }
   
   public void setArmPosition(double position){
-    this.setSetpoint(position);
+    _leftArm.set(ControlMode.Position, position);
+    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
   public double getArmPosition(){
-    return _armPot.get();
+    return _leftArm.getSelectedSensorPosition();
   }
   
   @Override
   public void initDefaultCommand() {
-   
+    setDefaultCommand(new SetIntakePos());
   }
 
   @Override
   protected double returnPIDInput() {
-    return _armPot.get();
+    return _leftArm.getSelectedSensorPosition();
   }
 
   @Override

@@ -38,7 +38,7 @@ public class ZoneThreeSequence extends CommandGroup {
     // arm.
 
     //TODO: Get the correct intake arm positions
-    addParallel(new SetIntakePos(0));
+    //addParallel(new SetIntakePos(0));
     addSequential(new ToggleZoneTwoBack());
     addSequential(new RunChassisIntake());
     addSequential(new WaitCommand(1));

@@ -13,22 +13,21 @@ public class SetIntakePos extends CommandBase {
 
   int pos;
 
-  public SetIntakePos(int pos) {
+  public SetIntakePos() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(chassisIntake);
-    this.pos = pos;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setArmPosition(pos);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    chassisIntake.setArmPosition(100 + 100*oi.getLeftTriggerAxis());
   }
 
   // Make this return true when this Command no longer needs to run execute()

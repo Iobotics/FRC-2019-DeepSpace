@@ -38,16 +38,16 @@ public abstract class CommandBase extends Command {
     hatchCollector.init();
     navSensor.init();
     drivetrain.init();
-    lift.init();
+    //lift.init();
     shooter.init();
     levelTwo.init();
     limelight.init();
     rotater.init();
     ledStrip.init();
+    chassisIntake.init();
     
     oi = new OI();
 
-    chassisIntake.init();
   }
 
   public CommandBase(String name) {

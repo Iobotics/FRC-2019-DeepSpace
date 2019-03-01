@@ -120,6 +120,10 @@ public class OI {
     return _controller.getRawButtonPressed(4); //right stick on x box controller
   }
 
+  public double getLeftTriggerAxis(){
+    return _controller.getTriggerAxis(Hand.kLeft);
+  }
+
   public boolean getControllerLeftDown()
   {
     return _controller.getRawButton(9);

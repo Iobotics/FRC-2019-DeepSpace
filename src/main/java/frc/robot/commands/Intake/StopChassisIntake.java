@@ -20,6 +20,7 @@ public class StopChassisIntake extends CommandBase {
   @Override
   protected void initialize() {
     chassisIntake.setPower(0);
+    chassisIntake.setIntakeArm(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
