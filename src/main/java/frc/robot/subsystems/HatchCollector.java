@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -22,6 +23,7 @@ public class HatchCollector extends Subsystem {
 
   private DoubleSolenoid _hook;
   private DoubleSolenoid _extender;
+  private DigitalInput _hatchDetector;
 
   @Override
   public void initDefaultCommand() {
@@ -33,7 +35,11 @@ public class HatchCollector extends Subsystem {
   public void init() {
     _hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
     _extender = new DoubleSolenoid(RobotMap.extendHatchForward, RobotMap.extendHatchReverse);
-    
+    _hatchDetector = new DigitalInput(1);
+  }
+
+  public boolean getHatchSensor(){
+    return _hatchDetector.get();
   }
   
   public void openHook() {

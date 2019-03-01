@@ -5,42 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ZoneTwo;
+package frc.robot.commands.Hatch;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class LevelReset extends CommandBase {
-  public LevelReset() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(levelTwo);
+public class GrabHatch extends CommandBase {
+
+  private boolean isHatchIn = false;
+
+  public GrabHatch() {
+    requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.retractBackWheels();
+    hatchCollector.extendHatch();
+    hatchCollector.closeHook();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if(hatchCollector.getHatchSensor()){
+      isHatchIn = true;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return isHatchIn;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    hatchCollector.retractHatch();
+    hatchCollector.openHook();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
