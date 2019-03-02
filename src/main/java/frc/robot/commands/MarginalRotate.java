@@ -7,11 +7,17 @@
 
 package frc.robot.commands;
 
-public class RunOutake extends CommandBase {
-  public RunOutake() {
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class MarginalRotate extends CommandBase {
+
+  double position = .5;
+
+  public MarginalRotate() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(intake);
+    requires(rotater);
   }
 
   // Called just before this Command runs the first time
@@ -22,7 +28,19 @@ public class RunOutake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    intake.runIntake(-.5);
+    
+    rotater.turnCamera(position);
+    if(oi.getControllerA())
+    {
+      position += .01;
+    }
+    else if(oi.getControllerB())
+    {
+      position -= .01;
+    }
+
+    SmartDashboard.putBoolean("A button", oi.getControllerA());
+    SmartDashboard.putNumber("Position", rotater.getServoPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -34,13 +52,12 @@ public class RunOutake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    intake.runIntake(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    this.end();
   }
 }

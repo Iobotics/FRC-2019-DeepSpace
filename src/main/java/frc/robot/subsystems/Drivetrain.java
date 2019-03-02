@@ -17,7 +17,7 @@ import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
-import frc.robot.commands.OperateMecanumDrive;
+//import frc.robot.commands.OperateMecanumDrive;
 
 public class Drivetrain extends Subsystem {
 
@@ -217,7 +217,7 @@ public class Drivetrain extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateMecanumDrive());
+    //setDefaultCommand(new OperateMecanumDrive());
   }
 
 }

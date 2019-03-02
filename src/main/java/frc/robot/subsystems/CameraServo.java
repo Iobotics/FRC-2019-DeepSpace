@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.MarginalRotate;
+import frc.robot.commands.RotateCamera;
 
 /**
  * Add your docs here.
@@ -36,6 +38,11 @@ private Servo servo;
    }
 }
 
+public void turnCamera(double position)
+{
+  servo.set(position);
+}
+
   public void safetyCancel(){
     servo.set(servo.get());
   }
@@ -43,6 +50,7 @@ private Servo servo;
   @Override
   public void initDefaultCommand() {
    //setDefaultCommand(new RotateCamera());
+   //setDefaultCommand(new MarginalRotate());
   }
 }
 

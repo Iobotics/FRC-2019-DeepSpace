@@ -8,12 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ReverseRotateCamera;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunOutake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,18 +21,27 @@ public class OI {
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
+  private final XboxController controller = new XboxController(2);
 
   private final JoystickButton runIntake = new JoystickButton(_rStick, 3);
   private final JoystickButton runOutake = new JoystickButton(_lStick, 3);
-  private final JoystickButton turnCamera = new JoystickButton(_rStick, 2);
+  private final JoystickButton turnCamera = new JoystickButton(controller, 1);
 
   
 
   public OI(){
-    runIntake.whileHeld(new RunIntake());
-    runOutake.whileHeld(new RunOutake());
     turnCamera.whenPressed(new RotateCamera());
     SmartDashboard.putData("RotateCamera", new RotateCamera());
+  }
+
+  public boolean getControllerA()
+  {
+    return controller.getAButtonPressed();
+  }
+
+  public boolean getControllerB()
+  {
+    return controller.getBButtonPressed();
   }
 
   public double getLeftStickX(){
@@ -52,5 +59,7 @@ public class OI {
   public double getRightStickY(){
     return _rStick.getY();
   }
+
+
   
 }

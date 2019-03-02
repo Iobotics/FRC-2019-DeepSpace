@@ -11,7 +11,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RotateCamera extends CommandBase {
-  public void RotateCamera() {
+
+  public RotateCamera() {
     requires(rotater);
   }
 
