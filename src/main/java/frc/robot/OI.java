@@ -7,34 +7,25 @@
 
 package frc.robot;
 
-import java.nio.file.attribute.PosixFilePermissions;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-//import frc.robot.commands.CameraAssist;
-import frc.robot.commands.RotateCamera;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
 import frc.robot.commands.Ball.ShootBall;
 import frc.robot.commands.Ball.StopShootBall;
-import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.Hatch.ExtendHatch;
 import frc.robot.commands.Hatch.GrabAndRetractHatch;
 import frc.robot.commands.Hatch.GrabHatch;
 import frc.robot.commands.Hatch.RetractHatch;
 import frc.robot.commands.Hatch.ToggleHook;
-import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.StopIntakeBall;
 import frc.robot.commands.Intake.StopChassisIntake;
-import frc.robot.commands.Lift.StopLift;
-import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
-import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
@@ -63,8 +54,8 @@ public class OI {
 
   //Hatch Buttons
   private final JoystickButton grabHatch = new JoystickButton(_lStick, 3);//Left Center Thumb Button 
-  private final JoystickButton toggleHatchHook = new JoystickButton(_lStick, 4);
-  private final JoystickButton extendHatch = new JoystickButton(_lStick, 5);
+  private final JoystickButton toggleHatchHook = new JoystickButton(_lStick, 4);//Left Thumb Button
+  private final JoystickButton extendHatch = new JoystickButton(_lStick, 5);//Right Thumb Button
 
   //ZoneTheory
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_rStick, 4);
@@ -93,7 +84,7 @@ public class OI {
     positionShooterCargoShip.whenReleased(new ReturnHome());
 
     shootBall.whenPressed(new ShootBall());
-    shootBall.whenReleased(new StopShootBall());
+    shootBall.whenReleased(new ShootBall());
 
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
@@ -103,8 +94,6 @@ public class OI {
 
     releaseBall.whenPressed(new RunShooter(-1));
     releaseBall.whenReleased(new StopShooter());
-
-
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
   }
