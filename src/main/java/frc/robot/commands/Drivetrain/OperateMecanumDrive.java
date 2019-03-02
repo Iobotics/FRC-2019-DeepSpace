@@ -12,7 +12,7 @@ import frc.robot.commands.CommandBase;
 
 public class OperateMecanumDrive extends CommandBase {
 
-  public static final double DEADBAND = 0.2;
+  public static final double DEADBAND = 0.3;//.2 before
   
   public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies

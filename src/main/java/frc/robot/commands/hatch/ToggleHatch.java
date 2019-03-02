@@ -7,17 +7,18 @@
 
 package frc.robot.commands.hatch;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
+public class ToggleHatch extends CommandBase {
+  public ToggleHatch() {
     requires(hatchCollector);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
+    hatchCollector.toggleExtension();
   }
 
   // Called repeatedly when this Command is scheduled to run

@@ -16,11 +16,14 @@ import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
 import frc.robot.commands.Ball.ShootBall;
 import frc.robot.commands.Ball.StopShootBall;
-import frc.robot.commands.Hatch.ExtendHatch;
-import frc.robot.commands.Hatch.GrabAndRetractHatch;
-import frc.robot.commands.Hatch.GrabHatch;
-import frc.robot.commands.Hatch.RetractHatch;
-import frc.robot.commands.Hatch.ToggleHook;
+import frc.robot.commands.hatch.CloseHook;
+import frc.robot.commands.hatch.ExtendHatch;
+import frc.robot.commands.hatch.GrabAndRetractHatch;
+import frc.robot.commands.hatch.GrabHatch;
+import frc.robot.commands.hatch.OpenHook;
+import frc.robot.commands.hatch.RetractHatch;
+import frc.robot.commands.hatch.ToggleHatch;
+import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.StopIntakeBall;
@@ -67,10 +70,9 @@ public class OI {
   public OI(){
 
     //Hatch Commands
-    extendHatch.whenPressed(new ExtendHatch());
-    extendHatch.whenReleased(new RetractHatch());
-    toggleHatchHook.whenPressed(new ToggleHook());
-    toggleHatchHook.whenReleased(new ToggleHook());
+    extendHatch.whenPressed(new ToggleHatch());
+    toggleHatchHook.whenPressed(new OpenHook());
+    toggleHatchHook.whenReleased(new CloseHook());
 
     intakeBall.whenPressed(new IntakeBall());
     intakeBall.whenReleased(new StopIntakeBall());
@@ -126,7 +128,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _controller.getRawButtonPressed(4); //right stick on x box controller
+    return _lStick.getRawButton(10); //right stick on x box controller
   }
 
   public double getLeftTriggerAxis(){

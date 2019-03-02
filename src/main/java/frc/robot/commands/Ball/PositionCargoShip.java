@@ -18,7 +18,7 @@ public class PositionCargoShip extends CommandGroup {
    * Add your docs here.
    */
   public PositionCargoShip() {
-    addParallel(new ShooterPos(Constants.cargoShipAngle));
+    addParallel(new SetShooterPos(Constants.cargoShipAngle));
     addParallel(new HoldIntakePosition(Constants.intakeArmShoot));
   }
 }
