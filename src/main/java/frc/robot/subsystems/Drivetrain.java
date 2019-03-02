@@ -251,6 +251,6 @@ public class Drivetrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
    // setDefaultCommand(new OperateMecanumDrive());
-   setDefaultCommand(new OperateControllerDrive());
+   setDefaultCommand(new OperateMecanumDrive());
   }
 }

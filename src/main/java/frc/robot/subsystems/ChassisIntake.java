@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
-import frc.robot.commands.Intake.SetIntakePos;
+import frc.robot.commands.Intake.ManualOperateIntake;
 
 /**
  * Chassis intake
@@ -42,11 +42,14 @@ public class ChassisIntake extends PIDSubsystem {
   public void init(){
 
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
+    _chassisIntake.setInverted(true);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
     
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
     _leftArm.setNeutralMode(NeutralMode.Brake);
     _leftArm.setInverted(true);
+    _leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    _leftArm.configFeedbackNotContinuous(true, 20);
     
     _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
     _rightArm.setInverted(false);
@@ -59,8 +62,6 @@ public class ChassisIntake extends PIDSubsystem {
   //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
     _chassisIntake.set(ControlMode.PercentOutput, power);
-    setAbsoluteTolerance(10);
-    getPIDController().setContinuous(false);
   }
 
   public void setIntakeArm(double power){
@@ -79,7 +80,7 @@ public class ChassisIntake extends PIDSubsystem {
   
   @Override
   public void initDefaultCommand() {
-    
+    setDefaultCommand(new ManualOperateIntake());
   }
 
   @Override
@@ -92,4 +93,5 @@ public class ChassisIntake extends PIDSubsystem {
     _rightArm.set(ControlMode.PercentOutput, output);
     _leftArm.set(ControlMode.PercentOutput, output);
   }
+  
 }

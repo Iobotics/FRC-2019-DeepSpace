@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.Drivetrain.SetDrivePower;
 import frc.robot.commands.Intake.RunChassisIntake;
-import frc.robot.commands.Intake.SetIntakePos;
 import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 

@@ -5,14 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
+import frc.robot.subsystems.ChassisIntake;
 
-public class TestShooterArm extends CommandBase {
-  public TestShooterArm() {
-    requires(shooter);
+public class ManualOperateIntake extends CommandBase {
+
+  public ManualOperateIntake() {
+
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +26,7 @@ public class TestShooterArm extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    shooter.setShooterArm(oi.getControllerStick());
+    chassisIntake.setIntakeArm(oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()

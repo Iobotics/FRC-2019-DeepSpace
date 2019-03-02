@@ -5,21 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Ball;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.Shooter.SetShooterPos;
+import frc.robot.Constants;
 import frc.robot.commands.Shooter.RunShooter;
-import frc.robot.commands.Intake.RunChassisIntake;
 
-public class RunCargoCarriage extends CommandGroup {
+public class IntakeBall extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public RunCargoCarriage() {
-//TODO Fix it
-    addParallel(new RunChassisIntake());
-    addParallel(new RunShooter(0.5));
-    addSequential(new SetShooterPos(780));
+  public IntakeBall() {
+    addSequential(new RunChassisIntake());
+    addParallel(new HoldIntakePosition(Constants.intakeArmIntake));
+    addParallel(new RunShooter(0.4));
   }
 }

@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.commands.Shooter.TestShooterArm;
 
 /**
  * Subsystem Handles the Shooter / Carriage
@@ -43,7 +42,6 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-   setDefaultCommand(new TestShooterArm());
   }
 
   public void init()
@@ -65,7 +63,7 @@ public class Shooter extends Subsystem {
     shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     shooterArm.configFeedbackNotContinuous(true, 20);
-    shooterArm.setSensorPhase(true);
+    shooterArm.setSensorPhase(false);
     shooterArm.selectProfileSlot(slotID, 0);
     shooterArm.config_kP(slotID, kP);
     shooterArm.config_kI(slotID, kI);

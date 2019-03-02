@@ -8,23 +8,16 @@
 package frc.robot.commands.Ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Shooter.RunShooter;
-import frc.robot.commands.Shooter.SetShooterPos;
+import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class ShootFirstLevel extends CommandGroup {
+public class StopShootBall extends CommandGroup {
   /**
-   * Automatically Shoots for Level One of the rocket
+   * Add your docs here.
    */
-  public ShootFirstLevel() {
-    addSequential(new SetShooterPos(Constants.firstLevelAngle));
-    addSequential(new WaitCommand(0.5));
-    addParallel(new RunShooter(-1));
-    addSequential(new WaitCommand(0.5));
-    addSequential(new StopShooterArm());
+  public StopShootBall() {
+    addParallel(new HoldIntakePosition(Constants.intakeArmShoot));
     addSequential(new StopShooter());
   }
 }

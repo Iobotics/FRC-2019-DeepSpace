@@ -7,29 +7,32 @@
 
 package frc.robot;
 
+import java.nio.file.attribute.PosixFilePermissions;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.Ball.RunCargoCarriage;
-import frc.robot.commands.Ball.ShootCargoShip;
-import frc.robot.commands.Ball.ShootFirstLevel;
-import frc.robot.commands.Ball.StopCargoCarriage;
+import frc.robot.commands.Ball.PositionCargoShip;
+import frc.robot.commands.Ball.PositionFirstLevel;
+import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.Ball.ShootBall;
+import frc.robot.commands.Ball.StopShootBall;
 import frc.robot.commands.Drivetrain.AutoDrive;
 import frc.robot.commands.Hatch.ExtendHatch;
-<<<<<<< HEAD
 import frc.robot.commands.Hatch.GrabAndRetractHatch;
 import frc.robot.commands.Hatch.GrabHatch;
 import frc.robot.commands.Hatch.RetractHatch;
 import frc.robot.commands.Hatch.ToggleHook;
-import frc.robot.commands.Intake.ToggleIntake;
-=======
-import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.HoldIntakePosition;
->>>>>>> intakeArm
+import frc.robot.commands.Intake.IntakeBall;
+import frc.robot.commands.Intake.RunChassisIntake;
+import frc.robot.commands.Intake.StopIntakeBall;
+import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.Lift.StopLift;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.StopShooter;
@@ -49,13 +52,14 @@ public class OI {
   //Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_lStick, 1);//Left Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_rStick, 1);//Right Trigger
+  private final JoystickButton runIntake = new JoystickButton(_rStick, 6);
 
   //Shooter Buttons
   private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 1);
   private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 2);
-  private final JoystickButton shootBall = new JoystickButton(_controller, 3);
-  private final JoystickButton grabBall = new JoystickButton(_controller, 5);
-  private final JoystickButton releaseBall = new JoystickButton(_controller, 6);
+  private final JoystickButton shootBall = new JoystickButton(_controller, 6);
+  private final JoystickButton grabBall = new JoystickButton(_controller, 8);
+  private final JoystickButton releaseBall = new JoystickButton(_controller, 7);
 
   //Hatch Buttons
   private final JoystickButton grabHatch = new JoystickButton(_lStick, 3);//Left Center Thumb Button 
@@ -74,7 +78,22 @@ public class OI {
     //Hatch Commands
     extendHatch.whenPressed(new ExtendHatch());
     extendHatch.whenReleased(new RetractHatch());
+    toggleHatchHook.whenPressed(new ToggleHook());
     toggleHatchHook.whenReleased(new ToggleHook());
+
+    intakeBall.whenPressed(new IntakeBall());
+    intakeBall.whenReleased(new StopIntakeBall());
+    runIntake.whenPressed(new RunChassisIntake());
+    runIntake.whenReleased(new StopChassisIntake());
+
+    positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
+    positionShooterFirstLevel.whenReleased(new ReturnHome());
+
+    positionShooterCargoShip.whenPressed(new PositionCargoShip());
+    positionShooterCargoShip.whenReleased(new ReturnHome());
+
+    shootBall.whenPressed(new ShootBall());
+    shootBall.whenReleased(new StopShootBall());
 
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
@@ -84,6 +103,8 @@ public class OI {
 
     releaseBall.whenPressed(new RunShooter(-1));
     releaseBall.whenReleased(new StopShooter());
+
+
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
   }

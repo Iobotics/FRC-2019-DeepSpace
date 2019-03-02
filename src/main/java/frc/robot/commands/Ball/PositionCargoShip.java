@@ -8,21 +8,17 @@
 package frc.robot.commands.Ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.commands.Intake.StopChassisIntake;
+import frc.robot.Constants;
+import frc.robot.commands.Intake.HoldIntakePosition;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class StopCargoCarriage extends CommandGroup {
+public class PositionCargoShip extends CommandGroup {
   /**
-   * Called After Cargo Carriage is Run, returns arm and intake
+   * Add your docs here.
    */
-  public StopCargoCarriage() {
-    addParallel(new SetShooterPos(820));
-    addSequential(new StopChassisIntake());
-    addSequential(new StopShooter());
-    addSequential(new WaitCommand(1.5));
-    addSequential(new StopShooterArm());
+  public PositionCargoShip() {
+    addParallel(new HoldShooterPos(Constants.cargoShipAngle));
+    addSequential(new HoldIntakePosition(Constants.intakeArmShoot));
   }
 }
