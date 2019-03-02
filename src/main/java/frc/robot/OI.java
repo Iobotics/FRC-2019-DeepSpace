@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.CameraAssist;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
@@ -64,7 +65,7 @@ public class OI {
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_rStick, 4);
   private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
-  private final JoystickButton cameraAuto = new JoystickButton(_controller, 9);
+  private final JoystickButton cameraAuto = new JoystickButton(_lStick, 9); //TODO- Change button
 
 
   public OI(){
@@ -98,6 +99,7 @@ public class OI {
     releaseBall.whenReleased(new StopShooter());
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
+    cameraAuto.whileHeld(new CameraAssist());
   }
 
 
@@ -128,7 +130,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _lStick.getRawButton(10); //right stick on x box controller
+    return _lStick.getRawButton(10); //change to y button on xbox controller
   }
 
   public double getLeftTriggerAxis(){
@@ -138,6 +140,11 @@ public class OI {
   public boolean getControllerLeftDown()
   {
     return _controller.getRawButton(9);
+  }
+
+  public boolean getCameraButton()//TODO- Change
+  {
+    return _lStick.getRawButton(9);
   }
   
 }
