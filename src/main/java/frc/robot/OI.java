@@ -127,7 +127,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _controller.getRawButtonPressed(4); //right stick on x box controller
+    return _controllerTemp.getYButton(); //right stick on x box controller
   }
 
   public boolean getControllerLeftDown()
