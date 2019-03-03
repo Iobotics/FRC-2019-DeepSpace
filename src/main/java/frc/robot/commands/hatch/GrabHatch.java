@@ -22,7 +22,7 @@ public class GrabHatch extends CommandBase {
   @Override
   protected void initialize() {
     hatchCollector.extendHatch();
-    hatchCollector.closeHook();
+    hatchCollector.openHook();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -43,7 +43,7 @@ public class GrabHatch extends CommandBase {
   @Override
   protected void end() {
     hatchCollector.retractHatch();
-    hatchCollector.openHook();
+    hatchCollector.closeHook();
   }
 
   // Called when another command which requires one or more of the same

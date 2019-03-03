@@ -41,7 +41,6 @@ public class HoldShooterPos extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    shooter.setShooterArm(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
-import frc.robot.commands.Ball.ShootBall;
-import frc.robot.commands.Ball.StopShootBall;
 import frc.robot.commands.hatch.CloseHook;
 import frc.robot.commands.hatch.ExtendHatch;
 import frc.robot.commands.hatch.GrabAndRetractHatch;
@@ -52,8 +50,7 @@ public class OI {
   private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 1);
   private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 2);
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
-  private final JoystickButton grabBall = new JoystickButton(_controller, 8);
-  private final JoystickButton releaseBall = new JoystickButton(_controller, 7);
+  private final JoystickButton grabBall = new JoystickButton(_controller, 8);//Actuates the Shooter
 
   //Hatch Buttons
   private final JoystickButton grabHatch = new JoystickButton(_lStick, 3);//Left Center Thumb Button 
@@ -73,6 +70,8 @@ public class OI {
     extendHatch.whenPressed(new ToggleHatch());
     toggleHatchHook.whenPressed(new OpenHook());
     toggleHatchHook.whenReleased(new CloseHook());
+    grabHatch.whenPressed(new GrabHatch());
+    grabHatch.whenReleased(new GrabAndRetractHatch());
 
     intakeBall.whenPressed(new IntakeBall());
     intakeBall.whenReleased(new StopIntakeBall());
@@ -85,17 +84,14 @@ public class OI {
     positionShooterCargoShip.whenPressed(new PositionCargoShip());
     positionShooterCargoShip.whenReleased(new ReturnHome());
 
-    shootBall.whenPressed(new ShootBall());
-    shootBall.whenReleased(new ShootBall());
-
-    grabHatch.whenPressed(new GrabHatch());
-    grabHatch.whenReleased(new GrabAndRetractHatch());
+    shootBall.whenPressed(new RunShooter(-1));
+    shootBall.whenReleased(new StopShooter());
 
     grabBall.whenPressed(new RunShooter(0.5));
     grabBall.whenReleased(new StopShooter());
 
-    releaseBall.whenPressed(new RunShooter(-1));
-    releaseBall.whenReleased(new StopShooter());
+    outtakeBall.whenPressed(new RunShooter(-1));
+    outtakeBall.whenReleased(new StopShooter());
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
   }

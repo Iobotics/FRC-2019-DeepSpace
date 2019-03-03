@@ -151,6 +151,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
+    CommandBase.hatchCollector.retractHatch();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -164,7 +165,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     Scheduler.getInstance().run();
-
+    SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
   
   }
 
