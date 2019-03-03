@@ -35,27 +35,11 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  static UsbCamera usbCamera0;
-  static UsbCamera usbCamera1;
-
-  int width = 2592; //640, 2592
-  int height = 1944; //480, 1944
-  int fps = 30;
-  VideoSink sink;
-  VideoSink toSink0;
-  VideoSink toSink1;
-
-  CvSource outputStream0;
-  CvSource outputStream1;
-  CvSource rawStream0;
-  CvSource rawStream1;
   NetworkTable table;
   NetworkTableEntry yButton;
   NetworkTableInstance inst;
 
   OI oi = new OI();
-
-  int numCam = 4;
 
   /**
    * This function is run when the robot is first started up and should be
