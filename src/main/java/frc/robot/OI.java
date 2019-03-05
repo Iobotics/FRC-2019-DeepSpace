@@ -126,7 +126,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _lStick.getRawButton(10); //change to y button on xbox controller
+    return _controller.getYButton();
   }
 
   public double getLeftTriggerAxis(){
