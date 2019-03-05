@@ -62,7 +62,7 @@ public class OI {
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_rStick, 4);
   private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
-  private final JoystickButton cameraAuto = new JoystickButton(_lStick, 9); //TODO- Change button
+  private final JoystickButton cameraAuto = new JoystickButton(_lStick, 2);
 
 
   public OI(){
@@ -95,7 +95,7 @@ public class OI {
     outtakeBall.whenReleased(new StopShooter());
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
-    cameraAuto.whileHeld(new CameraAssist());
+    cameraAuto.whenPressed(new CameraAssist());
   }
 
 
@@ -138,9 +138,9 @@ public class OI {
     return _controller.getRawButton(9);
   }
 
-  public boolean getCameraButton()//TODO- Change
+  public boolean getCameraButton()
   {
-    return _lStick.getRawButton(9);
+    return _lStick.getRawButton(2);
   }
   
 }

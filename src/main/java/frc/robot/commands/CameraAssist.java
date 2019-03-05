@@ -51,18 +51,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
     protected void execute()
     {
         x = limelight.getX();
-        /*if(x < -THRESHOLD) 
-        { 
-            xDirection = "Left"; //target to the left, x is negative
-        }
-        else if(x > THRESHOLD)
-        {
-            xDirection = "Right";
-        }
-        else
-        {
-            xDirection = "Good";
-        }*/
         if(x >= -THRESHOLD && x <= THRESHOLD)
         {
             onTarget = true;
@@ -72,7 +60,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
             onTarget = false;
         }
 
-        //SmartDashboard.putString("xDirection", xDirection);
         SmartDashboard.putBoolean("onTarget", onTarget);
         SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("x", x);
@@ -116,6 +103,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
 
     @Override
     public double pidGet() {//Target to left error is negative
-        return -limelight.getX();
+        return limelight.getX();
 	}
 }

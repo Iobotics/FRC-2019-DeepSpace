@@ -1,6 +1,5 @@
 import ipcapture.*;
 import processing.video.*;
-PImage img;
 
 IPCapture cam1;
 
@@ -11,10 +10,6 @@ String numString= "";
 void setup() {
   size(800, 600);
   frameRate(60);
-  
-  img = loadImage("VictorFace.jpg");
-  img.resize(width,height);
-  image(img, 0, 0);
  
   cam1 = new IPCapture(this, "http://frcvision.local:1181/?action=stream", "", ""); //http://roborio-2438-frc.local:1181/?action=strea
 
