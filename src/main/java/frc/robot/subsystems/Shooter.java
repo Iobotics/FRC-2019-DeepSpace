@@ -34,10 +34,10 @@ public class Shooter extends Subsystem {
   private boolean isBallIn = false;
 
   private int slotID = 0;
-  private double kFFEmpty =  0.20;
-  private double kFFBall = 0.55;
-  private double kP = 7;
-  private double kI = 0.0;
+  private double kFFEmpty =  0.3;
+  private double kFFBall = 0.65;
+  private double kP = 10;
+  private double kI = 0.001;
   private double kD = 300;
 
   @Override
@@ -56,6 +56,9 @@ public class Shooter extends Subsystem {
 
     shooterArm = new TalonSRX(RobotMap.shooterArm);
     shooterArm.configFactoryDefault();
+
+    shooterArm.enableCurrentLimit(true);
+    shooterArm.configContinuousCurrentLimit(30);
 
     //Shooter Arm Requires PID to stay up 
     //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball

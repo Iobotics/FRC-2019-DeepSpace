@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
+import frc.robot.commands.Intake.HoldIntakePosition;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -151,7 +152,8 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
-    CommandBase.hatchCollector.retractHatch();
+    Command startCommand = new HoldIntakePosition(Constants.intakeArmHome);
+    startCommand.start();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -166,6 +168,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
     SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
+    SmartDashboard.putNumber("ShooterPos", CommandBase.shooter.getArm() );
   
   }
 
