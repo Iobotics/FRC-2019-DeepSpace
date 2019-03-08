@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CameraAssist;
+import frc.robot.commands.RotateCamera;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
@@ -28,6 +29,7 @@ import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.StopIntakeBall;
 import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
@@ -45,11 +47,11 @@ public class OI {
   //Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_lStick, 1);//Left Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_rStick, 1);//Right Trigger
-  private final JoystickButton runIntake = new JoystickButton(_rStick, 6);
+  private final JoystickButton runIntake = new JoystickButton(_controller, 1);
 
   //Shooter Buttons
-  private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 1);
-  private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 2);
+  private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 2);
+  private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 3);
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
   private final JoystickButton grabBall = new JoystickButton(_controller, 8);//Actuates the Shooter
 
@@ -60,17 +62,17 @@ public class OI {
 
   //ZoneTheory
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_rStick, 4);
-  private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
+  //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, 2);
+  private final JoystickButton rotateCamera = new JoystickButton(_controller, 5); 
 
 
   public OI(){
 
     //Hatch Commands
     extendHatch.whenPressed(new ToggleHatch());
-    toggleHatchHook.whenPressed(new OpenHook());
-    toggleHatchHook.whenReleased(new CloseHook());
+    toggleHatchHook.whenPressed(new ToggleHook());
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
 
@@ -85,7 +87,7 @@ public class OI {
     positionShooterCargoShip.whenPressed(new PositionCargoShip());
     positionShooterCargoShip.whenReleased(new ReturnHome());
 
-    shootBall.whenPressed(new RunShooter(-1));
+    shootBall.whenPressed(new ShootBall());
     shootBall.whenReleased(new StopShooter());
 
     grabBall.whenPressed(new RunShooter(0.5));
@@ -96,6 +98,7 @@ public class OI {
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
     cameraAuto.whenPressed(new CameraAssist());
+    rotateCamera.whenPressed(new RotateCamera());
   }
 
 

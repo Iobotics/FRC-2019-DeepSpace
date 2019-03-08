@@ -28,6 +28,11 @@ import frc.robot.commands.Intake.ManualOperateIntake;
  */
 public class ChassisIntake extends PIDSubsystem {
   
+  /**
+   *
+   */
+
+  private static final double kP = 10;
   private TalonSRX _chassisIntake;
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
@@ -35,23 +40,26 @@ public class ChassisIntake extends PIDSubsystem {
 
   
   public ChassisIntake(){
-    super(0.1,0,0);
+    super(kP,0,0);
   }
 
   //Should be called in the robot init
   public void init(){
 
     _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
-    _chassisIntake.setInverted(true);
+    _chassisIntake.setInverted(false);
     _chassisIntake.setNeutralMode(NeutralMode.Brake);
     
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
+    _leftArm.configFactoryDefault();
+    _leftArm.config_kP(0, kP);
     _leftArm.setNeutralMode(NeutralMode.Brake);
     _leftArm.setInverted(true);
     _leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
     _leftArm.configFeedbackNotContinuous(true, 20);
     
     _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
+    _rightArm.configFactoryDefault();
     _rightArm.setInverted(false);
     _rightArm.setNeutralMode(NeutralMode.Brake);
 

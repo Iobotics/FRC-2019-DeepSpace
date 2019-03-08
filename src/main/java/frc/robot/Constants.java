@@ -22,18 +22,18 @@ public class Constants {
 
   //Range of tolerance for if the loop is completed, measured in motor rotating
   public static final double toleranceRange = 2;
-    
+  
   //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-  public static final int shooterArmCenter = -448;
+  public static final int shooterArmCenter = 808;
 
   public static final int cargoShipAngle = shooterArmCenter + 28;
 
-  public static final int firstLevelAngle = shooterArmCenter - 25;
+  public static final int firstLevelAngle = shooterArmCenter - 15;
 
   //Intake Arm Position
 
-  public static final int intakeArmHome = -317;
+  public static final int intakeArmHome = -562;
 
-  public static final int intakeArmIntake = -205;
+  public static final int intakeArmIntake =  -494;
 
 }

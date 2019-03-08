@@ -5,23 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Ball;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.Constants;
-import frc.robot.commands.Intake.HoldIntakePosition;
-import frc.robot.commands.Intake.StopChassisIntake;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class ReturnHome extends CommandGroup {
+public class ShootBall extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ReturnHome() {
-    addSequential(new StopShooterArm());
-    addParallel(new HoldIntakePosition(Constants.intakeArmHome));
-    addSequential(new WaitCommand(1.5));
-    addSequential(new StopChassisIntake());
+  public ShootBall() {
+    addParallel(new RunShooter(0.5));
+    addSequential(new WaitCommand(0.25));
+    addSequential(new RunShooter(-1));
   }
 }

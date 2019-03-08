@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
     Command startCommand = new HoldIntakePosition(Constants.intakeArmHome);
-    startCommand.start();
+    //startCommand.start();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

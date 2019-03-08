@@ -38,7 +38,7 @@ public class HatchCollector extends Subsystem {
     _hatchDetector = new DigitalInput(1);
 
     _extender.set(false);
-    _hook.set(Value.kReverse);
+    _hook.set(Value.kForward);
   }
 
   public boolean getHatchSensor(){

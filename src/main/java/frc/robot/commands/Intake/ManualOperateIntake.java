@@ -26,7 +26,7 @@ public class ManualOperateIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setIntakeArm(oi.getControllerStick());
+    chassisIntake.setIntakeArm(0.5 * oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()

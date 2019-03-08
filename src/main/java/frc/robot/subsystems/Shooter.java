@@ -34,11 +34,11 @@ public class Shooter extends Subsystem {
   private boolean isBallIn = false;
 
   private int slotID = 0;
-  private double kFFEmpty =  0.3;
-  private double kFFBall = 0.65;
-  private double kP = 10;
-  private double kI = 0.001;
-  private double kD = 300;
+  private double kFFEmpty =  0.25;
+  private double kFFBall = 0.35;
+  private double kP = 8;
+  private double kI = 0;
+  private double kD = 400;
 
   @Override
   public void initDefaultCommand() {
@@ -47,11 +47,13 @@ public class Shooter extends Subsystem {
   public void init()
   {
     leftShooter = new TalonSRX(RobotMap.leftShooter);
+    leftShooter.configFactoryDefault();
     leftShooter.setInverted(true);
     leftShooter.setNeutralMode(NeutralMode.Brake);
 
     rightShooter = new TalonSRX(RobotMap.rightShooter);
     rightShooter.setInverted(false);
+    rightShooter.configFactoryDefault();
     rightShooter.setNeutralMode(NeutralMode.Brake);
 
     shooterArm = new TalonSRX(RobotMap.shooterArm);
@@ -66,7 +68,7 @@ public class Shooter extends Subsystem {
     shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     shooterArm.configFeedbackNotContinuous(true, 20);
-    shooterArm.setSensorPhase(false);
+    shooterArm.setSensorPhase(true);
     shooterArm.selectProfileSlot(slotID, 0);
     shooterArm.config_kP(slotID, kP);
     shooterArm.config_kI(slotID, kI);
