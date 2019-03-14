@@ -9,6 +9,7 @@ package frc.robot;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -42,6 +43,9 @@ public class Robot extends TimedRobot {
 
   OI oi = new OI();
 
+  UsbCamera logitech;
+  UsbCamera fishEye;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -67,6 +71,12 @@ public class Robot extends TimedRobot {
     _pdp.clearStickyFaults();
     
     SmartDashboard.putData("Auto mode", m_chooser);
+  
+    logitech = CameraServer.getInstance().startAutomaticCapture(0);
+    logitech.setResolution(160,120);
+    fishEye = CameraServer.getInstance().startAutomaticCapture(1);
+    fishEye.setResolution(160,120);
+    //fishEye.setResolution(160, 120);
   }
 
   /**

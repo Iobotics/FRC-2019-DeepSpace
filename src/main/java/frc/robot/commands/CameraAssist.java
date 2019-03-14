@@ -103,6 +103,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
 
     @Override
     public double pidGet() {//Target to left error is negative
-        return limelight.getX();
+        return -limelight.getX();
 	}
 }

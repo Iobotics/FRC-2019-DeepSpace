@@ -7,32 +7,32 @@
 
 package frc.robot.commands.Shooter;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class StopShooter extends CommandBase {
-  public StopShooter() {
+public class ManualShooter extends CommandBase {
+  public ManualShooter() {
     requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(shooter.getIsBallIn()){
-      shooter.setShooter(0.15);
-    }
-    else shooter.setShooter(0);
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+   shooter.setShooterArm(oi.getControllerStickRight()); 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
   }

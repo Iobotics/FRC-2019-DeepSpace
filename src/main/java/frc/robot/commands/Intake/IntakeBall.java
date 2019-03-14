@@ -7,9 +7,13 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.hal.ConstantsJNI;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.SetShooterPos;
 
 public class IntakeBall extends CommandGroup {
   /**
@@ -19,5 +23,6 @@ public class IntakeBall extends CommandGroup {
     addSequential(new RunChassisIntake());
     addParallel(new HoldIntakePosition(Constants.intakeArmIntake));
     addParallel(new RunShooter(0.5));
+    addParallel(new SetShooterPos(770));
   }
 }

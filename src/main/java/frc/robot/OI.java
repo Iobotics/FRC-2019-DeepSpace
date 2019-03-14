@@ -45,8 +45,8 @@ public class OI {
 
 
   //Intake Buttons
-  private final JoystickButton intakeBall = new JoystickButton(_lStick, 1);//Left Trigger
-  private final JoystickButton outtakeBall = new JoystickButton(_rStick, 1);//Right Trigger
+  private final JoystickButton intakeBall = new JoystickButton(_rStick, 1);//Left Trigger
+  private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1);//Right Trigger
   private final JoystickButton runIntake = new JoystickButton(_controller, 1);
 
   //Shooter Buttons
@@ -54,18 +54,19 @@ public class OI {
   private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 3);
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
   private final JoystickButton grabBall = new JoystickButton(_controller, 8);//Actuates the Shooter
+  private final JoystickButton holdBall = new JoystickButton(_controller, 7);
 
   //Hatch Buttons
-  private final JoystickButton grabHatch = new JoystickButton(_lStick, 3);//Left Center Thumb Button 
-  private final JoystickButton toggleHatchHook = new JoystickButton(_lStick, 4);//Left Thumb Button
-  private final JoystickButton extendHatch = new JoystickButton(_lStick, 5);//Right Thumb Button
+  private final JoystickButton grabHatch = new JoystickButton(_rStick, 3);//Left Center Thumb Button 
+  private final JoystickButton toggleHatchHook = new JoystickButton(_rStick, 4);//Left Thumb Button
+  private final JoystickButton extendHatch = new JoystickButton(_rStick, 5);//Right Thumb Button
 
   //ZoneTheory
-  private final JoystickButton toggleZoneTwoBack = new JoystickButton(_rStick, 4);
+  private final JoystickButton toggleZoneTwoBack = new JoystickButton(_lStick, 4);
   //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, 2);
-  private final JoystickButton rotateCamera = new JoystickButton(_controller, 5); 
+  private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 
 
 
   public OI(){
@@ -92,6 +93,8 @@ public class OI {
 
     grabBall.whenPressed(new RunShooter(0.5));
     grabBall.whenReleased(new StopShooter());
+
+    holdBall.whileHeld(new RunShooter(0.1));
 
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
@@ -122,6 +125,10 @@ public class OI {
     return _controller.getRawAxis(1);
   }
 
+  public double getControllerStickRight(){
+    return _controller.getRawAxis(3);
+  }
+
   public boolean getLeftStickMid()
   {
     return _lStick.getRawButton(2);
@@ -129,7 +136,7 @@ public class OI {
 
   public boolean getYButton()
   {
-    return _controller.getYButton();
+    return _controller.getBumper(Hand.kLeft);
   }
 
   public double getLeftTriggerAxis(){

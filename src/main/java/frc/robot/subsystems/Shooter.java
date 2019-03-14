@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import frc.robot.commands.Shooter.ManualShooter;
 
 /**
  * Subsystem Handles the Shooter / Carriage
@@ -34,14 +35,15 @@ public class Shooter extends Subsystem {
   private boolean isBallIn = false;
 
   private int slotID = 0;
-  private double kFFEmpty =  0.25;
-  private double kFFBall = 0.35;
-  private double kP = 8;
-  private double kI = 0;
-  private double kD = 400;
+  private double kFFEmpty =  0;
+  private double kFFBall = 0;
+  private double kP = 16;
+  private double kI = 0.01;
+  private double kD = 200;
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new ManualShooter());
   }
 
   public void init()
@@ -60,7 +62,7 @@ public class Shooter extends Subsystem {
     shooterArm.configFactoryDefault();
 
     shooterArm.enableCurrentLimit(true);
-    shooterArm.configContinuousCurrentLimit(30);
+    shooterArm.configContinuousCurrentLimit(40);
 
     //Shooter Arm Requires PID to stay up 
     //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball
