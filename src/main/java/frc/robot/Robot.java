@@ -162,6 +162,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
     SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
+    SmartDashboard.putNumber("Pitch", CommandBase.navSensor.getRoll());
     SmartDashboard.putNumber("ShooterPos", CommandBase.shooter.getArm() );
   
   }

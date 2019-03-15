@@ -35,11 +35,11 @@ public class Shooter extends Subsystem {
   private boolean isBallIn = false;
 
   private int slotID = 0;
-  private double kFFEmpty =  0;
+  private double kFFEmpty = 0;
   private double kFFBall = 0;
-  private double kP = 16;
-  private double kI = 0.01;
-  private double kD = 200;
+  private double kP = 8;
+  private double kI = 0;
+  private double kD = 350;
 
   @Override
   public void initDefaultCommand() {
@@ -70,7 +70,7 @@ public class Shooter extends Subsystem {
     shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     shooterArm.configFeedbackNotContinuous(true, 20);
-    shooterArm.setSensorPhase(true);
+    shooterArm.setSensorPhase(false);
     shooterArm.selectProfileSlot(slotID, 0);
     shooterArm.config_kP(slotID, kP);
     shooterArm.config_kI(slotID, kI);
