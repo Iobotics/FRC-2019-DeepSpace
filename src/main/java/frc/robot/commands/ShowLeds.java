@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch;
+package frc.robot.commands;
 
 
-import frc.robot.commands.CommandBase;
-
-public class CloseHook extends CommandBase {
-  public CloseHook() {
-    requires(hatchCollector);
+public class ShowLeds extends CommandBase {
+  public ShowLeds() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.closeHook();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    ledStrip.show();
   }
 
   // Make this return true when this Command no longer needs to run execute()

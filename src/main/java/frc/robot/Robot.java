@@ -9,7 +9,6 @@ package frc.robot;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -21,7 +20,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.Intake.HoldIntakePosition;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,14 +35,27 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  static UsbCamera usbCamera0;
+  static UsbCamera usbCamera1;
+
+  int width = 2592; //640, 2592
+  int height = 1944; //480, 1944
+  int fps = 30;
+  VideoSink sink;
+  VideoSink toSink0;
+  VideoSink toSink1;
+
+  CvSource outputStream0;
+  CvSource outputStream1;
+  CvSource rawStream0;
+  CvSource rawStream1;
   NetworkTable table;
   NetworkTableEntry yButton;
   NetworkTableInstance inst;
 
   OI oi = new OI();
 
-  UsbCamera logitech;
-  UsbCamera fishEye;
+  int numCam = 4;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -71,12 +82,6 @@ public class Robot extends TimedRobot {
     _pdp.clearStickyFaults();
     
     SmartDashboard.putData("Auto mode", m_chooser);
-  
-    logitech = CameraServer.getInstance().startAutomaticCapture(0);
-    logitech.setResolution(160,120);
-    fishEye = CameraServer.getInstance().startAutomaticCapture(1);
-    fishEye.setResolution(160,120);
-    //fishEye.setResolution(160, 120);
   }
 
   /**
@@ -146,8 +151,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
-    Command startCommand = new HoldIntakePosition(Constants.intakeArmHome);
-    //startCommand.start();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -161,8 +164,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     Scheduler.getInstance().run();
-    SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
-    SmartDashboard.putNumber("ShooterPos", CommandBase.shooter.getArm() );
+    
   
   }
 

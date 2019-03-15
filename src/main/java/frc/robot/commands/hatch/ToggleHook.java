@@ -5,19 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.Hatch;
 
 import frc.robot.commands.CommandBase;
 
 public class ToggleHook extends CommandBase {
   public ToggleHook() {
     requires(hatchCollector);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     hatchCollector.toggleHook();
+    ledStrip.setPattern(-.07, true);
   }
 
   // Called repeatedly when this Command is scheduled to run

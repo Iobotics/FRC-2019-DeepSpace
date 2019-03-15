@@ -14,6 +14,7 @@ public class ToggleZoneTwoBack extends CommandBase {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(levelTwo);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
@@ -21,6 +22,7 @@ public class ToggleZoneTwoBack extends CommandBase {
   protected void initialize() {
     if(!levelTwo.backWheelDown()){
       levelTwo.deployBackWheels();
+      ledStrip.setPattern(-.11);
     } else {
       levelTwo.retractBackWheels();
     }
