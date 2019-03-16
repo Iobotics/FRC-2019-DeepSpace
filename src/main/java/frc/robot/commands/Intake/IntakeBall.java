@@ -20,9 +20,10 @@ public class IntakeBall extends CommandGroup {
    * Add your docs here.
    */
   public IntakeBall() {
+    addParallel(new RunShooter(0.5));
+    addSequential(new SetShooterPos(-528));
     addSequential(new RunChassisIntake());
     addParallel(new HoldIntakePosition(Constants.intakeArmIntake));
-    addParallel(new RunShooter(0.5));
-    addParallel(new SetShooterPos(-528)); //770
+    
   }
 }

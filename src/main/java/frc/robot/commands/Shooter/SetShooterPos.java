@@ -17,6 +17,7 @@ public class SetShooterPos extends CommandBase {
 
 
   public SetShooterPos(int pos){
+    requires(shooter);
     this.pos = pos;
   }
 
@@ -28,13 +29,11 @@ public class SetShooterPos extends CommandBase {
   //if the value is Home then just turn off the motor, only use when at the bottom
   @Override
   protected void execute() {
-    shooter.setShooterPosition(pos);
-
   }
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   @Override

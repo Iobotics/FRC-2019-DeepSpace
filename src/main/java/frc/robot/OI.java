@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
+import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
@@ -58,6 +59,7 @@ public class OI {
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
   private final JoystickButton grabBall = new JoystickButton(_controller, 8);//Actuates the Shooter
   private final JoystickButton holdBall = new JoystickButton(_controller, 7);
+  private final JoystickButton shiptohome = new JoystickButton(_controller, 5);
 
   //Hatch Buttons
   private final JoystickButton grabHatch = new JoystickButton(_rStick, 3);//Left Center Thumb Button 
@@ -83,13 +85,13 @@ public class OI {
     intakeBall.whenPressed(new IntakeBall());
     intakeBall.whenReleased(new StopIntakeBall());
     runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
-    runIntake.whenReleased(new StopShooterArm());
+    runIntake.whenReleased(new SetShooterPos(Constants.shooterVacation));
 
     positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
     positionShooterFirstLevel.whenReleased(new ReturnHome());
 
     positionShooterCargoShip.whenPressed(new PositionCargoShip());
-    positionShooterCargoShip.whenReleased(new ReturnHome());
+    //positionShooterCargoShip.whenReleased(new ReturnHome());
 
     shootBall.whenPressed(new ShootBall());
     shootBall.whenReleased(new StopShooter());
@@ -101,6 +103,8 @@ public class OI {
 
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
+
+    shiptohome.whenPressed(new FromShipToHome());
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
     cameraAuto.whenPressed(new CameraAssist());

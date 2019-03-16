@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
 public class HoldIntakePosition extends CommandBase {

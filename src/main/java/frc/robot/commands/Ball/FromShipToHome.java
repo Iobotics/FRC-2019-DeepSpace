@@ -5,29 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.Ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Shooter.HoldShooterPos;
+import frc.robot.commands.Intake.HoldIntakePosition;
+import frc.robot.commands.Intake.SetIntakePosition;
+import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class StopIntakeBall extends CommandGroup {
+public class FromShipToHome extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public StopIntakeBall() {
-    addSequential(new StopChassisIntake());
-    //addParallel(new HoldShooterPos(Constants.shooterArmCenter + 40));
-    addSequential(new WaitCommand(0.2));
-    addParallel(new HoldIntakePosition(Constants.intakeArmHome));
-    addSequential(new StopShooter());
-    addSequential(new WaitCommand(1.5));
-    addParallel(new StopChassisIntake());
-    //addSequential(new StopShooterArm());
+  public FromShipToHome() {
+    addSequential(new SetIntakePosition(Constants.intakeArmIntake));
+    addSequential(new WaitCommand(1));
     addSequential(new SetShooterPos(Constants.shooterVacation));
-  } 
+    addSequential(new WaitCommand(1));
+    addSequential(new SetIntakePosition(Constants.intakeArmHome));
+    addSequential(new WaitCommand(1));
+  }
 }

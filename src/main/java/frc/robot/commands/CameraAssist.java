@@ -15,11 +15,11 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
   private static double x;
   //private static final double kF = .18; //.14 min power to go, 
   //DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.04;//TODO- Test this
+  private static final double kP = 0.05;//TODO- Test this
   private static final double kI = 0.0;
   private static final double kD = 0.0;
 
-  private static  final double THRESHOLD = 1.0; //degrees
+  private static  final double THRESHOLD = .5; //degrees
   private static final double MAXSPEED = 1.0;
 
 

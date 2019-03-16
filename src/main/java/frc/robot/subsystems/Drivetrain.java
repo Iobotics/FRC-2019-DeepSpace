@@ -61,6 +61,7 @@ public class Drivetrain extends Subsystem {
     _frontLeftMain.setInverted(true);
     //_frontLeftMain.setSmartCurrentLimit(65,55);
     //_frontLeftMain.setSmartCurrentLimit(40);
+    //_frontLeftMain.getOpenLoopRampRate(2000);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);

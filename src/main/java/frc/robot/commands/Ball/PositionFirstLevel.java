@@ -18,7 +18,7 @@ public class PositionFirstLevel extends CommandGroup {
    * Add your docs here.
    */
   public PositionFirstLevel() {
-    addParallel(new SetShooterPos(Constants.firstLevelAngle));
     addParallel(new HoldIntakePosition(Constants.intakeArmIntake));
+    addParallel(new SetShooterPos(Constants.firstLevelAngle));
   }
 }
