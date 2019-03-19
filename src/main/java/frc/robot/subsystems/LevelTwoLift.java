@@ -21,23 +21,23 @@ public class LevelTwoLift extends Subsystem {
   
   private DoubleSolenoid backWheel;
 
-  //Should be called in the robot init
+  // Should be called in the robot init
   public void init() {
     backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
     backWheel.set(DoubleSolenoid.Value.kForward);
   }
 
-  //extends the cylinders on the back of the robot
+  // extends the cylinders on the back of the robot
   public void deployBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kReverse);
   }
 
-  //retracts the cylinders on the back of the robot
+  // retracts the cylinders on the back of the robot
   public void retractBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kForward);
   }
 
-  //returns whether or not the back wheel is extended
+  // returns whether or not the back wheel is extended
   public boolean backWheelDown(){
     return backWheel.get() == Value.kForward;
   }
