@@ -49,8 +49,8 @@ public class OI {
 
 
   // Intake Buttons
-  private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Left Trigger
-  private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Right Trigger
+  private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
+  private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger 
   private final JoystickButton runIntake = new JoystickButton(_controller, 1);
 
   // Shooter Buttons
@@ -84,6 +84,7 @@ public class OI {
 
     intakeBall.whenPressed(new IntakeBall());
     intakeBall.whenReleased(new StopIntakeBall());
+    
     runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
     runIntake.whenReleased(new SetShooterPos(Constants.shooterVacation));
 
