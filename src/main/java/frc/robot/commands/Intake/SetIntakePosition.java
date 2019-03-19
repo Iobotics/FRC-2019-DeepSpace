@@ -35,7 +35,7 @@ public class SetIntakePosition extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return chassisIntake.getArmPosition() - position <= 0;
   }
 
   // Called once after isFinished returns true

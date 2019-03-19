@@ -33,7 +33,7 @@ public class SetShooterPos extends CommandBase {
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return shooter.getArm() - pos <= 0;
   }
 
   @Override
