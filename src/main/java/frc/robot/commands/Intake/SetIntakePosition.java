@@ -13,6 +13,7 @@ import frc.robot.commands.CommandBase;
 public class SetIntakePosition extends CommandBase {
 
   private double position;
+  private final double THRESHOLD = 15;
 
   public SetIntakePosition(double position) {
     // Use requires() here to declare subsystem dependencies
@@ -35,7 +36,7 @@ public class SetIntakePosition extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return chassisIntake.getArmPosition() - position <= 0;
+    return Math.abs(chassisIntake.getArmPosition() - position) <= THRESHOLD;
   }
 
   // Called once after isFinished returns true
