@@ -26,7 +26,7 @@ public class ReturnHome extends CommandGroup {
   
 
   public ReturnHome() {
-    addSequential(new SetShooterPos(Constants.shooterVacation));
+    addSequential(new SetShooterPos(Constants.shooterHome));
     addParallel(new HoldIntakePosition(Constants.intakeArmHome));
     addSequential(new WaitCommand(1.5));
     addSequential(new StopChassisIntake());

@@ -21,8 +21,9 @@ public class PositionCargoShip extends CommandGroup {
    */
 
   public PositionCargoShip() {
-    addSequential(new SetIntakePosition(Constants.intakeArmIntake));
-    addSequential(new HoldShooterPos(Constants.cargoShipAngle));
+    addSequential(new SetIntakePosition(Constants.intakeArmOut));
+    addSequential(new SetShooterPos(Constants.cargoShipAngle));
     addSequential(new SetIntakePosition(Constants.intakeArmHome));
+    addSequential(new HoldShooterPos(Constants.cargoShipAngle));
   }
 }

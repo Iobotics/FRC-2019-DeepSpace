@@ -26,7 +26,9 @@ public class Constants {
   //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
   public static final int shooterArmCenter = -453;
 
-  public static final int shooterVacation = -528;
+  public static final int shooterHome = -528;
+
+  public static final int shooterIntake = -518;
 
   public static final int cargoShipAngle = shooterArmCenter + 18;
 
@@ -34,8 +36,10 @@ public class Constants {
 
   //Intake Arm Position
 
-  public static final int intakeArmHome = -622;
+  public static final int intakeArmHome = -599; //622 before
 
-  public static final int intakeArmIntake =  -540;
+  public static final int intakeArmIntake =  -504; //-504
+
+  public static final int intakeArmOut = -530;
 
 }

@@ -9,7 +9,11 @@ package frc.robot.commands.Intake;
 
 import frc.robot.commands.CommandBase;
 
+
 public class RunChassisIntake extends CommandBase {
+  
+  private final static double NUMBER = -0.6; // Before -.5
+  
   public RunChassisIntake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -19,13 +23,13 @@ public class RunChassisIntake extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setPower(-.5);
+    chassisIntake.setPower(NUMBER); // -.5 Before
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setPower(-.5);
+    chassisIntake.setPower(NUMBER);
   }
 
   // Make this return true when this Command no longer needs to run execute()

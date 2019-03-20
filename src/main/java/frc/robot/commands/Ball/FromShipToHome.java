@@ -20,8 +20,8 @@ public class FromShipToHome extends CommandGroup {
    * Add your docs here.
    */
   public FromShipToHome() {
-    addSequential(new SetIntakePosition(Constants.intakeArmIntake));
-    addSequential(new SetShooterPos(Constants.shooterVacation));
+    addSequential(new SetIntakePosition(Constants.intakeArmOut));
+    addSequential(new SetShooterPos(Constants.shooterHome));
     addSequential(new SetIntakePosition(Constants.intakeArmHome));
   }
 }

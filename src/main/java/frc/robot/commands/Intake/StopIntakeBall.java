@@ -28,6 +28,6 @@ public class StopIntakeBall extends CommandGroup {
     addSequential(new WaitCommand(1.5));
     addParallel(new StopChassisIntake());
     addSequential(new StopShooterArm());
-    addSequential(new SetShooterPos(Constants.shooterVacation));
+    addSequential(new SetShooterPos(Constants.shooterHome));
   } 
 }

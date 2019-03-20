@@ -33,6 +33,9 @@ public class ChassisIntake extends PIDSubsystem {
    */
 
   private static final double kP = 15;
+  private static final double kI = 0.005; // Before .005 
+  private static final double kD = 120;
+
   private TalonSRX _chassisIntake;
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
@@ -53,8 +56,8 @@ public class ChassisIntake extends PIDSubsystem {
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
     _leftArm.configFactoryDefault();
     _leftArm.config_kP(0, kP);
-    _leftArm.config_kI(0, 0.005);
-    _leftArm.config_kD(0, 120);
+    _leftArm.config_kI(0, kI);
+    _leftArm.config_kD(0, kD);
     _leftArm.setNeutralMode(NeutralMode.Brake);
     _leftArm.setInverted(true);
     _leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);

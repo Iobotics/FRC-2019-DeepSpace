@@ -33,13 +33,16 @@ public class Shooter extends Subsystem {
   DigitalInput proximitySensor;
 
   private boolean isBallIn = false;
+  private boolean isReverse = false;
 
   private int slotID = 0;
   private double kFFEmpty = 0;
-  private double kFFBall = 0;
-  private double kP = 8;
+  private double kFFBall = 0; //Positive feedforward when going down
+  private double kFFEmptyReverse = .1;
+  private double kFFBallReverse = .1;
+  private double kP = 8; // Before 8
   private double kI = 0;
-  private double kD = 350;
+  private double kD = 350; // Before 350
 
   @Override
   public void initDefaultCommand() {
@@ -94,14 +97,34 @@ public class Shooter extends Subsystem {
   }
 
   public void setShooterPosition(double position){
-    if(isBallIn){
+    if(this.getArm() - position < 0) //Going up
+    {
+      isReverse = false;
+    }
+    else
+    {
+      isReverse = true;
+    }
+
+    if(isBallIn && !isReverse){
       shooterArm.set(ControlMode.Position, position, 
       DemandType.ArbitraryFeedForward, kFFBall * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
-    else {
+    else if(!isReverse) {
       shooterArm.set(ControlMode.Position, position, 
       DemandType.ArbitraryFeedForward, kFFEmpty * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+
+    if(isBallIn && isReverse){
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFBallReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+    else if(isReverse) {
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFEmptyReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
     

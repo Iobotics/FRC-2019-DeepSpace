@@ -73,6 +73,8 @@ public class OI {
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, 2);
   private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 
 
+  private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
+
 
   public OI(){
 
@@ -86,7 +88,7 @@ public class OI {
     intakeBall.whenReleased(new StopIntakeBall());
 
     runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
-    runIntake.whenReleased(new SetShooterPos(Constants.shooterVacation));
+    runIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
 
     positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
     positionShooterFirstLevel.whenReleased(new ReturnHome());
@@ -108,6 +110,9 @@ public class OI {
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
     cameraAuto.whenPressed(new CameraAssist());
     rotateCamera.whenPressed(new RotateCamera());
+
+    shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
+    shooterIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
   }
 
 
