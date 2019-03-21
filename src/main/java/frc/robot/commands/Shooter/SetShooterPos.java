@@ -12,7 +12,7 @@ import frc.robot.commands.CommandBase;
 public class SetShooterPos extends CommandBase {
 
   private int pos;
-  private final int THRESHOLD = 10;
+  private final int THRESHOLD = 15;
 
   //Either Takes an Enum for position or just Raw Encoder Value
 

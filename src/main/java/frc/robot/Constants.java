@@ -40,6 +40,6 @@ public class Constants {
 
   public static final int intakeArmIntake =  -504; //-504
 
-  public static final int intakeArmOut = -530;
+  public static final int intakeArmOut = -560;
 
 }

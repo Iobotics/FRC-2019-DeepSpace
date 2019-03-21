@@ -45,6 +45,7 @@ public class Drivetrain extends Subsystem {
   private static double _kIZoneDrive = 0;
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0.000156;
+  private static double _kOpenRR = 1;
 
   private double _kPTurn = 0.005;
   private double _kITurn = 0;
@@ -61,25 +62,25 @@ public class Drivetrain extends Subsystem {
     _frontLeftMain.setInverted(true);
     //_frontLeftMain.setSmartCurrentLimit(65,55);
     //_frontLeftMain.setSmartCurrentLimit(40);
-    //_frontLeftMain.setOpenLoopRampRate(5); TODO- Fix this
+    _frontLeftMain.setOpenLoopRampRate(_kOpenRR);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
     //_frontRightMain.setSmartCurrentLimit(65,55);
     //_frontRightMain.setSmartCurrentLimit(40);
-    //_frontRightMain.setOpenLoopRampRate(5);
+    _frontRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
     //_backLeftMain.setSmartCurrentLimit(65,55);
     //_backLeftMain.setSmartCurrentLimit(40);
-    //_backLeftMain.setOpenLoopRampRate(5);
+    _backLeftMain.setOpenLoopRampRate(_kOpenRR);
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
     //_backRightMain.setSmartCurrentLimit(65,55);
     //_backRightMain.setSmartCurrentLimit(40);
-    //_backRightMain.setOpenLoopRampRate(5);
+    _backRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _drive = new MecanumDrive(
       _frontLeftMain, 
