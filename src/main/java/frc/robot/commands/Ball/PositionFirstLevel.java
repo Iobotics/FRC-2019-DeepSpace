@@ -10,6 +10,7 @@ package frc.robot.commands.Ball;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Intake.HoldIntakePosition;
+import frc.robot.commands.Intake.SetIntakePosition;
 import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.SetShooterPos;
 
@@ -19,6 +20,6 @@ public class PositionFirstLevel extends CommandGroup {
    */
   public PositionFirstLevel() {
     addParallel(new HoldIntakePosition(Constants.intakeArmIntake));
-    addParallel(new SetShooterPos(Constants.firstLevelAngle));
+    addParallel(new HoldShooterPos(Constants.firstLevelAngle));
   }
 }

@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
   private static double _kIZoneDrive = 0;
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0.000156;
-  private static double _kOpenRR = 1;
+  private static double _kOpenRR = 3; // At 1 for forward and back
 
   private double _kPTurn = 0.005;
   private double _kITurn = 0;
@@ -62,25 +62,25 @@ public class Drivetrain extends Subsystem {
     _frontLeftMain.setInverted(true);
     //_frontLeftMain.setSmartCurrentLimit(65,55);
     //_frontLeftMain.setSmartCurrentLimit(40);
-    _frontLeftMain.setOpenLoopRampRate(_kOpenRR);
+    //_frontLeftMain.setOpenLoopRampRate(_kOpenRR);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
     //_frontRightMain.setSmartCurrentLimit(65,55);
     //_frontRightMain.setSmartCurrentLimit(40);
-    _frontRightMain.setOpenLoopRampRate(_kOpenRR);
+    //_frontRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
     //_backLeftMain.setSmartCurrentLimit(65,55);
     //_backLeftMain.setSmartCurrentLimit(40);
-    _backLeftMain.setOpenLoopRampRate(_kOpenRR);
+    //_backLeftMain.setOpenLoopRampRate(_kOpenRR);
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
     //_backRightMain.setSmartCurrentLimit(65,55);
     //_backRightMain.setSmartCurrentLimit(40);
-    _backRightMain.setOpenLoopRampRate(_kOpenRR);
+    //_backRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _drive = new MecanumDrive(
       _frontLeftMain, 
@@ -188,8 +188,27 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
+  public double getPower()
+  {
+    return _backLeftMain.get();
+  }
+
   //Sets the motors to run according to a mecanum drivetrain
   public void setMecanum(double x, double y, double rotation) {
+    if(Math.abs(x) - Math.abs(this.getPower()) >= 0 || Math.abs(y) - Math.abs(this.getPower()) >= 0 || Math.abs(rotation) - Math.abs(this.getPower()) >= 0) //The speed is increasing
+    {
+      _frontLeftMain.setOpenLoopRampRate(_kOpenRR);
+      _frontRightMain.setOpenLoopRampRate(_kOpenRR);
+      _backLeftMain.setOpenLoopRampRate(_kOpenRR);
+      _backRightMain.setOpenLoopRampRate(_kOpenRR);
+    }
+    else
+    {
+      _frontLeftMain.setOpenLoopRampRate(0);
+      _frontRightMain.setOpenLoopRampRate(0);
+      _backLeftMain.setOpenLoopRampRate(0);
+      _backRightMain.setOpenLoopRampRate(0);
+    }
     _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
   }
 
