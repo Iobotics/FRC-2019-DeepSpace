@@ -36,10 +36,12 @@ public class Constants {
 
   //Intake Arm Position
 
-  public static final int intakeArmHome = -599; //622 before
+  public static final int intakeArmHome = -659;
 
-  public static final int intakeArmIntake =  -504; //-504
+  public static final int intakeArmShooter = -620;
 
-  public static final int intakeArmOut = -560;
+  public static final int intakeArmIntake =  -555; //-504
+
+  public static final int intakeArmOut = -584;
 
 }

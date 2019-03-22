@@ -45,7 +45,10 @@ public class Drivetrain extends Subsystem {
   private static double _kIZoneDrive = 0;
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0.000156;
-  private static double _kOpenRR = 3; // At 1 for forward and back
+  private static double _kForwardRR = 1;
+  private static double _kStrafeRR = 1;
+  private static double _kIsMoreStrafe = .5;
+
 
   private double _kPTurn = 0.005;
   private double _kITurn = 0;
@@ -62,25 +65,21 @@ public class Drivetrain extends Subsystem {
     _frontLeftMain.setInverted(true);
     //_frontLeftMain.setSmartCurrentLimit(65,55);
     //_frontLeftMain.setSmartCurrentLimit(40);
-    //_frontLeftMain.setOpenLoopRampRate(_kOpenRR);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
     //_frontRightMain.setSmartCurrentLimit(65,55);
     //_frontRightMain.setSmartCurrentLimit(40);
-    //_frontRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
     //_backLeftMain.setSmartCurrentLimit(65,55);
     //_backLeftMain.setSmartCurrentLimit(40);
-    //_backLeftMain.setOpenLoopRampRate(_kOpenRR);
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
     //_backRightMain.setSmartCurrentLimit(65,55);
     //_backRightMain.setSmartCurrentLimit(40);
-    //_backRightMain.setOpenLoopRampRate(_kOpenRR);
 
     _drive = new MecanumDrive(
       _frontLeftMain, 
@@ -197,10 +196,20 @@ public class Drivetrain extends Subsystem {
   public void setMecanum(double x, double y, double rotation) {
     if(Math.abs(x) - Math.abs(this.getPower()) >= 0 || Math.abs(y) - Math.abs(this.getPower()) >= 0 || Math.abs(rotation) - Math.abs(this.getPower()) >= 0) //The speed is increasing
     {
-      _frontLeftMain.setOpenLoopRampRate(_kOpenRR);
-      _frontRightMain.setOpenLoopRampRate(_kOpenRR);
-      _backLeftMain.setOpenLoopRampRate(_kOpenRR);
-      _backRightMain.setOpenLoopRampRate(_kOpenRR);
+      if(Math.abs(x) >= _kIsMoreStrafe)
+      {
+        _frontLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _frontRightMain.setOpenLoopRampRate(_kStrafeRR);
+        _backLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _backRightMain.setOpenLoopRampRate(_kStrafeRR);
+      }
+      else
+      {
+        _frontLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _frontRightMain.setOpenLoopRampRate(_kForwardRR);
+        _backLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _backRightMain.setOpenLoopRampRate(_kForwardRR);
+      }
     }
     else
     {

@@ -12,7 +12,7 @@ import frc.robot.commands.CommandBase;
 
 public class RunChassisIntake extends CommandBase {
   
-  private final static double NUMBER = -0.6; // Before -.5
+  private final static double NUMBER = -.8; // Before -.5, .6
   
   public RunChassisIntake() {
     // Use requires() here to declare subsystem dependencies

@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.ConditionalCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.Ball.FromShipToHome;
@@ -42,6 +46,8 @@ import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+
+  private static boolean controllerEnabled = true;
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
@@ -84,7 +90,12 @@ public class OI {
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
 
-    intakeBall.whenPressed(new IntakeBall());
+    intakeBall.whenPressed(new ConditionalCommand(new IntakeBall()){
+      @Override
+      protected boolean condition() {
+        return !getControllerButtons();
+      }
+    });
     intakeBall.whenReleased(new StopIntakeBall());
 
     runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
@@ -163,5 +174,9 @@ public class OI {
   {
     return _lStick.getRawButton(2);
   }
-  
+
+  public boolean getControllerButtons()
+  {
+    return _controller.getXButton();
+  }
 }
