@@ -30,7 +30,7 @@ public class Constants {
 
   public static final int shooterIntake = -518;
 
-  public static final int cargoShipAngle = shooterArmCenter + 18;
+  public static final int cargoShipAngle = shooterArmCenter + 12; //Before + 18//Before +2
 
   public static final int firstLevelAngle = shooterArmCenter - 10;
 
@@ -38,10 +38,10 @@ public class Constants {
 
   public static final int intakeArmHome = -659;
 
-  public static final int intakeArmShooter = -620;
+  public static final int intakeArmShooter = -588; //-620
 
   public static final int intakeArmIntake =  -555; //-504
 
-  public static final int intakeArmOut = -584;
+  public static final int intakeArmOut = -570;
 
 }

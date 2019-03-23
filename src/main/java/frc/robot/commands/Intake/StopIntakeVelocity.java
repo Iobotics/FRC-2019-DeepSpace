@@ -9,30 +9,29 @@ package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
-import frc.robot.subsystems.ChassisIntake;
 
-public class ManualOperateIntake extends CommandBase {
-
-  public ManualOperateIntake() {
-
+public class StopIntakeVelocity extends CommandBase {
+  public StopIntakeVelocity() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    chassisIntake.setArmVelocity(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

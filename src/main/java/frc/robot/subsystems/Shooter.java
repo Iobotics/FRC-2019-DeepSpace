@@ -40,7 +40,7 @@ public class Shooter extends Subsystem {
   private double kFFBall = 0; //Positive feedforward when going down
   private double kFFEmptyReverse = .1;
   private double kFFBallReverse = .1;
-  private double kP = 8; // Before 8
+  private double kP = 10; // Before 8
   private double kI = 0;
   private double kD = 350; // Before 350
 

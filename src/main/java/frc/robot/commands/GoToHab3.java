@@ -5,28 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.CommandBase;
-import frc.robot.subsystems.ChassisIntake;
 
-public class ManualOperateIntake extends CommandBase {
-
-  public ManualOperateIntake() {
-
+public class GoToHab3 extends CommandBase {
+  public GoToHab3() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(chassisIntake);
+    //requires(subsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()

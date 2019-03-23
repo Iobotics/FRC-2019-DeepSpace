@@ -31,7 +31,9 @@ import frc.robot.commands.hatch.ToggleHatch;
 import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
+import frc.robot.commands.Intake.SetIntakeVelocity;
 import frc.robot.commands.Intake.StopIntakeBall;
+import frc.robot.commands.Intake.StopIntakeVelocity;
 import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
@@ -58,6 +60,7 @@ public class OI {
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger 
   private final JoystickButton runIntake = new JoystickButton(_controller, 1);
+  private final JoystickButton velocityIntake = new JoystickButton(_controller, 9);
 
   // Shooter Buttons
   private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 2);
@@ -124,6 +127,9 @@ public class OI {
 
     shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
     shooterIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
+
+    velocityIntake.whenPressed(new SetIntakeVelocity());
+    velocityIntake.whenReleased(new StopIntakeVelocity());
   }
 
 
