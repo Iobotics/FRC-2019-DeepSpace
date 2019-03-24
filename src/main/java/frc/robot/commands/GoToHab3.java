@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 public class GoToHab3 extends CommandBase {
   public GoToHab3() {
     // Use requires() here to declare subsystem dependencies

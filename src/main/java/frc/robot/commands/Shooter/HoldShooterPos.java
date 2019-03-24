@@ -5,25 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Lift;
+package frc.robot.commands.Shooter;
 
 import frc.robot.commands.CommandBase;
 
-public class ManualOperateLift extends CommandBase {
-  public ManualOperateLift() {
-    requires(lift);
+public class HoldShooterPos extends CommandBase {
+
+
+  private double position;
+
+  public HoldShooterPos(double position) {
+    requires(shooter);
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    shooter.setShooterPosition(position);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    lift.setLeftSpeed(-oi.getControllerStick());
-    lift.setRightSpeed(-oi.getControllerStick());
+    shooter.setShooterPosition(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,5 +47,6 @@ public class ManualOperateLift extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

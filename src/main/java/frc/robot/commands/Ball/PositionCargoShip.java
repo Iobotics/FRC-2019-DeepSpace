@@ -8,8 +8,11 @@
 package frc.robot.commands.Ball;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Intake.SetIntakePosition;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.SetShooterPos;
 
 public class PositionCargoShip extends CommandGroup {
@@ -20,7 +23,7 @@ public class PositionCargoShip extends CommandGroup {
   public PositionCargoShip() {
     addSequential(new SetIntakePosition(Constants.intakeArmOut));
     addSequential(new SetShooterPos(Constants.cargoShipAngle));
-    addParallel(new SetIntakePosition(Constants.intakeArmShooter));
-    addSequential(new SetShooterPos(Constants.cargoShipAngle));
+    addParallel(new HoldIntakePosition(Constants.intakeArmShooter));
+    addSequential(new HoldShooterPos(Constants.cargoShipAngle));
   }
 }

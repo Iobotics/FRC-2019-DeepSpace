@@ -5,17 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.Lift;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
-import frc.robot.subsystems.ChassisIntake;
 
-public class ManualOperateIntake extends CommandBase {
-
-  public ManualOperateIntake() {
-
-    requires(chassisIntake);
+public class LiftMotorTest extends CommandBase {
+  public LiftMotorTest() {
+    requires(lift);
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +22,8 @@ public class ManualOperateIntake extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
+    lift.setLeftSpeed(-oi.getControllerStick());
+    lift.setRightSpeed(-oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()

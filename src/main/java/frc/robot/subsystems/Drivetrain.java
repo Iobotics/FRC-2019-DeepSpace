@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
+import frc.robot.commands.Drivetrain.OperateControllerDrive;
 import frc.robot.commands.Drivetrain.OperateMecanumDrive;
 
 /**
@@ -26,260 +27,260 @@ import frc.robot.commands.Drivetrain.OperateMecanumDrive;
  */
 public class Drivetrain extends Subsystem {
 
-  private CANSparkMax frontLeftMain;
-  private CANSparkMax frontRightMain;
-  private CANSparkMax backLeftMain;
-  private CANSparkMax backRightMain;
-  private CANPIDController frontLeftCanController;
-  private CANPIDController frontRightCanController;
-  private CANPIDController backLeftCanController;
-  private CANPIDController backRightCanController;
-  private CANEncoder frontLeftCanEncoder;
-  private CANEncoder frontRightCanEncoder;
-  private CANEncoder backLeftCanEncoder;
-  private CANEncoder backRightCanEncoder;
+  private CANSparkMax _frontLeftMain;
+  private CANSparkMax _frontRightMain;
+  private CANSparkMax _backLeftMain;
+  private CANSparkMax _backRightMain;
+  private CANPIDController _frontLeftCanController;
+  private CANPIDController _frontRightCanController;
+  private CANPIDController _backLeftCanController;
+  private CANPIDController _backRightCanController;
+  private CANEncoder _frontLeftCanEncoder;
+  private CANEncoder _frontRightCanEncoder;
+  private CANEncoder _backLeftCanEncoder;
+  private CANEncoder _backRightCanEncoder;
 
-  private static double kPDrive =  5e-5;
-  private static double kIDrive = 1e-6;
-  private static double kIZoneDrive = 0;
-  private static double kDDrive = 0;
-  private static double kFFDrive = 0.000156;
-  private static double kForwardRR = 1;
-  private static double kStrafeRR = 1;
-  private static double kIsMoreStrafe = .5;
+  private static double _kPDrive =  5e-5;
+  private static double _kIDrive = 1e-6;
+  private static double _kIZoneDrive = 0;
+  private static double _kDDrive = 0;
+  private static double _kFFDrive = 0.000156;
+  private static double _kForwardRR = 1;
+  private static double _kStrafeRR = 1;
+  private static double _kIsMoreStrafe = .5;
 
 
-  private double kPTurn = 0.005;
-  private double kITurn = 0;
-  private double kDTurn = 0;
+  private double _kPTurn = 0.005;
+  private double _kITurn = 0;
+  private double _kDTurn = 0;
 
   private double maxPower = 1;
 
-  private MecanumDrive drive;
+  private MecanumDrive _drive;
   
   //Should be called in the robot init
   public void init(){
 
-    frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
-    frontLeftMain.setInverted(true);
-    //frontLeftMain.setSmartCurrentLimit(65,55);
-    //frontLeftMain.setSmartCurrentLimit(40);
+    _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
+    _frontLeftMain.setInverted(true);
+    //_frontLeftMain.setSmartCurrentLimit(65,55);
+    //_frontLeftMain.setSmartCurrentLimit(40);
 
-    frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
-    frontRightMain.setInverted(true);
-    //frontRightMain.setSmartCurrentLimit(65,55);
-    //frontRightMain.setSmartCurrentLimit(40);
+    _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
+    _frontRightMain.setInverted(true);
+    //_frontRightMain.setSmartCurrentLimit(65,55);
+    //_frontRightMain.setSmartCurrentLimit(40);
 
-    backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
-    backLeftMain.setInverted(true);
-    //backLeftMain.setSmartCurrentLimit(65,55);
-    //backLeftMain.setSmartCurrentLimit(40);
+    _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
+    _backLeftMain.setInverted(true);
+    //_backLeftMain.setSmartCurrentLimit(65,55);
+    //_backLeftMain.setSmartCurrentLimit(40);
     
-    backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
-    backRightMain.setInverted(true);
-    //backRightMain.setSmartCurrentLimit(65,55);
-    //backRightMain.setSmartCurrentLimit(40);
+    _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
+    _backRightMain.setInverted(true);
+    //_backRightMain.setSmartCurrentLimit(65,55);
+    //_backRightMain.setSmartCurrentLimit(40);
 
-    drive = new MecanumDrive(
-      frontLeftMain, 
-      backLeftMain, 
-      frontRightMain,   
-      backRightMain
+    _drive = new MecanumDrive(
+      _frontLeftMain, 
+      _backLeftMain, 
+      _frontRightMain,   
+      _backRightMain
     );
 
-    drive.setSafetyEnabled(false);
+    _drive.setSafetyEnabled(false);
 
 
-    frontLeftMain.setIdleMode(IdleMode.kBrake);
-    frontRightMain.setIdleMode(IdleMode.kBrake);
-    backLeftMain.setIdleMode(IdleMode.kBrake);
-    backRightMain.setIdleMode(IdleMode.kBrake);
+    _frontLeftMain.setIdleMode(IdleMode.kBrake);
+    _frontRightMain.setIdleMode(IdleMode.kBrake);
+    _backLeftMain.setIdleMode(IdleMode.kBrake);
+    _backRightMain.setIdleMode(IdleMode.kBrake);
 
-    frontLeftCanEncoder = frontLeftMain.getEncoder();
-    frontRightCanEncoder = frontRightMain.getEncoder();
-    backLeftCanEncoder = backLeftMain.getEncoder();
-    backRightCanEncoder = backRightMain.getEncoder();
+    _frontLeftCanEncoder = _frontLeftMain.getEncoder();
+    _frontRightCanEncoder = _frontRightMain.getEncoder();
+    _backLeftCanEncoder = _backLeftMain.getEncoder();
+    _backRightCanEncoder = _backRightMain.getEncoder();
 
-    frontLeftCanController = frontLeftMain.getPIDController();
-    frontRightCanController = frontRightMain.getPIDController();
-    backRightCanController = backRightMain.getPIDController();
-    backLeftCanController = backLeftMain.getPIDController();
+    _frontLeftCanController = _frontLeftMain.getPIDController();
+    _frontRightCanController = _frontRightMain.getPIDController();
+    _backRightCanController = _backRightMain.getPIDController();
+    _backLeftCanController = _backLeftMain.getPIDController();
     
-    frontLeftCanController.setP(kPDrive);
-    frontLeftCanController.setI(kIDrive);
-    frontLeftCanController.setIZone(kIZoneDrive);
-    frontLeftCanController.setD(kDDrive);
-    frontLeftCanController.setFF(kFFDrive);
-    frontLeftCanController.setOutputRange(-1, 1);
-    frontLeftCanController.setSmartMotionMaxVelocity(2000, 0);
-    frontLeftCanController.setSmartMotionMaxAccel(1500, 0);
+    _frontLeftCanController.setP(_kPDrive);
+    _frontLeftCanController.setI(_kIDrive);
+    _frontLeftCanController.setIZone(_kIZoneDrive);
+    _frontLeftCanController.setD(_kDDrive);
+    _frontLeftCanController.setFF(_kFFDrive);
+    _frontLeftCanController.setOutputRange(-1, 1);
+    _frontLeftCanController.setSmartMotionMaxVelocity(2000, 0);
+    _frontLeftCanController.setSmartMotionMaxAccel(1500, 0);
 
-    frontRightCanController.setP(kPDrive);
-    frontRightCanController.setI(kIDrive);
-    frontRightCanController.setIZone(kIZoneDrive);
-    frontRightCanController.setD(kDDrive);
-    frontRightCanController.setFF(kFFDrive);
-    frontRightCanController.setOutputRange(-1, 1);
-    frontRightCanController.setSmartMotionMaxVelocity(2000, 0);
-    frontRightCanController.setSmartMotionMaxAccel(1500, 0);
+    _frontRightCanController.setP(_kPDrive);
+    _frontRightCanController.setI(_kIDrive);
+    _frontRightCanController.setIZone(_kIZoneDrive);
+    _frontRightCanController.setD(_kDDrive);
+    _frontRightCanController.setFF(_kFFDrive);
+    _frontRightCanController.setOutputRange(-1, 1);
+    _frontRightCanController.setSmartMotionMaxVelocity(2000, 0);
+    _frontRightCanController.setSmartMotionMaxAccel(1500, 0);
 
-    backRightCanController.setP(kPDrive);
-    backRightCanController.setI(kIDrive);
-    backRightCanController.setIZone(kIZoneDrive);
-    backRightCanController.setD(kDDrive);
-    backRightCanController.setFF(kFFDrive);
-    backRightCanController.setOutputRange(-1, 1);
-    backRightCanController.setSmartMotionMaxVelocity(2000, 0);
-    backRightCanController.setSmartMotionMaxAccel(1500, 0);
+    _backRightCanController.setP(_kPDrive);
+    _backRightCanController.setI(_kIDrive);
+    _backRightCanController.setIZone(_kIZoneDrive);
+    _backRightCanController.setD(_kDDrive);
+    _backRightCanController.setFF(_kFFDrive);
+    _backRightCanController.setOutputRange(-1, 1);
+    _backRightCanController.setSmartMotionMaxVelocity(2000, 0);
+    _backRightCanController.setSmartMotionMaxAccel(1500, 0);
 
-    backLeftCanController.setP(kPDrive);
-    backLeftCanController.setI(kIDrive);
-    backLeftCanController.setIZone(kIZoneDrive);
-    backLeftCanController.setD(kDDrive);
-    backLeftCanController.setFF(kFFDrive);
-    backLeftCanController.setOutputRange(-1, 1);
-    backLeftCanController.setSmartMotionMaxVelocity(2000, 0);
-    backLeftCanController.setSmartMotionMaxAccel(1500, 0);
+    _backLeftCanController.setP(_kPDrive);
+    _backLeftCanController.setI(_kIDrive);
+    _backLeftCanController.setIZone(_kIZoneDrive);
+    _backLeftCanController.setD(_kDDrive);
+    _backLeftCanController.setFF(_kFFDrive);
+    _backLeftCanController.setOutputRange(-1, 1);
+    _backLeftCanController.setSmartMotionMaxVelocity(2000, 0);
+    _backLeftCanController.setSmartMotionMaxAccel(1500, 0);
     
   }
 
   //Drive to position using smart motion profiling
   public void setSetPoint(double targetFrontLeft, double targetFrontRight, double targetBackLeft, double targetBackRight){
 
-    frontLeftCanController.setReference(targetFrontLeft, ControlType.kSmartMotion);
-    frontRightCanController.setReference(targetFrontRight, ControlType.kSmartMotion);
-    backLeftCanController.setReference(targetBackLeft, ControlType.kSmartMotion);
-    backRightCanController.setReference(targetBackRight, ControlType.kSmartMotion);
+    _frontLeftCanController.setReference(targetFrontLeft, ControlType.kSmartMotion);
+    _frontRightCanController.setReference(targetFrontRight, ControlType.kSmartMotion);
+    _backLeftCanController.setReference(targetBackLeft, ControlType.kSmartMotion);
+    _backRightCanController.setReference(targetBackRight, ControlType.kSmartMotion);
 
   }
 
   //The following four functions return their respective motor's encoder value
   public double getFrontLeftPosition(){
 
-    return frontLeftCanEncoder.getPosition();
+    return _frontLeftCanEncoder.getPosition();
 
   }
 
   public double getFrontRightPosition(){
 
-    return frontRightCanEncoder.getPosition();
+    return _frontRightCanEncoder.getPosition();
   
   }
 
   public double getBackLeftPosition(){
 
-    return backLeftCanEncoder.getPosition();
+    return _backLeftCanEncoder.getPosition();
   
   }
 
   public double getBackRightPosition(){
 
-    return backRightCanEncoder.getPosition();
+    return _backRightCanEncoder.getPosition();
   
   }
 
   //Sets motor output as a value from -1 (full power backwards) to 1 (full power forwards)
   public void setTank(double left, double right) {
-    frontLeftMain.set(left);
-    backLeftMain.set(left);
-    frontRightMain.set(right);
-    backRightMain.set(right);
+    _frontLeftMain.set(left);
+    _backLeftMain.set(left);
+    _frontRightMain.set(right);
+    _backRightMain.set(right);
   }
 
   public double getPower()
   {
-    return backLeftMain.get();
+    return _backLeftMain.get();
   }
 
   //Sets the motors to run according to a mecanum drivetrain
   public void setMecanum(double x, double y, double rotation) {
     if(Math.abs(x) - Math.abs(this.getPower()) >= 0 || Math.abs(y) - Math.abs(this.getPower()) >= 0 || Math.abs(rotation) - Math.abs(this.getPower()) >= 0) //The speed is increasing
     {
-      if(Math.abs(x) >= kIsMoreStrafe)
+      if(Math.abs(x) >= _kIsMoreStrafe)
       {
-        frontLeftMain.setOpenLoopRampRate(kStrafeRR);
-        frontRightMain.setOpenLoopRampRate(kStrafeRR);
-        backLeftMain.setOpenLoopRampRate(kStrafeRR);
-        backRightMain.setOpenLoopRampRate(kStrafeRR);
+        _frontLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _frontRightMain.setOpenLoopRampRate(_kStrafeRR);
+        _backLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _backRightMain.setOpenLoopRampRate(_kStrafeRR);
       }
       else
       {
-        frontLeftMain.setOpenLoopRampRate(kForwardRR);
-        frontRightMain.setOpenLoopRampRate(kForwardRR);
-        backLeftMain.setOpenLoopRampRate(kForwardRR);
-        backRightMain.setOpenLoopRampRate(kForwardRR);
+        _frontLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _frontRightMain.setOpenLoopRampRate(_kForwardRR);
+        _backLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _backRightMain.setOpenLoopRampRate(_kForwardRR);
       }
     }
     else
     {
-      frontLeftMain.setOpenLoopRampRate(0);
-      frontRightMain.setOpenLoopRampRate(0);
-      backLeftMain.setOpenLoopRampRate(0);
-      backRightMain.setOpenLoopRampRate(0);
+      _frontLeftMain.setOpenLoopRampRate(0);
+      _frontRightMain.setOpenLoopRampRate(0);
+      _backLeftMain.setOpenLoopRampRate(0);
+      _backRightMain.setOpenLoopRampRate(0);
     }
-    drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
   }
 
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
-    drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower, gyroAngle);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower, gyroAngle);
   }
 
   //Call the following commands to change or view the PID values
   public double getP(){
-    return kPDrive;
+    return _kPDrive;
   }
 
   public void setP(double p){
-    kPDrive = p;
+    _kPDrive = p;
   }
   
   public double getI(){
-    return kIDrive;
+    return _kIDrive;
   }
 
   public void setI(double i){
-    kIDrive = i;
+    _kIDrive = i;
   }
 
   public double getD(){
-    return kDDrive;
+    return _kDDrive;
   }
 
   public void setD(double d){
-    kDDrive = d;
+    _kDDrive = d;
   }
 
   public double getFF(){
-    return kFFDrive;
+    return _kFFDrive;
   }
 
   public void setFF(double ff){
-    kFFDrive = ff;
+    _kFFDrive = ff;
   }
 
   public double getIzone(){
-    return kIZoneDrive;
+    return _kIZoneDrive;
   }
 
   public void setIzone(double Izone){
-    kIZoneDrive = Izone;
+    _kIZoneDrive = Izone;
   }
 
-  public double getkPTurn() {
-    return kPTurn;
+  public double get_kPTurn() {
+    return _kPTurn;
   }
 
-  public double getkITurn() {
-    return kITurn;
+  public double get_kITurn() {
+    return _kITurn;
   }
 
-  public double getkDTurn() {
-    return kDTurn;
+  public double get_kDTurn() {
+    return _kDTurn;
   }
 
   //Returns the temperature of the back right motor
   public double getTemperature(){
-    return backRightMain.getMotorTemperature();
+    return _backRightMain.getMotorTemperature();
   }
 
   public void toggleSlow(){

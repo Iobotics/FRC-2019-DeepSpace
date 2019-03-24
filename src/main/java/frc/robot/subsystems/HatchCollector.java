@@ -21,9 +21,9 @@ public class HatchCollector extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private DoubleSolenoid hook;
-  private Solenoid extender;
-  private DigitalInput hatchDetector;
+  private DoubleSolenoid _hook;
+  private Solenoid _extender;
+  private DigitalInput _hatchDetector;
 
   @Override
   public void initDefaultCommand() {
@@ -33,45 +33,45 @@ public class HatchCollector extends Subsystem {
   }
 
   public void init() {
-    hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
-    extender = new Solenoid(RobotMap.extendHatch);
-    hatchDetector = new DigitalInput(1);
+    _hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
+    _extender = new Solenoid(RobotMap.extendHatch);
+    _hatchDetector = new DigitalInput(1);
 
-    extender.set(false);
-    hook.set(Value.kForward);
+    _extender.set(false);
+    _hook.set(Value.kForward);
   }
 
   public boolean getHatchSensor(){
-    return hatchDetector.get();
+    return _hatchDetector.get();
   }
   
   public void openHook() {
-    hook.set(Value.kForward);
+    _hook.set(Value.kForward);
   }
 
   public void closeHook() {
-    hook.set(Value.kReverse);
+    _hook.set(Value.kReverse);
   }
 
   public void toggleHook(){
-    if(hook.get() == Value.kReverse){
-      hook.set(Value.kForward);
+    if(_hook.get() == Value.kReverse){
+      _hook.set(Value.kForward);
     }
-    else hook.set(Value.kReverse);
+    else _hook.set(Value.kReverse);
   }
 
   public void toggleExtension() {
-    if(extender.get()){
-      extender.set(false);
+    if(_extender.get()){
+      _extender.set(false);
     }
-    else extender.set(true);
+    else _extender.set(true);
   }
   
   public void extendHatch() {
-    extender.set(true);
+    _extender.set(true);
   }
 
   public void retractHatch(){
-    extender.set(false);
+    _extender.set(false);
   }
 }

@@ -7,10 +7,11 @@
 
 package frc.robot.commands.Shooter;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class ManualOperateShooter extends CommandBase {
-  public ManualOperateShooter() {
+public class ManualShooter extends CommandBase {
+  public ManualShooter() {
     requires(shooter);
   }
 

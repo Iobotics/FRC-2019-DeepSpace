@@ -11,25 +11,36 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.CameraAssist;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.hatch.CloseHook;
+import frc.robot.commands.hatch.ExtendHatch;
 import frc.robot.commands.hatch.GrabAndRetractHatch;
 import frc.robot.commands.hatch.GrabHatch;
+import frc.robot.commands.hatch.OpenHook;
+import frc.robot.commands.hatch.RetractHatch;
 import frc.robot.commands.hatch.ToggleHatch;
 import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
+import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.SetIntakeVelocity;
 import frc.robot.commands.Intake.StopIntakeBall;
 import frc.robot.commands.Intake.StopIntakeVelocity;
+import frc.robot.commands.Intake.StopChassisIntake;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Shooter.StopShooterArm;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
 /**
@@ -90,7 +101,7 @@ public class OI {
     });
     intakeBall.whenReleased(new StopIntakeBall());
 
-    runIntake.whenPressed(new SetShooterPos(Constants.cargoShipAngle));
+    runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
     runIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
 
     positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
@@ -114,7 +125,7 @@ public class OI {
     cameraAuto.whenPressed(new CameraAssist());
     rotateCamera.whenPressed(new RotateCamera());
 
-    shooterIntake.whenPressed(new SetShooterPos(Constants.shooterIntake));
+    shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
     shooterIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
 
     velocityIntake.whenPressed(new SetIntakeVelocity());

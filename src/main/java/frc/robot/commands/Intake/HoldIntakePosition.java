@@ -7,26 +7,29 @@
 
 package frc.robot.commands.Intake;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
-import frc.robot.subsystems.ChassisIntake;
 
-public class ManualOperateIntake extends CommandBase {
+public class HoldIntakePosition extends CommandBase {
 
-  public ManualOperateIntake() {
 
+  private double position;
+
+  public HoldIntakePosition(double position) {
     requires(chassisIntake);
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    chassisIntake.setArmPosition(position);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
+    chassisIntake.setArmPosition(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,11 +41,13 @@ public class ManualOperateIntake extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    chassisIntake.setIntakeArm(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
