@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants;
@@ -82,13 +83,16 @@ public class ChassisIntake extends PIDSubsystem {
     _rightArm.configFactoryDefault();
     _rightArm.setInverted(false);
     _rightArm.setNeutralMode(NeutralMode.Brake);
-
+    //_rightArm.follow(_leftArm, FollowerType.PercentOutput);
+    
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
+    _leftArm.configForwardSoftLimitThreshold(-502); // -650
     _leftArm.configForwardSoftLimitEnable(true);
-    _leftArm.configForwardSoftLimitThreshold(-502); 
-    _leftArm.configReverseSoftLimitThreshold(-650);
+    _leftArm.configReverseSoftLimitThreshold(-650); // -502
+    _leftArm.configReverseSoftLimitEnable(true);
+
   }
 
   //Set intake motor power to a percentage between -1 and 1
@@ -97,8 +101,9 @@ public class ChassisIntake extends PIDSubsystem {
   }
 
   public void setIntakeArm(double power){
-    _rightArm.set(ControlMode.PercentOutput, power);
+    //_rightArm.set(ControlMode.PercentOutput, power);
     _leftArm.set(ControlMode.PercentOutput, power);
+    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
   
   public void setArmPosition(double position){
