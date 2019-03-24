@@ -15,8 +15,8 @@ public class AutoDrive extends CommandBase {
 
   private double frontLeftSetPoint, frontRightSetPoint, backLeftSetPoint, backRightSetPoint;
   private double target;
-  private boolean _onTarget = false;
-  private double _onTargetTime;
+  private boolean onTarget = false;
+  private double onTargetTime;
 
   public AutoDrive(double target) {
     requires(drivetrain);
@@ -46,18 +46,18 @@ public class AutoDrive extends CommandBase {
   @Override
   protected boolean isFinished() {
     if(!isOnTarget()){
-      _onTarget = false;
-      _onTargetTime = Double.MAX_VALUE;
+      onTarget = false;
+      onTargetTime = Double.MAX_VALUE;
       return false;
     }
 
-    else if (isOnTarget() && !_onTarget){
-      _onTarget = true;
-      _onTargetTime = this.timeSinceInitialized() + 1;
+    else if (isOnTarget() && !onTarget){
+      onTarget = true;
+      onTargetTime = this.timeSinceInitialized() + 1;
       return false;
     }
 
-    else if (isOnTarget() && _onTarget && this.timeSinceInitialized() <= _onTargetTime){
+    else if (isOnTarget() && onTarget && this.timeSinceInitialized() <= onTargetTime){
       return false;
     }
 

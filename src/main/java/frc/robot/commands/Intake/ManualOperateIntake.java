@@ -7,9 +7,7 @@
 
 package frc.robot.commands.Intake;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
-import frc.robot.subsystems.ChassisIntake;
 
 public class ManualOperateIntake extends CommandBase {
 

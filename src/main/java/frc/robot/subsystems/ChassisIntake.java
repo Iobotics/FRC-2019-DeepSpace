@@ -8,19 +8,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
 import frc.robot.commands.Intake.ManualOperateIntake;
-import frc.robot.commands.Intake.SetIntakeVelocity;
 
 /**
  * Chassis intake
@@ -47,9 +40,9 @@ public class ChassisIntake extends PIDSubsystem {
   private static final double kDVelocity = 0;
 
 
-  private TalonSRX _chassisIntake;
-  private TalonSRX _leftArm;
-  private TalonSRX _rightArm;
+  private TalonSRX chassisIntake;
+  private TalonSRX leftArm;
+  private TalonSRX rightArm;
 
 
   
@@ -60,73 +53,74 @@ public class ChassisIntake extends PIDSubsystem {
   //Should be called in the robot init
   public void init(){
 
-    _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
-    _chassisIntake.setInverted(false);
-    _chassisIntake.setNeutralMode(NeutralMode.Brake);
+    chassisIntake = new TalonSRX(RobotMap.chassisIntake);
+    chassisIntake.setInverted(false);
+    chassisIntake.setNeutralMode(NeutralMode.Brake);
     
-    _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
-    _leftArm.configFactoryDefault();
-    _leftArm.config_kP(idPosition, kPPosition);
-    _leftArm.config_kI(idPosition, kIPosition);
-    _leftArm.config_kD(idPosition, kDPosition);
+    leftArm = new TalonSRX(RobotMap.leftIntakeArm);
+    leftArm.configFactoryDefault();
+    leftArm.config_kP(idPosition, kPPosition);
+    leftArm.config_kI(idPosition, kIPosition);
+    leftArm.config_kD(idPosition, kDPosition);
     
-    _leftArm.config_kF(idVelocity, kFVelocity);
-    _leftArm.config_kP(idVelocity, kPVelocity);
-    //_leftArm.config_kI(idVelocity, kIVelocity);
-    //_leftArm.config_kD(idVelocity, kDVelocity);
-    _leftArm.setNeutralMode(NeutralMode.Brake);
-    _leftArm.setInverted(true);
-    _leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-    _leftArm.configFeedbackNotContinuous(true, 20);
+    leftArm.config_kF(idVelocity, kFVelocity);
+    leftArm.config_kP(idVelocity, kPVelocity);
+    leftArm.config_kI(idVelocity, kIVelocity);
+    leftArm.config_kD(idVelocity, kDVelocity);
     
-    _rightArm = new TalonSRX(RobotMap.rightIntakeArm);
-    _rightArm.configFactoryDefault();
-    _rightArm.setInverted(false);
-    _rightArm.setNeutralMode(NeutralMode.Brake);
-    //_rightArm.follow(_leftArm, FollowerType.PercentOutput);
+    leftArm.setNeutralMode(NeutralMode.Brake);
+    leftArm.setInverted(true);
+    leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+    leftArm.configFeedbackNotContinuous(true, 20);
     
-    //_leftArm.set(ControlMode.Position, 198);
-    //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+    rightArm = new TalonSRX(RobotMap.rightIntakeArm);
+    rightArm.configFactoryDefault();
+    rightArm.setInverted(false);
+    rightArm.setNeutralMode(NeutralMode.Brake);
+    //rightArm.follow(leftArm, FollowerType.PercentOutput);
+    
+    //leftArm.set(ControlMode.Position, 198);
+    //rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
-    _leftArm.configForwardSoftLimitThreshold(-502); // -650
-    _leftArm.configForwardSoftLimitEnable(true);
-    _leftArm.configReverseSoftLimitThreshold(-650); // -502
-    _leftArm.configReverseSoftLimitEnable(true);
+    leftArm.configForwardSoftLimitThreshold(-502); // -650
+    leftArm.configForwardSoftLimitEnable(true);
+    leftArm.configReverseSoftLimitThreshold(-650); // -502
+    leftArm.configReverseSoftLimitEnable(true);
 
   }
 
   //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
-    _chassisIntake.set(ControlMode.PercentOutput, power);
+    chassisIntake.set(ControlMode.PercentOutput, power);
   }
 
   public void setIntakeArm(double power){
-    //_rightArm.set(ControlMode.PercentOutput, power);
-    _leftArm.set(ControlMode.PercentOutput, power);
-    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+    //rightArm.set(ControlMode.PercentOutput, power);
+    leftArm.set(ControlMode.PercentOutput, power);
+    rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
   
   public void setArmPosition(double position){
-    _leftArm.selectProfileSlot(idPosition, 0);
-    _leftArm.set(ControlMode.Position, position);
-    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+    leftArm.selectProfileSlot(idPosition, 0);
+    leftArm.set(ControlMode.Position, position);
+    rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
   public void setArmVelocity(double velocity)
   {
-    _leftArm.selectProfileSlot(idVelocity, 0);
-    //_leftArm.set(ControlMode.Velocity, velocity*((103*4)/1000)); // To rotations per second
-    _leftArm.set(ControlMode.Velocity, velocity);
-    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+    leftArm.selectProfileSlot(idVelocity, 0);
+    //leftArm.set(ControlMode.Velocity, velocity*((103*4)/1000)); // To rotations per second
+    leftArm.set(ControlMode.Velocity, velocity);
+    rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 
   public double getArmVelocity()
   {
-    return _leftArm.getSelectedSensorVelocity();
+    return leftArm.getSelectedSensorVelocity();
   }
 
   public double getArmPosition(){
-    return _leftArm.getSelectedSensorPosition();
+    return leftArm.getSelectedSensorPosition();
   }
   
   @Override
@@ -136,13 +130,13 @@ public class ChassisIntake extends PIDSubsystem {
 
   @Override
   protected double returnPIDInput() {
-    return _leftArm.getSelectedSensorPosition();
+    return leftArm.getSelectedSensorPosition();
   }
 
   @Override
   protected void usePIDOutput(double output) {
-    _rightArm.set(ControlMode.PercentOutput, output);
-    _leftArm.set(ControlMode.PercentOutput, output);
+    rightArm.set(ControlMode.PercentOutput, output);
+    leftArm.set(ControlMode.PercentOutput, output);
   }
   
 }

@@ -1,14 +1,10 @@
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import jdk.jfr.Threshold;
 
 public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
 {
@@ -22,7 +18,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
   private static final double MAXSPEED = 1.0;
 
 
-  private static String xDirection;
   private static PIDController pid;
   private static double speed;
   private static boolean onTarget;

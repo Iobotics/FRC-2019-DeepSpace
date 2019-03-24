@@ -10,7 +10,6 @@ package frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.Shooter.StopShooterArm;
@@ -23,7 +22,7 @@ public class StopIntakeBall extends CommandGroup {
     addSequential(new StopChassisIntake());
     //addParallel(new HoldShooterPos(Constants.shooterArmCenter + 40));
     addSequential(new WaitCommand(0.2));
-    addParallel(new HoldIntakePosition(Constants.intakeArmHome));
+    addParallel(new SetIntakePosition(Constants.intakeArmHome));
     addSequential(new StopShooter());
     addSequential(new WaitCommand(1.5));
     addParallel(new StopChassisIntake());

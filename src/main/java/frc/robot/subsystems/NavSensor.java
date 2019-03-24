@@ -18,30 +18,30 @@ import frc.robot.commands.ResetGyro;
  */
 public class NavSensor extends Subsystem {
 
-  private AHRS _navSensor;
+  private AHRS navSensor;
   
   public void init(){
-    _navSensor = new AHRS(Port.kMXP);
+    navSensor = new AHRS(Port.kMXP);
   }
 
   public double getAngle(){
-    return _navSensor.getAngle();
+    return navSensor.getAngle();
   }
 
   public double getRoll(){
-    return _navSensor.getRoll();
+    return navSensor.getRoll();
   }
 
   public void resetGyro(){
-    _navSensor.reset();
+    navSensor.reset();
   }
 
   public AHRS getSensor(){
-    return _navSensor;
+    return navSensor;
   }
 
   public boolean isCalibrating() {
-    return _navSensor.isCalibrating();
+    return navSensor.isCalibrating();
   }
 
   @Override
