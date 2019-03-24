@@ -53,6 +53,11 @@ public class Robot extends TimedRobot {
   NetworkTableEntry yButton;
   NetworkTableInstance inst;
 
+  NetworkTable testTable;
+  NetworkTableEntry testButton;
+  NetworkTableInstance testInst;
+  NetworkTableEntry testNumber;
+
   OI oi = new OI();
 
   int numCam = 4;
@@ -68,9 +73,15 @@ public class Robot extends TimedRobot {
     CommandBase.init();
 
     inst = NetworkTableInstance.getDefault();
-    inst.startClientTeam(2438);
+    inst.startClientTeam(2436);
     table = inst.getTable("outTable");
     yButton = table.getEntry("yButton");
+
+    testInst = NetworkTableInstance.getDefault();
+    testInst.startClientTeam(2436);
+    testTable = testInst.getTable("testTable");
+    testButton = testTable.getEntry("testButton");
+    testNumber = testTable.getEntry("testNumber");
 
     _compressor = new Compressor();
 
@@ -95,7 +106,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
       yButton.setBoolean(oi.getYButton());
+      SmartDashboard.putBoolean("button", testButton.getBoolean(false));
+      SmartDashboard.putNumber("number", testNumber.getDouble(0.0));
    }
+
+
 
   /**
    * This function is called once each time the robot enters Disabled mode.
