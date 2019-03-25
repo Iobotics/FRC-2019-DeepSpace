@@ -14,10 +14,7 @@ import frc.robot.commands.CommandBase;
 
 public class SetIntakeVelocity extends CommandBase {
 
-  private static double time = 0;
-  private static Timer timer; //Returns time in seconds
-  private static final double ENDTIME = 8;
-  private static final double VELOCITY = 25;
+  private static final double VELOCITY = 15; // Max is 41 native units per 100 ms
 
   public SetIntakeVelocity() {
     // Use requires() here to declare subsystem dependencies
@@ -28,8 +25,6 @@ public class SetIntakeVelocity extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    //timer = new Timer();
-    //timer.start();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -42,10 +37,6 @@ public class SetIntakeVelocity extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    /*if(timer.get() >= ENDTIME)
-    {
-      return true;
-    }*/
     return false;
   }
 
@@ -53,7 +44,6 @@ public class SetIntakeVelocity extends CommandBase {
   @Override
   protected void end() {
     chassisIntake.setArmVelocity(0);
-    //timer.stop();
   }
 
   // Called when another command which requires one or more of the same

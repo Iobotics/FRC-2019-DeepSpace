@@ -24,6 +24,7 @@ public class LimeLight extends Subsystem {
   NetworkTableEntry tx;
   //NetworkTableEntry tl;
   //NetworkTableEntry ty;
+  NetworkTableEntry ledMode;
 
   boolean isDetected;
   double x = 0;
@@ -38,13 +39,27 @@ public class LimeLight extends Subsystem {
         //tl = table.getEntry("tl");
         //ty = table.getEntry("ty");
         tx = table.getEntry("tx");
+        ledMode = table.getEntry("ledMode");
 
         inst = NetworkTableInstance.getDefault();
+        setLEDOn(false);
   }
 
   public double getX()
   {
     return tx.getDouble(0.0);
+  }
+
+  public void setLEDOn(boolean ledOn)
+  {
+    if(ledOn)
+    {
+      ledMode.setNumber(3);
+    }
+    else if(!ledOn)
+    {
+      ledMode.setNumber(1);
+    }
   }
 
   public void debug()

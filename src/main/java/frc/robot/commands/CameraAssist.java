@@ -44,6 +44,7 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
         pid.reset();
         pid.setSetpoint(0);
         pid.enable();
+        limelight.setLEDOn(true);
     }
 
     //@Override
@@ -76,6 +77,7 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
     protected void end()
     {
         pid.disable();
+        limelight.setLEDOn(false);
         drivetrain.setMecanum(0, 0, 0);
     }
 

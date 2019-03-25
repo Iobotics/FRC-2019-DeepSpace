@@ -41,10 +41,11 @@ public class ChassisIntake extends PIDSubsystem {
   private static final double kDPosition = 120;
 
   private static final int idVelocity = 1;
-  private static final double kFVelocity = 1024.0/(410.0);
-  private static final double kPVelocity = 20; //To counter against load
+  private static final double kFVelocity = 1024.0/(410.0) * 10;
+  private static final double kPVelocity = 15; //To counter against load // 15 velocity about 10
   private static final double kIVelocity = 0;
   private static final double kDVelocity = 0;
+  private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
 
 
   private TalonSRX _chassisIntake;
@@ -83,14 +84,13 @@ public class ChassisIntake extends PIDSubsystem {
     _rightArm.configFactoryDefault();
     _rightArm.setInverted(false);
     _rightArm.setNeutralMode(NeutralMode.Brake);
-    //_rightArm.follow(_leftArm, FollowerType.PercentOutput);
     
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
-    _leftArm.configForwardSoftLimitThreshold(-502); // -650
+    _leftArm.configForwardSoftLimitThreshold(-480); // -502 // Forward is more positive
     _leftArm.configForwardSoftLimitEnable(true);
-    _leftArm.configReverseSoftLimitThreshold(-650); // -502
+    _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome);
     _leftArm.configReverseSoftLimitEnable(true);
 
   }
@@ -100,8 +100,12 @@ public class ChassisIntake extends PIDSubsystem {
     _chassisIntake.set(ControlMode.PercentOutput, power);
   }
 
+  public double getPower()
+  {
+    return _chassisIntake.getMotorOutputPercent();
+  }
+
   public void setIntakeArm(double power){
-    //_rightArm.set(ControlMode.PercentOutput, power);
     _leftArm.set(ControlMode.PercentOutput, power);
     _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
@@ -115,8 +119,8 @@ public class ChassisIntake extends PIDSubsystem {
   public void setArmVelocity(double velocity)
   {
     _leftArm.selectProfileSlot(idVelocity, 0);
-    //_leftArm.set(ControlMode.Velocity, velocity*((103*4)/1000)); // To rotations per second
-    _leftArm.set(ControlMode.Velocity, velocity);
+    //_leftArm.set(ControlMode.Velocity, velocity*TONATIVEUNITS); // Frpm radians per second
+    _leftArm.set(ControlMode.Velocity, velocity); 
     _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
 

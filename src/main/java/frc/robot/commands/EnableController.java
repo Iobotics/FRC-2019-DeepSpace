@@ -5,27 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.CommandBase;
 
-public class SetIntakePosition extends CommandBase {
+public class EnableController extends Command {
 
-  private double position;
-  private final double THRESHOLD = 11;
+  private final boolean _enabled;
 
-  public SetIntakePosition(double position) {
+  public EnableController(boolean enabled) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(chassisIntake);
-    this.position = position;
+    _enabled = enabled;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setArmPosition(position);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,7 +33,7 @@ public class SetIntakePosition extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(chassisIntake.getArmPosition() - position) <= THRESHOLD;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -48,6 +45,5 @@ public class SetIntakePosition extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    this.end();
   }
 }

@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.CameraAssist;
+import frc.robot.commands.EnableController;
+import frc.robot.commands.ExitHab3;
+import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
@@ -49,7 +52,7 @@ import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
  */
 public class OI {
 
-  private static boolean controllerEnabled = true;
+  private static boolean controllerEnabled = false; // TODO- Ask what default is
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
@@ -83,6 +86,9 @@ public class OI {
   private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 
 
   private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
+  private final JoystickButton enableController = new JoystickButton(_lStick, 10); // TODO- Ask which button
+
+  private final JoystickButton gotoHabitat3 = new JoystickButton(_rStick, 10);
 
 
   public OI(){
@@ -101,8 +107,19 @@ public class OI {
     });
     intakeBall.whenReleased(new StopIntakeBall());
 
-    runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
-    runIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
+    runIntake.whenPressed(new ConditionalCommand(new HoldShooterPos(Constants.cargoShipAngle)){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
+    runIntake.whenReleased(new ConditionalCommand(new SetShooterPos(Constants.shooterHome)){
+    
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
 
     positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
     positionShooterFirstLevel.whenReleased(new ReturnHome());
@@ -130,6 +147,11 @@ public class OI {
 
     velocityIntake.whenPressed(new SetIntakeVelocity());
     velocityIntake.whenReleased(new StopIntakeVelocity());
+
+    enableController.whenPressed(new EnableController(!controllerEnabled));
+    
+    gotoHabitat3.whenPressed(new GoToHab3());
+    gotoHabitat3.whenReleased(new ExitHab3());
   }
 
 
@@ -184,5 +206,10 @@ public class OI {
   public boolean getControllerButtons()
   {
     return _controller.getXButton();
+  }
+
+  public void setControllerEnabled(boolean enabled)
+  {
+    controllerEnabled = enabled;
   }
 }
