@@ -52,7 +52,7 @@ import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
  */
 public class OI {
 
-  private static boolean controllerEnabled = false; // TODO- Ask what default is
+  private static boolean controllerEnabled = true; // TODO- Ask what default is
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
@@ -62,7 +62,7 @@ public class OI {
   // Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger 
-  private final JoystickButton runIntake = new JoystickButton(_controller, 1);
+  //private final JoystickButton runIntake = new JoystickButton(_controller, 1);
   private final JoystickButton velocityIntake = new JoystickButton(_controller, 9);
 
   // Shooter Buttons
@@ -107,38 +107,83 @@ public class OI {
     });
     intakeBall.whenReleased(new StopIntakeBall());
 
-    runIntake.whenPressed(new ConditionalCommand(new HoldShooterPos(Constants.cargoShipAngle)){
+    /*runIntake.whenPressed(new ConditionalCommand(new RunChassisIntake()){
       @Override
       protected boolean condition() {
         return controllerEnabled;
       }
     });
-    runIntake.whenReleased(new ConditionalCommand(new SetShooterPos(Constants.shooterHome)){
-    
+    runIntake.whenReleased(new ConditionalCommand(new StopChassisIntake()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });*/
+
+    positionShooterFirstLevel.whenPressed(new ConditionalCommand(new PositionFirstLevel()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
+    positionShooterFirstLevel.whenReleased(new ConditionalCommand(new ReturnHome()){
       @Override
       protected boolean condition() {
         return controllerEnabled;
       }
     });
 
-    positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
-    positionShooterFirstLevel.whenReleased(new ReturnHome());
+    positionShooterCargoShip.whenPressed(new ConditionalCommand(new PositionCargoShip()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
+    positionShooterCargoShip.whenReleased(new ConditionalCommand(new FromShipToHome()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
 
-    positionShooterCargoShip.whenPressed(new PositionCargoShip());
-    positionShooterCargoShip.whenReleased(new FromShipToHome());
+    shootBall.whenPressed(new ConditionalCommand(new ShootBall()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
+    shootBall.whenReleased(new ConditionalCommand(new StopShooter()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
 
-    shootBall.whenPressed(new ShootBall());
-    shootBall.whenReleased(new StopShooter());
+    grabBall.whenPressed(new ConditionalCommand(new RunShooter(0.5)){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
+    grabBall.whenReleased(new ConditionalCommand(new StopShooter()){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
 
-    grabBall.whenPressed(new RunShooter(0.5));
-    grabBall.whenReleased(new StopShooter());
-
-    holdBall.whileHeld(new RunShooter(0.1));
+    holdBall.whileHeld(new ConditionalCommand(new RunShooter(0.1)){
+      @Override
+      protected boolean condition() {
+        return controllerEnabled;
+      }
+    });
 
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
 
     toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
+
     cameraAuto.whenPressed(new CameraAssist());
     rotateCamera.whenPressed(new RotateCamera());
 
@@ -211,5 +256,10 @@ public class OI {
   public void setControllerEnabled(boolean enabled)
   {
     controllerEnabled = enabled;
+  }
+
+  public boolean getAButton()
+  {
+    return _controller.getAButton();
   }
 }

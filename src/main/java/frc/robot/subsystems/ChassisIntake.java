@@ -88,7 +88,7 @@ public class ChassisIntake extends PIDSubsystem {
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
-    _leftArm.configForwardSoftLimitThreshold(-480); // -502 // Forward is more positive
+    _leftArm.configForwardSoftLimitThreshold(-470); // -502 // Forward is more positive
     _leftArm.configForwardSoftLimitEnable(true);
     _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome);
     _leftArm.configReverseSoftLimitEnable(true);

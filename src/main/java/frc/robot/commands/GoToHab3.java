@@ -49,7 +49,6 @@ public class GoToHab3 extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    chassisIntake.setPower(0);
   }
 
   // Called when another command which requires one or more of the same

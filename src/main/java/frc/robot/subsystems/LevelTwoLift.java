@@ -39,7 +39,7 @@ public class LevelTwoLift extends Subsystem {
 
   // returns whether or not the back wheel is extended
   public boolean backWheelDown(){
-    return backWheel.get() == Value.kForward;
+    return backWheel.get() == Value.kReverse; // before forward
   }
 
   @Override

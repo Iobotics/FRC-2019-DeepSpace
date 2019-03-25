@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Intake.SetIntakePosition;
+import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.ZoneTwo.LevelReset;
 
 public class ExitHab3 extends CommandGroup {
@@ -20,5 +21,6 @@ public class ExitHab3 extends CommandGroup {
   public ExitHab3() {
     addParallel(new SetIntakePosition(Constants.intakeArmIntake));
     addParallel(new LevelReset());
+    addParallel(new StopChassisIntake());
   }
 }
