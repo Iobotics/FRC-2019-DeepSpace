@@ -28,6 +28,10 @@ public class NavSensor extends Subsystem {
     return _navSensor.getAngle();
   }
 
+  public double getRoll(){
+    return _navSensor.getRoll();
+  }
+
   public void resetGyro(){
     _navSensor.reset();
   }

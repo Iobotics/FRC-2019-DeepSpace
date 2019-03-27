@@ -28,9 +28,12 @@ import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.StopIntakeBall;
 import frc.robot.commands.Intake.StopChassisIntake;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
+import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Shooter.StopShooterArm;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
 /**
@@ -79,8 +82,8 @@ public class OI {
 
     intakeBall.whenPressed(new IntakeBall());
     intakeBall.whenReleased(new StopIntakeBall());
-    runIntake.whenPressed(new RunChassisIntake());
-    runIntake.whenReleased(new StopChassisIntake());
+    runIntake.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
+    runIntake.whenReleased(new StopShooterArm());
 
     positionShooterFirstLevel.whenPressed(new PositionFirstLevel());
     positionShooterFirstLevel.whenReleased(new ReturnHome());
@@ -126,7 +129,7 @@ public class OI {
   }
 
   public double getControllerStickRight(){
-    return _controller.getRawAxis(3);
+    return _controller.getRawAxis(5);
   }
 
   public boolean getLeftStickMid()

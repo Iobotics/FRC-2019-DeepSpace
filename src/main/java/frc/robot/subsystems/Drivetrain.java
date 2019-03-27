@@ -59,21 +59,21 @@ public class Drivetrain extends Subsystem {
 
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
-    _frontLeftMain.setSmartCurrentLimit(100);
+    _frontLeftMain.setSmartCurrentLimit(70,50);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
-    _frontRightMain.setSmartCurrentLimit(100);
+    _frontRightMain.setSmartCurrentLimit(70,50);
 
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
-    _backLeftMain.setSmartCurrentLimit(100);
+    _backLeftMain.setSmartCurrentLimit(70,50);
 
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
-    _backRightMain.setSmartCurrentLimit(100);
+    _backRightMain.setSmartCurrentLimit(70,50);
 
 
     _drive = new MecanumDrive(

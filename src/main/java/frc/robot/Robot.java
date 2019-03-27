@@ -164,7 +164,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     Scheduler.getInstance().run();
+<<<<<<< HEAD
     
+=======
+    SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
+    SmartDashboard.putNumber("Pitch", CommandBase.navSensor.getRoll());
+    SmartDashboard.putNumber("ShooterPos", CommandBase.shooter.getArm() );
+>>>>>>> 9e5a0fb3c028d3b848c4d832d5283c19835ff34e
   
   }
 
