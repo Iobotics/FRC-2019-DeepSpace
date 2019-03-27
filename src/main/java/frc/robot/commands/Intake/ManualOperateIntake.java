@@ -27,14 +27,14 @@ public class ManualOperateIntake extends CommandBase {
   @Override
   protected void execute() {
     chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
-    if(oi.getAButton())
+    /*if(oi.getAButton())
     {
       chassisIntake.setPower(-1);
     }
     else
     {
       chassisIntake.setPower(0);
-    }
+    }*/
   }
 
   // Make this return true when this Command no longer needs to run execute()

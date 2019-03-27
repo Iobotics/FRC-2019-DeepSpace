@@ -16,7 +16,7 @@ public class GoToHab3 extends CommandBase {
   private static final double radiusIntake = 16.092; // Units: Inches
   private static final double strokeLength = 22; // Units: Inches
   //private static final double angularVelocityIntake = strokeLength / (extendTime * radiusIntake); // Units: Radians per second
-  private static final double angularVelocityIntake = 10;
+  private static final double angularVelocityIntake = 6; // 10
   //private static final double 
 
   public GoToHab3() {
@@ -36,8 +36,17 @@ public class GoToHab3 extends CommandBase {
   @Override
   protected void execute() {
     chassisIntake.setArmVelocity(angularVelocityIntake);
-    chassisIntake.setPower(-1);
-    SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
+    if(oi.getAButton())
+    {
+      chassisIntake.setPower(-1);
+      levelTwo.disableCompressor();
+    }
+    else
+    {
+      chassisIntake.setPower(0);
+    }
+    //SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
+    SmartDashboard.putNumber("intake velocity", chassisIntake.getArmVelocity());
   }
 
   // Make this return true when this Command no longer needs to run execute()

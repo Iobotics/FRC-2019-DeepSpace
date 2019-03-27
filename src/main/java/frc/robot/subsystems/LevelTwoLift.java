@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,10 +22,14 @@ public class LevelTwoLift extends Subsystem {
   
   private DoubleSolenoid backWheel;
 
+  private Compressor compressor;
+
   // Should be called in the robot init
   public void init() {
     backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
     backWheel.set(DoubleSolenoid.Value.kForward);
+    compressor = new Compressor();
+    compressor.start();
   }
 
   // extends the cylinders on the back of the robot
@@ -40,6 +45,10 @@ public class LevelTwoLift extends Subsystem {
   // returns whether or not the back wheel is extended
   public boolean backWheelDown(){
     return backWheel.get() == Value.kReverse; // before forward
+  }
+
+  public void disableCompressor(){
+    compressor.stop();
   }
 
   @Override

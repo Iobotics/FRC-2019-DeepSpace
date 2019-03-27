@@ -42,17 +42,17 @@ public class ChassisIntake extends PIDSubsystem {
 
   private static final int idVelocity = 1;
   private static final double kFVelocity = 1024.0/(410.0) * 10;
-  private static final double kPVelocity = 15; //To counter against load // 15 velocity about 10
+  private static final double kPVelocity = 60; // Before 40 //To counter against load // 15 velocity about 10
   private static final double kIVelocity = 0;
   private static final double kDVelocity = 0;
   private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
+  private static final int LOWERLIMIT = -497; //-497
 
 
-  private TalonSRX _chassisIntake;
+  private TalonSRX _chassisIntakeLeft;
+  private TalonSRX _chassisIntakeRight;
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
-
-
   
   public ChassisIntake(){
     super(kPPosition,0,0);
@@ -61,9 +61,13 @@ public class ChassisIntake extends PIDSubsystem {
   //Should be called in the robot init
   public void init(){
 
-    _chassisIntake = new TalonSRX(RobotMap.chassisIntake);
-    _chassisIntake.setInverted(false);
-    _chassisIntake.setNeutralMode(NeutralMode.Brake);
+    _chassisIntakeLeft = new TalonSRX(RobotMap.chassisIntakeLeft);
+    _chassisIntakeLeft.setInverted(false);
+    _chassisIntakeLeft.setNeutralMode(NeutralMode.Brake);
+
+    _chassisIntakeRight = new TalonSRX(RobotMap.chassisIntakeRight);
+    _chassisIntakeRight.setInverted(true);
+    _chassisIntakeRight.setNeutralMode(NeutralMode.Brake);
     
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
     _leftArm.configFactoryDefault();
@@ -88,21 +92,22 @@ public class ChassisIntake extends PIDSubsystem {
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
-    _leftArm.configForwardSoftLimitThreshold(-470); // -502 // Forward is more positive
+    _leftArm.configForwardSoftLimitThreshold(LOWERLIMIT); // -502 // Forward is more positive
     _leftArm.configForwardSoftLimitEnable(true);
-    _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome);
+    _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome + 2);
     _leftArm.configReverseSoftLimitEnable(true);
 
   }
 
   //Set intake motor power to a percentage between -1 and 1
   public void setPower(double power){
-    _chassisIntake.set(ControlMode.PercentOutput, power);
+    _chassisIntakeLeft.set(ControlMode.PercentOutput, power);
+    _chassisIntakeRight.set(ControlMode.Follower, RobotMap.chassisIntakeLeft);
   }
 
   public double getPower()
   {
-    return _chassisIntake.getMotorOutputPercent();
+    return _chassisIntakeLeft.getMotorOutputPercent();
   }
 
   public void setIntakeArm(double power){
