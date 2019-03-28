@@ -53,6 +53,7 @@ import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 public class OI {
 
   private static boolean controllerEnabled = true; // TODO- Ask what default is
+  private static final int CAMERABUTTON = 2;
 
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
@@ -82,7 +83,7 @@ public class OI {
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_lStick, 4);
   //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
-  private final JoystickButton cameraAuto = new JoystickButton(_lStick, 2);
+  private final JoystickButton cameraAuto = new JoystickButton(_lStick, CAMERABUTTON);
   private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 
 
   private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
@@ -194,6 +195,7 @@ public class OI {
     velocityIntake.whenReleased(new StopIntakeVelocity());
 
     enableController.whenPressed(new EnableController(!controllerEnabled));
+
     
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());
@@ -245,7 +247,7 @@ public class OI {
 
   public boolean getCameraButton()
   {
-    return _lStick.getRawButton(2);
+    return _lStick.getRawButton(CAMERABUTTON);
   }
 
   public boolean getControllerButtons()

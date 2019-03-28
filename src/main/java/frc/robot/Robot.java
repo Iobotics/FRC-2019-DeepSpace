@@ -37,9 +37,9 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  NetworkTable table;
-  NetworkTableEntry yButton;
-  NetworkTableInstance inst;
+  //NetworkTable table;
+  //NetworkTableEntry yButton;
+  //NetworkTableInstance inst;
 
   OI oi = new OI();
 
@@ -56,10 +56,10 @@ public class Robot extends TimedRobot {
 
     CommandBase.init();
 
-    inst = NetworkTableInstance.getDefault();
-    inst.startClientTeam(2438);
-    table = inst.getTable("outTable");
-    yButton = table.getEntry("yButton");
+    //inst = NetworkTableInstance.getDefault();
+    //inst.startClientTeam(2438);
+    //table = inst.getTable("outTable");
+    //yButton = table.getEntry("yButton");
 
     _compressor = new Compressor();
 
@@ -76,7 +76,6 @@ public class Robot extends TimedRobot {
     logitech.setResolution(160,120);
     fishEye = CameraServer.getInstance().startAutomaticCapture(1);
     fishEye.setResolution(160,120);
-    //fishEye.setResolution(160, 120);
   }
 
   /**
@@ -89,7 +88,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-      yButton.setBoolean(oi.getYButton());
+      //yButton.setBoolean(oi.getYButton());
    }
 
   /**

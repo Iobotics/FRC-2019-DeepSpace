@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class GoToHab3 extends CommandBase {
 
-  private static final double extendTime = 3; // Units: Seconds
-  private static final double radiusIntake = 16.092; // Units: Inches
-  private static final double strokeLength = 22; // Units: Inches
+  // Uncomment if calculations are figured out
+
+  //private static final double extendTime = 3; // Units: Seconds
+  //private static final double radiusIntake = 16.092; // Units: Inches
+  //private static final double strokeLength = 22; // Units: Inches
   //private static final double angularVelocityIntake = strokeLength / (extendTime * radiusIntake); // Units: Radians per second
-  private static final double angularVelocityIntake = 6; // 10
-  //private static final double 
+  private static final double INTAKEVELOCITY = 6; // Before 10
+  private static final double CHASSISPOWER = -1;
 
   public GoToHab3() {
     // Use requires() here to declare subsystem dependencies
@@ -35,15 +37,16 @@ public class GoToHab3 extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setArmVelocity(angularVelocityIntake);
+    chassisIntake.setArmVelocity(INTAKEVELOCITY);
     if(oi.getAButton())
     {
-      chassisIntake.setPower(-1);
+      chassisIntake.setPower(CHASSISPOWER);
       levelTwo.disableCompressor();
     }
     else
     {
       chassisIntake.setPower(0);
+      levelTwo.startCompressor();
     }
     //SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
     SmartDashboard.putNumber("intake velocity", chassisIntake.getArmVelocity());

@@ -54,11 +54,11 @@ public class LimeLight extends Subsystem {
   {
     if(ledOn)
     {
-      ledMode.setNumber(3);
+      ledMode.setNumber(3); // Led forced on
     }
     else if(!ledOn)
     {
-      ledMode.setNumber(1);
+      ledMode.setNumber(1); // Led forced off
     }
   }
 

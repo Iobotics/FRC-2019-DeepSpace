@@ -46,7 +46,9 @@ public class ChassisIntake extends PIDSubsystem {
   private static final double kIVelocity = 0;
   private static final double kDVelocity = 0;
   private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
-  private static final int LOWERLIMIT = -497; //-497
+  private static final int FORWARDLIMIT = -491; // more positive is forward
+  private static final int REVERSELIMIT = Constants.intakeArmHome + 2;
+
 
 
   private TalonSRX _chassisIntakeLeft;
@@ -92,9 +94,9 @@ public class ChassisIntake extends PIDSubsystem {
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
 
-    _leftArm.configForwardSoftLimitThreshold(LOWERLIMIT); // -502 // Forward is more positive
+    _leftArm.configForwardSoftLimitThreshold(FORWARDLIMIT); // -502 // Forward is more positive
     _leftArm.configForwardSoftLimitEnable(true);
-    _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome + 2);
+    _leftArm.configReverseSoftLimitThreshold(REVERSELIMIT);
     _leftArm.configReverseSoftLimitEnable(true);
 
   }
@@ -124,7 +126,7 @@ public class ChassisIntake extends PIDSubsystem {
   public void setArmVelocity(double velocity)
   {
     _leftArm.selectProfileSlot(idVelocity, 0);
-    //_leftArm.set(ControlMode.Velocity, velocity*TONATIVEUNITS); // Frpm radians per second
+    //_leftArm.set(ControlMode.Velocity, velocity*TONATIVEUNITS); // From radians per second
     _leftArm.set(ControlMode.Velocity, velocity); 
     _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }

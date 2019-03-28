@@ -51,6 +51,10 @@ public class LevelTwoLift extends Subsystem {
     compressor.stop();
   }
 
+  public void startCompressor(){
+    compressor.start();
+  }
+
   @Override
   public void initDefaultCommand() {
 
