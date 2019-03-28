@@ -13,25 +13,19 @@ import jdk.jfr.Threshold;
 public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
 {
   private static double x;
-  //private static final double kF = .18; //.14 min power to go, 
   //DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.04;//.05
+  private static final double kP = 0.05;
   private static final double kI = 0.0;
   private static final double kD = 0.0;
 
-  private static  final double THRESHOLD = 1.0; //degrees;  Experiment (-2,-1.5)TODO- Redo
+  private static  final double THRESHOLD = .5; //degrees
   private static final double MAXSPEED = 1.0;
 
 
-  private static String xDirection;
+  //private static String xDirection;
   private static PIDController pid;
-  
-  private static final double DEADBAND = 0.2;
-
-  //double xSpeed;
-  private static double ySpeed;
-  private static double rotation;
-  private static double speed;
+  //private static double speed;
+  private static boolean onTarget;
 
     public CameraAssist()
     {
@@ -50,58 +44,40 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
         pid.reset();
         pid.setSetpoint(0);
         pid.enable();
+        limelight.setLEDOn(true);
     }
 
     //@Override
     protected void execute()
     {
-        //ySpeed = Math.abs(oi.getRightControllerY()) < DEADBAND ? 0 : -oi.getRightControllerY() * .3;
-        //rotation = Math.abs(oi.getLeftControllerX()) < DEADBAND ? 0 : oi.getLeftControllerX() * .3;
-
         x = limelight.getX();
-
-
-        //SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
-
-        /*if((x >= threshHoldLowerX && x <= threshHoldHigherX) && distance <= thresholdDistance)
-        {//Indicators of how the bot is close to the target
-            goodToShoot = true;
+        if(x >= -THRESHOLD && x <= THRESHOLD)
+        {
+            onTarget = true;
         }
         else
         {
-            goodToShoot = false;
-        }*/
-
-        if(x < -THRESHOLD) 
-        { 
-            xDirection = "Left"; //target to the left, x is negative
-        }
-        else if(x > THRESHOLD)
-        {
-            xDirection = "Right";
-        }
-        else
-        {
-            xDirection = "Good";
+            onTarget = false;
         }
 
-        SmartDashboard.putString("xDirection", xDirection);
-        SmartDashboard.putNumber("speed", speed);
-        SmartDashboard.putNumber("x", x);
-        SmartDashboard.putNumber("error", pid.getError());
-        SmartDashboard.putBoolean("onTarget", pid.onTarget());
+        SmartDashboard.putBoolean("onTarget", onTarget);
+        //SmartDashboard.putNumber("speed", speed);
+        //SmartDashboard.putNumber("x", x);
+        //SmartDashboard.putNumber("error", pid.getError());
+        //SmartDashboard.putBoolean("onTarget", pid.onTarget());
     }
 
 
     //@Override
-    protected boolean isFinished() { //If this is true it will stop,false keep going
-        return !oi.getControllerLeftDown();
+    protected boolean isFinished() { //If this is true it will stop, false keep going
+        return !oi.getCameraButton();
     }
 
     //@Override
     protected void end()
     {
         pid.disable();
+        limelight.setLEDOn(false);
         drivetrain.setMecanum(0, 0, 0);
     }
 
@@ -109,19 +85,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
     protected void interrupted()
     {
         this.end();
-    }
-
-    private double clip(double number, double min, double max)
-    {
-        if(number >= max)
-        {
-            return max;
-        }
-        else if(number <= min)
-        {
-            return min;
-        }
-        return number;
     }
 
     //@Override
@@ -140,7 +103,7 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
     }
 
     @Override
-    public double pidGet() {//Target to left error is negative
+    public double pidGet() { //Target to left error is negative
         return -limelight.getX();
 	}
 }

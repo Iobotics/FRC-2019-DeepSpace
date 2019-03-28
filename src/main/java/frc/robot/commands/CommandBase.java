@@ -14,7 +14,6 @@ import frc.robot.subsystems.ChassisIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.HatchCollector;
-import frc.robot.subsystems.LEDStrip;
 import frc.robot.subsystems.LevelTwoLift;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.NavSensor;
@@ -32,22 +31,19 @@ public abstract class CommandBase extends Command {
   public static LimeLight limelight = new LimeLight();
   public static ChassisIntake chassisIntake = new ChassisIntake();
   public static CameraServo rotater = new CameraServo();
-  public static LEDStrip ledStrip = new LEDStrip();
 
   public static void init() {
     hatchCollector.init();
     navSensor.init();
     drivetrain.init();
-    lift.init();
+    //lift.init();
     shooter.init();
     levelTwo.init();
     limelight.init();
     rotater.init();
-    ledStrip.init();
+    chassisIntake.init();
     
     oi = new OI();
-
-    chassisIntake.init();
   }
 
   public CommandBase(String name) {

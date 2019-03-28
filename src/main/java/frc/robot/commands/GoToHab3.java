@@ -5,33 +5,57 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands;
 
-import frc.robot.commands.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class StopChassisIntake extends CommandBase {
-  public StopChassisIntake() {
+public class GoToHab3 extends CommandBase {
+
+  // Uncomment if calculations are figured out
+
+  //private static final double extendTime = 3; // Units: Seconds
+  //private static final double radiusIntake = 16.092; // Units: Inches
+  //private static final double strokeLength = 22; // Units: Inches
+  //private static final double angularVelocityIntake = strokeLength / (extendTime * radiusIntake); // Units: Radians per second
+  private static final double INTAKEVELOCITY = 6; // Before 10
+  private static final double CHASSISPOWER = -1;
+
+  public GoToHab3() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(chassisIntake);
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setPower(0);
-    chassisIntake.setIntakeArm(0);
+    levelTwo.deployBackWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    chassisIntake.setArmVelocity(INTAKEVELOCITY);
+    if(oi.getAButton())
+    {
+      chassisIntake.setPower(CHASSISPOWER);
+      levelTwo.disableCompressor();
+    }
+    else
+    {
+      chassisIntake.setPower(0);
+      levelTwo.startCompressor();
+    }
+    //SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
+    SmartDashboard.putNumber("intake velocity", chassisIntake.getArmVelocity());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -43,5 +67,6 @@ public class StopChassisIntake extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

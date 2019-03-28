@@ -22,37 +22,27 @@ public class LimeLight extends Subsystem {
   NetworkTableInstance inst;
   //NetworkTableEntry tv;
   NetworkTableEntry tx;
-  //NetworkTableEntry ta;
-  //NetworkTableEntry ts;
   //NetworkTableEntry tl;
-  NetworkTableEntry ty;
+  //NetworkTableEntry ty;
+  NetworkTableEntry ledMode;
 
-  double isDetected;
+  boolean isDetected;
   double x = 0;
-  double y;
-  double area;
-  double rotation;
+  //double y;
   double latency;
-  //double distance = 0;
-  //double heightLowerRocket = 28.75;
-  //double heightHigherRocket = 38; //TODO-Find
-  //double heightCargo = 28; //TODO- Find
-  //double heightObject = 0;
-  //double heightCamera = 34.75;
-  //double height = heightCamera - heightLowerRocket; //inches
 
   public void init()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
         
         //tv = table.getEntry("tv");
-        //ta = table.getEntry("ta");
-        //ts = table.getEntry("ts");
         //tl = table.getEntry("tl");
-        ty = table.getEntry("ty");
+        //ty = table.getEntry("ty");
         tx = table.getEntry("tx");
+        ledMode = table.getEntry("ledMode");
 
         inst = NetworkTableInstance.getDefault();
+        setLEDOn(false);
   }
 
   public double getX()
@@ -60,29 +50,28 @@ public class LimeLight extends Subsystem {
     return tx.getDouble(0.0);
   }
 
+  public void setLEDOn(boolean ledOn)
+  {
+    if(ledOn)
+    {
+      ledMode.setNumber(3); // Led forced on
+    }
+    else if(!ledOn)
+    {
+      ledMode.setNumber(1); // Led forced off
+    }
+  }
+
   public void debug()
   {
     //isDetected = tv.getDouble(0.0);
-        //area = ta.getDouble(0.0);
-        //rotation = ts.getDouble(0.0);
-        //latency = tl.getDouble(0.0);
-        //y = ty.getDouble(0.0);
-        //distance = -height/Math.tan(Math.toRadians(ty.getDouble(0.0)));
-        x = getX();
+    //latency = tl.getDouble(0.0);
+    //y = ty.getDouble(0.0);
+    x = getX();
 
-        
-            //SmartDashboard.putNumber("speed", speed);
-            //SmartDashboard.putNumber("x", x);
-            //SmartDashboard.putNumber("area", area);
-            //SmartDashboard.putNumber("isDetected", isDetected);
-            //SmartDashboard.putNumber("Rotation of Target", rotation);
-            //SmartDashboard.putNumber("latency", latency);
-            //SmartDashboard.putNumber("y", y);
-            //SmartDashboard.putBoolean("Ready to Launch", goodToShoot);
-            //SmartDashboard.putNumber("Distance", distance);
-            //SmartDashboard.putString("x direction", xDirection);
-            //SmartDashboard.putString("If you should go forward", zDirection);
-            //SmartDashboard.putString("Distance Sensing Mode", distanceMode);
+    //SmartDashboard.putNumber("x", x);
+    //SmartDashboard.putNumber("latency", latency);
+    //SmartDashboard.putNumber("y", y);
   }
 
   @Override

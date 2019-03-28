@@ -19,7 +19,7 @@ private Servo servo;
 
   public void init(){
     servo = new Servo(1);
-    servo.set(0.00);
+    servo.set(0.0);
   }
     
   public double getServoPosition(){
@@ -37,12 +37,11 @@ private Servo servo;
   }
 
   public void safetyCancel(){
-    servo.set(0);
+    servo.set(0.0);
   }
 
   @Override
   public void initDefaultCommand() {
-   //setDefaultCommand(new RotateCamera());
   }
 }
 

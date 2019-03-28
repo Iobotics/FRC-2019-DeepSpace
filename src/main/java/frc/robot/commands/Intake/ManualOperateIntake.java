@@ -5,30 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
+import frc.robot.subsystems.ChassisIntake;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
+public class ManualOperateIntake extends CommandBase {
+
+  public ManualOperateIntake() {
+
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
+    /*if(oi.getAButton())
+    {
+      chassisIntake.setPower(-1);
+    }
+    else
+    {
+      chassisIntake.setPower(0);
+    }*/
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

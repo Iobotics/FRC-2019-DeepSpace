@@ -18,7 +18,7 @@ public class StopShooter extends CommandBase {
   @Override
   protected void initialize() {
     if(shooter.getIsBallIn()){
-      shooter.setShooter(0.1);
+      shooter.setShooter(0.15);
     }
     else shooter.setShooter(0);
   }

@@ -5,31 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class TestShooterArm extends CommandBase {
-  public TestShooterArm() {
-    requires(shooter);
+public class SetIntakePosition extends CommandBase {
+
+  private double position;
+  private final double THRESHOLD = 11;
+
+  public SetIntakePosition(double position) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(chassisIntake);
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    chassisIntake.setArmPosition(position);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    shooter.setShooterArm(oi.getControllerStick());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Math.abs(chassisIntake.getArmPosition() - position) <= THRESHOLD;
   }
 
   // Called once after isFinished returns true
@@ -41,5 +48,6 @@ public class TestShooterArm extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

@@ -5,19 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
+public class StopIntakeVelocity extends CommandBase {
+  public StopIntakeVelocity() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
+    chassisIntake.setArmVelocity(0);
   }
 
   // Called repeatedly when this Command is scheduled to run

@@ -5,21 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ball;
+package frc.robot.commands.hatch;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.RunShooter;
-import frc.robot.commands.Intake.RunChassisIntake;
 
-public class RunCargoCarriage extends CommandGroup {
+public class GrabAndRetractHatch extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public RunCargoCarriage() {
-
-    addParallel(new RunChassisIntake());
-    addParallel(new RunShooter(0.5));
-    addSequential(new SetShooterPos(780));
+  public GrabAndRetractHatch() {
+    addSequential(new CloseHook());
+    addSequential(new RetractHatch());
   }
 }

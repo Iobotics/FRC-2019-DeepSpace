@@ -11,12 +11,14 @@ import frc.robot.commands.CommandBase;
 
 public class SetShooterPos extends CommandBase {
 
-  int pos;
+  private int pos;
+  private final int THRESHOLD = 15;
 
   //Either Takes an Enum for position or just Raw Encoder Value
 
 
   public SetShooterPos(int pos){
+    requires(shooter);
     this.pos = pos;
   }
 
@@ -32,7 +34,7 @@ public class SetShooterPos extends CommandBase {
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return Math.abs(shooter.getArm() - pos) <= THRESHOLD;
   }
 
   @Override

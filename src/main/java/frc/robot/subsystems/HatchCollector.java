@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -21,7 +22,8 @@ public class HatchCollector extends Subsystem {
   // here. Call these from Commands.
 
   private DoubleSolenoid _hook;
-  private DoubleSolenoid _extender;
+  private Solenoid _extender;
+  private DigitalInput _hatchDetector;
 
   @Override
   public void initDefaultCommand() {
@@ -32,8 +34,15 @@ public class HatchCollector extends Subsystem {
 
   public void init() {
     _hook = new DoubleSolenoid(RobotMap.hookSolenoidForward, RobotMap.hookSolenoidReverse);
-    _extender = new DoubleSolenoid(RobotMap.extendHatchForward, RobotMap.extendHatchReverse);
-    
+    _extender = new Solenoid(RobotMap.extendHatch);
+    _hatchDetector = new DigitalInput(1);
+
+    _extender.set(false);
+    _hook.set(Value.kForward);
+  }
+
+  public boolean getHatchSensor(){
+    return _hatchDetector.get();
   }
   
   public void openHook() {
@@ -52,17 +61,17 @@ public class HatchCollector extends Subsystem {
   }
 
   public void toggleExtension() {
-    if(_extender.get() == Value.kReverse){
-      _extender.set(Value.kForward);
+    if(_extender.get()){
+      _extender.set(false);
     }
-    else _extender.set(Value.kReverse);
+    else _extender.set(true);
   }
   
   public void extendHatch() {
-    _extender.set(Value.kForward);
+    _extender.set(true);
   }
 
   public void retractHatch(){
-    _extender.set(Value.kReverse);
+    _extender.set(false);
   }
 }

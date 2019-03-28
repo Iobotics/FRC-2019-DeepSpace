@@ -26,7 +26,7 @@ public class RunShooter extends CommandBase {
   @Override
   protected void execute() {
     
-    //If the ball is detected while the command is running then ball is in becomes true
+    // If the ball is detected while the command is running then ball is in becomes true
     if(shooter.isBallIn() && power > 0){
       shooter.setIsBallIn(true);
       shooter.setShooter(power);
@@ -45,7 +45,7 @@ public class RunShooter extends CommandBase {
     return false;
   }
 
-  //if a vall is in then gives the shooter a nominal voltage to hold the balls
+  // if a ball is in then gives the shooter a nominal voltage to hold the balls
   @Override
   protected void end() {  
    

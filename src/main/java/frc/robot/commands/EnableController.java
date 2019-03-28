@@ -5,19 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands;
 
-import frc.robot.commands.CommandBase;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
+public class EnableController extends Command {
+
+  private final boolean _enabled;
+
+  public EnableController(boolean enabled) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    _enabled = enabled;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -28,7 +33,7 @@ public class ToggleHook extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

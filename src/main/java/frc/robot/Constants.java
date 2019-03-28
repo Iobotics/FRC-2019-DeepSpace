@@ -11,26 +11,37 @@ package frc.robot;
  * Class to Handle values which are neededd multiple places and never change
  */
 public class Constants {
-  //timeout time used for TalonSRX PID control
+  // timeout time used for TalonSRX PID control
   public static final int timeoutMS = 20;
 
   public static final double wheelCirumference = 4 * Math.PI;
 
   public static final double rotationsToWheel = 48/11;
-  //equal to Inches / Rotations, divide from rotations to get inches, multiply by inches to get rotations
+  // equal to Inches / Rotations, divide from rotations to get inches, multiply by inches to get rotations
   public static final double rotationsToInches = wheelCirumference / rotationsToWheel;
 
-  //Range of tolerance for if the loop is completed, measured in motor rotating
+  // Range of tolerance for if the loop is completed, measured in motor rotating
   public static final double toleranceRange = 2;
-    
-  //Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-  public static final int shooterArmCenter = 812;
+  
+  // Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
+  public static final int shooterArmCenter = -453;
 
-  //TODO: Find Correct Angles
+  public static final int shooterHome = -528;
 
-  public static final int cargoShipAngle = 840;
+  public static final int shooterIntake = -518;
 
-  public static final int firstLevelAngle = 795;
+  public static final int cargoShipAngle = shooterArmCenter + 12; // Before + 18// Before +2
 
- 
+  public static final int firstLevelAngle = shooterArmCenter - 10;
+
+  // Intake Arm Position
+
+  public static final int intakeArmHome = -644; // Before -659
+
+  public static final int intakeArmShooter = -588; // Before -620
+
+  public static final int intakeArmIntake =  -555; // Before -504
+
+  public static final int intakeArmOut = -570;
+
 }

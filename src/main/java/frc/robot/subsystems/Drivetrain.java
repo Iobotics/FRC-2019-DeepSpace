@@ -45,6 +45,10 @@ public class Drivetrain extends Subsystem {
   private static double _kIZoneDrive = 0;
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0.000156;
+  private static double _kForwardRR = 1;
+  private static double _kStrafeRR = 1;
+  private static double _kIsMoreStrafe = .5;
+
 
   private double _kPTurn = 0.005;
   private double _kITurn = 0;
@@ -59,16 +63,23 @@ public class Drivetrain extends Subsystem {
 
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
     _frontLeftMain.setInverted(true);
+    //_frontLeftMain.setSmartCurrentLimit(65,55);
+    //_frontLeftMain.setSmartCurrentLimit(40);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
     _frontRightMain.setInverted(true);
+    //_frontRightMain.setSmartCurrentLimit(65,55);
+    //_frontRightMain.setSmartCurrentLimit(40);
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
     _backLeftMain.setInverted(true);
+    //_backLeftMain.setSmartCurrentLimit(65,55);
+    //_backLeftMain.setSmartCurrentLimit(40);
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
     _backRightMain.setInverted(true);
-   
+    //_backRightMain.setSmartCurrentLimit(65,55);
+    //_backRightMain.setSmartCurrentLimit(40);
 
     _drive = new MecanumDrive(
       _frontLeftMain, 
@@ -176,8 +187,37 @@ public class Drivetrain extends Subsystem {
     _backRightMain.set(right);
   }
 
+  public double getPower()
+  {
+    return _backLeftMain.get();
+  }
+
   //Sets the motors to run according to a mecanum drivetrain
   public void setMecanum(double x, double y, double rotation) {
+    if(Math.abs(x) - Math.abs(this.getPower()) >= 0 || Math.abs(y) - Math.abs(this.getPower()) >= 0 || Math.abs(rotation) - Math.abs(this.getPower()) >= 0) //The speed is increasing
+    {
+      if(Math.abs(x) >= _kIsMoreStrafe)
+      {
+        _frontLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _frontRightMain.setOpenLoopRampRate(_kStrafeRR);
+        _backLeftMain.setOpenLoopRampRate(_kStrafeRR);
+        _backRightMain.setOpenLoopRampRate(_kStrafeRR);
+      }
+      else
+      {
+        _frontLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _frontRightMain.setOpenLoopRampRate(_kForwardRR);
+        _backLeftMain.setOpenLoopRampRate(_kForwardRR);
+        _backRightMain.setOpenLoopRampRate(_kForwardRR);
+      }
+    }
+    else
+    {
+      _frontLeftMain.setOpenLoopRampRate(0);
+      _frontRightMain.setOpenLoopRampRate(0);
+      _backLeftMain.setOpenLoopRampRate(0);
+      _backRightMain.setOpenLoopRampRate(0);
+    }
     _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
   }
 
@@ -251,6 +291,6 @@ public class Drivetrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
    // setDefaultCommand(new OperateMecanumDrive());
-   setDefaultCommand(new OperateControllerDrive());
+   setDefaultCommand(new OperateMecanumDrive());
   }
 }

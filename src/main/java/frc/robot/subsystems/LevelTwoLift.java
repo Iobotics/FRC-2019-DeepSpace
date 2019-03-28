@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,46 +20,39 @@ import frc.robot.RobotMap;
  */
 public class LevelTwoLift extends Subsystem {
   
-  private DoubleSolenoid midWheel;
   private DoubleSolenoid backWheel;
 
-  //Should be called in the robot init
-  public void init() {
-    midWheel = new DoubleSolenoid(RobotMap.zoneTwoFrontForward, RobotMap.zoneTwoFrontReverse);
-    backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
+  private Compressor compressor;
 
-    midWheel.set(DoubleSolenoid.Value.kReverse);
+  // Should be called in the robot init
+  public void init() {
+    backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
+    backWheel.set(DoubleSolenoid.Value.kForward);
+    compressor = new Compressor();
+    compressor.start();
+  }
+
+  // extends the cylinders on the back of the robot
+  public void deployBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kReverse);
   }
 
-  //extends the cylinders in the middle of the robot
-  public void deployMidWheels(){
-    midWheel.set(DoubleSolenoid.Value.kForward);
-  }
-
-  //extends the cylinders on the back of the robot
-  public void deployBackWheels(){
+  // retracts the cylinders on the back of the robot
+  public void retractBackWheels(){
     backWheel.set(DoubleSolenoid.Value.kForward);
   }
 
-  //retracts the cylinders in the middle of the robot
-  public void retractMidWheels(){
-    midWheel.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  //retracts the cylinders on the back of the robot
-  public void retractBackWheels(){
-    backWheel.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  //returns whether or not the mid wheel is extended
-  public boolean midWheelDown(){
-    return midWheel.get() == Value.kForward;
-  }
-
-  //returns whether or not the back wheel is extended
+  // returns whether or not the back wheel is extended
   public boolean backWheelDown(){
-    return backWheel.get() == Value.kForward;
+    return backWheel.get() == Value.kReverse; // before forward
+  }
+
+  public void disableCompressor(){
+    compressor.stop();
+  }
+
+  public void startCompressor(){
+    compressor.start();
   }
 
   @Override

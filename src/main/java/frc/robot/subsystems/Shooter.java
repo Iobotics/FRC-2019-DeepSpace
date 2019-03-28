@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-import frc.robot.commands.Shooter.TestShooterArm;
+import frc.robot.commands.Shooter.ManualShooter;
 
 /**
  * Subsystem Handles the Shooter / Carriage
@@ -33,31 +33,39 @@ public class Shooter extends Subsystem {
   DigitalInput proximitySensor;
 
   private boolean isBallIn = false;
+  private boolean isReverse = false;
 
   private int slotID = 0;
-  private double kFFEmpty =  0.20;
-  private double kFFBall = 0.55;
-  private double kP = 7;
-  private double kI = 0.0;
-  private double kD = 300;
+  private double kFFEmpty = 0;
+  private double kFFBall = 0; //Positive feedforward when going down
+  private double kFFEmptyReverse = .1;
+  private double kFFBallReverse = .1;
+  private double kP = 10; // Before 8
+  private double kI = 0;
+  private double kD = 350; // Before 350
 
   @Override
   public void initDefaultCommand() {
-   setDefaultCommand(new TestShooterArm());
+    setDefaultCommand(new ManualShooter());
   }
 
   public void init()
   {
     leftShooter = new TalonSRX(RobotMap.leftShooter);
+    leftShooter.configFactoryDefault();
     leftShooter.setInverted(true);
     leftShooter.setNeutralMode(NeutralMode.Brake);
 
     rightShooter = new TalonSRX(RobotMap.rightShooter);
     rightShooter.setInverted(false);
+    rightShooter.configFactoryDefault();
     rightShooter.setNeutralMode(NeutralMode.Brake);
 
     shooterArm = new TalonSRX(RobotMap.shooterArm);
     shooterArm.configFactoryDefault();
+
+    shooterArm.enableCurrentLimit(true);
+    shooterArm.configContinuousCurrentLimit(40);
 
     //Shooter Arm Requires PID to stay up 
     //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball
@@ -65,7 +73,7 @@ public class Shooter extends Subsystem {
     shooterArm.setNeutralMode(NeutralMode.Brake);
     shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     shooterArm.configFeedbackNotContinuous(true, 20);
-    shooterArm.setSensorPhase(true);
+    shooterArm.setSensorPhase(false);
     shooterArm.selectProfileSlot(slotID, 0);
     shooterArm.config_kP(slotID, kP);
     shooterArm.config_kI(slotID, kI);
@@ -89,14 +97,34 @@ public class Shooter extends Subsystem {
   }
 
   public void setShooterPosition(double position){
-    if(isBallIn){
+    if(this.getArm() - position < 0) //Going up
+    {
+      isReverse = false;
+    }
+    else
+    {
+      isReverse = true;
+    }
+
+    if(isBallIn && !isReverse){
       shooterArm.set(ControlMode.Position, position, 
       DemandType.ArbitraryFeedForward, kFFBall * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
-    else {
+    else if(!isReverse) {
       shooterArm.set(ControlMode.Position, position, 
       DemandType.ArbitraryFeedForward, kFFEmpty * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+
+    if(isBallIn && isReverse){
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFBallReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
+    }
+    else if(isReverse) {
+      shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFEmptyReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
     

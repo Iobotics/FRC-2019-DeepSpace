@@ -5,24 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ball;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.commands.Intake.StopChassisIntake;
-import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class StopCargoCarriage extends CommandGroup {
+public class ShootBall extends CommandGroup {
   /**
-   * Called After Cargo Carriage is Run, returns arm and intake
+   * Add your docs here.
    */
-  public StopCargoCarriage() {
-    addParallel(new SetShooterPos(820));
-    addSequential(new StopChassisIntake());
-    addSequential(new StopShooter());
-    addSequential(new WaitCommand(1.5));
-    addSequential(new StopShooterArm());
+  public ShootBall() {
+    addParallel(new RunShooter(0.5));
+    addSequential(new WaitCommand(0.25));
+    addSequential(new RunShooter(-0.6)); //-.4
   }
 }

@@ -5,26 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ball;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.hal.ConstantsJNI;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Ball.FromShipToHome;
+import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
 
-public class ShootFirstLevel extends CommandGroup {
+public class IntakeBall extends CommandGroup {
   /**
-   * Automatically Shoots for Level One of the rocket
+   * Add your docs here.
    */
-  public ShootFirstLevel() {
-    addSequential(new SetShooterPos(Constants.firstLevelAngle));
-    addSequential(new WaitCommand(0.5));
-    addParallel(new RunShooter(-1));
-    addSequential(new WaitCommand(0.5));
-    addSequential(new StopShooterArm());
-    addSequential(new StopShooter());
+  public IntakeBall() {
+      addSequential(new SetShooterPos(Constants.shooterIntake));
+      addSequential(new SetIntakePosition(Constants.intakeArmIntake));
+      addParallel(new RunChassisIntake());
+      addParallel(new RunShooter(0.5));
   }
 }

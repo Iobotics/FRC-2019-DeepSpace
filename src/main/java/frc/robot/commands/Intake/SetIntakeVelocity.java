@@ -5,40 +5,51 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
+public class SetIntakeVelocity extends CommandBase {
+
+  private static final double VELOCITY = 15; // Max is 41 native units per 100 ms
+
+  public SetIntakeVelocity() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(chassisIntake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    chassisIntake.setArmVelocity(VELOCITY);
+    SmartDashboard.putNumber("velocity", chassisIntake.getArmVelocity());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    chassisIntake.setArmVelocity(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }
