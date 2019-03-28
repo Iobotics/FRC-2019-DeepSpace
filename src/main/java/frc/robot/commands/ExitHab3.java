@@ -5,30 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Ball;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.CommandBase;
 import frc.robot.commands.Intake.HoldIntakePosition;
+import frc.robot.commands.Intake.SetIntakePosition;
 import frc.robot.commands.Intake.StopChassisIntake;
-import frc.robot.commands.Shooter.SetShooterPos;
-import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
-import frc.robot.subsystems.Shooter;
+import frc.robot.commands.ZoneTwo.LevelReset;
 
-public class ReturnHome extends CommandGroup {
+public class ExitHab3 extends CommandGroup {
   /**
    * Add your docs here.
    */
-
-  
-
-  public ReturnHome() {
-    addSequential(new SetShooterPos(Constants.shooterHome));
-    addParallel(new HoldIntakePosition(Constants.intakeArmHome));
-    addSequential(new WaitCommand(1.5));
-    addSequential(new StopChassisIntake());
+  public ExitHab3() {
+    addParallel(new SetIntakePosition(Constants.intakeArmIntake));
+    addParallel(new LevelReset());
+    addParallel(new StopChassisIntake());
   }
 }

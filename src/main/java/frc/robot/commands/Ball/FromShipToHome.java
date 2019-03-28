@@ -5,27 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.Ball;
 
-import edu.wpi.first.hal.ConstantsJNI;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Ball.FromShipToHome;
-import frc.robot.commands.Shooter.HoldShooterPos;
+import frc.robot.commands.Intake.HoldIntakePosition;
+import frc.robot.commands.Intake.SetIntakePosition;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 
-public class IntakeBall extends CommandGroup {
+public class FromShipToHome extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public IntakeBall() {
-      addSequential(new SetShooterPos(Constants.shooterIntake));
-      addSequential(new SetIntakePosition(Constants.intakeArmIntake));
-      addParallel(new RunChassisIntake());
-      addParallel(new RunShooter(0.5));
+  public FromShipToHome() {
+    addSequential(new SetIntakePosition(Constants.intakeArmOut));
+    addSequential(new SetShooterPos(Constants.shooterHome));
+    addSequential(new SetIntakePosition(Constants.intakeArmHome));
   }
 }

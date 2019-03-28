@@ -7,29 +7,31 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
-public class HoldIntakePosition extends CommandBase {
+public class SetIntakeVelocity extends CommandBase {
 
+  private static final double VELOCITY = 15; // Max is 41 native units per 100 ms
 
-  private double position;
-
-  public HoldIntakePosition(double position) {
+  public SetIntakeVelocity() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(chassisIntake);
-    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setArmPosition(position);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setArmPosition(position);
+    chassisIntake.setArmVelocity(VELOCITY);
+    SmartDashboard.putNumber("velocity", chassisIntake.getArmVelocity());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,13 +43,13 @@ public class HoldIntakePosition extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    chassisIntake.setIntakeArm(0);
+    chassisIntake.setArmVelocity(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    this.end();
   }
 }

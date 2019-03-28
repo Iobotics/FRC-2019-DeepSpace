@@ -5,31 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Intake;
+package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.CommandBase;
 
-public class HoldIntakePosition extends CommandBase {
+public class GoToHab3 extends CommandBase {
 
+  private static final double extendTime = 3; // Units: Seconds
+  private static final double radiusIntake = 16.092; // Units: Inches
+  private static final double strokeLength = 22; // Units: Inches
+  //private static final double angularVelocityIntake = strokeLength / (extendTime * radiusIntake); // Units: Radians per second
+  private static final double angularVelocityIntake = 10;
+  //private static final double 
 
-  private double position;
-
-  public HoldIntakePosition(double position) {
+  public GoToHab3() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(chassisIntake);
-    this.position = position;
+    requires(levelTwo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    chassisIntake.setArmPosition(position);
+    levelTwo.deployBackWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    chassisIntake.setArmPosition(position);
+    chassisIntake.setArmVelocity(angularVelocityIntake);
+    chassisIntake.setPower(-1);
+    SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,13 +49,12 @@ public class HoldIntakePosition extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    chassisIntake.setIntakeArm(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    this.end();
   }
 }

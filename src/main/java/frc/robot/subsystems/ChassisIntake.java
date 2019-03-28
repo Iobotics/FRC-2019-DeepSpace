@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
 import frc.robot.commands.Intake.ManualOperateIntake;
+import frc.robot.commands.Intake.SetIntakeVelocity;
 
 /**
  * Chassis intake
@@ -32,7 +34,20 @@ public class ChassisIntake extends PIDSubsystem {
    *
    */
 
-  private static final double kP = 15;
+  
+  private static final int idPosition = 0;
+  private static final double kPPosition = 15;
+  private static final double kIPosition = 0.005; 
+  private static final double kDPosition = 120;
+
+  private static final int idVelocity = 1;
+  private static final double kFVelocity = 1024.0/(410.0) * 10;
+  private static final double kPVelocity = 15; //To counter against load // 15 velocity about 10
+  private static final double kIVelocity = 0;
+  private static final double kDVelocity = 0;
+  private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
+
+
   private TalonSRX _chassisIntake;
   private TalonSRX _leftArm;
   private TalonSRX _rightArm;
@@ -40,7 +55,7 @@ public class ChassisIntake extends PIDSubsystem {
 
   
   public ChassisIntake(){
-    super(kP,0,0);
+    super(kPPosition,0,0);
   }
 
   //Should be called in the robot init
@@ -52,9 +67,14 @@ public class ChassisIntake extends PIDSubsystem {
     
     _leftArm = new TalonSRX(RobotMap.leftIntakeArm);
     _leftArm.configFactoryDefault();
-    _leftArm.config_kP(0, kP);
-    _leftArm.config_kI(0, 0.005);
-    _leftArm.config_kD(0, 120);
+    _leftArm.config_kP(idPosition, kPPosition);
+    _leftArm.config_kI(idPosition, kIPosition);
+    _leftArm.config_kD(idPosition, kDPosition);
+    
+    _leftArm.config_kF(idVelocity, kFVelocity);
+    _leftArm.config_kP(idVelocity, kPVelocity);
+    //_leftArm.config_kI(idVelocity, kIVelocity);
+    //_leftArm.config_kD(idVelocity, kDVelocity);
     _leftArm.setNeutralMode(NeutralMode.Brake);
     _leftArm.setInverted(true);
     _leftArm.configSelectedFeedbackSensor(FeedbackDevice.Analog);
@@ -64,9 +84,15 @@ public class ChassisIntake extends PIDSubsystem {
     _rightArm.configFactoryDefault();
     _rightArm.setInverted(false);
     _rightArm.setNeutralMode(NeutralMode.Brake);
-
+    
     //_leftArm.set(ControlMode.Position, 198);
     //_rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+
+    _leftArm.configForwardSoftLimitThreshold(-470); // -502 // Forward is more positive
+    _leftArm.configForwardSoftLimitEnable(true);
+    _leftArm.configReverseSoftLimitThreshold(Constants.intakeArmHome);
+    _leftArm.configReverseSoftLimitEnable(true);
+
   }
 
   //Set intake motor power to a percentage between -1 and 1
@@ -74,14 +100,33 @@ public class ChassisIntake extends PIDSubsystem {
     _chassisIntake.set(ControlMode.PercentOutput, power);
   }
 
+  public double getPower()
+  {
+    return _chassisIntake.getMotorOutputPercent();
+  }
+
   public void setIntakeArm(double power){
-    _rightArm.set(ControlMode.PercentOutput, power);
     _leftArm.set(ControlMode.PercentOutput, power);
+    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
   }
   
   public void setArmPosition(double position){
+    _leftArm.selectProfileSlot(idPosition, 0);
     _leftArm.set(ControlMode.Position, position);
     _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+  }
+
+  public void setArmVelocity(double velocity)
+  {
+    _leftArm.selectProfileSlot(idVelocity, 0);
+    //_leftArm.set(ControlMode.Velocity, velocity*TONATIVEUNITS); // Frpm radians per second
+    _leftArm.set(ControlMode.Velocity, velocity); 
+    _rightArm.set(ControlMode.Follower, RobotMap.leftIntakeArm);
+  }
+
+  public double getArmVelocity()
+  {
+    return _leftArm.getSelectedSensorVelocity();
   }
 
   public double getArmPosition(){

@@ -12,7 +12,7 @@ import frc.robot.commands.CommandBase;
 
 public class OperateMecanumDrive extends CommandBase {
 
-  public static final double DEADBAND = 0.3;//.2 before
+  public static final double DEADBAND = 0.3; // .2 before
   
   public OperateMecanumDrive() {
     // Use requires() here to declare subsystem dependencies
@@ -28,8 +28,8 @@ public class OperateMecanumDrive extends CommandBase {
   @Override
   protected void execute() {
     double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
-    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : oi.getRightStickY();
-    double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : -oi.getLeftStickX();
+    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : -oi.getRightStickY();
+    double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : oi.getLeftStickX();
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
     SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());

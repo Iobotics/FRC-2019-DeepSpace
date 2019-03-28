@@ -20,27 +20,27 @@ import frc.robot.RobotMap;
  */
 public class Lift extends Subsystem {
   
-  //Each side of the lift has a master and slave motor
+  // Each side of the lift has a master and slave motor
   private TalonSRX _leftLift;
   private TalonSRX _leftLiftSlave;
   private TalonSRX _rightLift;
   private TalonSRX _rightLiftSlave;
 
-  //Full range of the pot, used to calculate FF and for soft Limit
+  // Full range of the pot, used to calculate FF and for soft Limit
   private double sensorRange  = 1024;
   /*
-  *PID values for precision lift control
-  *TODO:Find Values experimentally
-  */
+   * PID values for precision lift control
+   * TODO: Find Values experimentally
+   */
   private double kP = 2.4;
   private double kI;
   private double kD;
   private double kFF  = 1023 / ((sensorRange * 2) /10);
   private int kIZone;
   /*
-  *Maximum Velocity and Acceleration Allowed
-  *Units are in Sensor Units per 100ms
-  */
+   * Maximum Velocity and Acceleration Allowed
+   * Units are in Sensor Units per 100ms
+   */
   private int cruiseSpeed = 100;
   private int rampRate = 300;
   private final int TIMEOUT = 200;
@@ -59,7 +59,7 @@ public class Lift extends Subsystem {
     _leftLift.configFactoryDefault();
     _rightLift.configFactoryDefault();
 
-    //Current Limiting to prevent magic smoke from escaping, remove if more power required
+    // Current Limiting to prevent magic smoke from escaping, remove if more power required
     _leftLift.enableCurrentLimit(true);
     _rightLift.enableCurrentLimit(true);
     _leftLift.configPeakCurrentLimit(40);
@@ -67,7 +67,7 @@ public class Lift extends Subsystem {
     _rightLift.configPeakCurrentLimit(40);
     _rightLift.configContinuousCurrentLimit(40);
 
-    //Polarity of motors and sensor, if changed will cause burnout
+    // Polarity of motors and sensor, if changed will cause burnout
     _leftLift.setInverted(false);
     _leftLift.setSensorPhase(true);
     _rightLift.setInverted(true);
@@ -123,7 +123,7 @@ public class Lift extends Subsystem {
     _rightLift.set(ControlMode.PercentOutput, speed);
   }
 
-  //Stops motors from using positional control, robot stops powering them
+  // Stops motors from using positional control, robot stops powering them
   public void StopLift(){
     _leftLift.set(ControlMode.PercentOutput, 0);
     _rightLift.set(ControlMode.PercentOutput, 0);

@@ -5,32 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.LEDS;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class ShowLeds extends CommandBase {
-  public ShowLeds() {
+public class SetIntakePosition extends CommandBase {
+
+  private double position;
+  private final double THRESHOLD = 11;
+
+  public SetIntakePosition(double position) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(ledStrip);
+    requires(chassisIntake);
+    this.position = position;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    chassisIntake.setArmPosition(position);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    ledStrip.show();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Math.abs(chassisIntake.getArmPosition() - position) <= THRESHOLD;
   }
 
   // Called once after isFinished returns true
@@ -42,5 +48,6 @@ public class ShowLeds extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }
