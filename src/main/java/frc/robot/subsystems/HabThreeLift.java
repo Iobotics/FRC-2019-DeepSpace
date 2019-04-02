@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
  * Written by Victus Chang
  * The elevator system uses two solenoids to push the bot off the ground.
  */
-public class LevelTwoLift extends Subsystem {
+public class HabThreeLift extends Subsystem {
   
   private DoubleSolenoid backWheel;
 

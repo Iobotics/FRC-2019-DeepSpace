@@ -26,13 +26,13 @@ public class GoToHab3 extends CommandBase {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(chassisIntake);
-    requires(levelTwo);
+    requires(habThree);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    levelTwo.deployBackWheels();
+    habThree.deployBackWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -42,12 +42,12 @@ public class GoToHab3 extends CommandBase {
     if(oi.getAButton())
     {
       chassisIntake.setPower(CHASSISPOWER);
-      levelTwo.disableCompressor();
+      habThree.disableCompressor();
     }
     else
     {
       chassisIntake.setPower(0);
-      levelTwo.startCompressor();
+      habThree.startCompressor();
     }
     //SmartDashboard.putNumber("chassis wheels power", chassisIntake.getPower());
     SmartDashboard.putNumber("intake velocity", chassisIntake.getArmVelocity());

@@ -10,15 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.Drivetrain.SetDrivePower;
+import frc.robot.commands.HabThree.ToggleHabThreeBack;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.StopChassisIntake;
-import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
-public class ZoneThreeSequence extends CommandGroup {
+public class HabThreeSequence extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ZoneThreeSequence() {
+  public HabThreeSequence() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -38,11 +38,11 @@ public class ZoneThreeSequence extends CommandGroup {
 
     //TODO: Get the correct intake arm positions
     //addParallel(new SetIntakePos(0));
-    addSequential(new ToggleZoneTwoBack());
+    addSequential(new ToggleHabThreeBack());
     addSequential(new RunChassisIntake());
     addSequential(new WaitCommand(1));
     addSequential(new SetDrivePower(.5, 3));
-    addSequential(new ToggleZoneTwoBack());
+    addSequential(new ToggleHabThreeBack());
     addSequential(new StopChassisIntake());
   }
 }

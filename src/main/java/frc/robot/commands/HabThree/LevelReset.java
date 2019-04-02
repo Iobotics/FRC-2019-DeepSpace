@@ -5,25 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ZoneTwo;
+package frc.robot.commands.HabThree;
 
 import frc.robot.commands.CommandBase;
 
-public class ToggleZoneTwoBack extends CommandBase {
-  public ToggleZoneTwoBack() {
+public class LevelReset extends CommandBase {
+  public LevelReset() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(levelTwo);
+    requires(habThree);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(!levelTwo.backWheelDown()){
-      levelTwo.deployBackWheels();
-    } else {
-      levelTwo.retractBackWheels();
-    }
+    habThree.retractBackWheels();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -46,6 +42,5 @@ public class ToggleZoneTwoBack extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

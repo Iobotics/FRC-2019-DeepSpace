@@ -20,6 +20,7 @@ import frc.robot.commands.EnableController;
 import frc.robot.commands.ExitHab3;
 import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
+import frc.robot.commands.HabThree.ToggleHabThreeBack;
 import frc.robot.commands.ball.FromShipToHome;
 import frc.robot.commands.ball.PositionCargoShip;
 import frc.robot.commands.ball.PositionFirstLevel;
@@ -44,7 +45,6 @@ import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.Shooter.StopShooterArm;
-import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -183,7 +183,7 @@ public class OI {
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
 
-    toggleZoneTwoBack.whenPressed(new ToggleZoneTwoBack());
+    toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
     cameraAuto.whenPressed(new CameraAssist());
     rotateCamera.whenPressed(new RotateCamera());
