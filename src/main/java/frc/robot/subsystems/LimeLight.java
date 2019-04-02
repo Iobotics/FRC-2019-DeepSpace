@@ -9,7 +9,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** 
  * Add your docs here.
@@ -18,31 +20,37 @@ public class LimeLight extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  NetworkTable table; 
-  NetworkTableInstance inst;
+  private static NetworkTable table; 
+  private static NetworkTableInstance inst;
   //NetworkTableEntry tv;
-  NetworkTableEntry tx;
+  private static NetworkTableEntry tx;
   //NetworkTableEntry tl;
-  //NetworkTableEntry ty;
-  NetworkTableEntry ledMode;
+  private static NetworkTableEntry ty;
+  private static NetworkTableEntry ledMode;
 
-  boolean isDetected;
-  double x = 0;
-  //double y;
-  double latency;
+  private static boolean isDetected;
+  private static double x = 0;
+  private static double y = 0;
+  private static double latency;
+  
+  private static final double HEIGHTLIMELIGHT = 34.75; // Units: Inches, 
+  private static final double VISIONTAPEAREA = 0;
+
+  private static Servo servo;
+
 
   public void init()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
         
-        //tv = table.getEntry("tv");
-        //tl = table.getEntry("tl");
-        //ty = table.getEntry("ty");
-        tx = table.getEntry("tx");
-        ledMode = table.getEntry("ledMode");
+    //tv = table.getEntry("tv");
+    //tl = table.getEntry("tl");
+    ty = table.getEntry("ty");
+    tx = table.getEntry("tx");
+    ledMode = table.getEntry("ledMode");
 
-        inst = NetworkTableInstance.getDefault();
-        setLEDOn(false);
+    inst = NetworkTableInstance.getDefault();
+    setLEDOn(false);
   }
 
   public double getX()
@@ -66,17 +74,16 @@ public class LimeLight extends Subsystem {
   {
     //isDetected = tv.getDouble(0.0);
     //latency = tl.getDouble(0.0);
-    //y = ty.getDouble(0.0);
+    y = ty.getDouble(0.0);
     x = getX();
 
-    //SmartDashboard.putNumber("x", x);
+    SmartDashboard.putNumber("x", x);
     //SmartDashboard.putNumber("latency", latency);
-    //SmartDashboard.putNumber("y", y);
+    SmartDashboard.putNumber("y", y);
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+
   }
 }

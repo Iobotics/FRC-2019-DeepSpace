@@ -16,6 +16,7 @@ import frc.robot.subsystems.HabThreeLift;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.HatchCollector;
 import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.LimelightServo;
 import frc.robot.subsystems.NavSensor;
 import frc.robot.subsystems.Shooter;
 
@@ -31,6 +32,7 @@ public abstract class CommandBase extends Command {
   public static LimeLight limelight = new LimeLight();
   public static ChassisIntake chassisIntake = new ChassisIntake();
   public static CameraServo rotater = new CameraServo();
+  public static LimelightServo limelightservo = new LimelightServo();
 
   public static void init() {
     hatchCollector.init();
@@ -42,6 +44,7 @@ public abstract class CommandBase extends Command {
     limelight.init();
     rotater.init();
     chassisIntake.init();
+    limelightservo.init();
     
     oi = new OI();
   }

@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.AutoAlighnment;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase;
 import jdk.jfr.Threshold;
 
-public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
+public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOutput
 {
   private static double x;
   //DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
@@ -27,10 +28,11 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
   //private static double speed;
   private static boolean onTarget;
 
-    public CameraAssist()
+    public CameraAssistStrafe()
     {
         requires(limelight);
         requires(drivetrain);
+        requires(limelightservo);
 
         pid = new PIDController(kP, kI, kD, this, this);
         pid.setAbsoluteTolerance(THRESHOLD);
@@ -104,6 +106,6 @@ public class CameraAssist extends CommandBase implements PIDSource, PIDOutput
 
     @Override
     public double pidGet() { //Target to left error is negative
-        return limelight.getX();
+        return limelightservo.onCargoSideMultiplier() * limelight.getX();
 	}
 }
