@@ -45,6 +45,7 @@ import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
 import frc.robot.commands.Shooter.StopShooterArm;
 import frc.robot.commands.ZoneTwo.ToggleZoneTwoBack;
+import frc.robot.commands.LEDSwitch;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -90,6 +91,8 @@ public class OI {
 
   private final JoystickButton gotoHabitat3 = new JoystickButton(_rStick, 10);
 
+  public final JoystickButton ledSwitch = new JoystickButton(_rStick, 9);
+
 
   public OI(){
 
@@ -98,6 +101,7 @@ public class OI {
     toggleHatchHook.whenPressed(new ToggleHook());
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
+    ledSwitch.whenPressed(new LEDSwitch());;
 
     intakeBall.whenPressed(new ConditionalCommand(new IntakeBall()){
       @Override

@@ -8,29 +8,26 @@
 package frc.robot.commands;
 
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-public class GetBallIn extends CommandBase {
-  public GetBallIn() {
+public class LEDSwitch extends CommandBase {
+  public LEDSwitch() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(shooter);
     requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    if(ledStrip.getPattern() != 1) {
+      ledStrip.setPattern(ledStrip.getPattern() + .01);
+    }  else{
+      ledStrip.setPattern(-1.0);
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
-    if(shooter.isBallIn()){
-      ledStrip.setPattern(-0.11);
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -31,6 +31,10 @@ public class LEDStrip extends Subsystem {
     pwmCode = -0.39;
   }
 
+  public double getPattern(){
+    return pwmCode;
+  }
+
   public void setPattern(double value){
     pwmCode = value;
   }
@@ -44,7 +48,7 @@ public class LEDStrip extends Subsystem {
 
   public void show(){
     ledStrip.set(pwmCode);
-    if(Timer.getFPGATimestamp() - resetTimer - 4 == 0){
+    if(Timer.getFPGATimestamp() - resetTimer - 2  > 0 && Timer.getFPGATimestamp() - resetTimer - 2  < 2){
       pwmCode = -0.39;
     }
   }
