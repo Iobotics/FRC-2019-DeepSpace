@@ -15,29 +15,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CameraServo extends Subsystem {
 
-private Servo servo;
+private Servo _servo;
 
   public void init(){
-    servo = new Servo(1);
-    servo.set(1.0);
+    _servo = new Servo(1);
+    _servo.set(1.0);
   }
     
   public double getServoPosition(){
-    return servo.get();
+    return _servo.get();
   }
 
   public void turnCamera(){
-    servo.get();
-    if(servo.get() == 0.0){
-      servo.set(1.0);
-    }else if(servo.get() == 1.0){
-      servo.set(0.0);
+    _servo.get();
+    if(_servo.get() == 0.0){
+      _servo.set(1.0);
+    }else if(_servo.get() == 1.0){
+      _servo.set(0.0);
     }
     
   }
 
   public void safetyCancel(){
-    servo.set(0.0);
+    _servo.set(0.0);
   }
 
   @Override

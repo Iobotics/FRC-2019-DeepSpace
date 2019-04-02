@@ -7,44 +7,34 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.CameraAssist;
 import frc.robot.commands.EnableController;
 import frc.robot.commands.ExitHab3;
 import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.HabThree.ToggleHabThreeBack;
-import frc.robot.commands.ball.FromShipToHome;
-import frc.robot.commands.ball.PositionCargoShip;
-import frc.robot.commands.ball.PositionFirstLevel;
-import frc.robot.commands.ball.ReturnHome;
-import frc.robot.commands.hatch.CloseHook;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.GrabAndRetractHatch;
-import frc.robot.commands.hatch.GrabHatch;
-import frc.robot.commands.hatch.OpenHook;
-import frc.robot.commands.hatch.RetractHatch;
-import frc.robot.commands.hatch.ToggleHatch;
-import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
-import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.SetIntakeVelocity;
 import frc.robot.commands.Intake.StopIntakeBall;
 import frc.robot.commands.Intake.StopIntakeVelocity;
-import frc.robot.commands.Intake.StopChassisIntake;
 import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.Shooter.StopShooterArm;
+import frc.robot.commands.ball.FromShipToHome;
+import frc.robot.commands.ball.PositionCargoShip;
+import frc.robot.commands.ball.PositionFirstLevel;
+import frc.robot.commands.ball.ReturnHome;
+import frc.robot.commands.hatch.GrabAndRetractHatch;
+import frc.robot.commands.hatch.GrabHatch;
+import frc.robot.commands.hatch.ToggleHatch;
+import frc.robot.commands.hatch.ToggleHook;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -59,11 +49,10 @@ public class OI {
   private final Joystick _rStick = new Joystick(1);
   private final XboxController _controller = new XboxController(2);
 
-
   // Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
-  private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger 
-  //private final JoystickButton runIntake = new JoystickButton(_controller, 1);
+  private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger
+  // private final JoystickButton runIntake = new JoystickButton(_controller, 1);
   private final JoystickButton velocityIntake = new JoystickButton(_controller, 9);
 
   // Shooter Buttons
@@ -72,16 +61,16 @@ public class OI {
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
   private final JoystickButton grabBall = new JoystickButton(_controller, 8); // Actuates the Shooter
   private final JoystickButton holdBall = new JoystickButton(_controller, 7);
-  //private final JoystickButton shiptohome = new JoystickButton(_controller, 4);
+  // private final JoystickButton shiptohome = new JoystickButton(_controller, 4);
 
   // Hatch Buttons
-  private final JoystickButton grabHatch = new JoystickButton(_rStick, 3); // Left Center Thumb Button 
+  private final JoystickButton grabHatch = new JoystickButton(_rStick, 3); // Left Center Thumb Button
   private final JoystickButton toggleHatchHook = new JoystickButton(_rStick, 4); // Left Thumb Button
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 5); // Right Thumb Button
 
   // ZoneTheory
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_lStick, 4);
-  //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
+  // private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, CAMERABUTTON);
   private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 

@@ -20,39 +20,39 @@ import frc.robot.RobotMap;
  */
 public class HabThreeLift extends Subsystem {
   
-  private DoubleSolenoid backWheel;
+  private DoubleSolenoid _backWheel;
 
-  private Compressor compressor;
+  private Compressor _compressor;
 
   // Should be called in the robot init
   public void init() {
-    backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
-    backWheel.set(DoubleSolenoid.Value.kForward);
-    compressor = new Compressor();
-    compressor.start();
+    _backWheel = new DoubleSolenoid(RobotMap.zoneTwoBackForward, RobotMap.zoneTwoBackReverse);
+    _backWheel.set(DoubleSolenoid.Value.kForward);
+    _compressor = new Compressor();
+    _compressor.start();
   }
 
   // extends the cylinders on the back of the robot
   public void deployBackWheels(){
-    backWheel.set(DoubleSolenoid.Value.kReverse);
+    _backWheel.set(DoubleSolenoid.Value.kReverse);
   }
 
   // retracts the cylinders on the back of the robot
   public void retractBackWheels(){
-    backWheel.set(DoubleSolenoid.Value.kForward);
+    _backWheel.set(DoubleSolenoid.Value.kForward);
   }
 
   // returns whether or not the back wheel is extended
   public boolean backWheelDown(){
-    return backWheel.get() == Value.kReverse; // before forward
+    return _backWheel.get() == Value.kReverse; // before forward
   }
 
   public void disableCompressor(){
-    compressor.stop();
+    _compressor.stop();
   }
 
   public void startCompressor(){
-    compressor.start();
+    _compressor.start();
   }
 
   @Override

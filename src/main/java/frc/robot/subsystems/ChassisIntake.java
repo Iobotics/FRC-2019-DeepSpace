@@ -8,28 +8,22 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.commands.Intake.ManualOperateIntake;
-import frc.robot.commands.Intake.SetIntakeVelocity;
 
 /**
- * Chassis intake
- * Written by Darren Kohara
- * The subsystem uses talon motor sto run a horizontal intake parallel to the ground.
- * The subsystem also extends by pneumatic cyinders controlled by a single activation solenoid.
+ * Chassis intake Written by Darren Kohara The subsystem uses talon motor sto
+ * run a horizontal intake parallel to the ground. The subsystem also extends by
+ * pneumatic cyinders controlled by a single activation solenoid.
  */
 public class ChassisIntake extends PIDSubsystem {
-  
+
   /**
    *
    */

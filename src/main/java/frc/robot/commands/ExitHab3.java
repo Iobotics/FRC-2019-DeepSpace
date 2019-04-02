@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.HabThree.LevelReset;
-import frc.robot.commands.Intake.HoldIntakePosition;
 import frc.robot.commands.Intake.SetIntakePosition;
 import frc.robot.commands.Intake.StopChassisIntake;
 

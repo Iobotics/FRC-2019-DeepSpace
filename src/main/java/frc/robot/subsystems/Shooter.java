@@ -24,13 +24,13 @@ import frc.robot.commands.Shooter.ManualShooter;
  * Subsystem Handles the Shooter / Carriage
  */
 public class Shooter extends Subsystem {
-  TalonSRX leftShooter;
-  TalonSRX rightShooter;
-  TalonSRX shooterArm;
+  TalonSRX _leftShooter;
+  TalonSRX _rightShooter;
+  TalonSRX _shooterArm;
   
-  Solenoid intakeOut;
+  Solenoid _intakeOut;
 
-  DigitalInput proximitySensor;
+  DigitalInput _proximitySensor;
 
   private boolean isBallIn = false;
   private boolean isReverse = false;
@@ -51,44 +51,44 @@ public class Shooter extends Subsystem {
 
   public void init()
   {
-    leftShooter = new TalonSRX(RobotMap.leftShooter);
-    leftShooter.configFactoryDefault();
-    leftShooter.setInverted(true);
-    leftShooter.setNeutralMode(NeutralMode.Brake);
+    _leftShooter = new TalonSRX(RobotMap.leftShooter);
+    _leftShooter.configFactoryDefault();
+    _leftShooter.setInverted(true);
+    _leftShooter.setNeutralMode(NeutralMode.Brake);
 
-    rightShooter = new TalonSRX(RobotMap.rightShooter);
-    rightShooter.setInverted(false);
-    rightShooter.configFactoryDefault();
-    rightShooter.setNeutralMode(NeutralMode.Brake);
+    _rightShooter = new TalonSRX(RobotMap.rightShooter);
+    _rightShooter.setInverted(false);
+    _rightShooter.configFactoryDefault();
+    _rightShooter.setNeutralMode(NeutralMode.Brake);
 
-    shooterArm = new TalonSRX(RobotMap.shooterArm);
-    shooterArm.configFactoryDefault();
+    _shooterArm = new TalonSRX(RobotMap.shooterArm);
+    _shooterArm.configFactoryDefault();
 
-    shooterArm.enableCurrentLimit(true);
-    shooterArm.configContinuousCurrentLimit(40);
+    _shooterArm.enableCurrentLimit(true);
+    _shooterArm.configContinuousCurrentLimit(40);
 
     //Shooter Arm Requires PID to stay up 
     //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball
-    shooterArm.setInverted(true);
-    shooterArm.setNeutralMode(NeutralMode.Brake);
-    shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
-    shooterArm.configFeedbackNotContinuous(true, 20);
-    shooterArm.setSensorPhase(true);
-    shooterArm.selectProfileSlot(slotID, 0);
-    shooterArm.config_kP(slotID, kP);
-    shooterArm.config_kI(slotID, kI);
-    shooterArm.config_kD(slotID, kD);
+    _shooterArm.setInverted(true);
+    _shooterArm.setNeutralMode(NeutralMode.Brake);
+    _shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
+    _shooterArm.configFeedbackNotContinuous(true, 20);
+    _shooterArm.setSensorPhase(true);
+    _shooterArm.selectProfileSlot(slotID, 0);
+    _shooterArm.config_kP(slotID, kP);
+    _shooterArm.config_kI(slotID, kI);
+    _shooterArm.config_kD(slotID, kD);
 
-    proximitySensor = new DigitalInput(RobotMap.proximitySensor);
+    _proximitySensor = new DigitalInput(RobotMap.proximitySensor);
   }
 
   public void setShooter(double speed){
-    rightShooter.set(ControlMode.PercentOutput, speed);
-    leftShooter.set(ControlMode.PercentOutput, speed);
+    _rightShooter.set(ControlMode.PercentOutput, speed);
+    _leftShooter.set(ControlMode.PercentOutput, speed);
   }
 
   public void setShooterArm(double power){
-    shooterArm.set(ControlMode.PercentOutput, power);
+    _shooterArm.set(ControlMode.PercentOutput, power);
   }
 
   //returns the angle of the arm in radians from the horizontal
@@ -107,31 +107,31 @@ public class Shooter extends Subsystem {
     }
 
     if(isBallIn && !isReverse){
-      shooterArm.set(ControlMode.Position, position, 
-      DemandType.ArbitraryFeedForward, kFFBall * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      _shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFBall * Math.cos(getArmAngle(_shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
     else if(!isReverse) {
-      shooterArm.set(ControlMode.Position, position, 
-      DemandType.ArbitraryFeedForward, kFFEmpty * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      _shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFEmpty * Math.cos(getArmAngle(_shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
 
     if(isBallIn && isReverse){
-      shooterArm.set(ControlMode.Position, position, 
-      DemandType.ArbitraryFeedForward, kFFBallReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      _shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFBallReverse * Math.cos(getArmAngle(_shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
     else if(isReverse) {
-      shooterArm.set(ControlMode.Position, position, 
-      DemandType.ArbitraryFeedForward, kFFEmptyReverse * Math.cos(getArmAngle(shooterArm.getSelectedSensorPosition())));
+      _shooterArm.set(ControlMode.Position, position, 
+      DemandType.ArbitraryFeedForward, kFFEmptyReverse * Math.cos(getArmAngle(_shooterArm.getSelectedSensorPosition())));
       //Gives and Feed Forward based on the CoSine of the angle of the arm with the horizontal
     }
     
   }
  
   public boolean isBallIn(){
-    return !proximitySensor.get();
+    return !_proximitySensor.get();
   }
 
   public boolean getIsBallIn(){
@@ -143,11 +143,11 @@ public class Shooter extends Subsystem {
   }
 
   public void toggleSolenoid(){
-    intakeOut.set(!intakeOut.get());
+    _intakeOut.set(!_intakeOut.get());
   }
 
   public int getArm(){
-    return shooterArm.getSelectedSensorPosition();
+    return _shooterArm.getSelectedSensorPosition();
   }
 
 }
