@@ -20,10 +20,10 @@ import frc.robot.commands.EnableController;
 import frc.robot.commands.ExitHab3;
 import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
-import frc.robot.commands.Ball.FromShipToHome;
-import frc.robot.commands.Ball.PositionCargoShip;
-import frc.robot.commands.Ball.PositionFirstLevel;
-import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.ball.FromShipToHome;
+import frc.robot.commands.ball.PositionCargoShip;
+import frc.robot.commands.ball.PositionFirstLevel;
+import frc.robot.commands.ball.ReturnHome;
 import frc.robot.commands.hatch.CloseHook;
 import frc.robot.commands.hatch.ExtendHatch;
 import frc.robot.commands.hatch.GrabAndRetractHatch;
@@ -199,6 +199,8 @@ public class OI {
     
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());
+    //gotoHabitat3.toggleWhenPressed(new GoToHab3());
+
   }
 
 
@@ -263,5 +265,9 @@ public class OI {
   public boolean getAButton()
   {
     return _controller.getAButton();
+  }
+
+  public boolean getStartButton(){
+    return _controller.getRawButton(10);
   }
 }

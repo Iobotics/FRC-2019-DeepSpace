@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 public class GoToHab3 extends CommandBase {
 
@@ -18,7 +19,7 @@ public class GoToHab3 extends CommandBase {
   //private static final double radiusIntake = 16.092; // Units: Inches
   //private static final double strokeLength = 22; // Units: Inches
   //private static final double angularVelocityIntake = strokeLength / (extendTime * radiusIntake); // Units: Radians per second
-  private static final double INTAKEVELOCITY = 6; // Before 10
+  private static final double INTAKEVELOCITY = 5.5; // Before 10
   private static final double CHASSISPOWER = -1;
 
   public GoToHab3() {
@@ -61,6 +62,9 @@ public class GoToHab3 extends CommandBase {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    //chassisIntake.setArmPosition(Constants.intakeArmIntake);
+    //levelTwo.retractBackWheels();
+    //chassisIntake.setPower(0);
   }
 
   // Called when another command which requires one or more of the same

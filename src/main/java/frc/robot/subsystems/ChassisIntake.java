@@ -46,7 +46,7 @@ public class ChassisIntake extends PIDSubsystem {
   private static final double kIVelocity = 0;
   private static final double kDVelocity = 0;
   private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
-  private static final int FORWARDLIMIT = -491; // more positive is forward
+  private static final int FORWARDLIMIT = -227; // more positive is forward
   private static final int REVERSELIMIT = Constants.intakeArmHome + 2;
 
 

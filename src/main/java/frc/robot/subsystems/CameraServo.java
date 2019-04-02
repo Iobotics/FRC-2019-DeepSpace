@@ -19,7 +19,7 @@ private Servo servo;
 
   public void init(){
     servo = new Servo(1);
-    servo.set(0.0);
+    servo.set(1.0);
   }
     
   public double getServoPosition(){

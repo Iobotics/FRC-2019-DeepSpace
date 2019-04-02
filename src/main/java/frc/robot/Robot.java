@@ -66,11 +66,11 @@ public class Robot extends TimedRobot {
     //table = inst.getTable("outTable");
     //yButton = table.getEntry("yButton");
 
-    testInst = NetworkTableInstance.getDefault();
-    testInst.startClientTeam(2436);
-    testTable = testInst.getTable("testTable");
-    testButton = testTable.getEntry("testButton");
-    testNumber = testTable.getEntry("testNumber");
+    //testInst = NetworkTableInstance.getDefault();
+    //testInst.startClientTeam(2436);
+    //testTable = testInst.getTable("testTable");
+    //testButton = testTable.getEntry("testButton");
+    //testNumber = testTable.getEntry("testNumber");
 
     _compressor = new Compressor();
 
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
     logitech = CameraServer.getInstance().startAutomaticCapture(0);
     logitech.setResolution(160,120);
     fishEye = CameraServer.getInstance().startAutomaticCapture(1);
-    fishEye.setResolution(160,120);
+    //fishEye.setResolution(160,120);
   }
 
   /**
@@ -173,9 +173,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     Scheduler.getInstance().run();
-    SmartDashboard.putBoolean("HatchIsIn", CommandBase.hatchCollector.getHatchSensor());
-    SmartDashboard.putNumber("Pitch", CommandBase.navSensor.getRoll());
-    SmartDashboard.putNumber("ShooterPos", CommandBase.shooter.getArm() );
+
+    SmartDashboard.putNumber("Front Left Current", CommandBase.drivetrain.getFrontLeftCurrent());
+    SmartDashboard.putNumber("Front Right Current", CommandBase.drivetrain.getFrontRightCurrent());
+    SmartDashboard.putNumber("Back Left Current", CommandBase.drivetrain.getBackLeftCurrent());
+    SmartDashboard.putNumber("Back Right Current", CommandBase.drivetrain.getBackRightCurrent());
   
   }
 
