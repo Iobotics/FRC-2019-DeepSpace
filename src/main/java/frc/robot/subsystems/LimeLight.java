@@ -26,12 +26,14 @@ public class LimeLight extends Subsystem {
   private static NetworkTableEntry tx;
   //NetworkTableEntry tl;
   private static NetworkTableEntry ty;
+  private static NetworkTableEntry ta;
   private static NetworkTableEntry ledMode;
 
   private static boolean isDetected;
   private static double x = 0;
   private static double y = 0;
   private static double latency;
+  private static double area = 0;
   
   private static final double HEIGHTLIMELIGHT = 34.75; // Units: Inches, 
   private static final double VISIONTAPEAREA = 0;
@@ -47,6 +49,8 @@ public class LimeLight extends Subsystem {
     //tl = table.getEntry("tl");
     ty = table.getEntry("ty");
     tx = table.getEntry("tx");
+    ta = table.getEntry("ta");
+
     ledMode = table.getEntry("ledMode");
 
     inst = NetworkTableInstance.getDefault();
@@ -56,6 +60,12 @@ public class LimeLight extends Subsystem {
   public double getX()
   {
     return tx.getDouble(0.0);
+  }
+
+  public double getDistance()
+  {
+    double area = ta.getDouble(0.0);
+    return 
   }
 
   public void setLEDOn(boolean ledOn)
