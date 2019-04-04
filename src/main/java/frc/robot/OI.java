@@ -24,15 +24,15 @@ import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
-import frc.robot.commands.HabThree.ToggleHabThreeBack;
-import frc.robot.commands.hatch.CloseHook;
-import frc.robot.commands.hatch.ExtendHatch;
-import frc.robot.commands.hatch.GrabAndRetractHatch;
-import frc.robot.commands.hatch.GrabHatch;
-import frc.robot.commands.hatch.OpenHook;
-import frc.robot.commands.hatch.RetractHatch;
-import frc.robot.commands.hatch.ToggleHatch;
-import frc.robot.commands.hatch.ToggleHook;
+//import frc.robot.commands.HabThree.ToggleHabThreeBack;
+//import frc.robot.commands.hatch.CloseHook;
+//import frc.robot.commands.hatch.ExtendHatch;
+//import frc.robot.commands.hatch.GrabAndRetractHatch;
+//import frc.robot.commands.hatch.GrabHatch;
+//import frc.robot.commands.hatch.OpenHook;
+//import frc.robot.commands.hatch.RetractHatch;
+//import frc.robot.commands.hatch.ToggleHatch;
+//import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.SetIntakeVelocity;
@@ -84,7 +84,7 @@ public class OI {
   //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, CAMERABUTTON);
-  private final JoystickButton rotateCamera = new JoystickButton(_controller, 4); 
+  private final JoystickButton rotateCamera = new JoystickButton(_lStick, 5); 
 
   private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
   private final JoystickButton enableController = new JoystickButton(_lStick, 10); // TODO- Ask which button
@@ -95,10 +95,10 @@ public class OI {
   public OI(){
 
     // Hatch Commands
-    extendHatch.whenPressed(new ToggleHatch());
-    toggleHatchHook.whenPressed(new ToggleHook());
-    grabHatch.whenPressed(new GrabHatch());
-    grabHatch.whenReleased(new GrabAndRetractHatch());
+    //extendHatch.whenPressed(new ToggleHatch());
+    //toggleHatchHook.whenPressed(new ToggleHook());
+    //grabHatch.whenPressed(new GrabHatch());
+    //grabHatch.whenReleased(new GrabAndRetractHatch());
 
     intakeBall.whenPressed(new ConditionalCommand(new IntakeBall()){
       @Override
@@ -183,7 +183,7 @@ public class OI {
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
 
-    toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
+    //toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
     cameraAuto.whenPressed(new CameraAssistStrafe());
     rotateCamera.whenPressed(new RotateCamera());
