@@ -65,7 +65,7 @@ public class LimeLight extends Subsystem {
   public double getDistance()
   {
     double area = ta.getDouble(0.0);
-    return 
+    return 0;
   }
 
   public void setLEDOn(boolean ledOn)
