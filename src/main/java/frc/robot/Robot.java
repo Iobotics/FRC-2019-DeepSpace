@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.Intake.HoldIntakePosition;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,6 +48,8 @@ public class Robot extends TimedRobot {
 
   UsbCamera logitech;
   UsbCamera fishEye;
+
+  int numCam = 4;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -157,8 +158,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
-    Command startCommand = new HoldIntakePosition(Constants.intakeArmHome);
-    //startCommand.start();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

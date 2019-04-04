@@ -14,6 +14,7 @@ public class ToggleHabThreeBack extends CommandBase {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(habThree);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
@@ -21,6 +22,7 @@ public class ToggleHabThreeBack extends CommandBase {
   protected void initialize() {
     if(!habThree.backWheelDown()){
       habThree.deployBackWheels();
+      ledStrip.setPattern(-.11);
     } else {
       habThree.retractBackWheels();
     }

@@ -5,31 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch;
+package frc.robot.commands.Intake;
 
 
-import frc.robot.commands.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CommandBase; 
 
-public class CloseHook extends CommandBase {
-  public CloseHook() {
-    requires(hatchCollector);
+public class GetBallIn extends CommandBase {
+  public GetBallIn() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(shooter);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.closeHook();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
+    if(shooter.isBallIn()){
+      ledStrip.setPattern(-0.11);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

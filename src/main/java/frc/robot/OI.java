@@ -18,6 +18,18 @@ import frc.robot.commands.ExitHab3;
 import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.HabThree.ToggleHabThreeBack;
+import frc.robot.commands.Ball.FromShipToHome;
+import frc.robot.commands.Ball.PositionCargoShip;
+import frc.robot.commands.Ball.PositionFirstLevel;
+import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.Hatch.CloseHook;
+import frc.robot.commands.Hatch.ExtendHatch;
+import frc.robot.commands.Hatch.GrabAndRetractHatch;
+import frc.robot.commands.Hatch.GrabHatch;
+import frc.robot.commands.Hatch.OpenHook;
+import frc.robot.commands.Hatch.RetractHatch;
+import frc.robot.commands.Hatch.ToggleHatch;
+import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.SetIntakeVelocity;
 import frc.robot.commands.Intake.StopIntakeBall;
@@ -27,14 +39,8 @@ import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
-import frc.robot.commands.ball.FromShipToHome;
-import frc.robot.commands.ball.PositionCargoShip;
-import frc.robot.commands.ball.PositionFirstLevel;
-import frc.robot.commands.ball.ReturnHome;
-import frc.robot.commands.hatch.GrabAndRetractHatch;
-import frc.robot.commands.hatch.GrabHatch;
-import frc.robot.commands.hatch.ToggleHatch;
-import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.Shooter.StopShooterArm;
+import frc.robot.commands.LEDSwitch;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -80,6 +86,8 @@ public class OI {
 
   private final JoystickButton gotoHabitat3 = new JoystickButton(_rStick, 10);
 
+  public final JoystickButton ledSwitch = new JoystickButton(_rStick, 9);
+
 
   public OI(){
 
@@ -88,6 +96,7 @@ public class OI {
     toggleHatchHook.whenPressed(new ToggleHook());
     grabHatch.whenPressed(new GrabHatch());
     grabHatch.whenReleased(new GrabAndRetractHatch());
+    ledSwitch.whenPressed(new LEDSwitch());;
 
     intakeBall.whenPressed(new ConditionalCommand(new IntakeBall()){
       @Override

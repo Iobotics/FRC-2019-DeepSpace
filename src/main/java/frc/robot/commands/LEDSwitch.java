@@ -5,20 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch;
+package frc.robot.commands;
 
 
-import frc.robot.commands.CommandBase;
-
-public class CloseHook extends CommandBase {
-  public CloseHook() {
-    requires(hatchCollector);
+public class LEDSwitch extends CommandBase {
+  public LEDSwitch() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(ledStrip);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.closeHook();
+    if(ledStrip.getPattern() != 1) {
+      ledStrip.setPattern(ledStrip.getPattern() + .01);
+    }  else{
+      ledStrip.setPattern(-1.0);
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -29,7 +33,7 @@ public class CloseHook extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
