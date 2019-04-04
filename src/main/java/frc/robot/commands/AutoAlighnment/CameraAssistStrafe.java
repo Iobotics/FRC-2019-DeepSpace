@@ -14,7 +14,7 @@ import jdk.jfr.Threshold;
 public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOutput
 {
   private static double x;
-  //DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
+  // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
   private static final double kP = 0.05;
   private static final double kI = 0.0;
   private static final double kD = 0.0;
@@ -43,6 +43,11 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void initialize()
     {   
+        x = limelight.getX();
+        if(Math.abs(x) <= THRESHOLD)
+        {
+            this.end();
+        }
         pid.reset();
         pid.setSetpoint(0);
         pid.enable();
@@ -53,7 +58,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     protected void execute()
     {
         x = limelight.getX();
-        if(x >= -THRESHOLD && x <= THRESHOLD)
+        if(Math.abs(x) <= THRESHOLD)
         {
             onTarget = true;
         }
@@ -71,7 +76,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
 
 
     //@Override
-    protected boolean isFinished() { //If this is true it will stop, false keep going
+    protected boolean isFinished() { // If this is true it will stop, false keep going
         return !oi.getCameraButton();
     }
 
@@ -91,7 +96,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
 
     //@Override
     public void pidWrite(double pidSpeed) {
-        drivetrain.setMecanum(pidSpeed, 0, 0); //Go Left negative, right is positive
+        drivetrain.setMecanum(pidSpeed, 0, 0); // Go Left negative, right is positive
     }
 
     @Override
@@ -107,5 +112,5 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     @Override
     public double pidGet() { //Target to left error is negative
         return limelightservo.onCargoSideMultiplier() * limelight.getX();
-	}
+    }
 }

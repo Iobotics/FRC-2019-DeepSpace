@@ -44,4 +44,8 @@ public class Constants {
 
   public static final int intakeArmOut = -265;
 
+  public static final double distanceThreshold = 0;
+  public static final double rotateThreshold = 0;
+  public static final double strafeThreshold = 0;
+
 }
