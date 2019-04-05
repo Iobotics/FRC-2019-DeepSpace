@@ -44,7 +44,7 @@ public abstract class CommandBase extends Command {
     limelight.init();
     rotater.init();
     chassisIntake.init();
-    //limelightservo.init();
+    limelightservo.init();
     
     oi = new OI();
   }

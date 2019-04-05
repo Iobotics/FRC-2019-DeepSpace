@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.GetBallIn;
 import frc.robot.commands.LimelightAutoTurn;
+import frc.robot.commands.RotateCamera;
 /**
  * Add your docs here.
  */
@@ -22,7 +23,7 @@ public class CameraServo extends Subsystem {
 
   public void init()
   {
-    servo = new Servo(2); //Get actual channel
+    servo = new Servo(1); //Get actual channel
     servo.set(0);
   }
 
@@ -56,14 +57,12 @@ public class CameraServo extends Subsystem {
     {
       return 1;
     }
-    return -1;
+      return -1;
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new LimelightAutoTurn());
+    //setDefaultCommand(new RotateCamera());
     
   }
 }

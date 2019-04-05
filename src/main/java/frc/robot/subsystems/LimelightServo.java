@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.LimelightAutoTurn;
 
 /**
  * Add your docs here.
@@ -29,7 +30,7 @@ public class LimelightServo extends Subsystem {
     return servo.get();
   }
 
-  public void turnLimelight(){
+  public void turnLimelight(){ //at 0 the servo faces the cargo, at 1 the servo faces the hatches
     if(servo.get() == 0.0){
       servo.set(1.0);
     }else if(servo.get() == 1.0){
@@ -37,8 +38,17 @@ public class LimelightServo extends Subsystem {
     }
   }
 
-  public void safetyCancel(){
+  public void setCameraCargo(){
     servo.set(0.0);
+  }
+
+  public void setCameraHatch(){
+    servo.set(1.0);
+  }
+
+
+  public void safetyCancel(){
+    servo.set(servo.get());
   }
 
   public double onCargoSideMultiplier()
@@ -47,13 +57,13 @@ public class LimelightServo extends Subsystem {
     {
       return 1;
     }
-    return -1;
+      return -1;
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    
+    setDefaultCommand(new LimelightAutoTurn());
   }
 }

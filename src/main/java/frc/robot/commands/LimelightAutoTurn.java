@@ -24,9 +24,9 @@ public class LimelightAutoTurn extends CommandBase {
   @Override
   protected void execute() {
     if(shooter.getIsBallIn()==true){
-      rotater.setCameraCargo();
+      limelightservo.setCameraCargo();
     }else{
-      rotater.setCameraHatch();
+      limelightservo.setCameraHatch();
     }
   }
 
