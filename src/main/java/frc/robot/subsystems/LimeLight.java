@@ -31,6 +31,11 @@ public class LimeLight extends Subsystem {
   private static NetworkTableEntry ta0;
   private static NetworkTableEntry ta1;
   private static NetworkTableEntry ta2;
+  private static NetworkTableEntry tx0;
+  private static NetworkTableEntry tx1;
+  private static NetworkTableEntry tx2;
+  private static NetworkTableEntry thor;
+  private static NetworkTableEntry tvert;
   private static NetworkTableEntry ledMode;
 
   private static boolean isDetected;
@@ -41,6 +46,10 @@ public class LimeLight extends Subsystem {
   private static double area0 = 0;
   private static double area1 = 0;
   private static double area2 = 0;
+  private static double x0 = 0;
+  private static double x1 = 0;
+  private static double x2 = 0;
+  private static double aspectRatio = 0;
 
   private static Servo servo;
 
@@ -57,11 +66,17 @@ public class LimeLight extends Subsystem {
     ta0 = table.getEntry("ta0");
     ta1 = table.getEntry("ta1");
     ta2 = table.getEntry("ta2");
+    tx0 = table.getEntry("tx0");
+    tx1 = table.getEntry("tx1");
+    tx2 = table.getEntry("tx2");
+    thor = table.getEntry("thor");
+    tvert = table.getEntry("tvert");
 
     ledMode = table.getEntry("ledMode");
 
     inst = NetworkTableInstance.getDefault();
-    setLEDOn(false);
+    //setLEDOn(false);
+    setLEDOn(true);
   }
 
   public double getX()
@@ -69,12 +84,9 @@ public class LimeLight extends Subsystem {
     return tx.getDouble(0.0);
   }
 
-  public double getAreaDifference()
+  public double getWidthHeightRatio() // Parallel 2.44
   {
-    area0 = ta0.getDouble(0.0);
-    area1 = ta1.getDouble(0.0);
-    area2 = ta2.getDouble(0.0);
-    return 0;
+    return thor.getDouble(0.0)/tvert.getDouble(0.0);
   }
 
   public double getDistance()
@@ -105,6 +117,9 @@ public class LimeLight extends Subsystem {
     area0 = ta0.getDouble(0.0);
     area1 = ta1.getDouble(0.0);
     area2 = ta2.getDouble(0.0);
+    x0 = tx0.getDouble(0.0);
+    x1 = tx1.getDouble(0.0);
+    x2 = tx2.getDouble(0.0);
 
     //SmartDashboard.putNumber("x", x);
     //SmartDashboard.putNumber("latency", latency);
@@ -112,6 +127,11 @@ public class LimeLight extends Subsystem {
     SmartDashboard.putNumber("area0", area0);
     SmartDashboard.putNumber("area1", area1);
     SmartDashboard.putNumber("area2", area2);
+    SmartDashboard.putNumber("tx0", x0);
+    SmartDashboard.putNumber("tx1", x1);
+    SmartDashboard.putNumber("tx2", x2);
+    SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
+    SmartDashboard.putNumber("distance", this.getDistance());
   }
 
   @Override
