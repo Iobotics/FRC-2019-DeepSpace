@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.GetBallIn;
+import frc.robot.commands.LimelightAutoTurn;
 /**
  * Add your docs here.
  */
@@ -62,6 +63,7 @@ public class CameraServo extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new LimelightAutoTurn());
     
   }
 }
