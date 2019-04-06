@@ -45,8 +45,8 @@ public class Drivetrain extends Subsystem {
   private static double _kIZoneDrive = 0;
   private static double _kDDrive = 0;
   private static double _kFFDrive = 0.000156;
-  private static double _kForwardRR = 1;
-  private static double _kStrafeRR = 1;
+  private static double _kForwardRR = 0;
+  private static double _kStrafeRR = 0.5;
   private static double _kIsMoreStrafe = .5;
 
 
@@ -62,24 +62,24 @@ public class Drivetrain extends Subsystem {
   public void init(){
 
     _frontLeftMain = new CANSparkMax(RobotMap.frontLeftMain, MotorType.kBrushless);
-    _frontLeftMain.setInverted(true);
+    _frontLeftMain.setInverted(false);
     
-    _frontLeftMain.setSmartCurrentLimit(100);
+    _frontLeftMain.setSecondaryCurrentLimit(40);
 
     _frontRightMain =  new CANSparkMax(RobotMap.frontRightMain, MotorType.kBrushless);
-    _frontRightMain.setInverted(true);
+    _frontRightMain.setInverted(false);
     
-    _frontRightMain.setSmartCurrentLimit(100);
+    _frontRightMain.setSecondaryCurrentLimit(40);
 
     _backLeftMain = new CANSparkMax(RobotMap.backLeftMain, MotorType.kBrushless);
-    _backLeftMain.setInverted(true);
+    _backLeftMain.setInverted(false);
     
-    _backLeftMain.setSmartCurrentLimit(100);
+    _backLeftMain.setSecondaryCurrentLimit(40);
     
     _backRightMain = new CANSparkMax(RobotMap.backRightMain, MotorType.kBrushless);
-    _backRightMain.setInverted(true);
+    _backRightMain.setInverted(false);
    
-    _backRightMain.setSmartCurrentLimit(100);
+    _backRightMain.setSecondaryCurrentLimit(40);
 
     _drive = new MecanumDrive(
       _frontLeftMain, 
