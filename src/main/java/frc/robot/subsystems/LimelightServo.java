@@ -23,7 +23,7 @@ public class LimelightServo extends Subsystem {
   public void init()
   {
     servo = new Servo(2); //Get actual channel
-    servo.set(0);
+    servo.set(0.0);
   }
 
   public double getServoPosition(){
@@ -51,19 +51,26 @@ public class LimelightServo extends Subsystem {
     servo.set(servo.get());
   }
 
-  public double onCargoSideMultiplier()
+  public boolean isOnCargoSide()
+  {
+    if(servo.get() == 0.0)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public double onCargoSideMultiplier() 
   {
     if(servo.get() == 0.0)
     {
       return 1;
     }
-      return -1;
+    return -1;
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new LimelightAutoTurn());
+    //setDefaultCommand(new LimelightAutoTurn());
   }
 }

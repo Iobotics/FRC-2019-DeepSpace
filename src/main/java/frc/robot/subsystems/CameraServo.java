@@ -32,7 +32,7 @@ public class CameraServo extends Subsystem {
   }
 
   public void turnCamera(){
-    if(servo.get() == 0.0){ //when servo is at position 0, facing the cargo, if it is 1 its facing hatch.  
+    if(servo.get() == 0.0){  
       servo.set(1.0);
     }else if(servo.get() == 1.0){
       servo.set(0.0);
@@ -49,15 +49,6 @@ public class CameraServo extends Subsystem {
 
   public void safetyCancel(){
     servo.set(servo.get());
-  }
-
-  public double onCargoSideMultiplier()
-  {
-    if(servo.get() == 0.0)
-    {
-      return 1;
-    }
-      return -1;
   }
 
   @Override

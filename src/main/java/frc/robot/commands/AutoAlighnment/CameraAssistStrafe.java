@@ -19,11 +19,12 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
   private static double startTime;
   private static double x;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.05;
+  private static final double kP = 0.04; //Before .05
   private static final double kI = 0.0;
   private static final double kD = 0.0;
 
   private static  final double THRESHOLD = .5; //degrees
+  private static final double SETPOINT = 0;
   private static final double MAXSPEED = 1.0;
   private static final double ENDTIME = 2.0; // seconds
 
@@ -48,13 +49,12 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void initialize()
     {   
-        x = limelight.getX();
-        if(Math.abs(x) <= THRESHOLD)
+        /*if(Math.abs(x) <= THRESHOLD)
         {
             this.end();
-        }
+        }*/
         pid.reset();
-        pid.setSetpoint(0);
+        pid.setSetpoint(SETPOINT);
         pid.enable();
         limelight.setLEDOn(true);
     }
@@ -62,11 +62,13 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void execute()
     {
+        x = limelight.getX();
+
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
         //SmartDashboard.putNumber("speed", speed);
-        //SmartDashboard.putNumber("x", x);
-        //SmartDashboard.putNumber("error", pid.getError());
-        //SmartDashboard.putBoolean("onTarget", pid.onTarget());
+        SmartDashboard.putNumber("x", x);
+        SmartDashboard.putNumber("error", pid.getError());
+        SmartDashboard.putBoolean("onTarget", pid.onTarget());
     }
 
 
@@ -112,7 +114,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
 
     //@Override
     public void pidWrite(double pidSpeed) {
-        drivetrain.setMecanum(pidSpeed, 0, 0); // Go Left negative, right is positive
+        drivetrain.setMecanum(pidSpeed * limelightservo.onCargoSideMultiplier(), 0, 0); // Go Left negative, right is positive
     }
 
     @Override
@@ -127,6 +129,6 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
 
     @Override
     public double pidGet() { //Target to left error is negative
-        return limelightservo.onCargoSideMultiplier() * limelight.getX();
+        return limelight.getX();
     }
 }

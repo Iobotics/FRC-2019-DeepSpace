@@ -50,6 +50,7 @@ public class LimeLight extends Subsystem {
   private static double x1 = 0;
   private static double x2 = 0;
   private static double aspectRatio = 0;
+  private static double last = 0;
 
   private static Servo servo;
 
@@ -112,8 +113,8 @@ public class LimeLight extends Subsystem {
   {
     //isDetected = tv.getDouble(0.0);
     //latency = tl.getDouble(0.0);
-    //y = ty.getDouble(0.0);
-    //x = getX();
+    y = ty.getDouble(0.0);
+    x = getX();
     area0 = ta0.getDouble(0.0);
     area1 = ta1.getDouble(0.0);
     area2 = ta2.getDouble(0.0);
@@ -121,21 +122,24 @@ public class LimeLight extends Subsystem {
     x1 = tx1.getDouble(0.0);
     x2 = tx2.getDouble(0.0);
 
-    //SmartDashboard.putNumber("x", x);
+    SmartDashboard.putNumber("x", x);
     //SmartDashboard.putNumber("latency", latency);
-    //SmartDashboard.putNumber("y", y);
+    SmartDashboard.putNumber("y", y);
     SmartDashboard.putNumber("area0", area0);
     SmartDashboard.putNumber("area1", area1);
     SmartDashboard.putNumber("area2", area2);
     SmartDashboard.putNumber("tx0", x0);
     SmartDashboard.putNumber("tx1", x1);
     SmartDashboard.putNumber("tx2", x2);
-    SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
+    //System.out.println(this.getWidthHeightRatio() - last);
+    //SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
+    //last = this.getWidthHeightRatio();
+    
     SmartDashboard.putNumber("distance", this.getDistance());
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LimelightDebug());
+    //setDefaultCommand(new LimelightDebug());
   }
 }

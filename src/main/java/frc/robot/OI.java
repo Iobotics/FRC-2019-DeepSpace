@@ -19,6 +19,8 @@ import frc.robot.commands.EnableController;
 import frc.robot.commands.ExitHab3;
 import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
+import frc.robot.commands.RotateLimelight;
+import frc.robot.commands.AutoAlighnment.CameraAssistDistance;
 import frc.robot.commands.AutoAlighnment.CameraAssistStrafe;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
@@ -85,6 +87,7 @@ public class OI {
 
   private final JoystickButton cameraAuto = new JoystickButton(_lStick, CAMERABUTTON);
   private final JoystickButton rotateCamera = new JoystickButton(_lStick, 5); 
+  private final JoystickButton rotateLimelight = new JoystickButton(_lStick, 9);
 
   private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
   private final JoystickButton enableController = new JoystickButton(_lStick, 10); // TODO- Ask which button
@@ -185,7 +188,7 @@ public class OI {
 
     //toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
-    cameraAuto.whenPressed(new CameraAssistStrafe());
+    cameraAuto.whenPressed(new CameraAssistDistance());
     rotateCamera.whenPressed(new RotateCamera());
 
     shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
@@ -200,6 +203,8 @@ public class OI {
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());
     //gotoHabitat3.toggleWhenPressed(new GoToHab3());
+
+    rotateLimelight.whenPressed(new RotateLimelight());
 
   }
 
