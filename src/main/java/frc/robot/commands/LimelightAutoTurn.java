@@ -5,32 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands;
 
-import frc.robot.commands.CommandBase;
-
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
-    requires(ledStrip);
+public class LimelightAutoTurn extends CommandBase {
+  public LimelightAutoTurn() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(rotater);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
-    ledStrip.setPattern(-.07, true);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if(shooter.getIsBallIn()==true){
+      limelightservo.setCameraCargo();
+    }else{
+      limelightservo.setCameraHatch();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

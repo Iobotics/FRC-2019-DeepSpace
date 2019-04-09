@@ -5,16 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.AutoAlighnment;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class GrabAndRetractHatch extends CommandGroup {
+public class CameraAssist extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public GrabAndRetractHatch() {
-    addSequential(new CloseHook());
-    addSequential(new RetractHatch());
+  public CameraAssist() {
+    addSequential(new CameraAssistRotate());
+    addSequential(new CameraAssistStrafe());
+    addSequential(new CameraAssistDistance());
   }
 }

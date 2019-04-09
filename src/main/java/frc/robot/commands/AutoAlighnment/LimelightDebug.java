@@ -5,32 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.hatch;
+package frc.robot.commands.AutoAlighnment;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class ToggleHook extends CommandBase {
-  public ToggleHook() {
-    requires(hatchCollector);
-    requires(ledStrip);
+public class LimelightDebug extends CommandBase {
+
+  public LimelightDebug() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(limelight);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    hatchCollector.toggleHook();
-    ledStrip.setPattern(-.07, true);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    //limelight.debug();
+    limelight.setLEDOn(true);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -42,5 +45,6 @@ public class ToggleHook extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

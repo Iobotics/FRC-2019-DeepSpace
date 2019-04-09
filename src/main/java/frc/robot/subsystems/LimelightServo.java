@@ -9,13 +9,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
-//import frc.robot.commands.GetBallIn;
 import frc.robot.commands.LimelightAutoTurn;
-import frc.robot.commands.RotateCamera;
+
 /**
  * Add your docs here.
  */
-public class CameraServo extends Subsystem {
+public class LimelightServo extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -23,16 +22,16 @@ public class CameraServo extends Subsystem {
 
   public void init()
   {
-    servo = new Servo(1); //Get actual channel
-    servo.set(0);
+    servo = new Servo(2); //Get actual channel
+    servo.set(0.0);
   }
 
   public double getServoPosition(){
-    return servo.get();
+    return servo.getAngle();
   }
 
-  public void turnCamera(){
-    if(servo.get() == 0.0){  
+  public void turnLimelight(){ //at 0 the servo faces the cargo, at 1 the servo faces the hatches
+    if(servo.get() == 0.0){
       servo.set(1.0);
     }else if(servo.get() == 1.0){
       servo.set(0.0);
@@ -47,13 +46,31 @@ public class CameraServo extends Subsystem {
     servo.set(1.0);
   }
 
+
   public void safetyCancel(){
     servo.set(servo.get());
   }
 
+  public boolean isOnCargoSide()
+  {
+    if(servo.get() == 0.0)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public double onCargoSideMultiplier() 
+  {
+    if(servo.get() == 0.0)
+    {
+      return 1;
+    }
+    return -1;
+  }
+
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new RotateCamera());
-    
+    //setDefaultCommand(new LimelightAutoTurn());
   }
 }
