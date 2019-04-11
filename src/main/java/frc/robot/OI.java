@@ -207,7 +207,7 @@ public class OI {
 
     enableController.whenPressed(new EnableController(!controllerEnabled));
 
-    testAutoTurn.whenPressed(new AutoTurn(90));
+    testAutoTurn.whenPressed(new TurnToTarget());
     
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());

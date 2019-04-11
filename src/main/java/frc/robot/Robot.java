@@ -173,7 +173,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("NavXAngle", CommandBase.navSensor.getAngle());
+    SmartDashboard.putNumber("NavXAngle", CommandBase.navSensor.getAngle() % 180);
   
   }
 

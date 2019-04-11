@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
   private static double _kIsMoreStrafe = .5;
 
 
-  private double _kPTurn = 0.005;
+  private double _kPTurn = 0.03;
   private double _kITurn = 0;
   private double _kDTurn = 0;
 

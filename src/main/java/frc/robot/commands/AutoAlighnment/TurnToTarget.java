@@ -7,12 +7,16 @@
 
 package frc.robot.commands.AutoAlighnment;
 
+import javax.management.RuntimeErrorException;
+
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
-public class TurnToTarget extends CommandBase implements PIDOutput {
+public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   private PIDController _pid;
 
@@ -29,7 +33,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput {
     requires(drivetrain);
     requires(navSensor);
     requires(limelight);
-    _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn(), navSensor.getSensor(), this); 
+    _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn(), this, this); 
     _pid.setInputRange(-180, 180);
     _pid.setOutputRange(-0.5, 0.5);
     _pid.setContinuous();
@@ -86,7 +90,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput {
     {
      _target = 180;
     }  
-    
+    _pid.reset();
     _pid.setSetpoint(_target);
     _pid.enable();
   }
@@ -130,6 +134,21 @@ public class TurnToTarget extends CommandBase implements PIDOutput {
 
   @Override
   public void pidWrite(double output) {
-    drivetrain.setTank(-output, -output);
+    drivetrain.setMecanum(0,0, output);
   }
+
+  @Override
+  public void setPIDSourceType(PIDSourceType pidSource) {
+    throw new RuntimeException("Not Implemented");
+  }
+
+  @Override
+  public PIDSourceType getPIDSourceType() {
+    return PIDSourceType.kDisplacement;
+  }
+
+  @Override
+  public double pidGet() {
+    return navSensor.getAngle() % 180;
+}
 }
