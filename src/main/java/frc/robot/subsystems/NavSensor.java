@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.ResetGyro;
@@ -26,6 +27,10 @@ public class NavSensor extends Subsystem {
 
   public double getAngle(){
     return _navSensor.getAngle();
+  }
+
+  public PIDSourceType getPidSourceType(){
+    return _navSensor.getPIDSourceType();
   }
 
   public double getRoll(){

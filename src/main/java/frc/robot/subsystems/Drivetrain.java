@@ -266,15 +266,15 @@ public class Drivetrain extends Subsystem {
     _kIZoneDrive = Izone;
   }
 
-  public double get_kPTurn() {
+  public double getkPTurn() {
     return _kPTurn;
   }
 
-  public double get_kITurn() {
+  public double getkITurn() {
     return _kITurn;
   }
 
-  public double get_kDTurn() {
+  public double getkDTurn() {
     return _kDTurn;
   }
 

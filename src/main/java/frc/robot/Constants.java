@@ -44,6 +44,9 @@ public class Constants {
 
   public static final int intakeArmOut = -265;
 
+  public static final int intakeArmForwardLimit =  -227; // more positive is forward
+  public static final int intakeArmReverseLimit =  Constants.intakeArmHome + 2;
+
   public static final double distanceThreshold = 0;
   public static final double rotateThreshold = 0;
   public static final double strafeThreshold = 0;

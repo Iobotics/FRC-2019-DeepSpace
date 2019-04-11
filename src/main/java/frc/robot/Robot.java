@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
+import frc.robot.subsystems.NavSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -172,10 +173,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("Front Left Current", CommandBase.drivetrain.getFrontLeftCurrent());
-    SmartDashboard.putNumber("Front Right Current", CommandBase.drivetrain.getFrontRightCurrent());
-    SmartDashboard.putNumber("Back Left Current", CommandBase.drivetrain.getBackLeftCurrent());
-    SmartDashboard.putNumber("Back Right Current", CommandBase.drivetrain.getBackRightCurrent());
+    SmartDashboard.putNumber("NavXAngle", CommandBase.navSensor.getAngle());
   
   }
 

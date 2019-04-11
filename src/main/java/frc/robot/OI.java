@@ -25,10 +25,12 @@ import frc.robot.commands.AutoAlighnment.CameraAssistCenter;
 import frc.robot.commands.AutoAlighnment.CameraAssistDistance;
 import frc.robot.commands.AutoAlighnment.CameraAssistRotate;
 import frc.robot.commands.AutoAlighnment.CameraAssistStrafe;
+import frc.robot.commands.AutoAlighnment.TurnToTarget;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.Drivetrain.AutoTurn;
 //import frc.robot.commands.HabThree.ToggleHabThreeBack;
 //import frc.robot.commands.hatch.CloseHook;
 //import frc.robot.commands.hatch.ExtendHatch;
@@ -99,6 +101,7 @@ public class OI {
 
   public final JoystickButton ledSwitch = new JoystickButton(_rStick, 9);
 
+  public final JoystickButton testAutoTurn = new JoystickButton(_rStick, 11);
 
   public OI(){
 
@@ -204,6 +207,7 @@ public class OI {
 
     enableController.whenPressed(new EnableController(!controllerEnabled));
 
+    testAutoTurn.whenPressed(new AutoTurn(90));
     
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());

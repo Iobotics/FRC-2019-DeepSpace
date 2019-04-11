@@ -5,36 +5,89 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Drivetrain;
+package frc.robot.commands.AutoAlighnment;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.CommandBase;
 
-public class AutoTurn extends CommandBase implements PIDOutput {
+public class TurnToTarget extends CommandBase implements PIDOutput {
 
   private PIDController _pid;
 
-  private double _degrees;
+  private double _target;
 
   private double _onTargetTime = Double.MAX_VALUE;
   private boolean _onTarget = false;
 
-  public AutoTurn(double _degrees) {
+  //Target Angles for Targets
+
+
+
+  public TurnToTarget() {
     requires(drivetrain);
     requires(navSensor);
-    _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn() , navSensor.getSensor(), this);
+    requires(limelight);
+    _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn(), navSensor.getSensor(), this); 
     _pid.setInputRange(-180, 180);
     _pid.setOutputRange(-0.5, 0.5);
     _pid.setContinuous();
     _pid.setAbsoluteTolerance(5);
-    this._degrees = _degrees;
   }
 
   @Override
   protected void initialize() {
-    _pid.setSetpoint(_degrees);
+
+    if( (90 - 45) < navSensor.getAngle()
+     && navSensor.getAngle() < (90 + 45) /*&& limelight.isRocket*/)
+    {
+      _target = 90;
+    }
+
+    else if( (-90 - 45) < navSensor.getAngle()
+     && navSensor.getAngle() < (-90 + 45) /*limelight.isRocket*/)
+    {
+      _target = -90;
+    }
+
+    else if( (30 - 15) < navSensor.getAngle()
+     && navSensor.getAngle() < (30 + 15) )
+    {
+      _target = 30;
+    }
+
+    else if( (-30 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (-30 + 15) )
+    {
+     _target = -30;
+    }  
+
+    else if( (0 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (0 + 15) )
+    {
+     _target = 0;
+    }
+
+    else if( (150 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (150 + 15) )
+    {
+     _target = 150;
+    }  
+
+    else if( (-150 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (-150 + 15) )
+    {
+     _target = -150;
+    }  
+
+    else if( (-165) < navSensor.getAngle()
+    && navSensor.getAngle() < (165) )
+    {
+     _target = 180;
+    }  
+    
+    _pid.setSetpoint(_target);
     _pid.enable();
   }
 

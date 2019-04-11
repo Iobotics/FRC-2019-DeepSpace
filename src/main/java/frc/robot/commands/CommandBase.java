@@ -37,8 +37,8 @@ public abstract class CommandBase extends Command {
   public static LimelightServo limelightservo = new LimelightServo();
 
   public static void init() {
-    hatchCollector.init();
     navSensor.init();
+    hatchCollector.init();
     drivetrain.init();
     //lift.init();
     ledStrip.init();
