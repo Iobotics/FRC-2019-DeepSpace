@@ -23,11 +23,12 @@ public class LimeLight extends Subsystem {
 
   private static NetworkTable table; 
   private static NetworkTableInstance inst;
-  //NetworkTableEntry tv;
+  private static NetworkTableEntry tv;
   private static NetworkTableEntry tx;
   //NetworkTableEntry tl;
   private static NetworkTableEntry ty;
   private static NetworkTableEntry ta;
+  private static NetworkTableEntry ts;
   private static NetworkTableEntry ta0;
   private static NetworkTableEntry ta1;
   private static NetworkTableEntry ta2;
@@ -43,6 +44,7 @@ public class LimeLight extends Subsystem {
   private static double y = 0;
   private static double latency;
   private static double area = 0;
+  private static double skew = 0;
   private static double area0 = 0;
   private static double area1 = 0;
   private static double area2 = 0;
@@ -52,15 +54,16 @@ public class LimeLight extends Subsystem {
   private static double aspectRatio = 0;
   private static double last = 0;
 
-  private static Servo servo;
+  private static final double VERTICALTHRESHOLD = 2; // degrees
 
 
   public void init()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
         
-    //tv = table.getEntry("tv");
+    tv = table.getEntry("tv");
     //tl = table.getEntry("tl");
+    ts = table.getEntry("ts");
     ty = table.getEntry("ty");
     tx = table.getEntry("tx");
     ta = table.getEntry("ta");
@@ -77,12 +80,40 @@ public class LimeLight extends Subsystem {
 
     inst = NetworkTableInstance.getDefault();
 
-    setLEDOn(false);
+    //setLEDOn(false);
+  }
+
+  public boolean isTargetDetected()
+  {
+    if(tv.getDouble(0.0) == 1)
+    {
+      return true;
+    }
+    return false;
   }
 
   public double getX()
   {
     return tx.getDouble(0.0);
+  }
+
+  public double getY()
+  {
+    return ty.getDouble(0.0);
+  }
+
+  public boolean isRocketShip()
+  {
+    if(Math.abs(getY()) < VERTICALTHRESHOLD)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public double getSkew()
+  {
+    return ts.getDouble(0.0);
   }
 
   public double getWidthHeightRatio() // Parallel 2.44
@@ -109,11 +140,16 @@ public class LimeLight extends Subsystem {
     }
   }
 
+  public void setLEDDefault()
+  {
+    ledMode.setNumber(0);
+  }
+
   public void debug()
   {
     //isDetected = tv.getDouble(0.0);
     //latency = tl.getDouble(0.0);
-    y = ty.getDouble(0.0);
+    /*y = ty.getDouble(0.0);
     x = getX();
     area0 = ta0.getDouble(0.0);
     area1 = ta1.getDouble(0.0);
@@ -122,20 +158,21 @@ public class LimeLight extends Subsystem {
     x1 = tx1.getDouble(0.0);
     x2 = tx2.getDouble(0.0);
 
-    SmartDashboard.putNumber("x", x);
+    //SmartDashboard.putNumber("x", x);
     //SmartDashboard.putNumber("latency", latency);
-    SmartDashboard.putNumber("y", y);
+    /*SmartDashboard.putNumber("y", y);
     SmartDashboard.putNumber("area0", area0);
     SmartDashboard.putNumber("area1", area1);
     SmartDashboard.putNumber("area2", area2);
     SmartDashboard.putNumber("tx0", x0);
     SmartDashboard.putNumber("tx1", x1);
-    SmartDashboard.putNumber("tx2", x2);
+    SmartDashboard.putNumber("tx2", x2);*/
     //System.out.println(this.getWidthHeightRatio() - last);
     //SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
     //last = this.getWidthHeightRatio();
     
-    SmartDashboard.putNumber("distance", this.getDistance());
+    //SmartDashboard.putNumber("distance", this.getDistance());
+    SmartDashboard.putBoolean("onRocketCargo", this.isRocketShip());
   }
 
   @Override

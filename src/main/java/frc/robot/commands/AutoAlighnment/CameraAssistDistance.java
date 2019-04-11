@@ -14,9 +14,6 @@ import jdk.jfr.Threshold;
 
 public class CameraAssistDistance extends CommandBase implements PIDSource, PIDOutput
 {
-    private static boolean can = true;
-    private static double time;
-  private static double startTime;
   private static double distance;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
   private static final double kP = 0.010;
@@ -24,15 +21,11 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
   private static final double kD = 0.0;
 
   private static  final double THRESHOLD = 3; // 4 inches
-  private static final double SETPOINT = 33.25;
+  private static  double setpoint;
   private static final double MAXSPEED = 1.0;
-  private static final double ENDTIME = 2.0; // seconds
 
-
-  //private static String xDirection;
   private static PIDController pid;
   //private static double speed;
-  private static Timer timer; // time in seconds
 
     public CameraAssistDistance()
     {
@@ -49,20 +42,29 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     //@Override
     protected void initialize()
     {   
-        /*distance = limelight.getDistance();
-        if(Math.abs(distance - SETPOINT) <= THRESHOLD || limelightservo.isOnCargoSide())
+        limelight.setLEDOn(true);
+        distance = limelight.getDistance();
+        if(limelightservo.isOnCargoSide())
+        {
+            setpoint = 33.25;
+        }
+        else
+        {
+            setpoint = 0;
+        }
+        if(Math.abs(distance - setpoint) <= THRESHOLD)
         {
             this.end();
-        }*/
+        }
         pid.reset();
-        pid.setSetpoint(SETPOINT);
+        pid.setSetpoint(setpoint);
         pid.enable();
-        limelight.setLEDOn(true);
     }
 
     //@Override
     protected void execute()
     {
+        limelight.setLEDOn(true);
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
         //SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("error", pid.getError());
@@ -73,30 +75,12 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
 
     //@Override
     protected boolean isFinished() { //If this is true it will stop, false keep going
-        //return !oi.getCameraButton();
-        /*if(pid.onTarget() && can)
+        if(limelightservo.isOnCargoSide())
         {
-            can = false;
-            timer.start();
-            startTime = timer.get();
+            return (pid.onTarget() && limelight.isTargetDetected()) || !oi.getCameraButton();
         }
-        if(pid.onTarget() && !can)
-        {
-            if(timer.get() - startTime > ENDTIME)
-            {
-                timer.stop();
-                return true;
-            }
-        }
-        else if(!pid.onTarget() && !can)
-        {
-            can = true;
-            timer.stop();
-        }
-        return false;*/
-        return pid.onTarget() || !oi.getCameraButton();
+        return !limelight.isTargetDetected() || !oi.getCameraButton();
     }
-
     //@Override
     protected void end()
     {
@@ -113,7 +97,7 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
 
     //@Override
     public void pidWrite(double pidSpeed) {
-        drivetrain.setMecanum(0, -1 * pidSpeed, 0); //Go Left negative, right is positive
+        drivetrain.setMecanum(0, -1 * pidSpeed *limelightservo.onCargoSideMultiplier(), 0); //Go Left negative, right is positive
     }
 
     @Override

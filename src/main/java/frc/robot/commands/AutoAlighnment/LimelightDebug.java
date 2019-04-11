@@ -27,6 +27,7 @@ public class LimelightDebug extends CommandBase {
   @Override
   protected void execute() {
     //limelight.debug();
+    //limelight.setLEDDefault();
     limelight.setLEDOn(true);
   }
 

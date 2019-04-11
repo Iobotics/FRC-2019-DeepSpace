@@ -21,11 +21,10 @@ import frc.robot.commands.GoToHab3;
 import frc.robot.commands.RotateCamera;
 import frc.robot.commands.HabThree.ToggleHabThreeBack;
 import frc.robot.commands.RotateLimelight;
-import frc.robot.commands.AutoAlighnment.CameraAssistCenter;
+import frc.robot.commands.AutoAlighnment.CameraAssist;
 import frc.robot.commands.AutoAlighnment.CameraAssistDistance;
 import frc.robot.commands.AutoAlighnment.CameraAssistRotate;
 import frc.robot.commands.AutoAlighnment.CameraAssistStrafe;
-import frc.robot.commands.AutoAlighnment.TurnToTarget;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
@@ -196,7 +195,7 @@ public class OI {
 
     //toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
-    cameraAuto.whenPressed(new CameraAssistCenter());
+    cameraAuto.whenPressed(new CameraAssist());
     rotateCamera.whenPressed(new RotateCamera());
 
     shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));

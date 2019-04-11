@@ -14,25 +14,18 @@ import jdk.jfr.Threshold;
 
 public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOutput
 {
-    private static boolean can = true;
-    private static double time;
-  private static double startTime;
   private static double x;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.10; //Before .06
-  private static final double kI = 0.0;
-  private static final double kD = 0.0;
+  private static final double kP = 0.12; //Before .10
+  private static final double kI = 0.01;
+  private static final double kD = 0.2;
 
   private static  final double THRESHOLD = .5; //degrees
   private static final double SETPOINT = 0;
   private static final double MAXSPEED = 1.0;
-  private static final double ENDTIME = 2.0; // seconds
 
-
-  //private static String xDirection;
   private static PIDController pid;
   //private static double speed;
-  private static Timer timer; // time in seconds
 
     public CameraAssistStrafe()
     {
@@ -49,19 +42,21 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void initialize()
     {   
-        /*if(Math.abs(x) <= THRESHOLD)
+        limelight.setLEDOn(true);
+        /*x = limelight.getX();
+        if(Math.abs(x - SETPOINT) <= THRESHOLD)
         {
             this.end();
         }*/
         pid.reset();
         pid.setSetpoint(SETPOINT);
         pid.enable();
-        limelight.setLEDOn(true);
     }
 
     //@Override
     protected void execute()
     {
+        limelight.setLEDOn(true);
         x = limelight.getX();
 
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
@@ -69,34 +64,13 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
         SmartDashboard.putNumber("x", x);
         SmartDashboard.putNumber("error", pid.getError());
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
-        SmartDashboard.putNumber("limelight servo", limelightservo.onCargoSideMultiplier());
+        //SmartDashboard.putNumber("limelight servo", limelightservo.onCargoSideMultiplier());
     }
 
 
     //@Override
     protected boolean isFinished() { // If this is true it will stop, false keep going
-        //return !oi.getCameraButton();
-        /*if(pid.onTarget() && can)
-        {
-            can = false;
-            timer.start();
-            startTime = timer.get();
-        }
-        if(pid.onTarget() && !can)
-        {
-            if(timer.get() - startTime > ENDTIME)
-            {
-                timer.stop();
-                return true;
-            }
-        }
-        else if(!pid.onTarget() && !can)
-        {
-            can = true;
-            timer.stop();
-        }
-        return false;*/
-        return pid.onTarget() || !oi.getCameraButton();
+        return (pid.onTarget() && limelight.isTargetDetected()) || !oi.getCameraButton();
     }
 
     //@Override

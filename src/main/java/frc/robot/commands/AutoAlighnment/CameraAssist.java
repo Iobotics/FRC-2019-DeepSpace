@@ -14,7 +14,6 @@ public class CameraAssist extends CommandGroup {
    * Add your docs here.
    */
   public CameraAssist() {
-    addSequential(new CameraAssistRotate());
     addSequential(new CameraAssistStrafe());
     addSequential(new CameraAssistDistance());
   }

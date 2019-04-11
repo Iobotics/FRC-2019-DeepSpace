@@ -26,8 +26,8 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
   private static final double kI = 0.0;
   private static final double kD = 0.0;
 
-  private static final double SETPOINT = 2.44;
-  private static  final double THRESHOLD = .1; // width:height
+  private static final double SETPOINT = -90;
+  private static  final double THRESHOLD = 0; // width:height
   private static final double MAXSPEED = 1.0;
   private static final double ENDTIME = 2.0; // seconds
   private static double averageError = 0;
@@ -57,17 +57,17 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void initialize()
     {   
-        ratio = limelight.getWidthHeightRatio();
+        /*ratio = limelight.getWidthHeightRatio();
         if(Math.abs(ratio) <= THRESHOLD)
         {
             this.end();
-        }
+        }*/
         pid.reset();
         pid.setSetpoint(SETPOINT);
         pid.enable();
         limelight.setLEDOn(true);
 
-        error = new double[5];
+        //error = new double[5];
     }
 
     //@Override
@@ -104,7 +104,7 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
             timer.stop();
         }
         return false;*/
-        return pid.onTarget();
+        return pid.onTarget() || !oi.getCameraButton() || limelight.getSkew() == 0;
     }
 
     //@Override
@@ -123,7 +123,7 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
 
     //@Override
     public void pidWrite(double pidSpeed) {
-        if(i < 5 && !first)
+        /*if(i < 5 && !first)
         {
             averageError += pid.getError() / 5;
             i++;
@@ -139,7 +139,8 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
             lastError = averageError;
         }
         drivetrain.setMecanum(0, 0, pidSpeed * rotationMultiplier); // Go Left negative, right is positive
-        lastError = pid.getError(); // limelightservo.onCargoSideMultiplier() * 
+        lastError = pid.getError(); // limelightservo.onCargoSideMultiplier() */
+        drivetrain.setMecanum(0, 0, pidSpeed);
     }
 
     @Override
@@ -154,6 +155,7 @@ public class CameraAssistRotate extends CommandBase implements PIDSource, PIDOut
 
     @Override
     public double pidGet() { //Target to left error is negative
-        return  limelight.getWidthHeightRatio();
+        //return  limelight.getWidthHeightRatio();
+        return limelight.getSkew();
 	}
 }
