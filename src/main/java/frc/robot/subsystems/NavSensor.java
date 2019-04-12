@@ -27,7 +27,7 @@ public class NavSensor extends  Subsystem implements PIDSource {
   }
 
   public double getAngle(){
-    return _navSensor.getAngle();
+    return _navSensor.getAngle() < 0 ? (_navSensor.getAngle() % 360) + 360 : (_navSensor.getAngle() % 360);
   }
 
   public PIDSourceType getPidSourceType(){
@@ -67,7 +67,7 @@ public class NavSensor extends  Subsystem implements PIDSource {
 
   @Override
   public double pidGet() {
-    return _navSensor.getAngle();
+    return _navSensor.getAngle() < 0 ? (_navSensor.getAngle() % 360) + 360 : (_navSensor.getAngle() % 360);
   }
   
 }

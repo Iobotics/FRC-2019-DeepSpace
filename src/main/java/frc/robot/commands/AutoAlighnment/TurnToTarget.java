@@ -49,10 +49,10 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
       _target = 90;
     }
 
-    else if( (-90 - 45) < navSensor.getAngle()
-     && navSensor.getAngle() < (-90 + 45) /*limelight.isRocket*/)
+    else if( (270 - 45) < navSensor.getAngle()
+     && navSensor.getAngle() < (270 + 45) /*limelight.isRocket*/)
     {
-      _target = -90;
+      _target = 270;
     }
 
     else if( (30 - 15) < navSensor.getAngle()
@@ -61,13 +61,13 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
       _target = 30;
     }
 
-    else if( (-30 - 15) < navSensor.getAngle()
-    && navSensor.getAngle() < (-30 + 15) )
+    else if( (330 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (330 + 15) )
     {
-     _target = -30;
+     _target = 330;
     }  
 
-    else if( (0 - 15) < navSensor.getAngle()
+    else if( (345) < navSensor.getAngle()
     && navSensor.getAngle() < (0 + 15) )
     {
      _target = 0;
@@ -79,14 +79,14 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
      _target = 150;
     }  
 
-    else if( (-150 - 15) < navSensor.getAngle()
-    && navSensor.getAngle() < (-150 + 15) )
+    else if( (210 - 15) < navSensor.getAngle()
+    && navSensor.getAngle() < (210 + 15) )
     {
-     _target = -150;
+     _target = 210;
     }  
 
-    else if( (-165) < navSensor.getAngle()
-    && navSensor.getAngle() < (165) )
+    else if( (165) < navSensor.getAngle()
+    && navSensor.getAngle() < (195) )
     {
      _target = 180;
     }  
@@ -97,7 +97,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   @Override
   protected void execute() {
-    SmartDashboard.putNumber("Rotation", navSensor.getAngle());
+    SmartDashboard.putNumber("Rotation",  navSensor.getAngle());
   }
 
   @Override
@@ -149,6 +149,6 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   @Override
   public double pidGet() {
-    return navSensor.getAngle() % 180;
-}
+    return navSensor.getAngle();
+  }
 }

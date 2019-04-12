@@ -25,6 +25,7 @@ import frc.robot.commands.AutoAlighnment.CameraAssist;
 import frc.robot.commands.AutoAlighnment.CameraAssistDistance;
 import frc.robot.commands.AutoAlighnment.CameraAssistRotate;
 import frc.robot.commands.AutoAlighnment.CameraAssistStrafe;
+import frc.robot.commands.AutoAlighnment.TurnToTarget;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
