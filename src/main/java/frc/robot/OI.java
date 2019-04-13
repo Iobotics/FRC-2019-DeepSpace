@@ -90,7 +90,8 @@ public class OI {
   private final JoystickButton toggleZoneTwoBack = new JoystickButton(_lStick, 4);
   //private final JoystickButton autoZone3 = new JoystickButton(_rStick, 2);
 
-  private final JoystickButton cameraAuto = new JoystickButton(_lStick, CAMERABUTTON);
+  private final JoystickButton cameraAutoCargo = new JoystickButton(_rStick, CAMERABUTTON);
+  private final JoystickButton cameraAutoRocket = new JoystickButton(_lStick, CAMERABUTTON);
   private final JoystickButton rotateCamera = new JoystickButton(_lStick, 5); 
   private final JoystickButton rotateLimelight = new JoystickButton(_lStick, 9);
 
@@ -196,7 +197,8 @@ public class OI {
 
     //toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
-    cameraAuto.whenPressed(new CameraAssist());
+    cameraAutoCargo.whenPressed(new CameraAssist(false));
+    cameraAutoRocket.whenPressed(new CameraAssist(true));
     rotateCamera.whenPressed(new RotateCamera());
 
     shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
@@ -263,7 +265,7 @@ public class OI {
 
   public boolean getCameraButton()
   {
-    return _lStick.getRawButton(CAMERABUTTON);
+    return _lStick.getRawButton(CAMERABUTTON) || _rStick.getRawButton(CAMERABUTTON);
   }
 
   public boolean getControllerButtons()

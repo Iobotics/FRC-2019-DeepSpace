@@ -20,30 +20,36 @@ public class LimelightServo extends Subsystem {
 
   private static Servo servo;
 
+  private boolean servoCargoSide = false;
+
   public void init()
   {
-    servo = new Servo(2); //Get actual channel
+    servo = new Servo(1); //Get actual channel
     servo.set(1.0);
   }
 
-  public double getServoPosition(){
-    return servo.getAngle();
+  public boolean getServoPosition(){
+    return servoCargoSide;
   }
 
   public void turnLimelight(){ //at 0 the servo faces the cargo, at 1 the servo faces the hatches
-    if(servo.get() == 0.0){
+    if(servoCargoSide){
       servo.set(1.0);
-    }else if(servo.get() == 1.0){
+      servoCargoSide = false;
+    }else if(!servoCargoSide){
       servo.set(0.0);
+      servoCargoSide = true;
     }
   }
 
   public void setCameraCargo(){
     servo.set(0.0);
+    servoCargoSide = true;
   }
 
   public void setCameraHatch(){
     servo.set(1.0);
+    servoCargoSide = false;
   }
 
 
@@ -53,7 +59,7 @@ public class LimelightServo extends Subsystem {
 
   public boolean isOnCargoSide()
   {
-    if(servo.get() == 0.0)
+    if(servoCargoSide)
     {
       return true;
     }
@@ -62,7 +68,7 @@ public class LimelightServo extends Subsystem {
 
   public double onCargoSideMultiplier() 
   {
-    if(servo.get() == 0.0)
+    if(servoCargoSide)
     {
       return 1;
     }

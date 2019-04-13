@@ -42,7 +42,7 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     //@Override
     protected void initialize()
     {   
-        limelight.setLEDOn(true);
+        //limelight.setLEDOn(true);
         distance = limelight.getDistance();
         if(limelightservo.isOnCargoSide())
         {
@@ -64,7 +64,7 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     //@Override
     protected void execute()
     {
-        limelight.setLEDOn(true);
+        //limelight.setLEDOn(true);
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
         //SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("error", pid.getError());
@@ -85,7 +85,7 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     protected void end()
     {
         pid.disable();
-        limelight.setLEDOn(false);
+        //limelight.setLEDOn(false);
         drivetrain.setMecanum(0, 0, 0);
     }
 

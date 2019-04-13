@@ -5,17 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.AutoAlighnment;
 
-public class RotateCamera extends CommandBase {
-  public RotateCamera() {
-    requires(limelightservo);
+import frc.robot.commands.CommandBase;
+
+public class AutoRotateCamera extends CommandBase {
+  public AutoRotateCamera() {
+    //requires(rotater);
+    requires(shooter);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    limelightservo.turnLimelight();
+    //rotater.turnCameraDirected(shooter.isBallIn());
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -38,6 +41,6 @@ public class RotateCamera extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
+    //rotater.safetyCancel();
   }
 }

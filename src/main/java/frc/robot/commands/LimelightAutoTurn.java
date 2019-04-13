@@ -11,7 +11,7 @@ public class LimelightAutoTurn extends CommandBase {
   public LimelightAutoTurn() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(rotater);
+    requires(limelightservo);
   }
 
   // Called just before this Command runs the first time

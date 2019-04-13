@@ -21,20 +21,24 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
   private PIDController _pid;
 
   private double _target;
+  private boolean _isRocket;
 
   private double _onTargetTime = Double.MAX_VALUE;
   private boolean _onTarget = false;
 
   //Target Angles for Targets
 
+  public TurnToTarget(){
+    this(false);
+  }
 
-
-  public TurnToTarget() {
+  public TurnToTarget(boolean isRocket) {
     requires(drivetrain);
     requires(navSensor);
     requires(limelight);
+    _isRocket = isRocket;
     _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn(), this, this); 
-    _pid.setInputRange(-180, 180);
+    _pid.setInputRange(0, 360);
     _pid.setOutputRange(-0.5, 0.5);
     _pid.setContinuous();
     _pid.setAbsoluteTolerance(5);
@@ -43,53 +47,38 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
   @Override
   protected void initialize() {
 
-    if( (90 - 45) < navSensor.getAngle()
-     && navSensor.getAngle() < (90 + 45) /*&& limelight.isRocket*/)
-    {
+    if(navSensor.getAngle() <= 135 && navSensor.getAngle() > 45 && !_isRocket){
       _target = 90;
     }
 
-    else if( (270 - 45) < navSensor.getAngle()
-     && navSensor.getAngle() < (270 + 45) /*limelight.isRocket*/)
-    {
-      _target = 270;
+   else  if(navSensor.getAngle() <= 315 && navSensor.getAngle() > 225 && !_isRocket){
+    _target = 270;
     }
 
-    else if( (30 - 15) < navSensor.getAngle()
-     && navSensor.getAngle() < (30 + 15) )
-    {
+    else  if((navSensor.getAngle() <= 45 || navSensor.getAngle() > 315) && !_isRocket){
+      _target = 0;
+    }
+
+    else  if(navSensor.getAngle() <= 225 && navSensor.getAngle() > 135 && !_isRocket){
+      _target = 180;
+    }
+
+    else  if((navSensor.getAngle() <= 90 && navSensor.getAngle() > 0) && _isRocket){
       _target = 30;
     }
 
-    else if( (330 - 15) < navSensor.getAngle()
-    && navSensor.getAngle() < (330 + 15) )
-    {
-     _target = 330;
-    }  
-
-    else if( (345) < navSensor.getAngle()
-    && navSensor.getAngle() < (0 + 15) )
-    {
-     _target = 0;
+    else  if(navSensor.getAngle() <= 180 && navSensor.getAngle() > 90 && _isRocket){
+      _target = 150;
     }
 
-    else if( (150 - 15) < navSensor.getAngle()
-    && navSensor.getAngle() < (150 + 15) )
-    {
-     _target = 150;
-    }  
+    else  if(navSensor.getAngle() <= 270 && navSensor.getAngle() > 180 && _isRocket){
+      _target = 210;
+    }
 
-    else if( (210 - 15) < navSensor.getAngle()
-    && navSensor.getAngle() < (210 + 15) )
-    {
-     _target = 210;
-    }  
+    else  if(navSensor.getAngle() <= 360 && navSensor.getAngle() > 270 && _isRocket){
+      _target = 330;
+    }
 
-    else if( (165) < navSensor.getAngle()
-    && navSensor.getAngle() < (195) )
-    {
-     _target = 180;
-    }  
     _pid.reset();
     _pid.setSetpoint(_target);
     _pid.enable();
@@ -102,6 +91,9 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   @Override
   protected boolean isFinished() {
+    if(oi.getLeftStickX() > .2 || oi.getRightStickX() > .2 || oi.getLeftStickY() > .2 || oi.getRightStickY() > .2){
+      return true;
+    }
     if(!_pid.onTarget()){
       _onTarget = false;
       _onTargetTime = Double.MAX_VALUE;
@@ -110,7 +102,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
     else if (_pid.onTarget() && !_onTarget){
       _onTarget = true;
-      _onTargetTime = this.timeSinceInitialized() + 1;
+      _onTargetTime = this.timeSinceInitialized() + 0.5;
       return false;
     }
 

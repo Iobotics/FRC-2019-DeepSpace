@@ -17,7 +17,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
   private static double x;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
   private static final double kP = 0.12; //Before .10
-  private static final double kI = 0.01;
+  private static final double kI = 0.012;
   private static final double kD = 0.2;
 
   private static  final double THRESHOLD = .5; //degrees
@@ -42,7 +42,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void initialize()
     {   
-        limelight.setLEDOn(true);
+        //limelight.setLEDOn(true);
         /*x = limelight.getX();
         if(Math.abs(x - SETPOINT) <= THRESHOLD)
         {
@@ -56,7 +56,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     //@Override
     protected void execute()
     {
-        limelight.setLEDOn(true);
+        //limelight.setLEDOn(true);
         x = limelight.getX();
 
         SmartDashboard.putBoolean("onTarget", pid.onTarget());
@@ -77,7 +77,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
     protected void end()
     {
         pid.disable();
-        limelight.setLEDOn(false);
+        //limelight.setLEDOn(false);
         drivetrain.setMecanum(0, 0, 0);
     }
 

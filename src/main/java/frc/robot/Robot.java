@@ -159,6 +159,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
     // teleop starts running.
+    CommandBase.navSensor.resetGyro();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -173,7 +174,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("NavXAngle", CommandBase.navSensor.getAngle() < 0 ? (CommandBase.navSensor.getAngle() % 360) + 360 : (CommandBase.navSensor.getAngle() % 360));
+    SmartDashboard.putBoolean("Servo", CommandBase.limelightservo.getServoPosition() );
   
   }
 

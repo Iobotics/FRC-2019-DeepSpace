@@ -13,8 +13,13 @@ public class CameraAssist extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public CameraAssist() {
+  private boolean isRocket = false;
+
+  public CameraAssist(boolean isRocket) {
+    //addSequential(new AutoRotateCamera());
+    addSequential(new TurnToTarget(isRocket));
     addSequential(new CameraAssistStrafe());
+    addSequential(new TurnToTarget(isRocket));
     addSequential(new CameraAssistDistance());
   }
 }

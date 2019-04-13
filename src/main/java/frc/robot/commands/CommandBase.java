@@ -19,7 +19,6 @@ import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.LimelightServo;
 import frc.robot.subsystems.NavSensor;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.CameraServo;
 
 public abstract class CommandBase extends Command {
 
@@ -32,7 +31,6 @@ public abstract class CommandBase extends Command {
   public static HabThreeLift habThree = new HabThreeLift();
   public static LimeLight limelight = new LimeLight();
   public static ChassisIntake chassisIntake = new ChassisIntake();
-  public static CameraServo rotater = new CameraServo();
   public static LEDStrip ledStrip = new LEDStrip();
   public static LimelightServo limelightservo = new LimelightServo();
 
@@ -45,7 +43,6 @@ public abstract class CommandBase extends Command {
     shooter.init();
     habThree.init();
     limelight.init();
-    rotater.init();
     chassisIntake.init();
     limelightservo.init();
     
