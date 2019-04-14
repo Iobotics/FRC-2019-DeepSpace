@@ -73,7 +73,7 @@ public class Shooter extends Subsystem {
     _shooterArm.setNeutralMode(NeutralMode.Brake);
     _shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     _shooterArm.configFeedbackNotContinuous(true, 20);
-    _shooterArm.setSensorPhase(true);
+    _shooterArm.setSensorPhase(false);
     _shooterArm.selectProfileSlot(slotID, 0);
     _shooterArm.config_kP(slotID, kP);
     _shooterArm.config_kI(slotID, kI);

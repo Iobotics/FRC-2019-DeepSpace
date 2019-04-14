@@ -24,11 +24,11 @@ public class Constants {
   public static final double toleranceRange = 2;
   
   // Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-  public static final int shooterArmCenter = -313; // Before 985
+  public static final int shooterArmCenter = 308; // Before 985
 
-  public static final int shooterHome = shooterArmCenter - 57;
+  public static final int shooterHome = shooterArmCenter + 57;
 
-  public static final int shooterIntake = shooterArmCenter - 49;
+  public static final int shooterIntake = shooterArmCenter + 49;
 
   public static final int cargoShipAngle = shooterArmCenter + 12; // Before + 18// Before +2
 

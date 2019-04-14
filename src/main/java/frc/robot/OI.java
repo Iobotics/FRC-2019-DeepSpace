@@ -77,7 +77,7 @@ public class OI {
   private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 2);
   private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 3);
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
-  private final JoystickButton grabBall = new JoystickButton(_controller, 8); // Actuates the Shooter
+  private final JoystickButton grabBall = new JoystickButton(_controller, 8); // Start button, Actuates the Shooter
   private final JoystickButton holdBall = new JoystickButton(_controller, 7);
   //private final JoystickButton shiptohome = new JoystickButton(_controller, 4);
 
@@ -102,7 +102,10 @@ public class OI {
 
   public final JoystickButton ledSwitch = new JoystickButton(_rStick, 9);
 
-  public final JoystickButton testAutoTurn = new JoystickButton(_rStick, 11);
+  //public final JoystickButton testAutoTurn = new JoystickButton(_rStick, 11);
+  public final JoystickButton shooterCargoOnly = new JoystickButton(_lStick, 6);
+  public final JoystickButton shooterRocketOnly = new JoystickButton(_lStick, 7);
+
 
   public OI(){
 
@@ -209,7 +212,7 @@ public class OI {
 
     enableController.whenPressed(new EnableController(!controllerEnabled));
 
-    testAutoTurn.whenPressed(new TurnToTarget());
+    //testAutoTurn.whenPressed(new TurnToTarget());
     
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());
@@ -217,6 +220,11 @@ public class OI {
 
     rotateLimelight.whenPressed(new RotateLimelight());
 
+    shooterCargoOnly.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
+    shooterCargoOnly.whenReleased(new SetShooterPos(Constants.shooterHome));
+
+    shooterRocketOnly.whenPressed(new HoldShooterPos(Constants.firstLevelAngle));
+    shooterRocketOnly.whenReleased(new SetShooterPos(Constants.shooterHome));
   }
 
 
@@ -285,5 +293,10 @@ public class OI {
 
   public boolean getStartButton(){
     return _controller.getRawButton(10);
+  }
+
+  public boolean getServoButton()
+  {
+    return _lStick.getRawButton(5);
   }
 }
