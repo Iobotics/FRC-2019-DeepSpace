@@ -26,7 +26,7 @@ public class LimelightDebug extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //limelight.debug();
+    limelight.debug();
     //limelight.setLEDDefault();
     limelight.setLEDOn(true);
   }

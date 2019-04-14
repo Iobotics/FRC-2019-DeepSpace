@@ -25,6 +25,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   private double _onTargetTime = Double.MAX_VALUE;
   private boolean _onTarget = false;
+  private final double THRESHOLD = 5;
 
   //Target Angles for Targets
 
@@ -41,7 +42,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
     _pid.setInputRange(0, 360);
     _pid.setOutputRange(-0.5, 0.5);
     _pid.setContinuous();
-    _pid.setAbsoluteTolerance(5);
+    _pid.setAbsoluteTolerance(THRESHOLD);
   }
 
   @Override
@@ -102,7 +103,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
     else if (_pid.onTarget() && !_onTarget){
       _onTarget = true;
-      _onTargetTime = this.timeSinceInitialized() + 0.5;
+      _onTargetTime = this.timeSinceInitialized() + 0.3;
       return false;
     }
 

@@ -16,7 +16,7 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
 {
   private static double x;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.12; //Before .10
+  private static final double kP = 0.10; //Before .12
   private static final double kI = 0.012;
   private static final double kD = 0.2;
 
@@ -59,11 +59,11 @@ public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOut
         //limelight.setLEDOn(true);
         x = limelight.getX();
 
-        SmartDashboard.putBoolean("onTarget", pid.onTarget());
+        //SmartDashboard.putBoolean("onTarget", pid.onTarget());
         //SmartDashboard.putNumber("speed", speed);
-        SmartDashboard.putNumber("x", x);
-        SmartDashboard.putNumber("error", pid.getError());
-        SmartDashboard.putBoolean("onTarget", pid.onTarget());
+        //SmartDashboard.putNumber("x", x);
+        //SmartDashboard.putNumber("error", pid.getError());
+        //SmartDashboard.putBoolean("onTarget", pid.onTarget());
         //SmartDashboard.putNumber("limelight servo", limelightservo.onCargoSideMultiplier());
     }
 

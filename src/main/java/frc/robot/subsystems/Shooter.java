@@ -69,7 +69,7 @@ public class Shooter extends Subsystem {
 
     //Shooter Arm Requires PID to stay up 
     //TODO: find correct values for PID and FF for both the empty carriage, and the one with the ball
-    _shooterArm.setInverted(true);
+    _shooterArm.setInverted(false);
     _shooterArm.setNeutralMode(NeutralMode.Brake);
     _shooterArm.configSelectedFeedbackSensor(FeedbackDevice.Analog, slotID, 20);
     _shooterArm.configFeedbackNotContinuous(true, 20);

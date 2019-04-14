@@ -171,8 +171,8 @@ public class LimeLight extends Subsystem {
     //SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
     //last = this.getWidthHeightRatio();
     
-    //SmartDashboard.putNumber("distance", this.getDistance());
-    SmartDashboard.putBoolean("onRocketCargo", this.isRocketShip());
+    SmartDashboard.putNumber("distance", this.getDistance());
+    //SmartDashboard.putBoolean("onRocketCargo", this.isRocketShip());
   }
 
   @Override
