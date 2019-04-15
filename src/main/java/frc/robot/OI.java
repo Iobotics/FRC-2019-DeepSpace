@@ -196,7 +196,7 @@ public class OI {
     outtakeBall.whenPressed(new RunShooter(-1));
     outtakeBall.whenReleased(new StopShooter());
 
-    //toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
+    toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
     cameraAutoCargo.whenPressed(new CameraAssist(false));
     cameraAutoRocket.whenPressed(new CameraAssist(true));

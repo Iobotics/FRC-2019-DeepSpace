@@ -18,7 +18,8 @@ public class ShootBall extends CommandGroup {
    */
   public ShootBall() {
     addParallel(new RunShooter(0.5));
-    addSequential(new WaitCommand(0.25));    
+    addSequential(new WaitCommand(0.25));   
+    addSequential(new SetLEDPattern(.72)); 
     addSequential(new RunShooter(-0.45));
 
   }

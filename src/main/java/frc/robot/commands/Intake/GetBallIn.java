@@ -29,9 +29,7 @@ public class GetBallIn extends CommandBase {
   @Override
   protected void execute() {
     SmartDashboard.putBoolean("Ball is in intake: ", shooter.getBallSensor());
-    if(shooter.getBallSensor()){
-      ledStrip.setPattern(-0.11);
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
