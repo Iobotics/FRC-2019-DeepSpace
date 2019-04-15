@@ -30,6 +30,7 @@ public class RunShooter extends CommandBase {
     if(shooter.getBallSensor() && power > 0){
       shooter.setIsBallIn(true);
       shooter.setShooter(power);
+      ledStrip.setPattern(-0.11, true);
     }
 
     else if (shooter.getBallSensor() && power < 0){

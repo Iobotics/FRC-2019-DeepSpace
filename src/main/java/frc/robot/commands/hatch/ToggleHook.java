@@ -19,7 +19,11 @@ public class ToggleHook extends CommandBase {
   @Override
   protected void initialize() {
     hatchCollector.toggleHook();
-    ledStrip.setPattern(-.07, true);
+    if(hatchCollector.getExtended()){
+      ledStrip.setPattern(-.07);
+    } else {
+      ledStrip.setPattern(.69);
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
