@@ -9,6 +9,7 @@ package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.robot.commands.LimelightAutoTurn;
 import frc.robot.commands.SetLEDPattern;
 
 public class ShootBall extends CommandGroup {
@@ -17,8 +18,8 @@ public class ShootBall extends CommandGroup {
    */
   public ShootBall() {
     addParallel(new RunShooter(0.5));
-    addSequential(new WaitCommand(0.25));
+    addSequential(new WaitCommand(0.25));    
     addSequential(new RunShooter(-0.45));
-    addSequential(new SetLEDPattern(-0.87));
+
   }
 }

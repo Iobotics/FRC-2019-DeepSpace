@@ -5,22 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.AutoAlighnment;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.LimelightAutoTurn;
 
-public class CameraAssist extends CommandGroup {
+public class StopShooterAndRotateLimelight extends CommandGroup {
   /**
    * Add your docs here.
    */
-  private boolean isRocket = false;
-
-  public CameraAssist(boolean isRocket) {
-    addSequential(new TurnToTarget(isRocket));
-    addSequential(new CameraAssistStrafe());
-    addSequential(new TurnToTarget(isRocket));
-    addSequential(new CameraAssistStrafe());
-    addSequential(new CameraAssistDistance());
-    addSequential(new TurnToTarget(isRocket));
+  public StopShooterAndRotateLimelight() {
+    addSequential(new StopShooter());
+    addSequential(new LimelightAutoTurn());
   }
 }

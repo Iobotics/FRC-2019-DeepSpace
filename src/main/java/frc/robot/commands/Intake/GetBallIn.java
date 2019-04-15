@@ -28,8 +28,8 @@ public class GetBallIn extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    SmartDashboard.putBoolean("Ball is in intake: ", shooter.isBallIn());
-    if(shooter.isBallIn()){
+    SmartDashboard.putBoolean("Ball is in intake: ", shooter.getBallSensor());
+    if(shooter.getBallSensor()){
       ledStrip.setPattern(-0.11);
     }
   }

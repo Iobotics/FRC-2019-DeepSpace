@@ -27,12 +27,12 @@ public class RunShooter extends CommandBase {
   protected void execute() {
     
     // If the ball is detected while the command is running then ball is in becomes true
-    if(shooter.isBallIn() && power > 0){
+    if(shooter.getBallSensor() && power > 0){
       shooter.setIsBallIn(true);
       shooter.setShooter(power);
     }
 
-    else if (shooter.isBallIn() && power < 0){
+    else if (shooter.getBallSensor() && power < 0){
       shooter.setIsBallIn(false);
       shooter.setShooter(power);
     }

@@ -39,7 +39,7 @@ import frc.robot.commands.Drivetrain.AutoTurn;
 //import frc.robot.commands.hatch.OpenHook;
 //import frc.robot.commands.hatch.RetractHatch;
 //import frc.robot.commands.hatch.ToggleHatch;
-//import frc.robot.commands.hatch.ToggleHook;
+import frc.robot.commands.Hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.SetIntakeVelocity;
@@ -51,6 +51,7 @@ import frc.robot.commands.Shooter.RunShooter;
 import frc.robot.commands.Shooter.SetShooterPos;
 import frc.robot.commands.Shooter.ShootBall;
 import frc.robot.commands.Shooter.StopShooter;
+import frc.robot.commands.Shooter.StopShooterAndRotateLimelight;
 import frc.robot.commands.Shooter.StopShooterArm;
 
 /**
@@ -77,7 +78,7 @@ public class OI {
   private final JoystickButton positionShooterFirstLevel = new JoystickButton(_controller, 2);
   private final JoystickButton positionShooterCargoShip = new JoystickButton(_controller, 3);
   private final JoystickButton shootBall = new JoystickButton(_controller, 6);
-  private final JoystickButton grabBall = new JoystickButton(_controller, 8); // Start button, Actuates the Shooter
+  private final JoystickButton grabBall = new JoystickButton(_controller, 8); // Actuates the Shooter
   private final JoystickButton holdBall = new JoystickButton(_controller, 7);
   //private final JoystickButton shiptohome = new JoystickButton(_controller, 4);
 
@@ -93,9 +94,7 @@ public class OI {
   private final JoystickButton cameraAutoCargo = new JoystickButton(_rStick, CAMERABUTTON);
   private final JoystickButton cameraAutoRocket = new JoystickButton(_lStick, CAMERABUTTON);
   private final JoystickButton rotateCamera = new JoystickButton(_lStick, 5); 
-  private final JoystickButton rotateLimelight = new JoystickButton(_lStick, 9);
 
-  private final JoystickButton shooterIntake = new JoystickButton(_lStick, 8);
   private final JoystickButton enableController = new JoystickButton(_lStick, 10); // TODO- Ask which button
 
   private final JoystickButton gotoHabitat3 = new JoystickButton(_rStick, 10);
@@ -103,15 +102,15 @@ public class OI {
   public final JoystickButton ledSwitch = new JoystickButton(_rStick, 9);
 
   //public final JoystickButton testAutoTurn = new JoystickButton(_rStick, 11);
-  public final JoystickButton shooterCargoOnly = new JoystickButton(_lStick, 6);
-  public final JoystickButton shooterRocketOnly = new JoystickButton(_lStick, 7);
+  public final JoystickButton shooterCargoOnly = new JoystickButton(_lStick, 8);
+  public final JoystickButton shooterRocketOnly = new JoystickButton(_lStick, 9);
 
 
   public OI(){
 
     // Hatch Commands
     //extendHatch.whenPressed(new ToggleHatch());
-    //toggleHatchHook.whenPressed(new ToggleHook());
+    toggleHatchHook.whenPressed(new ToggleHook());
     //grabHatch.whenPressed(new GrabHatch());
     //grabHatch.whenReleased(new GrabAndRetractHatch());
 
@@ -168,7 +167,7 @@ public class OI {
         return controllerEnabled;
       }
     });
-    shootBall.whenReleased(new ConditionalCommand(new StopShooter()){
+    shootBall.whenReleased(new ConditionalCommand(new StopShooterAndRotateLimelight()){
       @Override
       protected boolean condition() {
         return controllerEnabled;
@@ -204,9 +203,6 @@ public class OI {
     cameraAutoRocket.whenPressed(new CameraAssist(true));
     rotateCamera.whenPressed(new RotateCamera());
 
-    shooterIntake.whenPressed(new HoldShooterPos(Constants.shooterIntake));
-    shooterIntake.whenReleased(new SetShooterPos(Constants.shooterHome));
-
     velocityIntake.whenPressed(new SetIntakeVelocity());
     velocityIntake.whenReleased(new StopIntakeVelocity());
 
@@ -218,7 +214,6 @@ public class OI {
     gotoHabitat3.whenReleased(new ExitHab3());
     //gotoHabitat3.toggleWhenPressed(new GoToHab3());
 
-    rotateLimelight.whenPressed(new RotateLimelight());
 
     shooterCargoOnly.whenPressed(new HoldShooterPos(Constants.cargoShipAngle));
     shooterCargoOnly.whenReleased(new SetShooterPos(Constants.shooterHome));

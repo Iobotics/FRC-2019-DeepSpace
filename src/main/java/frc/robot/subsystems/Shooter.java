@@ -130,7 +130,7 @@ public class Shooter extends Subsystem {
     
   }
  
-  public boolean isBallIn(){
+  public boolean getBallSensor(){
     return !_proximitySensor.get();
   }
 

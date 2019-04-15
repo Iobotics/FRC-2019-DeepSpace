@@ -26,9 +26,9 @@ public class LimelightAutoTurn extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   //@Override
   protected void execute() {
-    if(shooter.isBallIn() == true && !oi.getServoButton()){
+    if(shooter.getBallSensor()){
       limelightservo.setCameraCargo();
-    }else if(!oi.getServoButton()){
+    }else{
       limelightservo.setCameraHatch();
     }
   }

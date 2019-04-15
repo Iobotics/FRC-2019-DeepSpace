@@ -77,6 +77,6 @@ public class LimelightServo extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LimelightAutoTurn());
+    //setDefaultCommand(new LimelightAutoTurn());
   }
 }

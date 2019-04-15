@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.LimelightAutoTurn;
 import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Shooter.HoldShooterPos;
 import frc.robot.commands.Shooter.RunShooter;
@@ -24,9 +25,8 @@ public class IntakeBall extends CommandGroup {
    */
   public IntakeBall() {
       addSequential(new SetShooterPos(Constants.shooterIntake));
-      addSequential(new SetIntakePosition(Constants.intakeArmIntake));
-      addParallel(new RunChassisIntake());
+      //addSequential(new SetIntakePosition(Constants.intakeArmIntake));
+      //addParallel(new RunChassisIntake());
       addParallel(new RunShooter(0.5));
-      addParallel(new GetBallIn());
   }
 }

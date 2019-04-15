@@ -174,7 +174,7 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
-    SmartDashboard.putBoolean("Servo", CommandBase.limelightservo.getServoPosition() );
+    SmartDashboard.putBoolean("IsBallIn", CommandBase.shooter.getIsBallIn() );
   
   }
 
