@@ -25,8 +25,8 @@ public class IntakeBall extends CommandGroup {
    */
   public IntakeBall() {
       addSequential(new SetShooterPos(Constants.shooterIntake));
-      //addSequential(new SetIntakePosition(Constants.intakeArmIntake));
-      //addParallel(new RunChassisIntake());
+      addSequential(new SetIntakePosition(Constants.intakeArmIntake));
+      addParallel(new RunChassisIntake());
       addParallel(new RunShooter(0.5));
   }
 }
