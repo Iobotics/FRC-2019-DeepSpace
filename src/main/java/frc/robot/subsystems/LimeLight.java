@@ -80,7 +80,7 @@ public class LimeLight extends Subsystem {
 
     inst = NetworkTableInstance.getDefault();
 
-    //setLEDOn(false);
+    setLEDOn(false);
   }
 
   public boolean isTargetDetected()
@@ -177,6 +177,6 @@ public class LimeLight extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LimelightDebug());
+    //setDefaultCommand(new LimelightDebug());
   }
 }

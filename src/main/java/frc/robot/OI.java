@@ -23,7 +23,6 @@ import frc.robot.commands.HabThree.ToggleHabThreeBack;
 import frc.robot.commands.RotateLimelight;
 import frc.robot.commands.AutoAlighnment.CameraAssist;
 import frc.robot.commands.AutoAlighnment.CameraAssistDistance;
-import frc.robot.commands.AutoAlighnment.CameraAssistRotate;
 import frc.robot.commands.AutoAlighnment.CameraAssistStrafe;
 import frc.robot.commands.AutoAlighnment.TurnToTarget;
 import frc.robot.commands.Ball.FromShipToHome;
@@ -39,7 +38,7 @@ import frc.robot.commands.Drivetrain.AutoTurn;
 //import frc.robot.commands.hatch.OpenHook;
 //import frc.robot.commands.hatch.RetractHatch;
 //import frc.robot.commands.hatch.ToggleHatch;
-import frc.robot.commands.Hatch.ToggleHook;
+import frc.robot.commands.hatch.ToggleHook;
 import frc.robot.commands.Intake.IntakeBall;
 import frc.robot.commands.Intake.RunChassisIntake;
 import frc.robot.commands.Intake.SetIntakeVelocity;
@@ -201,7 +200,7 @@ public class OI {
 
     cameraAutoCargo.whenPressed(new CameraAssist(false));
     cameraAutoRocket.whenPressed(new CameraAssist(true));
-    rotateCamera.whenPressed(new RotateCamera());
+    rotateCamera.whenPressed(new RotateLimelight());
 
     velocityIntake.whenPressed(new SetIntakeVelocity());
     velocityIntake.whenReleased(new StopIntakeVelocity());

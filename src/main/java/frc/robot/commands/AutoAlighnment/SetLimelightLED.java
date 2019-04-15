@@ -7,18 +7,24 @@
 
 package frc.robot.commands.AutoAlighnment;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.CommandBase;
 
-public class AutoRotateCamera extends CommandBase {
-  public AutoRotateCamera() {
-    //requires(rotater);
-    requires(shooter);
+public class SetLimelightLED extends CommandBase {
+
+  private static boolean _ledOn;
+
+  public SetLimelightLED(boolean ledOn) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(limelight);
+    _ledOn = ledOn;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    //rotater.turnCameraDirected(shooter.isBallIn());
+    limelight.setLEDOn(_ledOn);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,6 +47,5 @@ public class AutoRotateCamera extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    //rotater.safetyCancel();
   }
 }

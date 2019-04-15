@@ -23,6 +23,8 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
   private static  final double THRESHOLD = 1; // 3 inches
   private static  double setpoint;
   private static final double MAXSPEED = 1.0;
+  private static final double SHIPDISTANCE = 33.25;
+  private static final double ROCKETDISTANCE = 33.25;
 
   private static PIDController pid;
   //private static double speed;
@@ -46,7 +48,14 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
         distance = limelight.getDistance();
         if(limelightservo.isOnCargoSide())
         {
-            setpoint = 33.25;
+            if(limelight.isRocketShip())
+            {
+                setpoint = ROCKETDISTANCE;
+            }
+            else
+            {
+                setpoint = SHIPDISTANCE;
+            }
         }
         else
         {

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Hatch;
+package frc.robot.commands.hatch;
 
 import frc.robot.commands.CommandBase;
 

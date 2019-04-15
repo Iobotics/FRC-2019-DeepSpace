@@ -18,14 +18,14 @@ import frc.robot.commands.CommandBase;
 
 public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
-  private PIDController _pid;
+  private static PIDController _pid;
 
-  private double _target;
-  private boolean _isRocket;
+  private static double _target;
+  private static boolean _isRocket;
 
-  private double _onTargetTime = Double.MAX_VALUE;
-  private boolean _onTarget = false;
-  private final double THRESHOLD = 5;
+  private static double _onTargetTime = Double.MAX_VALUE;
+  private static boolean _onTarget = false;
+  private static final double THRESHOLD = 5;
 
   //Target Angles for Targets
 

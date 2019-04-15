@@ -7,8 +7,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.cscore.CameraServerJNI;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
+import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.ChassisIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HabThreeLift;
@@ -33,6 +35,7 @@ public abstract class CommandBase extends Command {
   public static ChassisIntake chassisIntake = new ChassisIntake();
   public static LEDStrip ledStrip = new LEDStrip();
   public static LimelightServo limelightservo = new LimelightServo();
+  public static CameraServo cameraservo = new CameraServo();
 
   public static void init() {
     navSensor.init();

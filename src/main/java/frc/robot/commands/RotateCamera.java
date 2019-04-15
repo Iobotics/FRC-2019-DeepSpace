@@ -9,13 +9,13 @@ package frc.robot.commands;
 
 public class RotateCamera extends CommandBase {
   public RotateCamera() {
-    requires(limelightservo);
+    requires(cameraservo);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    limelightservo.turnLimelight();
+    cameraservo.turnLimelight();
   }
 
   // Called repeatedly when this Command is scheduled to run
