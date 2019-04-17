@@ -24,7 +24,7 @@ public class Constants {
   public static final double toleranceRange = 2;
   
   // Pot value of the shooter Arm when at Horizontal, used to calculate the angle of the arm
-  public static final int shooterArmCenter = 308; // Before 985
+  public static final int shooterArmCenter = 979; // Before 985
 
   public static final int shooterHome = shooterArmCenter + 57;
 
