@@ -19,7 +19,7 @@ public class CameraServo extends Subsystem {
 
   public void init()
   {
-    servo = new Servo(0);
+    servo = new Servo(1);
     servo.set(0.0);
   }
 

@@ -28,7 +28,15 @@ public class LimelightDebug extends CommandBase {
   protected void execute() {
     limelight.debug();
     //limelight.setLEDDefault();
-    limelight.setLEDOn(true);
+    //limelight.setLEDOn(true);
+    if(oi.getCameraButton())
+    {
+      limelight.setLEDOn(false);
+    }
+    else
+    {
+      limelight.setLEDOn(false);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

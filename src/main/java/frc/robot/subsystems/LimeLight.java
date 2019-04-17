@@ -60,6 +60,7 @@ public class LimeLight extends Subsystem {
   public void init()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
+    table.getInstance().startClientTeam(2438);
         
     tv = table.getEntry("tv");
     //tl = table.getEntry("tl");
@@ -177,6 +178,6 @@ public class LimeLight extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new LimelightDebug());
+    setDefaultCommand(new LimelightDebug());
   }
 }

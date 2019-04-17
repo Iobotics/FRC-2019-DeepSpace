@@ -36,15 +36,15 @@ public class Constants {
 
   // Intake Arm Position
 
-  public static final int intakeArmHome = -329; // Before -659
+  public static final int intakeArmHome = -329; 
 
-  public static final int intakeArmShooter = -265; // Before -620
+  public static final int intakeArmShooter = intakeArmHome + 64; //was -265
 
-  public static final int intakeArmIntake =  -265; // Before -504
+  public static final int intakeArmIntake =  intakeArmHome + 64;
 
-  public static final int intakeArmOut = -265;
+  public static final int intakeArmOut =  intakeArmHome + 64;
 
-  public static final int intakeArmForwardLimit =  -227; // more positive is forward
+  public static final int intakeArmForwardLimit =  intakeArmShooter + 38; //was -227
   public static final int intakeArmReverseLimit =  Constants.intakeArmHome + 2;
 
   public static final double distanceThreshold = 0;

@@ -24,7 +24,7 @@ public class LimelightServo extends Subsystem {
 
   public void init()
   {
-    servo = new Servo(1); //Get actual channel
+    servo = new Servo(2); //Get actual channel
     servo.set(1.0);
   }
 
