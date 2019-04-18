@@ -25,34 +25,14 @@ public class LimeLight extends Subsystem {
   private  NetworkTableInstance inst;
   private  NetworkTableEntry tv;
   private  NetworkTableEntry tx;
-  //NetworkTableEntry tl;
   private  NetworkTableEntry ty;
   private  NetworkTableEntry ta;
-  private  NetworkTableEntry ts;
-  private  NetworkTableEntry ta0;
-  private  NetworkTableEntry ta1;
-  private  NetworkTableEntry ta2;
-  private  NetworkTableEntry tx0;
-  private  NetworkTableEntry tx1;
-  private  NetworkTableEntry tx2;
-  private  NetworkTableEntry thor;
-  private  NetworkTableEntry tvert;
   private  NetworkTableEntry ledMode;
 
   private  boolean isDetected;
   private  double x = 0;
   private  double y = 0;
-  private  double latency;
   private  double area = 0;
-  private  double skew = 0;
-  private  double area0 = 0;
-  private  double area1 = 0;
-  private  double area2 = 0;
-  private  double x0 = 0;
-  private  double x1 = 0;
-  private  double x2 = 0;
-  private  double aspectRatio = 0;
-  private  double last = 0;
 
   private  final double VERTICALTHRESHOLD = 2; // degrees
 
@@ -60,22 +40,12 @@ public class LimeLight extends Subsystem {
   public void init()
   {
     table = NetworkTableInstance.getDefault().getTable("limelight");
-    table.getInstance().startClientTeam(2438);
+    //table.getInstance().startClientTeam(2438);
         
     tv = table.getEntry("tv");
-    //tl = table.getEntry("tl");
-    ts = table.getEntry("ts");
     ty = table.getEntry("ty");
     tx = table.getEntry("tx");
     ta = table.getEntry("ta");
-    ta0 = table.getEntry("ta0");
-    ta1 = table.getEntry("ta1");
-    ta2 = table.getEntry("ta2");
-    tx0 = table.getEntry("tx0");
-    tx1 = table.getEntry("tx1");
-    tx2 = table.getEntry("tx2");
-    thor = table.getEntry("thor");
-    tvert = table.getEntry("tvert");
 
     ledMode = table.getEntry("ledMode");
 
@@ -110,16 +80,6 @@ public class LimeLight extends Subsystem {
       return true;
     }
     return false;
-  }
-
-  public double getSkew()
-  {
-    return ts.getDouble(0.0);
-  }
-
-  public double getWidthHeightRatio() // Parallel 2.44
-  {
-    return thor.getDouble(0.0)/tvert.getDouble(0.0);
   }
 
   public double getDistance()
@@ -159,28 +119,11 @@ public class LimeLight extends Subsystem {
   public void debug()
   {
     //isDetected = tv.getDouble(0.0);
-    //latency = tl.getDouble(0.0);
     /*y = ty.getDouble(0.0);
     x = getX();
-    area0 = ta0.getDouble(0.0);
-    area1 = ta1.getDouble(0.0);
-    area2 = ta2.getDouble(0.0);
-    x0 = tx0.getDouble(0.0);
-    x1 = tx1.getDouble(0.0);
-    x2 = tx2.getDouble(0.0);
 
     //SmartDashboard.putNumber("x", x);
-    //SmartDashboard.putNumber("latency", latency);
-    /*SmartDashboard.putNumber("y", y);
-    SmartDashboard.putNumber("area0", area0);
-    SmartDashboard.putNumber("area1", area1);
-    SmartDashboard.putNumber("area2", area2);
-    SmartDashboard.putNumber("tx0", x0);
-    SmartDashboard.putNumber("tx1", x1);
-    SmartDashboard.putNumber("tx2", x2);*/
-    //System.out.println(this.getWidthHeightRatio() - last);
-    //SmartDashboard.putNumber("width height ratio", this.getWidthHeightRatio());
-    //last = this.getWidthHeightRatio();
+    //SmartDashboard.putNumber("y", y);*/
     
     SmartDashboard.putNumber("distance", this.getDistance());
     //SmartDashboard.putBoolean("onRocketCargo", this.isRocketShip());
@@ -188,6 +131,6 @@ public class LimeLight extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LimelightDebug());
+    //setDefaultCommand(new LimelightDebug());
   }
 }

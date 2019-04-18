@@ -39,7 +39,7 @@ public class GoToHab3 extends CommandBase {
   @Override
   protected void execute() {
     chassisIntake.setArmVelocity(INTAKEVELOCITY);
-    if(oi.getAButton())
+    if(oi.getXButton())
     {
       chassisIntake.setPower(CHASSISPOWER);
       habThree.disableCompressor();

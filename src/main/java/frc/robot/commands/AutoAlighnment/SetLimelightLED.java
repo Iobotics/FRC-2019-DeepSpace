@@ -12,7 +12,7 @@ import frc.robot.commands.CommandBase;
 
 public class SetLimelightLED extends CommandBase {
 
-  private static boolean _ledOn;
+  private boolean _ledOn;
 
   public SetLimelightLED(boolean ledOn) {
     // Use requires() here to declare subsystem dependencies

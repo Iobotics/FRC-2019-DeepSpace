@@ -18,7 +18,7 @@ public class LimelightServo extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private  Servo servo;
+  private Servo servo;
 
   private boolean servoCargoSide = false;
 

@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CameraServo extends Subsystem {
 
-  private static Servo servo;
+  private Servo servo;
+
+  private boolean servoRotated = false;
 
   public void init()
   {
@@ -27,11 +29,13 @@ public class CameraServo extends Subsystem {
     return servo.get();
   }
 
-  public void turnLimelight(){ //at 0 the servo faces the cargo, at 1 the servo faces the hatches
-    if(servo.get() == 0.0){
+  public void turnCamera(){ //at 0 the servo faces the cargo, at 1 the servo faces the hatches
+    if(servoRotated){
       servo.set(1.0);
-    }else if(servo.get() == 1.0){
+      servoRotated = false;
+    }else if(!servoRotated){
       servo.set(0.0);
+      servoRotated = true;
     }
   }
 

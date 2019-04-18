@@ -31,7 +31,7 @@ public class LimelightDebug extends CommandBase {
     //limelight.debug();
     //limelight.setLEDDefault();
     //limelight.setLEDOn(true);
-    if(oi.getCameraButton() && !lock)
+    /*if(oi.getCameraButton() && !lock)
     {
       limelight.setLEDOn();
       lock = true;
@@ -40,7 +40,7 @@ public class LimelightDebug extends CommandBase {
     {
       limelight.setLEDOff();
       lock = false;
-    }
+    }*/
   }
 
   // Make this return true when this Command no longer needs to run execute()

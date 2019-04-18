@@ -51,7 +51,7 @@ public class OI {
   // Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger
-  private final JoystickButton runIntake = new JoystickButton(_controller, 4);
+  //private final JoystickButton runIntake = new JoystickButton(_controller, 4);
   private final JoystickButton velocityIntake = new JoystickButton(_controller, 5);
 
   // Shooter Buttons
@@ -63,7 +63,6 @@ public class OI {
   // private final JoystickButton shiptohome = new JoystickButton(_controller, 4);
 
   // Hatch Buttons
-  private final JoystickButton grabHatch = new JoystickButton(_rStick, 3); // Left Center Thumb Button
   private final JoystickButton toggleHatchHook = new JoystickButton(_rStick, 4); // Left Thumb Button
   private final JoystickButton extendHatch = new JoystickButton(_rStick, 5); // Right Thumb Button
 
@@ -91,13 +90,13 @@ public class OI {
     intakeBall.whenPressed(new ConditionalCommand(new IntakeBall()){
       @Override
       protected boolean condition() {
-        return !getControllerButtons();
+        return true;
       }
     });
     
     intakeBall.whenReleased(new StopIntakeBall());
 
-    runIntake.whenPressed(new ConditionalCommand(new RunChassisIntake()){
+    /*runIntake.whenPressed(new ConditionalCommand(new RunChassisIntake()){
       @Override
       protected boolean condition() {
         return controllerEnabled;
@@ -108,7 +107,7 @@ public class OI {
       protected boolean condition() {
         return controllerEnabled;
       }
-    });
+    });*/
 
     positionShooterFirstLevel.whenPressed(new ConditionalCommand(new PositionFirstLevel()){
       @Override
@@ -177,8 +176,8 @@ public class OI {
     //cameraAutoCargo.whenPressed(new CameraAssist(false));
     //cameraAutoRocket.whenPressed(new CameraAssist(true));
     
-    rotateCamera.whenPressed(new RotateCamera());
-    rotateLimelight.whenPressed(new RotateLimelight());
+    //rotateCamera.whenPressed(new RotateCamera());
+    //rotateLimelight.whenPressed(new RotateLimelight());
 
     velocityIntake.whenPressed(new SetIntakeVelocity());
     velocityIntake.whenReleased(new StopIntakeVelocity());
@@ -210,18 +209,9 @@ public class OI {
     return _controller.getRawAxis(1);
   }
 
-  public double getControllerStickRight(){
-    return _controller.getRawAxis(5);
-  }
-
   public boolean getLeftStickMid()
   {
     return _lStick.getRawButton(2);
-  }
-
-  public boolean getYButton()
-  {
-    return _controller.getBumper(Hand.kLeft);
   }
 
   public boolean getControllerLeftDown()
@@ -234,9 +224,13 @@ public class OI {
     return _lStick.getRawButton(2) || _rStick.getRawButton(2);
   }
 
-  public boolean getControllerButtons()
+  public boolean getXButton()
   {
-    return _controller.getXButton();
+    return _controller.getRawButton(1);
+  }
+
+  public boolean getYButton(){
+    return _controller.getRawButton(4);
   }
 
   public void setControllerEnabled(boolean enabled)

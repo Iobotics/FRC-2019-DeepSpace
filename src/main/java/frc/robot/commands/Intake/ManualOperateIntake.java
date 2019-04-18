@@ -28,7 +28,7 @@ public class ManualOperateIntake extends CommandBase {
   protected void execute() {
     chassisIntake.setIntakeArm(.5 * oi.getControllerStick());
 
-    if(oi.getStartButton())
+    if(oi.getYButton())
     {
       chassisIntake.setPower(-1);
     }
