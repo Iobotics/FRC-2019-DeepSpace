@@ -12,6 +12,8 @@ import frc.robot.commands.CommandBase;
 
 public class LimelightDebug extends CommandBase {
 
+  private static boolean lock = false;
+
   public LimelightDebug() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -26,16 +28,18 @@ public class LimelightDebug extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    limelight.debug();
+    //limelight.debug();
     //limelight.setLEDDefault();
     //limelight.setLEDOn(true);
-    if(oi.getCameraButton())
+    if(oi.getCameraButton() && !lock)
     {
-      limelight.setLEDOn(false);
+      limelight.setLEDOn();
+      lock = true;
     }
-    else
+    else if(!oi.getCameraButton() && lock == true)
     {
-      limelight.setLEDOn(false);
+      limelight.setLEDOff();
+      lock = false;
     }
   }
 

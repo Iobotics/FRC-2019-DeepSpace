@@ -14,17 +14,17 @@ import jdk.jfr.Threshold;
 
 public class CameraAssistStrafe extends CommandBase implements PIDSource, PIDOutput
 {
-  private static double x;
+  private double x;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.10; //Before .12
-  private static final double kI = 0.012;
-  private static final double kD = 0.2;
+  private final double kP = 0.10; //Before .12
+  private final double kI = 0.012;
+  private final double kD = 0.2;
 
-  private static  final double THRESHOLD = .5; //degrees
-  private static final double SETPOINT = 0;
-  private static final double MAXSPEED = 1.0;
+  private  final double THRESHOLD = .5; //degrees
+  private final double SETPOINT = 0;
+  private final double MAXSPEED = 1.0;
 
-  private static PIDController pid;
+  private PIDController pid;
   //private static double speed;
 
     public CameraAssistStrafe()

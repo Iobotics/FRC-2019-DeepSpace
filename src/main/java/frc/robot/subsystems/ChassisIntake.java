@@ -29,19 +29,19 @@ public class ChassisIntake extends PIDSubsystem {
    */
 
   
-  private static final int idPosition = 0;
-  private static final double kPPosition = 15;
-  private static final double kIPosition = 0.005; 
-  private static final double kDPosition = 120;
+  private final int idPosition = 0;
+  private final double kPPosition = 15;
+  private final double kIPosition = 0.005; 
+  private final double kDPosition = 120;
 
-  private static final int idVelocity = 1;
-  private static final double kFVelocity = 1024.0/(410.0) * 10;
-  private static final double kPVelocity = 60; // Before 40 //To counter against load // 15 velocity about 10
-  private static final double kIVelocity = 0;
-  private static final double kDVelocity = 0;
-  private static final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
-  private static final int FORWARDLIMIT = -227; // more positive is forward
-  private static final int REVERSELIMIT = Constants.intakeArmHome + 2;
+  private final int idVelocity = 1;
+  private final double kFVelocity = 1024.0/(410.0) * 10;
+  private final double kPVelocity = 60; // Before 40 //To counter against load // 15 velocity about 10
+  private final double kIVelocity = 0;
+  private final double kDVelocity = 0;
+  private final double TONATIVEUNITS = (102.4*3)/(2*Math.PI*1000);
+  private final int FORWARDLIMIT = -227; // more positive is forward
+  private final int REVERSELIMIT = Constants.intakeArmHome + 2;
 
 
 
@@ -51,7 +51,7 @@ public class ChassisIntake extends PIDSubsystem {
   private TalonSRX _rightArm;
   
   public ChassisIntake(){
-    super(kPPosition,0,0);
+    super(0,0,0);
   }
 
   //Should be called in the robot init

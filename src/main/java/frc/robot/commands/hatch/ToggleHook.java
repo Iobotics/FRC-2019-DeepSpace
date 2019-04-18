@@ -20,7 +20,7 @@ public class ToggleHook extends CommandBase {
   protected void initialize() {
     hatchCollector.toggleHook();
     if(hatchCollector.getExtended()){
-      ledStrip.setPattern(-.07);
+      ledStrip.setPattern(.57);
     } else {
       ledStrip.setPattern(.69);
     }

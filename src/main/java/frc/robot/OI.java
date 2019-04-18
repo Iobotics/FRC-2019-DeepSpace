@@ -51,7 +51,7 @@ public class OI {
   // Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
   private final JoystickButton outtakeBall = new JoystickButton(_lStick, 1); // Left Trigger
-  private final JoystickButton runIntake = new JoystickButton(_controller, 1);
+  private final JoystickButton runIntake = new JoystickButton(_controller, 4);
   private final JoystickButton velocityIntake = new JoystickButton(_controller, 5);
 
   // Shooter Buttons
@@ -174,8 +174,8 @@ public class OI {
 
     toggleZoneTwoBack.whenPressed(new ToggleHabThreeBack());
 
-    cameraAutoCargo.whenPressed(new CameraAssist(false));
-    cameraAutoRocket.whenPressed(new CameraAssist(true));
+    //cameraAutoCargo.whenPressed(new CameraAssist(false));
+    //cameraAutoRocket.whenPressed(new CameraAssist(true));
     
     rotateCamera.whenPressed(new RotateCamera());
     rotateLimelight.whenPressed(new RotateLimelight());
@@ -222,10 +222,6 @@ public class OI {
   public boolean getYButton()
   {
     return _controller.getBumper(Hand.kLeft);
-  }
-
-  public double getLeftTriggerAxis(){
-    return _controller.getTriggerAxis(Hand.kLeft);
   }
 
   public boolean getControllerLeftDown()

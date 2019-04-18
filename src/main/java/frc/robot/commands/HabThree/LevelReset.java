@@ -20,6 +20,7 @@ public class LevelReset extends CommandBase {
   @Override
   protected void initialize() {
     habThree.retractBackWheels();
+    ledStrip.setPattern(.73, true);
   }
 
   // Called repeatedly when this Command is scheduled to run

@@ -40,17 +40,17 @@ public class Drivetrain extends Subsystem {
   private CANEncoder _backLeftCanEncoder;
   private CANEncoder _backRightCanEncoder;
 
-  private static double _kPDrive =  5e-5;
-  private static double _kIDrive = 1e-6 + 1e-3;
-  private static double _kIZoneDrive = 0;
-  private static double _kDDrive = 0;
-  private static double _kFFDrive = 0.000156;
-  private static double _kForwardRR = 0;
-  private static double _kStrafeRR = 0.5;
-  private static double _kIsMoreStrafe = .5;
+  private  double _kPDrive =  5e-5;
+  private  double _kIDrive = 1e-6 + 1e-3;
+  private  double _kIZoneDrive = 0;
+  private  double _kDDrive = 0;
+  private  double _kFFDrive = 0.000156;
+  private  double _kForwardRR = 0;
+  private  double _kStrafeRR = 0;
+  private  double _kIsMoreStrafe = .5;
 
 
-  private double _kPTurn = 0.015;
+  private double _kPTurn = 0.04;
   private double _kITurn = 0;
   private double _kDTurn = 0;
 

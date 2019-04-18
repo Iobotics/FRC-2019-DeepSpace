@@ -20,12 +20,12 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   private static PIDController _pid;
 
-  private static double _target;
-  private static boolean _isRocket;
+  private double _target;
+  private boolean _isRocket;
 
-  private static double _onTargetTime = Double.MAX_VALUE;
-  private static boolean _onTarget = false;
-  private static final double THRESHOLD = 5;
+  private  double _onTargetTime = Double.MAX_VALUE;
+  private boolean _onTarget = false;
+  private final double THRESHOLD = 5;
 
   //Target Angles for Targets
 
@@ -37,7 +37,7 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
     requires(drivetrain);
     requires(navSensor);
     requires(limelight);
-    _isRocket = isRocket;
+    this._isRocket = isRocket;
     _pid = new PIDController(drivetrain.getkPTurn(), drivetrain.getkITurn(), drivetrain.getkDTurn(), this, this); 
     _pid.setInputRange(0, 360);
     _pid.setOutputRange(-0.5, 0.5);
@@ -92,25 +92,27 @@ public class TurnToTarget extends CommandBase implements PIDOutput, PIDSource {
 
   @Override
   protected boolean isFinished() {
-    if(oi.getLeftStickX() > .2 || oi.getRightStickX() > .2 || oi.getLeftStickY() > .2 || oi.getRightStickY() > .2){
-      return true;
-    }
-    if(!_pid.onTarget()){
-      _onTarget = false;
-      _onTargetTime = Double.MAX_VALUE;
-      return false;
-    }
+    if(oi.getCameraButton())
+    {
+      if(oi.getLeftStickX() > .2 || oi.getRightStickX() > .2 || oi.getLeftStickY() > .2 || oi.getRightStickY() > .2){
+        return true;
+      }
+      if(!_pid.onTarget()){
+        _onTarget = false;
+        _onTargetTime = Double.MAX_VALUE;
+        return false;
+      }
 
-    else if (_pid.onTarget() && !_onTarget){
-      _onTarget = true;
-      _onTargetTime = this.timeSinceInitialized() + 0.3;
-      return false;
-    }
+      else if (_pid.onTarget() && !_onTarget){
+        _onTarget = true;
+        _onTargetTime = this.timeSinceInitialized() + 0.3;
+        return false;
+      }
 
-    else if (_pid.onTarget() && _onTarget && this.timeSinceInitialized() <= _onTargetTime){
-      return false;
+      else if (_pid.onTarget() && _onTarget && this.timeSinceInitialized() <= _onTargetTime){
+        return false;
+      }
     }
-
     return true;
   }
 

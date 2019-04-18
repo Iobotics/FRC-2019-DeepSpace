@@ -33,7 +33,7 @@ public class OperateMecanumDrive extends CommandBase {
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
     SmartDashboard.putNumber("Motor Temperature", drivetrain.getTemperature());
-    drivetrain.setMecanum(x, y, rotation * 0.7);
+    drivetrain.setMecanum(-x, y, rotation);
   }
 
   // Make this return true when this Command no longer needs to run execute()

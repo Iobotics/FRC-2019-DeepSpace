@@ -174,7 +174,8 @@ public class Robot extends TimedRobot {
 
     Scheduler.getInstance().run();
 
-    SmartDashboard.putBoolean("IsBallIn", CommandBase.shooter.getIsBallIn() );
+    SmartDashboard.putNumber("Intake Arm Position", CommandBase.chassisIntake.getArmPosition());
+    SmartDashboard.putNumber("Shooter Arm Position", CommandBase.shooter.getArm());
   
   }
 

@@ -24,7 +24,15 @@ public class SetLimelightLED extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    limelight.setLEDOn(_ledOn);
+    //limelight.setLEDOn(_ledOn);
+    if(_ledOn)
+    {
+      limelight.setLEDOn();
+    }
+    else
+    {
+      limelight.setLEDOff();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -47,5 +55,6 @@ public class SetLimelightLED extends CommandBase {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    this.end();
   }
 }

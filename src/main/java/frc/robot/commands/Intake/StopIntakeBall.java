@@ -22,9 +22,8 @@ public class StopIntakeBall extends CommandGroup {
    */
   public StopIntakeBall() {
     addSequential(new StopChassisIntake());
-    addParallel(new SetIntakePosition(Constants.intakeArmHome));
+    addSequential(new SetIntakePosition(Constants.intakeArmHome));
     addSequential(new StopShooter());
-    addParallel(new StopChassisIntake());
     addSequential(new StopShooterArm());
     addSequential(new LimelightAutoTurn());
   } 

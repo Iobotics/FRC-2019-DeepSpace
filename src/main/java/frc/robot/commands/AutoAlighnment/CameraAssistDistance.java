@@ -14,19 +14,19 @@ import jdk.jfr.Threshold;
 
 public class CameraAssistDistance extends CommandBase implements PIDSource, PIDOutput
 {
-  private static double distance;
+  private double distance;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private static final double kP = 0.01; // Before .01
-  private static final double kI = 0.0;
-  private static final double kD = 0.0;
+  private final double kP = 0.01; // Before .01
+  private final double kI = 0.0;
+  private final double kD = 0.0;
 
-  private static  final double THRESHOLD = 1; // 3 inches
-  private static  double setpoint;
-  private static final double MAXSPEED = 1.0;
-  private static final double SHIPDISTANCE = 33.25;
-  private static final double ROCKETDISTANCE = 33.25;
+  private final double THRESHOLD = 1; // 3 inches
+  private double setpoint;
+  private final double MAXSPEED = 1.0;
+  private final double SHIPDISTANCE = 33.25;
+  private final double ROCKETDISTANCE = 33.25;
 
-  private static PIDController pid;
+  private PIDController pid;
   //private static double speed;
 
     public CameraAssistDistance()

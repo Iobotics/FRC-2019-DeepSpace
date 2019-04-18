@@ -25,7 +25,7 @@ public class ToggleHabThreeBack extends CommandBase {
       ledStrip.setPattern(-.27, true);
     } else {
       habThree.retractBackWheels();
-      ledStrip.setPattern(.52, true);
+      ledStrip.setPattern(.73, true);
     }
   }
 

@@ -16,13 +16,13 @@ public class CameraAssist extends CommandGroup {
   private boolean isRocket = false;
 
   public CameraAssist(boolean isRocket) {
-    addSequential(new SetLimelightLED(true));
+    //addSequential(new SetLimelightLED(true));
     addSequential(new TurnToTarget(isRocket));
     addSequential(new CameraAssistStrafe());
     addSequential(new TurnToTarget(isRocket));
     addSequential(new CameraAssistStrafe());
     addSequential(new CameraAssistDistance());
     addSequential(new TurnToTarget(isRocket));
-    addSequential(new SetLimelightLED(false));
+    //addSequential(new SetLimelightLED(false));
   }
 }

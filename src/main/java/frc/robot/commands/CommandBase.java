@@ -28,7 +28,6 @@ public abstract class CommandBase extends Command {
   public static HatchCollector hatchCollector = new HatchCollector();
   public static Drivetrain drivetrain = new Drivetrain();
   public static NavSensor navSensor = new NavSensor();
-  public static Lift lift = new Lift();
   public static Shooter shooter = new Shooter();
   public static HabThreeLift habThree = new HabThreeLift();
   public static LimeLight limelight = new LimeLight();
@@ -41,11 +40,10 @@ public abstract class CommandBase extends Command {
     navSensor.init();
     hatchCollector.init();
     drivetrain.init();
-    //lift.init();
     ledStrip.init();
     shooter.init();
     habThree.init();
-    limelight.init();
+    //limelight.init();
     chassisIntake.init();
     limelightservo.init();
     

@@ -21,40 +21,40 @@ public class LimeLight extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private static NetworkTable table; 
-  private static NetworkTableInstance inst;
-  private static NetworkTableEntry tv;
-  private static NetworkTableEntry tx;
+  private  NetworkTable table; 
+  private  NetworkTableInstance inst;
+  private  NetworkTableEntry tv;
+  private  NetworkTableEntry tx;
   //NetworkTableEntry tl;
-  private static NetworkTableEntry ty;
-  private static NetworkTableEntry ta;
-  private static NetworkTableEntry ts;
-  private static NetworkTableEntry ta0;
-  private static NetworkTableEntry ta1;
-  private static NetworkTableEntry ta2;
-  private static NetworkTableEntry tx0;
-  private static NetworkTableEntry tx1;
-  private static NetworkTableEntry tx2;
-  private static NetworkTableEntry thor;
-  private static NetworkTableEntry tvert;
-  private static NetworkTableEntry ledMode;
+  private  NetworkTableEntry ty;
+  private  NetworkTableEntry ta;
+  private  NetworkTableEntry ts;
+  private  NetworkTableEntry ta0;
+  private  NetworkTableEntry ta1;
+  private  NetworkTableEntry ta2;
+  private  NetworkTableEntry tx0;
+  private  NetworkTableEntry tx1;
+  private  NetworkTableEntry tx2;
+  private  NetworkTableEntry thor;
+  private  NetworkTableEntry tvert;
+  private  NetworkTableEntry ledMode;
 
-  private static boolean isDetected;
-  private static double x = 0;
-  private static double y = 0;
-  private static double latency;
-  private static double area = 0;
-  private static double skew = 0;
-  private static double area0 = 0;
-  private static double area1 = 0;
-  private static double area2 = 0;
-  private static double x0 = 0;
-  private static double x1 = 0;
-  private static double x2 = 0;
-  private static double aspectRatio = 0;
-  private static double last = 0;
+  private  boolean isDetected;
+  private  double x = 0;
+  private  double y = 0;
+  private  double latency;
+  private  double area = 0;
+  private  double skew = 0;
+  private  double area0 = 0;
+  private  double area1 = 0;
+  private  double area2 = 0;
+  private  double x0 = 0;
+  private  double x1 = 0;
+  private  double x2 = 0;
+  private  double aspectRatio = 0;
+  private  double last = 0;
 
-  private static final double VERTICALTHRESHOLD = 2; // degrees
+  private  final double VERTICALTHRESHOLD = 2; // degrees
 
 
   public void init()
@@ -81,7 +81,7 @@ public class LimeLight extends Subsystem {
 
     inst = NetworkTableInstance.getDefault();
 
-    setLEDOn(false);
+    //setLEDOn(false);
   }
 
   public boolean isTargetDetected()
@@ -139,6 +139,16 @@ public class LimeLight extends Subsystem {
     {
       ledMode.setNumber(1); // Led forced off
     }
+  }
+
+  public void setLEDOn()
+  {
+    ledMode.setNumber(3.0);
+  }
+
+  public void setLEDOff()
+  {
+    ledMode.setNumber(1.0);
   }
 
   public void setLEDDefault()
