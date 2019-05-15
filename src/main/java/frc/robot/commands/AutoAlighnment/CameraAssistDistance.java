@@ -16,11 +16,12 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
 {
   private double distance;
   // DO NOT USE F value because it can add this positive power to a NEGATIVE power in opposite directions
-  private final double kP = 0.01; // Before .01
+  // But actually can if you set the F value to the direction specified
+  private final double kP = 0.01;
   private final double kI = 0.0;
   private final double kD = 0.0;
 
-  private final double THRESHOLD = 1; // 3 inches
+  private final double THRESHOLD = 1;
   private double setpoint;
   private final double MAXSPEED = 1.0;
   private final double SHIPDISTANCE = 33.25;
@@ -44,7 +45,6 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     //@Override
     protected void initialize()
     {   
-        //limelight.setLEDOn(true);
         distance = limelight.getDistance();
         if(limelightservo.isOnCargoSide())
         {
@@ -59,7 +59,9 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
         }
         else
         {
-            setpoint = 10; // Before 5// Before 0
+            setpoint = 10;
+            // If placing hatches it would go until it could not see the
+            // target anymore
         }
         if(Math.abs(distance - setpoint) <= THRESHOLD)
         {
@@ -106,7 +108,8 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
 
     //@Override
     public void pidWrite(double pidSpeed) {
-        drivetrain.setMecanum(0, -1 * pidSpeed *limelightservo.onCargoSideMultiplier(), 0); //Go Left negative, right is positive
+        drivetrain.setMecanum(0, -1 * pidSpeed *limelightservo.onCargoSideMultiplier(), 0); 
+        // Go left negative, right is positive
     }
 
     @Override
@@ -120,7 +123,7 @@ public class CameraAssistDistance extends CommandBase implements PIDSource, PIDO
     }
 
     @Override
-    public double pidGet() { //Target to left error is negative
+    public double pidGet() { // When target is to the left error is negative
         return limelight.getDistance();
 	}
 }

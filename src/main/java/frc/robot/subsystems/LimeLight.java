@@ -64,12 +64,12 @@ public class LimeLight extends Subsystem {
   }
 
   public double getX()
-  {
+  { //crosshair center to center of target to x-axis  
     return tx.getDouble(0.0);
   }
 
   public double getY()
-  {
+  { //crosshair center to center of target to y-axis
     return ty.getDouble(0.0);
   }
 
@@ -85,7 +85,8 @@ public class LimeLight extends Subsystem {
   public double getDistance()
   {
     double area = ta.getDouble(0.0);
-    double distance = 75.18 * Math.pow(area, -.4534);
+    double distance = 75.18 * Math.pow(area, -.4534); 
+    //Function relating distance to the area percentage of the target
     return distance;
   }
 
