@@ -22,6 +22,7 @@ import frc.robot.commands.Ball.FromShipToHome;
 import frc.robot.commands.Ball.PositionCargoShip;
 import frc.robot.commands.Ball.PositionFirstLevel;
 import frc.robot.commands.Ball.ReturnHome;
+import frc.robot.commands.Drivetrain.ToggleSlowMode;
 import frc.robot.commands.HabThree.ToggleHabThreeBack;
 import frc.robot.commands.Hatch.ToggleHatch;
 import frc.robot.commands.Hatch.ToggleHook;
@@ -47,6 +48,7 @@ public class OI {
   private final Joystick _lStick = new Joystick(0);
   private final Joystick _rStick = new Joystick(1);
   private final XboxController _controller = new XboxController(2);
+  private final JoystickButton slowModeButton = new JoystickButton(_lStick, 6);
 
   // Intake Buttons
   private final JoystickButton intakeBall = new JoystickButton(_rStick, 1); // Right Trigger
@@ -186,6 +188,8 @@ public class OI {
 
     gotoHabitat3.whenPressed(new GoToHab3());
     gotoHabitat3.whenReleased(new ExitHab3());
+
+    slowModeButton.whenPressed(new ToggleSlowMode());
   }
 
 

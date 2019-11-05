@@ -218,11 +218,11 @@ public class Drivetrain extends Subsystem {
       _backLeftMain.setOpenLoopRampRate(0);
       _backRightMain.setOpenLoopRampRate(0);
     }
-    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower * 5 / 3);
   }
 
   public void setMecanum(double x, double y, double rotation, double gyroAngle) {
-    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower, gyroAngle);
+    _drive.driveCartesian(x * maxPower, y * maxPower, rotation * maxPower * 5 / 3, gyroAngle);
   }
 
   //Call the following commands to change or view the PID values
@@ -284,7 +284,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void toggleSlow(){
-    this.maxPower = maxPower == 1 ? .3 : 1;
+    maxPower = maxPower == 1 ? .3 : 1;
   }
 
   public double getFrontLeftCurrent(){

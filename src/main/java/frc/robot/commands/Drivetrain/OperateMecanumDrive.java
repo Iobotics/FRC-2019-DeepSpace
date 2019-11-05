@@ -27,8 +27,8 @@ public class OperateMecanumDrive extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : oi.getRightStickX();
-    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : -oi.getRightStickY();
+    double x = Math.abs(oi.getRightStickX()) < DEADBAND ? 0 : Math.pow(oi.getRightStickX(), 3);
+    double y = Math.abs(oi.getRightStickY()) < DEADBAND ? 0 : -Math.pow(oi.getRightStickY(), 3);
     double rotation = Math.abs(oi.getLeftStickX()) < DEADBAND ? 0 : oi.getLeftStickX();
 
     SmartDashboard.putNumber("Gyro: ", navSensor.getAngle());
